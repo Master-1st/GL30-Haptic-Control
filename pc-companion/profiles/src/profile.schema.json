@@ -1,0 +1,476 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Master-1st/GL30-Haptic-Control/main/pc-companion/profiles/src/profile.schema.json",
+  "title": "GL30 Haptic Control Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profileVersion",
+    "id",
+    "name",
+    "haptic",
+    "display",
+    "inputs",
+    "actions",
+    "safetyUserCaps"
+  ],
+  "properties": {
+    "profileVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,47}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 48
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "applicationMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "processNames": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "type": "string",
+            "maxLength": 96
+          }
+        },
+        "windowTitleRegex": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "haptic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "detent",
+        "damping",
+        "friction",
+        "inertia",
+        "endstops"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "free",
+            "detent",
+            "bounded",
+            "spring_center",
+            "inertial_scroll",
+            "texture",
+            "active_position"
+          ]
+        },
+        "detent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "widthDeg",
+            "strengthmNm",
+            "waveform",
+            "snapRatio"
+          ],
+          "properties": {
+            "widthDeg": {
+              "type": "number",
+              "minimum": 0.25,
+              "maximum": 180
+            },
+            "strengthmNm": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 30
+            },
+            "waveform": {
+              "enum": [
+                "linear",
+                "sine",
+                "smoothstep",
+                "tanh",
+                "texture"
+              ]
+            },
+            "snapRatio": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 1.5
+            },
+            "asymmetry": {
+              "type": "number",
+              "minimum": -0.8,
+              "maximum": 0.8
+            },
+            "magneticPositions": {
+              "type": "array",
+              "maxItems": 64,
+              "items": {
+                "type": "integer",
+                "minimum": -1000000,
+                "maximum": 1000000
+              }
+            }
+          }
+        },
+        "damping": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.004,
+          "description": "N.m per rad/s"
+        },
+        "friction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.01,
+          "description": "N.m"
+        },
+        "inertia": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.0005,
+          "description": "kg.m^2 virtual inertia"
+        },
+        "endstops": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "strengthmNm",
+            "softZoneDeg"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "minPosition": {
+              "type": "integer",
+              "minimum": -1000000,
+              "maximum": 1000000
+            },
+            "maxPosition": {
+              "type": "integer",
+              "minimum": -1000000,
+              "maximum": 1000000
+            },
+            "strengthmNm": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 45
+            },
+            "softZoneDeg": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 30
+            }
+          }
+        },
+        "texture": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "periodDeg": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 360
+            },
+            "amplitudemNm": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "samples": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 256,
+              "items": {
+                "type": "number",
+                "minimum": -1,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "activePosition": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "maxTorquemNm": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 15
+            },
+            "maxRpm": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 60
+            },
+            "yieldOnTouch": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "display": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "theme",
+        "brightness",
+        "pages",
+        "burnInProtection"
+      ],
+      "properties": {
+        "theme": {
+          "enum": [
+            "dark",
+            "pure_black",
+            "high_contrast",
+            "custom"
+          ]
+        },
+        "accent": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "brightness": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 80
+        },
+        "metricUpdateHz": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "pages": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "enum": [
+                  "game_fps",
+                  "frame_time",
+                  "cpu_gpu",
+                  "motor_state",
+                  "power_energy",
+                  "ui_performance",
+                  "timeline",
+                  "media",
+                  "midi",
+                  "home_assistant",
+                  "custom"
+                ]
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 24
+              },
+              "metrics": {
+                "type": "array",
+                "maxItems": 12,
+                "items": {
+                  "type": "string",
+                  "maxLength": 48
+                }
+              },
+              "windowSeconds": {
+                "type": "number",
+                "minimum": 0.25,
+                "maximum": 60
+              }
+            }
+          }
+        },
+        "burnInProtection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pixelOrbit",
+            "dimAfterSec",
+            "screenOffAfterSec"
+          ],
+          "properties": {
+            "pixelOrbit": {
+              "type": "boolean"
+            },
+            "orbitPixels": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            },
+            "dimAfterSec": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 3600
+            },
+            "screenOffAfterSec": {
+              "type": "integer",
+              "minimum": 30,
+              "maximum": 86400
+            }
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rotate": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "touch": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "doubleTap": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "longPress": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "touchAndRotate": {
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event",
+          "transport",
+          "command"
+        ],
+        "properties": {
+          "event": {
+            "enum": [
+              "rotate",
+              "position",
+              "touch",
+              "double_tap",
+              "long_press",
+              "touch_rotate"
+            ]
+          },
+          "transport": {
+            "enum": [
+              "hid",
+              "vendor_usb",
+              "midi",
+              "mqtt",
+              "websocket",
+              "local"
+            ]
+          },
+          "command": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "scale": {
+            "type": "number",
+            "minimum": -1000,
+            "maximum": 1000
+          },
+          "deadband": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "dataSources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "presentMon": {
+          "type": "boolean"
+        },
+        "libreHardwareMonitor": {
+          "type": "boolean"
+        },
+        "rtssFallback": {
+          "type": "boolean"
+        },
+        "deviceTelemetry": {
+          "type": "boolean"
+        },
+        "preferredTransport": {
+          "enum": [
+            "usb",
+            "wifi",
+            "auto"
+          ]
+        }
+      }
+    },
+    "safetyUserCaps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "continuousTorquemNm",
+        "transientTorquemNm",
+        "selfDriveTorquemNm",
+        "selfDriveRpm"
+      ],
+      "properties": {
+        "continuousTorquemNm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "transientTorquemNm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 60
+        },
+        "selfDriveTorquemNm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 15
+        },
+        "selfDriveRpm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 60
+        }
+      }
+    }
+  }
+}

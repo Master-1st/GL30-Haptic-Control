@@ -1,0 +1,14 @@
+{
+  "name": "@gl30/device-simulator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gl30/core": "workspace:*",
+    "@gl30/protocol": "workspace:*",
+    "@gl30/profile": "workspace:*"
+  }
+}

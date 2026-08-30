@@ -1,0 +1,61 @@
+name: Hardware review or test evidence
+description: Request a schematic/PCB review or contribute a documented bench result.
+title: "[Hardware]: "
+labels: [hardware, needs-triage]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Submission type
+      options:
+        - Schematic review
+        - PCB layout review
+        - Mechanical review
+        - Bench-test proposal
+        - Bench-test result
+        - External reproduction
+    validations:
+      required: true
+
+  - type: input
+    id: revision
+    attributes:
+      label: Hardware and firmware revision
+      placeholder: Board rev, commit SHA, and relevant BOM/CAD revision
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: Setup and force/power path
+      description: Describe wiring, supply/current limit, load or motor, fixtures, instruments, and protection/stop path.
+    validations:
+      required: true
+
+  - type: textarea
+    id: procedure
+    attributes:
+      label: Procedure and stop conditions
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Raw evidence and result
+      description: Link captures, logs, photos, dimensions, or calculations and separate observations from inference.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: Vendor-pending pins and power were not energized based on a guess.
+          required: true
+        - label: The evidence level is stated and does not overclaim product validation.
+          required: true
+        - label: Sensitive data and third-party files without redistribution permission are omitted.
+          required: true

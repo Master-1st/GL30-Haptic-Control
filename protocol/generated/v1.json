@@ -1,0 +1,53 @@
+{
+  "format": "GL30_AMOLED_V7_PROTOCOL_V1_GOLDEN_VECTORS",
+  "protocolVersion": 1,
+  "evidence": "SIM_ONLY_REFERENCE",
+  "frameLayout": {
+    "byteOrder": "little-endian",
+    "payloadOffset": 20,
+    "crcBytes": 4,
+    "crcCoverage": "version through payload; sync excluded"
+  },
+  "crc32cKnownVector": {
+    "inputUtf8": "123456789",
+    "expected": "0xe3069283"
+  },
+  "vectors": [
+    {
+      "name": "motor-state-fast",
+      "type": "0x01",
+      "sequence": 287454020,
+      "timestampUs": "4294967297",
+      "flags": "0x55aa",
+      "payloadBytes": 68,
+      "frameBytes": 92,
+      "crc32c": "0xac743b94",
+      "payloadHex": "0000a03f000000bf0ad7233ccdcc4c3e3d0a573eae47613e8fc2f53c6891ed3c6666e6408fc2f53deb32a4f8c3f5a83e050000000100000002000000e7030b0003000000",
+      "frameHex": "5aa501014400aa554433221101000000010000000000a03f000000bf0ad7233ccdcc4c3e3d0a573eae47613e8fc2f53c6891ed3c6666e6408fc2f53deb32a4f8c3f5a83e050000000100000002000000e7030b0003000000943b74ac"
+    },
+    {
+      "name": "motor-state-slow",
+      "type": "0x02",
+      "sequence": 287454021,
+      "timestampUs": "4294967298",
+      "flags": "0x0000",
+      "payloadBytes": 64,
+      "frameBytes": 88,
+      "crc32c": "0xa46eac61",
+      "payloadHex": "9a9941413333b3be1f8587400000f742000010c00000fc410000294200609f43f1fb0900010000000f0000000200000003000000040000000500000006000000",
+      "frameHex": "5aa50102400000004533221102000000010000009a9941413333b3be1f8587400000f742000010c00000fc410000294200609f43f1fb0900010000000f000000020000000300000004000000050000000600000061ac6ea4"
+    },
+    {
+      "name": "haptic-command",
+      "type": "0x10",
+      "sequence": 2309737967,
+      "timestampUs": "4294967299",
+      "flags": "0x0003",
+      "payloadBytes": 64,
+      "frameBytes": 88,
+      "crc32c": "0x57bedb02",
+      "payloadHex": "070000000c0000000ad7233d8fc2f53c0000003fa69b443ccdccccbe9a99193f0ad7a33b52499d3917b7513917b751390ad7233d0000c03f0000008004000000",
+      "frameHex": "5aa5011040000300efcdab890300000001000000070000000c0000000ad7233d8fc2f53c0000003fa69b443ccdccccbe9a99193f0ad7a33b52499d3917b7513917b751390ad7233d0000c03f000000800400000002dbbe57"
+    }
+  ]
+}

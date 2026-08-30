@@ -1,0 +1,79 @@
+name: Bug report
+description: Report a reproducible software, firmware, protocol, or documentation defect.
+title: "[Bug]: "
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Do not use this public form for a vulnerability or a safety-gate bypass.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - STM32 motor core
+        - ESP32 application layer
+        - Protocol or Haptic Profile
+        - PC companion or simulator
+        - CAD or hardware documentation
+        - CI, build, or tooling
+        - Documentation
+    validations:
+      required: true
+
+  - type: input
+    id: revision
+    attributes:
+      label: Commit or release
+      description: Commit SHA, branch, or release tag where the problem occurs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Exact commands, input, wiring if applicable, and the smallest sequence that reproduces the problem.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior and logs
+      description: Paste complete errors or attach non-sensitive evidence. Remove tokens, private paths, and personal data.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: Evidence level
+      options:
+        - DESIGN_ONLY
+        - SIM_ONLY
+        - BUILD_ONLY
+        - CAD_CHECKED
+        - BENCH_MEASURED
+        - HARDWARE_REPRODUCED
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I did not bypass `control_ready()`, DRVOFF, TIM1 MOE, BKIN, or another protection gate.
+          required: true
+        - label: I have not presented simulation, CAD, or dummy-load data as product-hardware evidence.
+          required: true

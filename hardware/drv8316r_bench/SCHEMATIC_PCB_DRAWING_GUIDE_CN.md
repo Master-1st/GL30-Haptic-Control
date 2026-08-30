@@ -1,0 +1,312 @@
+# GL30 DRV8316R 验证子板：原理图与 PCB 画法
+
+## 0. 先锁住这五条
+
+1. 只用 `DRV8316RRGFR`（SPI 版），不能用 `DRV8316T`。
+2. `SW_BK/FB_BK` 不能因为“不使用 Buck”就悬空；必须画 `22 Ω + 22 µF` 的 Resistor Mode 外围，固件再写 `BUCK_DIS=1`。
+3. `DRVOFF` 高有效关断，必须 `10 kΩ` 上拉；六路 PWM 必须各 `100 kΩ` 下拉。
+4. DRV 的内部 OCP 不是本项目约 `2 A` 的可测过流层。三路 SOx 必须各有上下限比较器，全部开漏线与到 `HARD_FAULT_N/TIM1_BKIN`；首板阈值名义取 `±1.8 A`。
+5. 工厂编码器仍是 `PENDING_VENDOR`；本子板不画编码器接口，也不为了出 PWM 修改产品固件的安全门。
+
+SOA/B/C 是 DRV8316 内部低侧 FET 电流检测的输出，数据手册给出约 1 µs 的建立时间。外部比较器能在 SOx 有效时异步送入 TIM1 BKIN，但不是覆盖所有开关状态的独立分流器；DRV 内部 OCP 仍承担快速短路保护，ADC 采样仍必须与 PWM 有效窗口同步。
+
+## 1. 工程页怎么分
+
+建议建 5 张原理图页，网络名完全照本文件，不要用 `Net-(...)` 自动名：
+
+1. `01_POWER_PROTECTION`：输入、保险丝、反接、TVS、bulk、VM 去耦。
+2. `02_DRV8316R_CORE`：U1、charge pump、Buck 必需外围、AVDD/VREF、三相输出。
+3. `03_CONTROL_INTERFACE`：2×10 控制头、6PWM、SPI、nSLEEP、DRVOFF。
+4. `04_CSA_HARD_FAULT`：SOx 两条支路、两片 TLV1704、阈值与线与故障。
+5. `05_TESTPOINTS_MECHANICAL`：测试点、安装孔、装配说明和 PCB 约束。
+
+先画完每页并逐网复核，再开始 PCB。不要边画原理图边随意换网络名。
+
+从第一张图开始就只放同一个 `GND` 电源符号。下文写的 AGND、PGND、GND_BK 是芯片引脚名或“安静/功率回流区域”提示，不是让你创建三个不同的网络；PCB 也不使用 NetTie 或切地。
+
+## 2. 第 1 页：电源与保护
+
+按下面顺序连接：
+
+```text
+J_PWR.1 (VM_RAW)
+  -> F1 3 A 延时型保险丝
+  -> D1 60 V / 5 A 串联肖特基（正向朝 VM）
+  -> VM
+
+J_PWR.2 -> GND
+VM -> D_TVS SMBJ18A -> GND（阴极接 VM，阳极接 GND）
+VM -> 470 uF / 50 V -> GND
+VM -> 10 uF / 50 V X7R -> GND
+VM -> 1 uF / 50 V X7R -> GND
+```
+
+建议 D1 用 `SS56`/SMB 或相当的 60 V、5 A 器件，周围留散热铜。它在 2 A 时可能耗散约 `0.6–1 W`，首板必须测温；它也会吃掉低压余量，因此 `5 V` 只用于 DRVOFF 高、输出 Hi-Z 的静态验证，有功率运行从 `6 V` 以上开始。正式产品若连续电流较大，再根据实测改成 60 V P-MOS/理想二极管，验证板不要先增加复杂度。
+
+`SMBJ18A` 只处理有源钳位条件下的瞬态，不是 14.4 V 再生制动，也不代替 16 V 比较器。本文所有 5/6/15.5/16/18 V 边界都指 D1 后、TP_VM 测得的 `VM`，台源接在 `VM_RAW` 时设定值要再加 D1 的实测压降。有功率运行范围锁到 `6.0–15.5 V`；约 16 V 时本来就应由硬件比较器拉低 BKIN，18 V 只用于 DRVOFF 高、输出 Hi-Z、台源限流条件下确认阈值和耐受，不能在 18 V 下要求电机继续运行。TP_VM 高于 18 V 不在本板验收范围。
+
+470 µF 的上电浪涌不是 3 A 保险丝可自动忽略的小事：F1 必须选有明确 `I²t` 的延时型，首次上电必须用限流电源缓升；保险丝只保护线束/板级灾难故障，不替代半导体过流保护。
+
+U1 附近再放 3 只 `100 nF / 50 V / 0603`，分别从 9、10、11 三个 VM 引脚就近回到最近的 PGND。bulk 的负端要直接回到 U1 的功率地回路，不要绕过控制区。
+
+J_PWR 建议用额定至少 `5 A` 的 2Pin/5.08 mm 端子，J_MOTOR 用同系列 3Pin/5.08 mm 端子。原理图上把 `VM_RAW`、`VM` 和极性写在连接器旁，PCB 正反面都要有 `+/-` 与 `A/B/C` 丝印；不要依赖装配图才能判断方向。
+
+## 3. 第 2 页：DRV8316R 核心
+
+### 3.1 自建符号与封装
+
+U1 使用 TI `RGF0040E`：VQFN-40，`5.0 mm × 7.0 mm`，脚距 `0.5 mm`，外周推荐焊盘约 `0.25 mm × 0.60 mm`，中心裸露焊盘为 41 脚、约 `3.5 mm × 5.5 mm`。必须逐项对照本目录的 TI 数据手册封装页，不能从相似 QFN 猜封装。
+
+中心 41 脚是热焊盘/AGND，不是 PGND。建议在热焊盘内布 `Ø0.20–0.30 mm` 成品孔的热过孔阵列，并按工厂能力做底面盖油或填孔，防止回流时吸锡。钢网中心窗按 TI stencil 页分成多个小窗，总开口不要做成一整块，否则 U1 容易漂浮和桥连。
+
+### 3.2 U1 引脚逐项连接
+
+| U1 脚 | 名称 | 连接 |
+| ---: | --- | --- |
+| 1 | NC | 明确 No Connect |
+| 2 | AGND | AGND/热焊盘地 |
+| 3 | FB_BK | 接 RBK 后端与 CBK 正端 |
+| 4 | GND_BK | 接 CBK 负端，再低阻回 GND |
+| 5 | SW_BK | 经 `22 Ω` 接 FB_BK |
+| 6 | CPL | 接 47 nF 飞跨电容一端 |
+| 7 | CPH | 接 47 nF 飞跨电容另一端 |
+| 8 | CP | 经 `1 µF/16 V` 接 VM |
+| 9,10,11 | VM | VM 宽铜；每组就近 100 nF 回 PGND |
+| 12 | PGND | 功率地 |
+| 13,14 | OUTA | 合并后到 J_MOTOR.1 |
+| 15 | PGND | 功率地 |
+| 16,17 | OUTB | 合并后到 J_MOTOR.2 |
+| 18 | PGND | 功率地 |
+| 19,20 | OUTC | 合并后到 J_MOTOR.3 |
+| 21 | DRVOFF | `10 kΩ` 上拉到 3V3_CTRL，并接 J_CTRL.13 |
+| 22 | nFAULT | 直接加入 HARD_FAULT_N 开漏线与，并留测试点 |
+| 23 | nSLEEP | 接延时唤醒网络与 J_CTRL.19 |
+| 24 | NC | 明确 No Connect |
+| 25 | AVDD | `1 µF/6.3 V X7R` 就近到 AGND；留 TP_AVDD |
+| 26 | AGND | AGND/热焊盘地 |
+| 27 | INHA | 47 Ω 后的驱动侧网络 INHA_DRV |
+| 28 | INLA | INLA_DRV |
+| 29 | INHB | INHB_DRV |
+| 30 | INLB | INLB_DRV |
+| 31 | INHC | INHC_DRV |
+| 32 | INLC | INLC_DRV |
+| 33 | SDO | J_CTRL.10 / MISO |
+| 34 | SDI | 22 Ω 后的 MOSI_DRV |
+| 35 | SCLK | 22 Ω 后的 SCK_DRV |
+| 36 | nSCS | J_CTRL.12 / CS_N，10 kΩ 上拉 |
+| 37 | VREF/ILIM | 0 Ω 接 AVDD；`100 nF/6.3 V` 就近到 AGND |
+| 38 | SOC | SOC_RAW |
+| 39 | SOB | SOB_RAW |
+| 40 | SOA | SOA_RAW |
+| 41 | Thermal pad | AGND；焊接到顶层地铜并用热过孔连接大面积地 |
+
+### 3.3 不使用 Buck 时仍必须画的电路
+
+```text
+SW_BK -- RBK 22 Ω -- FB_BK
+FB_BK -- CBK 22 µF / 10 V X5R/X7R -- GND_BK
+```
+
+DRV8316R 复位后 Buck 默认开启；产品固件写 `CTRL6=0x01` 才置 `BUCK_DIS=1`。因此上面两件元件既不能 DNP，也不能把 SW_BK/FB_BK 悬空。RBK、CBK 紧贴 U1，SW_BK 与 FB_BK 走线之间用地隔开，不要靠近 SOx/VREF。
+
+## 4. 第 3 页：控制接口
+
+2×10、2.54 mm 控制头固定如下；与 [CSV 表](CONTROL_HEADER_PINOUT.csv) 保持一致：
+
+```text
+1  3V3_CTRL      2  GND
+3  INHA          4  INLA
+5  INHB          6  INLB
+7  INHC          8  INLC
+9  SCK          10  MISO
+11 MOSI         12  CS_N
+13 DRVOFF       14  HARD_FAULT_N
+15 SOA_ADC      16  SOB_ADC
+17 SOC_ADC      18  VBUS_SENSE
+19 nSLEEP       20  GND
+```
+
+六路 PWM 每路画成：
+
+```text
+J_CTRL.INx -> 47 Ω -> INx_DRV -> U1
+                       |
+                     100 kΩ
+                       |
+                      GND
+```
+
+SPI：SCK 和 MOSI 各串 `22 Ω`，电阻靠发送端；在子板上先靠近控制头放。MISO 直连，CS_N 用 `10 kΩ` 上拉到 3V3_CTRL。首板线束短于 10 cm；若飞线更长，5 MHz SPI 失败先缩短线，不先改寄存器。
+
+nSLEEP 画成：
+
+```text
+3V3_CTRL -> SJ_WAKE（默认闭合） -> 10 kΩ -> nSLEEP
+nSLEEP -> 100 kΩ -> GND
+nSLEEP -> 100 nF -> GND
+```
+
+这个约 1 ms 的延时让 `nFAULT/HARD_FAULT_N` 的 2.2 kΩ 上拉先超过 2.2 V，再唤醒 DRV，避免 TI 数据手册所述的内部 test-mode 风险。DRV8316R 的 nSLEEP 内部还有约 `150–300 kΩ` 下拉；即使把它和外部 100 kΩ 一起按最坏值计算，3V3_CTRL=`3.1 V` 时稳态仍约 `2.66 V`，高于 nSLEEP 保证高阈值 `1.6 V`。断开 `SJ_WAKE` 后，外部和内部下拉把 nSLEEP 固定为低，整片睡眠。
+
+3V3_CTRL 只给逻辑上拉和唤醒使用，不能给 VM 供电，也不与 AVDD 硬并联。推荐时序是先接 MCU/3V3，再接 VM；断电反过来。
+
+## 5. 第 4 页：CSA 与硬件故障链
+
+### 5.1 三路 SOx
+
+每相完全复制一份，禁止共用串联电阻：
+
+```text
+SOx_RAW -> 0 Ω 可拆链接 -> SOx_FANOUT
+
+SOx_FANOUT -> 1 kΩ -> SOx_ADC -> J_CTRL
+                           |
+                          33 pF
+                           |
+                          AGND
+
+SOx_FANOUT -> 1 kΩ -> SOx_CMP -> 两个窗口比较器输入
+                           |
+                         100 pF
+                           |
+                          AGND
+```
+
+正常时装上 0 Ω。做比较器/ADC 注入时先断电拆掉对应 0 Ω，再从 `SOx_FANOUT` 测试点注入，避免外部源硬顶 U1 的 SO 输出。
+
+### 5.2 阈值
+
+用 `0.1%` 电阻从 AVDD 生成两个跟踪 VREF 的阈值：
+
+```text
+AVDD -- 100 kΩ -- V_LOW  -- 21.0 kΩ -- AGND
+AVDD -- 21.0 kΩ -- V_HIGH -- 100 kΩ -- AGND
+V_LOW、V_HIGH 各加 10 nF 到 AGND
+```
+
+名义值：
+
+```text
+V_LOW  = 3.3 × 21.0 / (100 + 21.0) = 0.573 V
+V_HIGH = 3.3 × 100 / (21.0 + 100) = 2.727 V
+I = (VSO - AVDD/2) / 0.6
+```
+
+所以典型值约为 `−1.80 A / +1.80 A`。阈值跟随 AVDD，不能改成固定 0.573/2.727 V 的独立廉价基准后又继续按 AVDD/2 换算。
+
+这个数不是“保证 1.8 A 动作”。DRV8316R 数据手册给出的 CSA 增益误差在小于 4 A、全温范围可到 `±10.5%`，等效输入偏置约 `±50 mA`；再把 AVDD=`3.1–3.465 V` 和 TLV1704 全温输入失调约 `±5.5 mV` 放入保守计算，首板固定阈值的实际动作电流粗略可能落在 `1.47–2.17 A`，电阻误差还会增加少量偏差。之所以不用名义 2.0 A，是因为它最坏可能接近 2.4 A 才动作；也不用名义 1.7 A，是因为它更容易早于当前 1.6 A 软件限制动作。首板先装 `100 kΩ/21.0 kΩ`，上电后先在低电流区测每相零点、增益和实际比较器电压阈值，再决定是否升到 1.6 A；必要时只换阈值电阻或先把软件软限流降到 1.5 A。正式版必须根据实测和温度目标重新算，不能把首板阻值当量产保证。
+
+### 5.3 TLV1704 单元分配与极性
+
+U2、U3 均锁定 `TLV1704AIPW`（PW/TSSOP-14）开漏四比较器，VM 供电，GND 回安静地；每片供电脚旁放 `100 nF/50 V`，两片附近再共享 `1 µF/50 V`。TI 给出的约 560 ns 是典型传播延迟而非保证最大值，首板必须测“模拟越界→HARD_FAULT_N→PWM 关断”的总延迟。
+
+PW 封装的物理脚固定为：`V+=3`、`V−=12`；通道 1 为 `OUT=2/IN−=4/IN+=5`，通道 2 为 `OUT=1/IN−=6/IN+=7`，通道 3 为 `OUT=14/IN−=8/IN+=9`，通道 4 为 `OUT=13/IN−=10/IN+=11`。下表的 A/B/C/D 对应通道 1/2/3/4；如果 EDA 库的单元字母不是这个顺序，以物理脚号为准逐个改，禁止只凭单元字母连线。
+
+| 单元 | `IN+` | `IN−` | 何时拉低 HARD_FAULT_N |
+| --- | --- | --- | --- |
+| U2A | SOA_CMP | V_LOW | SOA < V_LOW |
+| U2B | V_HIGH | SOA_CMP | SOA > V_HIGH |
+| U2C | SOB_CMP | V_LOW | SOB < V_LOW |
+| U2D | V_HIGH | SOB_CMP | SOB > V_HIGH |
+| U3A | SOC_CMP | V_LOW | SOC < V_LOW |
+| U3B | V_HIGH | SOC_CMP | SOC > V_HIGH |
+| U3C | VBUS_TRIP | VBUS_DIV_RAW | VM > 约 16 V |
+| U3D | AVDD | AGND | 输出 NC，固定状态不参与故障链 |
+
+U2A–U3C 的 7 个开漏输出、U1 `nFAULT` 全部直接连接为 `HARD_FAULT_N`，只放一只 `2.2 kΩ` 上拉到 3V3_CTRL，不加 RC，不反馈到 DRVOFF。该网络接 J_CTRL.14 和 STM32 `PB12/TIM1_BKIN`。
+
+首板不画模拟正反馈滞回：PB12 第一次变低即由 TIM1 硬件清除 MOE，自动恢复关闭，功率级不会因为比较器随后释放而在阈值附近反复开关。不要从共用的 `HARD_FAULT_N` 反馈到七个比较器输入，那会把各故障源耦合在一起。代价是阈值附近可能出现安全侧误触发或故障线抖动，必须在注入测试中测边沿、抖动和 BIF/MOE 锁存；若实板确有问题，再按单个比较器的波形设计独立滞回，而不是在共用线上随意加 RC。
+
+TIM1 BKIN 首板保持官方工程当前的低有效、`Filter=0`、`AutomaticOutput=DISABLE`。不先加数字滤波，是因为同一根线还承载 nFAULT 和真实过流脉冲；滤波会增加或隐藏关断延迟。若实板出现安全侧误锁，先查布局、探头地、SOx 采样窗口和比较器输入波形，再依据实测决定独立滞回或最小滤波时间。
+
+TLV1704 数据手册在 4 mA 条件给出的输出低电平最坏值可接近 0.9 V；本电路 2.2 kΩ/3.3 V 约为 1.5 mA，但仍要在每个故障源逐项拉低时测量。首板验收目标 `HARD_FAULT_N < 0.8 V`，并同时核对 STM32 PB12 确认识别为低；不满足时先根据实测调整上拉和布线，不能在固件里反转/放宽故障极性。
+
+### 5.4 母线采样和 16 V 比较器
+
+```text
+VM -- 100 kΩ/0.1% -- VBUS_DIV_RAW -- 20.0 kΩ/0.1% -- AGND
+VBUS_DIV_RAW -> 1 nF -> AGND
+VBUS_DIV_RAW -> U3C IN-
+VBUS_DIV_RAW -> 1 kΩ -> VBUS_SENSE/J_CTRL.18
+VBUS_SENSE -> 1 nF -> AGND
+
+3V3_CTRL -- 23.7 kΩ/0.1% -- VBUS_TRIP -- 100 kΩ/0.1% -- GND
+VBUS_TRIP -> 10 nF -> AGND
+VBUS_TRIP -> U3C IN+
+```
+
+名义上 `VBUS_DIV_RAW=VM/6`，3V3_CTRL=`3.300 V` 时 `VBUS_TRIP≈2.668 V`，相交点约 `16.0 V`。母线阈值特意从独立、受控的 3V3_CTRL 生成，不从 DRV 的 AVDD 生成；电流窗口必须跟随 AVDD/VREF，母线过压不需要跟随。画板前确认控制器 3V3 的稳态精度，首板再按 `VM_TRIP=6×3V3_CTRL×100/(23.7+100)` 实测并换 23.7 kΩ。首板没有模拟迟滞；故障由 BKIN/软件锁存，避免阈值附近自动重复使能。若实测噪声造成静态误触发，再依据波形计算迟滞，不能先凭感觉加大电容。
+
+首板不在 VBUS_SENSE 上加到 3V3_CTRL 的外部钳位，避免 MCU 掉电时经钳位二极管反灌 3V3；100 kΩ 上臂负责限制异常注入电流，但它不等于“绝对不会反灌”。必须把 `VM≤18 V` 写在电源口丝印，并在只有 VM、只有 3V3、VM 先上和同时上电四种情况下测 3V3_CTRL、VBUS_SENSE 与 MCU 供电电流。若 MCU 数据手册的注入电流限制或实测不满足，停止测试后再加对地低漏电钳位/缓冲，不能直接把二极管接到 3V3 电源轨。
+
+## 6. 第 5 页：测试点与机械
+
+至少放这些可夹探头的测试点：
+
+```text
+VM_RAW, VM, GND, 3V3_CTRL, AVDD, VREF,
+CP, CPH, CPL, FB_BK, SW_BK,
+INHA_DRV, INLA_DRV, INHB_DRV, INLB_DRV, INHC_DRV, INLC_DRV,
+SCK_DRV, MOSI_DRV, CS_N, DRVOFF, nSLEEP,
+nFAULT/HARD_FAULT_N,
+SOA_RAW, SOB_RAW, SOC_RAW,
+SOA_FANOUT, SOB_FANOUT, SOC_FANOUT,
+SOA_ADC, SOB_ADC, SOC_ADC,
+V_LOW, V_HIGH, VBUS_DIV_RAW, VBUS_SENSE, VBUS_TRIP,
+OUTA, OUTB, OUTC
+```
+
+装 4 个 `M3/3.2 mm` 安装孔，孔边到铜/器件留足机械间隙。电源和电机端子放板边，控制头放另一侧，防止示波器夹子跨过相节点。
+
+## 7. PCB 摆放顺序
+
+1. 先放 U1、J_MOTOR、J_PWR、bulk 和 VM 三只 100 nF，锁住功率回路。
+2. 把 47 nF 飞跨电容、CP 1 µF、AVDD 1 µF、VREF 100 nF 贴到对应脚旁，优先级高于美观。
+3. 放 22 Ω/22 µF Buck 必需外围，远离 SOx/VREF。
+4. U2/U3、阈值电阻和 SOx RC 放在 U1 的 SO 引脚一侧；不要穿过 OUTA/B/C 或 SW_BK 下方。
+5. 控制头放模拟/逻辑区板边；6PWM/SPI 从控制头平行进入 U1，避免绕相线。
+6. 最后放测试点和安装孔，再画铜。
+
+推荐 4 层：
+
+```text
+L1：器件、短信号、VM/OUT 局部宽铜
+L2：连续 GND 参考/散热面
+L3：GND 和低噪声参考为主；必要时仅在功率区放局部 VM 岛
+L4：慢信号、局部功率铜和散热面
+```
+
+不要做贯穿全板的 VM 内层平面，也不要让 OUTA/B/C 大铜伸到比较器/控制头下方。原理图和 PCB 只使用一个电气网络 `GND`；`PGND/AGND/GND_BK` 是器件引脚名称和布局区域，不是三张彼此隔开的地网。通过元件摆放控制回流路径，L2 保持连续地面；禁止切地、禁止细线/长颈“单点接地”。热焊盘的器件定义是 AGND，但在 PCB 上直接进入同一连续 GND 面并穿多层热过孔。
+
+## 8. 走线与铜规则
+
+- VM、PGND、OUTA/B/C：至少 `1.5–2.0 mm`，优先用短而宽的多边形；端子处可 `3 mm` 以上。
+- 普通信号：`0.20–0.25 mm`；SOx/VREF/阈值不与相线长距离平行。
+- 电气间距：18 V 板建议不小于 `0.25 mm`，制造能力允许时功率区用 `0.30 mm`。
+- 过孔：功率换层用多颗并联；U1 热焊盘使用阵列并与 L2/L3/L4 地铜连通。
+- CP–VM、CPH–CPL、AVDD–AGND、VREF–AGND 回路不换层、不打普通信号过孔。
+- bulk 回路必须形成 `Cbulk+ -> VM -> U1/相桥 -> PGND -> Cbulk−` 的短闭环。
+- 任何测试点支线都不能插在高频去耦电容与 U1 引脚之间。
+
+## 9. 画完后的逐项审图门
+
+满足全部项目才可以发 Gerber：
+
+- U1 料号后缀、顶视图 1 脚和封装 1 脚一致。
+- U2/U3 都是 `TLV1704AIPW` 的 PW/TSSOP-14，电源脚 3/12 和四通道物理脚已按数据手册复核。
+- 9/10/11 三个 VM、12/15/18 三个 PGND、三组双 OUT 脚没有漏并。
+- 41 脚连接 AGND；不是 NC、不是只贴铜不进网络。
+- Buck 22 Ω/22 µF 已装，`CTRL6=0x01` 的备注写在图上。
+- DRVOFF 的 `10 kΩ` 上拉、六 PWM 的 `100 kΩ` 下拉、CS_N 上拉、nSLEEP 下拉/延时都在 MCU 不运行时有效；没有把 DRVOFF 误用 100 kΩ 与内部下拉形成危险分压。
+- nFAULT 与七路比较器确实都是开漏后才能线与；没有推挽输出接入 HARD_FAULT_N。
+- 比较器低/高阈值极性逐相检查，没有把 `IN+`/`IN−` 画反。
+- V_LOW/V_HIGH 使用 `100 kΩ/21.0 kΩ` 对称网络，图上注明“名义 ±1.8 A、实测后换值”，没有写成保证 2 A。
+- VBUS 分压顶端接保护后的 VM，不接 VM_RAW。
+- VBUS_TRIP 的 23.7 kΩ/100 kΩ 从独立 3V3_CTRL 生成，不误接 AVDD；图上写出本板实际 3V3 精度和阈值公式。
+- 3V3_CTRL 没有与 AVDD 或 VM 直接相连。
+- 全板只有一个电气 `GND` 网络；没有误画成互不相连的 AGND/PGND/GND_BK，也没有在连续地层开槽。
+- SOx 三路各自有 0 Ω 注入隔离、1 kΩ/33 pF ADC 支路和 1 kΩ/100 pF 比较支路。
+- DRC 无短路/未布线；ERC 中仅允许经人工确认的 NC/开漏/测试点类提示。
+- Gerber、钻孔、坐标、BOM 的板名和版本都只有 `GL30_DRV8316R_BENCH_V1`，不留历史目录。
+
+画好后把 `.kicad_sch`、`.kicad_pcb`、ERC/DRC 报告和正反面截图放回本目录，我可以按本节逐项做第二轮投板审查。

@@ -1,0 +1,34 @@
+﻿Item,Category,Designators,QtyPerBoard,SuggestedBuyQty,ValueFunction,Manufacturer,MPN,LCSC,Package,KeySpec,Mount,StockSnapshot,UnitCNY,LineCNY,ImportDefault,Validation,Notes,ProductURL
+1,驱动器,U1,1,2,三相集成 FET 电机驱动器,Texas Instruments,DRV8316RRGFR,C5218861,"VQFN-40 5x7 mm, EP",40 V max；SPI；集成 CSA,SMT/热焊盘,337,27.95,27.95,YES,精确 C 号；TI RGF-40,中心 41 脚为 AGND/热焊盘；逐项核引脚与钢网窗。,https://www.lcsc.com/product-detail/C5218861.html
+2,比较器,"U2,U3",2,3,四路高压开漏比较器,Texas Instruments,TLV1704AIPWR,C181596,TSSOP-14 (PW),2.2–36 V；560 ns typ,SMT,187,14.15,28.3,YES,精确 C 号；TI PW-14,PWR 仅为卷带后缀；与图纸 TLV1704AIPW 电气和封装一致。,https://www.lcsc.com/product-detail/C181596.html
+3,保护,F1,1,3,3 A 延时保险丝,Littelfuse,0454003.MR,C142863,2410 / 6125,Slo-Blo；125 V；I²t=20.16 A²s,SMT,337,2.7964,2.7964,YES,官方 452/454 曲线已核,替代已排除的快断 0453003.MR；首次上电仍需限流缓升。,https://www.lcsc.com/product-detail/C142863.html
+4,保护,D1,1,3,串联肖特基二极管,MDD,SS56B,C14651,SMB / DO-214AA,60 V；5 A；Vf≤0.7 V@5 A,SMT/散热铜,12373,0.5214,0.5214,YES,精确 C 号；规格匹配,正向朝 VM；2 A 时必须实测温升与压降。,https://www.lcsc.com/product-detail/C14651.html
+5,保护,D2,1,3,单向 TVS,Littelfuse,SMBJ18A,C151256,SMB / DO-214AA,18 V standoff；单向,SMT,1282,0.8972,0.8972,YES,精确 C 号；规格匹配,阴极接 VM、阳极接 GND；不承担持续再生制动。,https://www.lcsc.com/product-detail/C151256.html
+6,连接器,J1 (J_PWR),1,2,2Pin 电源螺钉端子,KEFA,KF128-5.08-2P-AA,C474952,"THT, P=5.08 mm",24 A；250 V；AWG12–22,THT,7589,1.1771,1.1771,YES,精确 5.08 mm,板边放置；正反面标 VM_RAW+/GND。,https://www.lcsc.com/product-detail/C474952.html
+7,连接器,J2 (J_MOTOR),1,2,3Pin 电机螺钉端子,KEFA,KF128-5.08-3P-AA,C474953,"THT, P=5.08 mm",24 A；250 V；AWG12–22,THT,2997,1.8769,1.8769,YES,精确 5.08 mm,板边放置；标 A/B/C。,https://www.lcsc.com/product-detail/C474953.html
+8,连接器,J3 (J_CTRL),1,2,2×10 简牛座/控制头,LAILAN,LAIL-SI-2.54-2X10P-ZC,C55118382,"THT, 2×10, P=2.54 mm",3 A；直插；带防呆框,THT,113,1.3836,1.3836,YES,规格与 20Pin 定义匹配,引脚必须与 CONTROL_HEADER_PINOUT.csv 一一核对；下单前再看 1 脚方向。,https://www.lcsc.com/product-detail/C55118382.html
+9,电容,C1,1,2,470 µF / 50 V 电解,Panasonic,EEUFR1H471,C178708,"Radial D12.5×L20 mm, P=5.0 mm",22 mΩ；2.26 A@100 kHz,THT/人工封装,6460,4.96,4.96,NO,采购 C 号已核；源 CAD 畸形,不进默认导入 CSV；按 Panasonic 官方 D12.5/P5.0/引线Ø0.6 mm 手建封装。,https://www.lcsc.com/product-detail/C178708.html
+10,电容,C2,1,3,10 µF / 50 V X7R,Murata,GRM32ER71H106KA12L,C77102,1210,±10%；50 V；X7R,SMT,13879,2.0158,2.0158,YES,精确 C 号；规格匹配,VM 陶瓷 bulk；注意直流偏压降容。,https://www.lcsc.com/product-detail/C77102.html
+11,电容,"C3,C23",2,5,1 µF / 50 V X7R,Samsung,CL21B105KBFNNNE,C28323,0805,±10%；50 V；X7R,SMT,100399,0.2699,0.5398,YES,精确 C 号；规格匹配,C3=VM 去耦；C23=U2/U3 共享供电去耦。,https://www.lcsc.com/product-detail/C28323.html
+12,电容,"C4,C5,C6,C10,C12,C21,C22",7,20,100 nF / 50 V X7R,Samsung,CL10B104KB8NNNC,C1591,0603,±10%；50 V；X7R,SMT,20564,0.0717,0.5019,YES,精确 C 号；规格匹配,3×VM、VREF、nSLEEP、2×比较器局部去耦。,https://www.lcsc.com/product-detail/C1591.html
+13,电容,C7,1,10,47 nF / 50 V X7R,Samsung,CL10B473KB8NNNC,C1622,0603,±10%；50 V；X7R,SMT,6168,0.0625,0.0625,YES,精确 C 号；规格匹配,CPH–CPL 飞跨电容，紧贴 U1。,https://www.lcsc.com/product-detail/C1622.html
+14,电容,"C8,C9",2,10,1 µF / 25 V X5R,Samsung,CL10A105KA8NNNC,C5673,0603,±10%；25 V；X5R,SMT,91531,0.1714,0.3428,YES,精确 C 号；规格匹配,C8=CP–VM；C9=AVDD–AGND。,https://www.lcsc.com/product-detail/C5673.html
+15,电容,C11,1,5,22 µF / 25 V X5R,Samsung,CL21A226MAQNNNE,C45783,0805,±20%；25 V；X5R,SMT,80968,1.684,1.684,YES,精确 C 号；规格匹配,Buck Resistor Mode 必装；FB_BK–GND_BK，紧贴 U1。,https://www.lcsc.com/product-detail/C45783.html
+16,电容,"C13,C14,C15",3,10,33 pF / 50 V C0G,Yageo,CC0603JRNPO9BN330,C107047,0603,±5%；C0G/NP0,SMT,20739,0.0484,0.1452,YES,精确 C 号；规格匹配,SOA/B/C ADC 支路，各自独立。,https://www.lcsc.com/product-detail/C107047.html
+17,电容,"C16,C17,C18",3,10,100 pF / 50 V C0G,Yageo,CC0603JRNPO9BN101,C14665,0603,±5%；C0G/NP0,SMT,21326,0.0558,0.1674,YES,精确 C 号；规格匹配,SOA/B/C 比较器支路，各自独立。,https://www.lcsc.com/product-detail/C14665.html
+18,电容,"C19,C20,C26",3,10,10 nF / 50 V X7R,Yageo,CC0603KRX7R9BB103,C100042,0603,±10%；50 V；X7R,SMT,68999,0.0661,0.1983,YES,隔离库生成通过,V_LOW、V_HIGH、VBUS_TRIP 滤波；替换源 CAD 403 的 C1589。,https://www.lcsc.com/product-detail/C100042.html
+19,电容,"C24,C25",2,10,1 nF / 50 V X7R,Samsung,CL10B102KB8NNNC,C1588,0603,±10%；50 V；X7R,SMT,121606,0.0558,0.1116,YES,隔离库生成通过,VBUS_DIV_RAW 与 VBUS_SENSE 各一只；替换源 CAD 403 的 C100040。,https://www.lcsc.com/product-detail/C1588.html
+20,电阻,"R1,R14,R15",3,20,22 Ω / 1%,UNI-ROYAL,0603WAF220JT5E,C23345,0603,0.1 W；±1%,SMT,59839,0.0111,0.0333,YES,精确 C 号；规格匹配,R1=Buck；R14/R15=SPI SCK/MOSI 串联。,https://www.lcsc.com/product-detail/C23345.html
+21,电阻,R2-R7,6,20,47 Ω / 1%,UNI-ROYAL,0603WAF470JT5E,C23182,0603,0.1 W；±1%,SMT,10715,0.0262,0.1572,YES,精确 C 号；规格匹配,六路 PWM 串联阻尼。,https://www.lcsc.com/product-detail/C23182.html
+22,电阻,"R8-R13,R19",7,20,100 kΩ / 1%,UNI-ROYAL,0603WAF1003T5E,C25803,0603,0.1 W；±1%,SMT,155694,0.0251,0.1757,YES,精确 C 号；规格匹配,6×PWM 下拉；1×nSLEEP 下拉。,https://www.lcsc.com/product-detail/C25803.html
+23,电阻,"R16,R17,R18",3,20,10 kΩ / 1%,UNI-ROYAL,0603WAF1002T5E,C25804,0603,0.1 W；±1%,SMT,17027,0.015,0.045,YES,精确 C 号；规格匹配,CS_N、DRVOFF、nSLEEP 上拉。,https://www.lcsc.com/product-detail/C25804.html
+24,电阻,"R20-R22,R39",4,20,0 Ω 跳线,UNI-ROYAL,0603WAF0000T5E,C21189,0603,0 Ω；0.1 W,SMT,140970,0.0158,0.0632,YES,精确 C 号；规格匹配,3×SO 隔离；1×AVDD→VREF/ILIM。,https://www.lcsc.com/product-detail/C21189.html
+25,电阻,"R23-R28,R36",7,20,1 kΩ / 1%,UNI-ROYAL,0603WAF1001T5E,C21190,0603,0.1 W；±1%,SMT,95467,0.0199,0.1393,YES,精确 C 号；规格匹配,6×SO ADC/CMP 独立支路；1×VBUS_SENSE 串联。,https://www.lcsc.com/product-detail/C21190.html
+26,精密电阻,"R29,R32,R34,R38",4,10,100 kΩ / 0.1%,Yageo,RT0603BRD07100KL,C122538,0603,±0.1%；25 ppm/°C,SMT,44741,0.2068,0.8272,YES,精确 C 号；规格匹配,V_LOW/V_HIGH/VBUS_DIV/VBUS_TRIP 精密分压。,https://www.lcsc.com/product-detail/C122538.html
+27,精密电阻,"R30,R31",2,5,21.0 kΩ / 0.1%,RESI,PTFR0603B21K0N9,C2692847,0603,±0.1%；10 ppm/°C,SMT,805,0.8711,1.7422,YES,精确阻值；高库存候选,V_LOW/V_HIGH 对称窗口；首板按实测电流增益再调值。,https://www.lcsc.com/product-detail/C2692847.html
+28,电阻,R33,1,10,2.2 kΩ / 1%,Yageo,RC0603FR-072K2L,C114662,0603,0.1 W；±1%,SMT,3513,0.026,0.026,YES,隔离库生成通过,HARD_FAULT_N 唯一上拉；替换源 CAD 403 的 C4190。,https://www.lcsc.com/product-detail/C114662.html
+29,精密电阻,R35,1,5,20.0 kΩ / 0.1%,Vishay,TNPW060320K0BEEA,C844676,0603,±0.1%；25 ppm/°C；0.125 W,SMT,1905,0.4834,0.4834,YES,隔离库生成通过,VBUS_DIV_RAW 下臂；替换源 CAD 403 的 C723637。,https://www.lcsc.com/product-detail/C844676.html
+30,精密电阻,R37,1,3,23.7 kΩ / 0.1%,Yageo,AT0603BRD0723K7L,C855730,0603,±0.1%；25 ppm/°C,SMT,93,0.5254,0.5254,YES,精确阻值；库存偏低,VBUS_TRIP 上臂；采购前复查库存，备选 C3919228。,https://www.lcsc.com/product-detail/C855730.html
+31,人工封装,SJ1 (SJ_WAKE),1,0,默认闭合焊桥,自建,SJ_2PAD_NC,,自建 SMD 焊桥,默认闭合；可割断,PCB FEATURE,,0,0,NO,无 C 号；按手工页建,不进入 PartsBridge；位于 3V3_CTRL→10 kΩ→nSLEEP 前。,
+32,人工封装,TP1-TP40,40,0,可夹持镀锡线环测试点,自制,TP_LOOP_PTH_2P_P2.54,,"2×PTH, P=2.54 mm",孔 1.0 mm；焊盘 2.0 mm；0.8 mm 线,手焊线环,,0,0,NO,无 C 号；网名表已列,默认不买 40 个商业测试柱；可选 Keystone 5015/C2906768 会增加约 ¥68。,
+33,机械,H1-H4,4,0,M3 安装孔,PCB,M3_NPTH_3.2,,NPTH Ø3.2 mm,铜/器件禁布 Ø6.5 mm,PCB FEATURE,,0,0,NO,无 C 号；机械孔,是否加螺钉/隔离柱待机架尺寸确认。,

@@ -1,0 +1,21 @@
+Header,Pin,Signal,Direction_at_board,STM32G474_product_pin,Required_default,Note
+J_CTRL,1,3V3_CTRL,Power input,3V3,3.1-3.465 V,Only logic pullups and wake control; never feed VM
+J_CTRL,2,GND,Ground,GND,0 V,Connect before all signals
+J_CTRL,3,INHA,Input,PA8 TIM1_CH1,100k pulldown,47R series on daughterboard
+J_CTRL,4,INLA,Input,PB13 TIM1_CH1N,100k pulldown,47R series on daughterboard
+J_CTRL,5,INHB,Input,PA9 TIM1_CH2,100k pulldown,47R series on daughterboard
+J_CTRL,6,INLB,Input,PB14 TIM1_CH2N,100k pulldown,47R series on daughterboard
+J_CTRL,7,INHC,Input,PA10 TIM1_CH3,100k pulldown,47R series on daughterboard
+J_CTRL,8,INLC,Input,PB15 TIM1_CH3N,100k pulldown,47R series on daughterboard
+J_CTRL,9,SCK,Input,PB3 SPI3_SCK,Low while idle,SPI Mode 1 / 5 MHz; 22R series
+J_CTRL,10,MISO,Output,PB4 SPI3_MISO,High impedance when inactive,DRV8316 SDO
+J_CTRL,11,MOSI,Input,PB5 SPI3_MOSI,Low while idle,SPI Mode 1 / 5 MHz; 22R series
+J_CTRL,12,CS_N,Input,PB6 GPIO,10k pullup,Active low
+J_CTRL,13,DRVOFF,Input,PA3 open-drain,10k pullup,High disables all six FETs; 100k is forbidden because the DRV input has an internal pulldown
+J_CTRL,14,HARD_FAULT_N,Open-drain output,PB12 TIM1_BKIN,2.2k pullup,Low active; comparator and nFAULT wired-AND
+J_CTRL,15,SOA_ADC,Analog output,PA0 ADC1_IN1,About AVDD/2 at 0 A,1k/33pF ADC branch
+J_CTRL,16,SOB_ADC,Analog output,PA1 ADC2_IN2,About AVDD/2 at 0 A,1k/33pF ADC branch
+J_CTRL,17,SOC_ADC,Analog output,PB0 ADC3_IN12,About AVDD/2 at 0 A,1k/33pF ADC branch
+J_CTRL,18,VBUS_SENSE,Analog output,PB1 ADC1_IN12,VM/6,Normal run at or below 15.5 V; 16 V must trip; 18 V is test ceiling only
+J_CTRL,19,nSLEEP,Input or strap,No product GPIO assigned,10k pullup plus 100k pulldown and 100nF,Normally enabled by solder jumper; open jumper forces sleep
+J_CTRL,20,GND,Ground,GND,0 V,Second return adjacent to analog signals

@@ -1,0 +1,16 @@
+{
+  "name": "@gl30/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gl30/profile": "workspace:*",
+    "@gl30/protocol": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

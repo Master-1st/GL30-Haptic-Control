@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Design and learning discussion
+    url: https://github.com/Master-1st/GL30-Haptic-Control/discussions
+    about: Ask questions, compare approaches, or discuss an idea before defining a task.
+  - name: Private security report
+    url: https://github.com/Master-1st/GL30-Haptic-Control/security/advisories/new
+    about: Privately report a vulnerability or a safety-gate bypass.

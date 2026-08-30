@@ -1,0 +1,7 @@
+packages:
+  - "pc-companion/*"
+  - "protocol/reference-ts"
+allowBuilds:
+  esbuild: true
+onlyBuiltDependencies:
+  - esbuild

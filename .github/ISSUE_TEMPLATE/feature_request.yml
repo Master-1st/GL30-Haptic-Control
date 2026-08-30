@@ -1,0 +1,52 @@
+name: Feature request
+description: Propose a bounded capability with a clear user and acceptance test.
+title: "[Feature]: "
+labels: [enhancement, needs-triage]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: Who needs this, and what cannot be done with the current project?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Minimal proposed behavior
+      description: Describe observable behavior, not a preferred internal implementation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance evidence
+      description: What test, measurement, or document would prove this is complete?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Primary area
+      options:
+        - Haptic Profile or effect
+        - STM32 motor core
+        - ESP32 application layer
+        - PC companion or tooling
+        - Hardware or mechanics
+        - Documentation or learning material
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This proposal does not require guessing an undocumented vendor interface.
+          required: true
+        - label: I have checked the roadmap and existing issues for overlap.
+          required: true
