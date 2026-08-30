@@ -28,8 +28,9 @@ Product names, logos, data sheets, and reference geometry remain the property of
 
 ## Related open-source projects
 
-The compatibility audit currently targets this external force-feedback configuration format:
+The compatibility audit currently targets these external force-feedback configuration structures:
 
 - [SmartKnob](https://github.com/scottbez1/smartknob/tree/4eb988399c3fda6ffd3006772856093dfe9adb86), Apache License 2.0;
+- [X-Knob](https://github.com/SmallPond/X-Knob/tree/05be44fc62b27c4fa941aabd2a7e9b2553f91fb9), MIT License.
 
-No SmartKnob source tree, firmware binary, artwork, CAD, or configuration fixture is vendored in this repository. The current documentation describes configuration-mapping semantics only. Any future adapter that includes upstream code or fixtures must preserve attribution, notices, license compatibility, and a pinned source revision before merge; see `docs/profile-compatibility.md`.
+No upstream source tree, firmware binary, artwork, CAD, or configuration fixture is vendored in this repository. The current documentation describes configuration-mapping semantics only. Any future adapter that includes upstream code or fixtures must preserve attribution, notices, license compatibility, and a pinned source revision before merge; see `docs/profile-compatibility.md`.

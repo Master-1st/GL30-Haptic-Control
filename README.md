@@ -46,16 +46,17 @@ These are design and engineering advantages, not completed performance claims. T
 
 ## Reusing earlier force-feedback configurations
 
-**Compatibility targets are limited to force-feedback knobs with portable configuration formats.** The project should not force the community to recreate existing haptic presets, and it must not import motor-specific calibration, PID, or current values into GL30.
+**Compatibility targets are limited to force-feedback knobs with public haptic configuration formats or structured presets.** The project should not force the community to recreate existing haptic presets, and it must not import motor-specific calibration, PID, or current values into GL30.
 
 | Source | Current conclusion | Practical meaning |
 | --- | --- | --- |
 | GL30 AMOLED V6 `profileVersion: 1` | ✅ **Native format compatibility** | The V6 and current Schemas differ only in identifiers; both V6 examples pass unchanged, 2/2 in the present audit; inconsistent or out-of-range input is still rejected by stricter semantic/safety rules |
 | SmartKnob `SmartKnobConfig` | 🛠 **Converter planned** | Detent width, endstops, snap point, and magnetic positions are mappable; Protobuf, normalized strengths, and runtime state are not direct copies |
+| X-Knob `XKnobConfig` | 🛠 **Preset converter planned** | X-Knob is a force-feedback knob; position count/width, detent/endstop strength, and snap point are mappable, but presets are C++ structures and a static array that require safe extraction |
 
 Compatibility belongs in PC Companion: `legacy haptic configuration → adapter → Canonical Profile → validation/clamping/report → device command`. The STM32 real-time core keeps one deterministic binary interface and does not parse JSON/Protobuf or accumulate legacy protocol stacks.
 
-Non-haptic application I/O protocols, automation interfaces, and UI-only formats are outside this compatibility matrix. Projects without a public, stable haptic configuration format do not occupy adapter targets. See the [force-feedback configuration compatibility plan](docs/profile-compatibility.md) for mappings, rejected hardware data, the pinned SmartKnob commit, and intentionally blank future-adapter slots. **Only V6 Profile objects have native format compatibility today; the SmartKnob importer does not yet exist.**
+Non-haptic application I/O protocols, automation interfaces, and UI-only formats are outside this compatibility matrix. Projects without a public haptic configuration structure do not occupy adapter targets. See the [force-feedback configuration compatibility plan](docs/profile-compatibility.md) for mappings, rejected hardware data, pinned upstream commits, and intentionally blank future-adapter slots. **Only V6 Profile objects have native format compatibility today; SmartKnob and X-Knob converters do not yet exist.**
 
 ## How the system works
 

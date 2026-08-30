@@ -1,22 +1,23 @@
 # 力反馈旋钮配置兼容与迁移计划
 
-> 状态：V6 格式审计完成；SmartKnob 导入适配器尚未实现。本文只声明有证据的配置兼容范围。
+> 状态：V6 格式审计完成；SmartKnob 与 X-Knob 转换器尚未实现。本文只声明有证据的配置兼容范围。
 
 ## 范围
 
 兼容目标必须同时满足：
 
 1. 来源设备本身具有电机力反馈；
-2. 上游存在公开、稳定、可序列化的触觉配置格式；
+2. 上游存在公开、稳定、可序列化的触觉配置格式，或字段明确的结构化力反馈预设；
 3. 配置中包含档位、端点、磁吸点、强度或其他可映射的触觉参数；
 4. 来源版本和许可证能够固定并审计。
 
-非力反馈的上层输入输出协议、自动化接口、普通旋转编码器设置和 UI-only 配置不属于本兼容计划。没有稳定外部触觉配置格式、只有写死算法或 C/C++ 常量的项目，也不进入兼容矩阵。
+非力反馈的上层输入输出协议、自动化接口、普通旋转编码器设置和 UI-only 配置不属于本兼容计划。只有写死控制算法、没有稳定配置字段或结构化预设的项目，也不进入兼容矩阵。
 
 ## 当前结论
 
 - **GL30 AMOLED V6 `profileVersion: 1`：数据格式原生兼容。** V6 与当前 Schema 只有 `$id` 和标题不同，两个 V6 示例与当前示例逐字节一致；两个旧 Profile 对象都能直接通过当前 `parseProfile()` 校验。
 - **SmartKnob `SmartKnobConfig`：字段可转换，但适配器尚未实现。** Protobuf 传输、归一化强度单位、运行时状态和硬件校准不能直接复制，必须经过 PC 侧转换、限幅和警告。
+- **X-Knob `XKnobConfig`：结构化力反馈预设可转换，但转换器尚未实现。** 上游预设位于 C++ 静态数组，不能作为任意 C++ 文件直接导入；应先安全提取为受约束的中间对象，再转换到 Canonical Profile。
 
 ## 兼容等级
 
@@ -32,23 +33,24 @@
 | --- | --- | --- | --- | --- |
 | GL30 AMOLED V6 Profile v1 | 本地 V6 最终设计包 | `NATIVE_FORMAT` | 逐个 Profile 对象可直接通过当前 Schema 与语义校验，旧示例验证 2/2 通过 | 文件导入 UI、批量转换报告、ESP32/STM32 全链路 |
 | [SmartKnob `SmartKnobConfig`](https://github.com/scottbez1/smartknob/blob/4eb988399c3fda6ffd3006772856093dfe9adb86/proto/smartknob.proto) | `4eb9883`，Apache-2.0 | `ADAPTER_PLANNED` | 已完成字段级映射设计 | Protobuf 解析器、强度标定策略、fixtures、转换测试和导入 UI |
+| [X-Knob `XKnobConfig`](https://github.com/SmallPond/X-Knob/blob/05be44fc62b27c4fa941aabd2a7e9b2553f91fb9/1.Firmware/src/hal/motor.h) | `05be44f`，MIT | `ADAPTER_PLANNED` | 已确认结构字段和上游预设表 | 受约束的预设提取器、中间 JSON、方向/原点规则、强度映射和转换测试 |
 
 ## 兼容层放在哪里
 
 ```text
-旧力反馈 JSON / Protobuf 配置
-              ↓
-    PC Companion Source Adapter
-              ↓
-   Canonical Haptic Profile v1
-              ↓
-   Schema + 语义 + 安全限幅
-              ↓
-   转换报告 / 预览 / 用户确认
-              ↓
-  Binary Haptic Command / Config
-              ↓
-        ESP32 → STM32
+旧力反馈 JSON / Protobuf / 结构化预设
+                    ↓
+          PC Companion Source Adapter
+                    ↓
+         Canonical Haptic Profile v1
+                    ↓
+         Schema + 语义 + 安全限幅
+                    ↓
+         转换报告 / 预览 / 用户确认
+                    ↓
+        Binary Haptic Command / Config
+                    ↓
+              ESP32 → STM32
 ```
 
 STM32 实时核只接收一种已冻结的二进制命令，不解析旧 JSON/Protobuf，也不保留多套历史协议。兼容性由 PC 侧适配器承担，所有转换结果必须进入同一个校验和安全限幅流程。
@@ -83,9 +85,25 @@ SmartKnob 使用 Protobuf `SmartKnobConfig`。计划适配器只转换可移植�
 
 SmartKnob 的 `MotorCalibration`、`StrainCalibration`、电角零位、方向、极对数以及任何旧 PID、电压和电流参数均为 `REJECTED_HARDWARE_DATA`，禁止导入 GL30。
 
+## X-Knob：结构化预设映射设计
+
+X-Knob 的 `XKnobConfig` 是公开的力反馈配置结构，预设位于 `motor.cpp` 的静态数组。计划适配器不解析或执行任意 C++，而是读取固定上游版本中已审计的字段，生成受约束的中间 JSON：
+
+| X-Knob 字段 | Canonical Profile 目标 | 转换要求 |
+| --- | --- | --- |
+| `num_positions` | `haptic.endstops.enabled/minPosition/maxPosition` | `0` 表示无界；大于 0 时需要确定方向、原点及 `0..N-1` 逻辑范围 |
+| `position` | 初始运行时 logical position | 不作为静态触觉参数；由加载 Profile 时的状态命令处理 |
+| `position_width_radians` | `haptic.detent.widthDeg` | 弧度转角度 |
+| `detent_strength_unit` | `haptic.detent.strengthmNm` | 不能按数值直接复制，必须使用 GL30 强度映射和安全限幅 |
+| `endstop_strength_unit` | `haptic.endstops.strengthmNm` | 同样需要物理单位映射和限幅 |
+| `snap_point` | `haptic.detent.snapRatio` | 可映射，但要检查范围和正反方向语义 |
+| `descriptor` | Profile 名称/说明 | 文本转换，不进入实时控制 |
+
+X-Knob 的 SimpleFOC PID、5 V 电压限制、引脚、编码器方向、电机校准和其他原板参数均为 `REJECTED_HARDWARE_DATA`，不能随预设导入 GL30。
+
 ## 每个适配器合并前必须满足
 
-1. 来源是力反馈设备，并具有公开稳定的触觉配置格式；
+1. 来源是力反馈设备，并具有公开稳定的触觉配置格式或结构化预设；
 2. 固定上游仓库、commit、配置格式和许可证；
 3. 提交合法的最小 fixture，不复制无关资源；
 4. 明确逐字段单位、坐标方向、默认值和信息损失；
