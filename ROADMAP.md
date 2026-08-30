@@ -2,6 +2,8 @@
 
 This roadmap starts from the first public snapshot in August 2026 and targets a reproducible v1.0 around August 2027. It is evidence-gated: a calendar date never overrides an unsafe or unverified design.
 
+User-facing priorities and explicit exclusions are defined in [feature and community-demand research](docs/feature-research.md). Physical feel remains P0; integrations do not bypass motor, timing, or safety gates.
+
 ## Definition of v1.0
 
 v1.0 means another developer can build, commission, and safely evaluate the reference design from published sources. It requires:
@@ -13,6 +15,7 @@ v1.0 means another developer can build, commission, and safely evaluate the refe
 - documented calibration and safe commissioning procedures;
 - stable Haptic Profile schema and at least four composable core effects;
 - one maintained desktop/host reference implementation;
+- maintained reference flows for global volume/media, a local timer, one Home Assistant light entity, and one weather data source;
 - at least two independent external builds or equivalent third-party reproduction evidence;
 - open issues documenting remaining limitations.
 
@@ -52,6 +55,7 @@ Exit gate: repeatable low-energy torque control with traceable calibration and f
 - [ ] Validate detent, spring, damper, and endstop primitives.
 - [ ] Add texture, asymmetric detent, and composite effects after the core primitives are measurable.
 - [ ] Publish C++, TypeScript, and Python profile examples as each implementation becomes maintained.
+- [ ] Add Profile editing, preview, clamp reports, sharing, and safe SmartKnob/X-Knob haptic-configuration conversion.
 - [ ] Demonstrate profile changes without application-specific FOC code.
 
 Exit gate: applications can create repeatable, bounded haptic behavior through a stable profile interface.
@@ -59,6 +63,10 @@ Exit gate: applications can create repeatable, bounded haptic behavior through a
 ## Phase 4 — Product integration and external reproduction (months 8–12)
 
 - [ ] Integrate ESP32-S3 UI, HID, transport, and configuration while preserving motor-core deadlines.
+- [ ] Deliver global volume/media and the local timer as the first end-to-end user applications.
+- [ ] Deliver Home Assistant `light` over MQTT with discovery/availability before adding `climate`, `cover`, or `scene`.
+- [ ] Deliver an Open-Meteo weather flow with user-set coordinates, visible source, update age, cache, and offline state; add Home Assistant weather only as a separate adapter.
+- [ ] Add creator/host adapters only behind maintained interfaces: video timeline, MIDI, and Windows per-app volume first.
 - [ ] Freeze product PCB only after bench evidence closes its risk items.
 - [ ] Validate mechanical support, tolerance stack, user loads, acoustic behavior, and thermal paths.
 - [ ] Publish assembly, bring-up, calibration, troubleshooting, and recovery guides.

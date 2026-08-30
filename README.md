@@ -1,12 +1,12 @@
 # GL30 Haptic Control
 
-[简体中文](README_CN.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md) · [Evidence boundary](docs/evidence-boundary.md)
+[简体中文](README_CN.md) · [Feature research](docs/feature-research.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md) · [Evidence boundary](docs/evidence-boundary.md)
 
 [![CI](https://github.com/Master-1st/GL30-Haptic-Control/actions/workflows/ci.yml/badge.svg)](https://github.com/Master-1st/GL30-Haptic-Control/actions/workflows/ci.yml)
 [![Status: pre-alpha](https://img.shields.io/badge/status-pre--alpha-orange)](ROADMAP.md)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
-**An open-source, real-time haptic control platform for software-defined physical interfaces.**
+**This is not a knob with a screen added. It is a knob whose physical feel is programmable.**
 
 The project turns “what a control feels like” from fixed mechanics or hard-coded motor behavior into an application-configurable **Haptic Profile**. The same hardware can behave like a detented knob, a spring-return controller, a soft-limited adjuster, a damped flywheel, or a physical interface that changes with software state.
 
@@ -17,20 +17,56 @@ The CubeMars GL30 force-feedback knob is the first reference device, not the pla
 > [!IMPORTANT]
 > **Current reality:** the no-hardware stack builds, tests, and simulates. The STM32 FOC, haptic primitives, safety path, telemetry, and fault trace exist at code level. The GL30 factory-encoder interface still needs written vendor confirmation, so the real motor is intentionally prevented from producing torque. This repository does not yet claim physical closed-loop or measured haptic performance.
 
-## What it is intended to do
+Status shorthand: ✅ available now · 🧩 low-level code exists, hardware pending · 🛠 explicitly planned, not implemented · 🔌 external host/network/service required · ❌ unsupported or not promised.
 
-An application selects a Profile, and the device changes its physical feel, input behavior, and display content without requiring a new motor-control implementation for every application.
+## Feel is the primary feature
 
-| Use case | Intended interaction |
+One knob should not be limited to one fixed mechanical feel. As its application or value changes, it can move from smooth free rotation to crisp numerical detents, from a heavy flywheel to a spring that returns to center, or place a tactile landmark at a limit, clip boundary, mute point, or hazard zone.
+
+| Target feel | What the user should feel | Current status |
+| --- | --- | --- |
+| Smooth free rotation | No fixed mechanical steps, no low-speed stickiness, and no periodic cogging or jumps during a fast flick | 🧩 A zero-haptic-torque path exists; cogging, bearing drag, encoder ripple, and current noise remain unmeasured and uncompensated |
+| Adjustable virtual detents | Count, spacing, strength, and snap change with the task instead of every value sharing one mechanical click | 🧩 The STM32 detent primitive exists; clarity, noise, and defaults need a sample |
+| Spring return / recentering | Release the knob and it returns to pause, zero, or center for speed, trim, and temporary adjustments | 🧩 Position/spring code exists; active return requires hardware safety validation |
+| Soft endstops | Elastic resistance appears after reaching a value limit instead of relying on a display or mechanical collision | 🧩 Out-of-range restoring torque exists; an anticipatory soft-zone curve, feel, and safe peak torque still need implementation/measurement |
+| Damping and friction | Fine control stays stable while fast movement remains intentional; the knob can feel viscous, tight, or loaded | 🧩 Both terms exist in code; natural feel and acoustic behavior are unmeasured |
+| Inertia / flywheel / momentum | A fast flick traverses a long list or timeline and then settles gradually | 🛠 A low-level inertia term exists; the complete momentum interaction does not |
+| Magnetic landmarks | Clip boundaries, preferred values, 0 dB, or integer playback rates feel attracted | 🛠 Profiles describe landmarks; the STM32 runtime does not execute them yet |
+| Asymmetric detents and textures | Direction-dependent clicks, warning zones, surface texture, and short tactile cues | 🛠 Schema/protocol fields exist; effect generation and physical validation do not |
+| Context-dependent feel | The same hardware changes detents, limits, and feedback with application, page, and state | 🛠 The Profile architecture exists; automatic matching and full deployment do not |
+
+“Smooth, crisp, quiet, and premium” are the most important product goals, but they remain **measurement targets**. Motor cogging, encoder linearity, timing, mechanical eccentricity, and acoustics all affect the outcome; this repository will not claim them before physical measurements and user evaluation.
+
+## Real integrations this can target
+
+Selecting a Haptic Profile is intended to change feel, input behavior, and AMOLED content together. Every row below has a defined implementation path, but none is represented as an installable finished application unless explicitly stated.
+
+| Scenario | Intended experience | Integration path and boundary |
+| --- | --- | --- |
+| **Volume and media** | Turn for volume, touch/button for mute, soft limits at minimum/maximum, and distinct feels for playback and seeking | 🛠 Global controls can use USB/BLE HID; Windows per-app volume requires PC Companion and OS audio APIs and cannot be done by HID alone |
+| **Timer / Pomodoro** | Fast-turn minutes, slow-turn fine adjustment, touch to start/pause, progress on screen, and a bounded tactile completion cue | 🛠 Can become a local offline ESP32 app; UI, persistence, and alerts are not implemented, and optional sound depends on final audio hardware |
+| **Home Assistant smart home** | Brightness, color temperature, thermostat, blinds, fan, media volume, and scenes each get meaningful detents and limits | 🔌 Wi-Fi + MQTT/Home Assistant Discovery is the preferred path; it needs the user's HA instance, broker credentials, and entity mapping, and no client exists yet |
+| **Weather / air quality** | Show current and hourly forecasts, rotate through time, and place tactile landmarks at rain, freeze, or heat thresholds | 🔌 Open-Meteo is the fixed first demo source; a Home Assistant weather adapter may follow. Wi-Fi, location, and a provider are required; this is not an offline weather station |
+| **Video editing / timelines** | Frame detents, clip-boundary attraction, inertial long-timeline navigation, and playback speed that returns to pause and snaps to 1×/2×/4× | 🛠 SmartKnob publicly demonstrated the interaction; GL30 still needs a host integration, momentum logic, and measured tuning |
+| **DAW / MIDI / color grading** | Beat or parameter detents, a 0 dB/center landmark, fine/coarse modes, and reusable mappings | 🛠 USB MIDI or a local plugin is practical; neither MIDI nor target-application adapters exist today |
+| **CAD / 3D and creative tools** | Zoom, timelines, brushes, parameters, and undo history use different damping, detents, and limits | 🛠 Requires shortcuts, plugins, or Companion adapters per application; no universal protocol can cover every tool |
+| **PC / game dashboard** | Show FPS, frame time, CPU/GPU, and device state while controlling volume, pages, or mapped game parameters | 🛠 Profile examples and data fields exist; PresentMon, LibreHardwareMonitor, RTSS, and game adapters do not |
+| **CNC / robotics / simulation** | Coarse/fine jog, joint limits, recentering, resistance changes, and state warnings | 🛠 Technically addressable, but it needs a dedicated safety adapter and scenario validation; this is not currently a safety-rated machine control |
+
+These priorities come from public SmartKnob, X-Knob, and SuperDial implementations, demos, and issues—not an invented feature dump. See [feature and community-demand research](docs/feature-research.md) for sources, recurring requests, and scope decisions.
+
+## Explicit non-capabilities and non-claims
+
+| Boundary | Conclusion |
 | --- | --- |
-| CNC / machine jog wheel | Coarse/fine detents, speed-dependent damping, travel limits, and tactile hazard cues |
-| Video editing / DAW | Frame or beat detents, timeline inertia, marker attraction, and fast scrubbing |
-| CAD / 3D tools | Parameter stepping, zoom damping, mode changes, and tangible numerical boundaries |
-| Robotics / teleoperation | Joint limits, recentering, resistance changes, state warnings, and constrained guidance |
-| Games / driving simulation | Encoder controls, trim, damping, springs, and state-dependent control feel |
-| Instruments / smart devices | Volume, menus, precise settings, on-device status, and custom shortcuts |
-
-These are platform targets, not present-day product claims. The status sections below distinguish usable software, code awaiting hardware, planned work, and unresolved decisions.
+| Production-grade feel today | ❌ No. There is no real GL30 closed loop, blind evaluation, acoustic, thermal, or lifetime evidence yet |
+| Direct connection to every smart-home device | ❌ Not promised. ESP32-S3 provides 2.4 GHz Wi-Fi and BLE. Matter over Wi-Fi can be evaluated, but direct Zigbee/Thread requires an 802.15.4 radio or an existing gateway |
+| Fully offline weather | ❌ Not possible with the current sensor set; forecasts must come from Home Assistant or an external service |
+| Arbitrary application control through standard HID alone | ❌ Not possible. Generic media keys can use HID, while per-app volume, editing, CAD, and DAW control need host adapters |
+| Replacing a six-degree-of-freedom SpaceMouse | ❌ Not possible with a single rotary axis; zoom and parameter control are feasible, 6-DOF input is not |
+| Copying upstream PID, current, or calibration values | ❌ Forbidden. Only haptic intent is converted; GL30 hardware parameters require new calibration and safety clamping |
+| Months of battery life with the present power design | ❌ Not supported. A 15 V motor stage, AMOLED, and networking would require a separate low-power and battery-safety redesign |
+| Unattended active rotation or safety-critical alerting | ❌ Not promised. Active motion needs touch detection, fail-safe behavior, speed/torque limits, and physical fault testing |
 
 ## Why this approach matters
 
@@ -90,6 +126,8 @@ Status vocabulary:
 - ✅ **Available now:** runnable or inspectable without physical hardware;
 - 🧩 **Implemented in code:** present in STM32/PC code and automated tests, but requires physical validation and tuning;
 - 🛠 **Planned:** explicitly on the roadmap but not usable today;
+- 🔌 **External dependency:** requires host software, network, service, gateway, or target application work;
+- ❌ **Unsupported/not promised:** current hardware or evidence is insufficient and it must not be marketed as a capability;
 - ⏳ **Pending:** blocked on vendor data, sample measurements, or design evidence.
 
 ### ✅ Available now without hardware
@@ -120,9 +158,10 @@ Status vocabulary:
 2. **Complete the Profile pipeline:** `JSON Profile → PC/ESP32 → binary command → STM32 haptic runtime`, so changing applications changes physical feel.
 3. **Expand haptic effects:** texture, asymmetric detents, marker attraction, composed effects, robust recentering, and a safety-limited active-position mode.
 4. **Build the ESP32-S3 application:** 5 Mbaud motor-core transport, log record/replay, AMOLED UI, Profile selection, and engineering status pages.
-5. **Expose application interfaces:** USB/BLE HID first, then MIDI, WebSocket, MQTT, or local application plugins where justified by real use cases.
-6. **Deliver desktop tooling:** connection management, live plots, fault traces, parameter tuning, Profile editing/deployment, and calibration workflows.
-7. **Release a reproducible device:** final PCB, mechanics, harnesses, assembly, calibration, thermal/regeneration design, lifetime evidence, and external reproductions.
+5. **Deliver the first experience apps:** USB/BLE HID global volume/media, a local timer, Home Assistant/MQTT light control, and a weather card with source and stale/offline state.
+6. **Expose creator and host interfaces:** MIDI, video timeline, Windows per-app volume, WebSocket/local plugins, plus device connection and fault-trace tooling.
+7. **Complete Profile tooling:** edit, preview, clamp report, deploy, share, and SmartKnob/X-Knob haptic-configuration converters.
+8. **Release a reproducible device:** final PCB, mechanics, harnesses, assembly, calibration, thermal/regeneration design, lifetime evidence, and external reproductions.
 
 ### ⏳ Decisions and evidence still pending
 

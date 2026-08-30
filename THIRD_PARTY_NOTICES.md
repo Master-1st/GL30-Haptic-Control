@@ -33,4 +33,6 @@ The compatibility audit currently targets these external force-feedback configur
 - [SmartKnob](https://github.com/scottbez1/smartknob/tree/4eb988399c3fda6ffd3006772856093dfe9adb86), Apache License 2.0;
 - [X-Knob](https://github.com/SmallPond/X-Knob/tree/05be44fc62b27c4fa941aabd2a7e9b2553f91fb9), MIT License.
 
+The product-scope research also references [SuperDial](https://github.com/CharlieYu4994/superdial/tree/1973d9436a7220f16eec6f76aac6d7029588c03f), MIT License, as a force-feedback PC-peripheral benchmark. It is not a current configuration-adapter target because the audited public implementation does not expose a portable structured haptic configuration.
+
 No upstream source tree, firmware binary, artwork, CAD, or configuration fixture is vendored in this repository. The current documentation describes configuration-mapping semantics only. Any future adapter that includes upstream code or fixtures must preserve attribution, notices, license compatibility, and a pinned source revision before merge; see `docs/profile-compatibility.md`.
