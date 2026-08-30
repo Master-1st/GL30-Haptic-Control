@@ -59,7 +59,7 @@ SuperDial 使用 BLDC/SimpleFOC 产生回中力，并通过 BLE Dial 与 PC 交�
 | 视频 shuttle/jog | SmartKnob [公开演示](https://github.com/scottbez1/smartknob#demo-video-editor-timeline-control)、[#173](https://github.com/scottbez1/smartknob/issues/173) | 逐帧、片段标记、惯性时间轴、弹簧播放速度是最佳展示场景之一 |
 | Home Assistant、MQTT、ESPHome | SmartKnob [#17](https://github.com/scottbez1/smartknob/issues/17)、[#137](https://github.com/scottbez1/smartknob/issues/137)、[#144](https://github.com/scottbez1/smartknob/issues/144)；X-Knob [#3](https://github.com/SmallPond/X-Knob/issues/3)、[#4](https://github.com/SmallPond/X-Knob/issues/4) | 先支持一个成熟网关和实体模型，不为每个灯泡品牌写私有直连 |
 | 更多物理输入和反馈 | SmartKnob [#57](https://github.com/scottbez1/smartknob/issues/57)、[#75](https://github.com/scottbez1/smartknob/issues/75)、[#174](https://github.com/scottbez1/smartknob/issues/174) | 触摸、按键、显示和灯效可以补充旋转，但不能喧宾夺主或破坏实时任务 |
-| 便携与电池 | SmartKnob [#100](https://github.com/scottbez1/smartknob/issues/100)；X-Knob 电源管理 | 有需求，但与 GL30 15 V 功率级和 AMOLED 负载冲突，不能直接复制 X-Knob 的续航结论 |
+| 便携与电池 | SmartKnob [#100](https://github.com/scottbez1/smartknob/issues/100)；X-Knob 电源管理 | 已进入主产品：当前采用 3S 无线力反馈架构和 800 mAh 机械参考；不能复制 X-Knob 的续航结论，容量、安全和续航必须实测 |
 | “发脆”“发涩”等手感缺陷 | SmartKnob [#159](https://github.com/scottbez1/smartknob/issues/159) | UI/网络任务不能干扰电机时序；GL30 的 STM32/ESP32 分核架构正面解决这一风险，但仍需实测 |
 | SpaceMouse 类控制 | SmartKnob [#133](https://github.com/scottbez1/smartknob/issues/133) | 可以服务 CAD 的缩放和参数输入，但单轴机构不能宣传为六自由度设备 |
 
@@ -113,7 +113,7 @@ SuperDial 使用 BLDC/SimpleFOC 产生回中力，并通过 BLE Dial 与 PC 交�
 | 任意软件零配置兼容 | 应用语义和权限不同，HID 只覆盖通用输入 | 逐个提供维护中的插件/适配器和版本测试 |
 | 单轴 6-DOF SpaceMouse | 机构与传感自由度不足 | 增加多轴机构与传感器，成为另一个硬件项目 |
 | 直接复用其他电机控制参数 | 电机、编码器、驱动、电源和热设计不同 | 只导入触觉意图，在 GL30 上重新标定 |
-| 数月电池续航 | 当前 15 V 功率级、AMOLED 和联网负载不支持该结论 | 新建电池/低功耗架构并完成安全、续航和循环测试 |
+| 数月电池续航 | 当前 3S 800 mAh 机械参考只服务小体积目标，尚无平均功耗和续航数据 | 实测各模式平均/峰值功率、温升、循环与安全，再决定是否扩大电池和机壳 |
 | 安全关键或无人值守主动运动 | 当前没有触碰检测和整机故障验证 | 完成危害分析、双通道限制和完整实物测试；可能仍需认证 |
 
 ## 实现优先级
@@ -124,6 +124,7 @@ SuperDial 使用 BLDC/SimpleFOC 产生回中力，并通过 BLE Dial 与 PC 交�
 2. 低能量打通 FOC，测量电流、编码器误差、齿槽、延迟、噪声、温升和再生。
 3. 依次验收自由旋转、档位、阻尼、软限位和回中；每项都发布原始数据和主观评价方法。
 4. 打通 `Profile → ESP32/PC → HapticCommand → STM32`，加入平滑切换和限幅报告。
+5. 验证 3S 电池、BQ25798 SYS 电源路径、关机反拖和独立再生制动，发布母线电压/双向能量/温升数据。
 
 ### P1：用四个应用让普通用户立即理解价值
 
@@ -142,7 +143,7 @@ SuperDial 使用 BLDC/SimpleFOC 产生回中力，并通过 BLE Dial 与 PC 交�
 
 ### 暂不进入主线
 
-- 电池版、语音助手、直接 Zigbee/Thread、六自由度输入；
+- 语音助手、直接 Zigbee/Thread、六自由度输入；
 - 无人值守主动旋转、作为安全告警或生产设备的安全控制器；
 - 为每个品牌智能家居做私有协议直连。
 

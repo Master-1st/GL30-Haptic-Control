@@ -59,7 +59,7 @@ This is a qualitative grouping, not a fabricated popularity ranking.
 | Video shuttle/jog | SmartKnob [demo](https://github.com/scottbez1/smartknob#demo-video-editor-timeline-control), [#173](https://github.com/scottbez1/smartknob/issues/173) | Frame stepping, landmarks, timeline inertia, and spring shuttle are strong showcase interactions |
 | Home Assistant, MQTT, ESPHome | SmartKnob [#17](https://github.com/scottbez1/smartknob/issues/17), [#137](https://github.com/scottbez1/smartknob/issues/137), [#144](https://github.com/scottbez1/smartknob/issues/144); X-Knob [#3](https://github.com/SmallPond/X-Knob/issues/3), [#4](https://github.com/SmallPond/X-Knob/issues/4) | Support a maintained gateway/entity model instead of private links for every light brand |
 | More physical inputs and feedback | SmartKnob [#57](https://github.com/scottbez1/smartknob/issues/57), [#75](https://github.com/scottbez1/smartknob/issues/75), [#174](https://github.com/scottbez1/smartknob/issues/174) | Touch, buttons, display, and lighting may complement rotation but must not disturb real-time control |
-| Portable/battery operation | SmartKnob [#100](https://github.com/scottbez1/smartknob/issues/100); X-Knob power management | Demand exists, but its conclusions do not transfer to a 15 V GL30 stage and AMOLED load |
+| Portable/battery operation | SmartKnob [#100](https://github.com/scottbez1/smartknob/issues/100); X-Knob power management | It is now a main-product target: the current design uses a 3S wireless architecture and an 800 mAh mechanical reference; X-Knob runtime claims do not transfer, so capacity, safety, and runtime need measurement |
 | Crunchy or rough feel from scheduling | SmartKnob [#159](https://github.com/scottbez1/smartknob/issues/159) | UI/network work must not disturb motor timing; GL30's split STM32/ESP32 architecture targets this risk but still needs measurement |
 | SpaceMouse-like control | SmartKnob [#133](https://github.com/scottbez1/smartknob/issues/133) | CAD zoom/parameter control is viable; one rotary axis is not a six-DOF device |
 
@@ -113,7 +113,7 @@ Status vocabulary:
 | Zero-configuration compatibility with arbitrary software | Application semantics and permissions differ; HID covers only generic input | Maintained per-application adapters and version testing |
 | Single-axis six-DOF SpaceMouse replacement | Insufficient mechanical/sensing degrees of freedom | A new multi-axis hardware project |
 | Reuse of another motor's control parameters | Motor, sensing, power, and thermal systems differ | Import intent only and recalibrate on GL30 |
-| Months of battery life | Present 15 V stage, AMOLED, and networking do not support the claim | New battery/low-power design and safety/endurance tests |
+| Months of battery life | The current 3S/800 mAh mechanical reference serves compact packaging and has no average-power or runtime evidence | Measure modal average/peak power, temperature, cycling, and safety before enlarging either battery or enclosure |
 | Safety-critical or unattended active motion | No touch detection or full-device fault evidence | Hazard analysis, redundant limits, physical tests, and potentially certification |
 
 ## Implementation priorities
@@ -124,6 +124,7 @@ Status vocabulary:
 2. Close low-energy FOC and measure current, encoder error, cogging, delay, noise, temperature, and regeneration.
 3. Validate free rotation, detents, damping, soft limits, and recentering in order, publishing raw results and the user-evaluation method.
 4. Complete `Profile → ESP32/PC → HapticCommand → STM32` with transition smoothing and clamp reports.
+5. Validate the 3S pack, BQ25798 SYS path, power-off back-drive, and independent regenerative brake, publishing bus-voltage, bidirectional-energy, and temperature data.
 
 ### P1 — four applications that communicate the value immediately
 
@@ -142,7 +143,7 @@ Status vocabulary:
 
 ### Not on the main path yet
 
-- battery edition, voice assistant, direct Zigbee/Thread, and six-DOF input;
+- voice assistant, direct Zigbee/Thread, and six-DOF input;
 - unattended active rotation, safety alerting, or safety-rated machine control;
 - private direct protocols for every smart-home brand.
 

@@ -98,15 +98,17 @@ PWM 外部下拉、`DRVOFF` 外部上拉和 BKIN 硬件关断必须在 MCU 未�
 ## 4. 母线与再生制动初值
 
 ```text
-12V_BUS ── 10 Ω / 50 W 脉冲电阻 ── 60 V N-MOS ── GND
+MOTOR_BUS（3S，约 9.0–12.6 V）── 10 Ω / 50 W 脉冲电阻 ── 60 V N-MOS ── GND
                                 ↑
                  14.4 V 硬件比较器自动开启
                  PA2 只能通过二极管 OR 强制开启
 ```
 
+- 首板上游固定为 `BQ25798 SYS → 外部双向高侧隔离开关 → INA228 → MOTOR_BUS`；`BAT` 接带 BQ77915 级独立保护/均衡/NTC 的 3S 电芯组。Waveshare 的 1S 电池口不接产品电池。
 - 建议 14.4 V 开启、13.6 V 释放；独立 16.0 V 比较器拉低 `HARD_FAULT_N`。
 - 电阻、MOS、制动占空比和冷却必须用 `E=1/2 Jω²`、实际惯量和连续拨动工况复核。
-- TVS 不替代制动电阻；所有阈值在首板用隔离注入实测。
+- 制动比较器和 MOSFET 驱动必须在 MCU/逻辑电源关闭后仍由 `MOTOR_BUS` 或常开安全域工作，才能覆盖关机反拖。
+- TVS 不替代制动电阻；14.4/16.0 V 是实验初值，不得按当前 12.45 V 充电默认直接写成量产阈值，所有阈值在首板用隔离注入实测。
 
 ## 5. ESP32-S3、INA228、VEML7700
 
@@ -118,7 +120,7 @@ PWM 外部下拉、`DRVOFF` 外部上拉和 BKIN 硬件关断必须在 MCU 未�
 
 ## 6. 必画测试点
 
-`3V3`、`3V3A`、`12V_BUS`、`AGND`、六路 PWM、`ADC_SAMPLE_TRIG`、`DRVOFF`、`nFAULT`、`HARD_FAULT_N`、SOA/B/C、V_LOW、V_HIGH、VBUS_SENSE、BRAKE_GATE、SPI3_SCK/CS、I2C1_SCL/SDA、INA228_IN+/IN−/ALERT、UART_TX/RX、PB9、NRST、SWDIO、SWCLK。
+`VBUS_PD_15V`、`BAT_3S`、`SYS`、`MOTOR_BUS`、`3V3`、`3V3A`、`AGND`、六路 PWM、`ADC_SAMPLE_TRIG`、`DRVOFF`、`nFAULT`、`HARD_FAULT_N`、SOA/B/C、V_LOW、V_HIGH、VBUS_SENSE、BRAKE_GATE、SPI3_SCK/CS、I2C1_SCL/SDA、INA228_IN+/IN−/ALERT、UART_TX/RX、PB9、NRST、SWDIO、SWCLK。
 
 编码器候选脚本轮不列入测试点；厂家确认接口后再按信号完整性和调试需要添加。
 
@@ -126,5 +128,6 @@ PWM 外部下拉、`DRVOFF` 外部上拉和 BKIN 硬件关断必须在 MCU 未�
 
 - G0 厂家问题未闭合，不得冻结编码器电路或投最终板。
 - 未画并独立审查约 2 A 窗口比较器（首板名义 ±1.8 A）、14.4 V 制动和 16 V 关断，不得投主功率板。
+- 未完成 BQ25798 SYS 与独立 BAT 电机路径的脉冲/回灌 A/B、BQ77915 保护注入和关机反拖验证，不得冻结产品电源版。
 - 未完成电源域反灌、ERC、封装/连接器方向和保护注入点复核，不得投板。
 - 本文所有电压、电流、频率和 RC 是首板输入，不是实测结论。

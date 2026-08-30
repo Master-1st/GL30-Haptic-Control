@@ -12,6 +12,8 @@ The project turns “what a control feels like” from fixed mechanics or hard-c
 
 The CubeMars GL30 force-feedback knob is the first reference device, not the platform boundary. The longer-term target includes CNC, media, CAD, robotics, simulation equipment, and custom control surfaces.
 
+The current product target is **fully wireless force feedback**: a 3S battery serves the motor power domain, one USB-C port provides PD charging and USB 2.0 data, and the enclosure is reduced to `96 × 96 mm`. The front face has no ordinary buttons but retains a recessed lower status/ambient light strip; four function keys move to the left/right sides and a separate power key sits on the rear. Battery capacity and runtime still require measured prototype power data.
+
 ![GL30 Haptic Control concept render](hardware/cad/out/CONCEPT_FIT_DEFAULTS/V7_CONCEPT_FIT_DEFAULTS_isometric.png)
 
 > [!IMPORTANT]
@@ -65,7 +67,7 @@ These priorities come from public SmartKnob, X-Knob, and SuperDial implementatio
 | Arbitrary application control through standard HID alone | ❌ Not possible. Generic media keys can use HID, while per-app volume, editing, CAD, and DAW control need host adapters |
 | Replacing a six-degree-of-freedom SpaceMouse | ❌ Not possible with a single rotary axis; zoom and parameter control are feasible, 6-DOF input is not |
 | Copying upstream PID, current, or calibration values | ❌ Forbidden. Only haptic intent is converted; GL30 hardware parameters require new calibration and safety clamping |
-| Months of battery life with the present power design | ❌ Not supported. A 15 V motor stage, AMOLED, and networking would require a separate low-power and battery-safety redesign |
+| Months of battery life | ❌ Not promised. The current 3S wireless architecture and 800 mAh mechanical reference establish packaging only; average power, runtime, cycle life, and safety still require prototype evidence |
 | Unattended active rotation or safety-critical alerting | ❌ Not promised. Active motion needs touch detection, fail-safe behavior, speed/torque limits, and physical fault testing |
 
 ## Why this approach matters
@@ -139,7 +141,7 @@ Status vocabulary:
 | Haptic Profile | Validate JSON Profiles and inspect game-dashboard and video-timeline examples | Schema works; the physical-device pipeline does not yet |
 | Device simulator | Exercise commands, telemetry, communication timeouts, safety states, and the no-hardware end-to-end data path | `SIM_ONLY`; it does not model real motor mechanics or feel |
 | Firmware algorithm regression | Host-test protocol, driver logic, FOC mathematics, haptics, safety supervision, and fault trace | Software regression only; no peripheral or power-stage evidence |
-| Digital hardware package | Inspect parametric concept CAD, bench-board BOM, PartsBridge/Altium import data, PCB drawing guide, and bring-up procedure | `CAD_CHECKED` / design material; no manufactured assembly evidence |
+| Digital hardware package | Inspect the `96 × 96 mm` wireless concept CAD, four side keys/rear power key, 3S battery keep-out, bench-board BOM, PartsBridge/Altium data, PCB guide, and bring-up procedure | `CAD_CHECKED` / design material; no manufactured battery or assembly evidence |
 
 ### 🧩 Implemented in code, awaiting hardware validation
 

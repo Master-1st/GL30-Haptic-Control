@@ -1,4 +1,4 @@
-"""Build the GL30 AMOLED V7 CONCEPT_FIT_DEFAULTS assembly.
+"""Build the GL30 AMOLED V7 wireless CONCEPT_FIT_DEFAULTS assembly.
 
 The script imports the official CubeMars and Waveshare STEP files, builds only
 the product-specific concept geometry, exports STEP/STL, writes a machine-
@@ -120,6 +120,38 @@ def _place_on_active_deck(
     ).translate((x_mm, y, z))
 
 
+def _side_button(
+    p: V7Defaults, *, side: int, y_mm: float
+) -> cq.Workplane:
+    if side not in (-1, 1):
+        raise ValueError("Side must be -1 or +1")
+    return (
+        cq.Workplane("XY")
+        .circle(p.side_button_diameter_mm / 2.0)
+        .extrude(p.side_button_protrusion_mm)
+        .rotate((0.0, 0.0, 0.0), (0.0, 1.0, 0.0), 90.0 * side)
+        .translate((side * p.width_mm / 2.0, y_mm, p.side_button_z_mm))
+    )
+
+
+def _rear_power_button(p: V7Defaults) -> cq.Workplane:
+    return (
+        cq.Workplane("XY")
+        .circle(p.power_button_diameter_mm / 2.0)
+        .extrude(p.power_button_protrusion_mm)
+        .rotate((0.0, 0.0, 0.0), (1.0, 0.0, 0.0), -90.0)
+        .translate(
+            (
+                p.power_button_x_mm,
+                p.depth_mm / 2.0
+                - p.power_button_face_recess_mm
+                - p.power_button_protrusion_mm,
+                p.power_button_z_mm,
+            )
+        )
+    )
+
+
 def _build_housing(p: V7Defaults) -> cq.Workplane:
     front_y = -p.depth_mm / 2.0
     rear_y = p.depth_mm / 2.0
@@ -174,9 +206,47 @@ def _build_housing(p: V7Defaults) -> cq.Workplane:
     aperture = _orient_at_knob(aperture, p)
     housing = housing.cut(aperture)
 
-    for x in (-18.0, 18.0):
-        usb_slot = cq.Workplane("XY").box(10.0, 7.0, 4.2).translate((x, 50.0, 18.0))
-        housing = housing.cut(usb_slot)
+    usb_slot = (
+        cq.Workplane("XY")
+        .box(10.0, 7.0, 4.2)
+        .translate((0.0, p.depth_mm / 2.0, p.rear_usb_c_center_z_mm))
+    )
+    housing = housing.cut(usb_slot)
+    power_pocket_depth = (
+        p.power_button_face_recess_mm + p.power_button_protrusion_mm + 0.2
+    )
+    power_pocket = (
+        cq.Workplane("XY")
+        .circle(p.power_button_recess_diameter_mm / 2.0)
+        .extrude(power_pocket_depth)
+        .rotate((0.0, 0.0, 0.0), (1.0, 0.0, 0.0), -90.0)
+        .translate(
+            (
+                p.power_button_x_mm,
+                p.depth_mm / 2.0 - power_pocket_depth + 0.1,
+                p.power_button_z_mm,
+            )
+        )
+    )
+    housing = housing.cut(power_pocket)
+    front_light_pocket = (
+        cq.Workplane("XY")
+        .box(
+            p.front_light_strip_pocket_width_mm,
+            p.front_light_strip_pocket_depth_mm,
+            p.front_light_strip_pocket_height_mm,
+        )
+        .translate(
+            (
+                0.0,
+                -p.depth_mm / 2.0
+                + p.front_light_strip_pocket_depth_mm / 2.0
+                - 0.1,
+                p.front_light_strip_center_z_mm,
+            )
+        )
+    )
+    housing = housing.cut(front_light_pocket)
     return housing
 
 
@@ -258,34 +328,105 @@ def _build_custom_parts(p: V7Defaults) -> dict[str, cq.Workplane]:
         "display_glass": _orient_at_knob(glass, p),
     }
 
-    for index, x in enumerate((-30.0, -10.0, 10.0, 30.0), start=1):
-        button = (
-            cq.Workplane("XY")
-            .circle(p.button_diameter_mm / 2.0)
-            .extrude(p.button_height_mm)
+    for side_name, side in (("left", -1), ("right", 1)):
+        for index, y_mm in enumerate(
+            (p.side_button_front_y_mm, p.side_button_rear_y_mm), start=1
+        ):
+            parts[f"button_{side_name}_{index}"] = _side_button(
+                p, side=side, y_mm=y_mm
+            )
+
+    parts["power_button"] = _rear_power_button(p)
+    parts["service_pinhole"] = (
+        cq.Workplane("XY")
+        .circle(p.service_pinhole_diameter_mm / 2.0)
+        .extrude(-0.4)
+        .translate((30.0, -30.0, 0.0))
+    )
+    parts["battery_keepout"] = (
+        cq.Workplane("XY")
+        .box(
+            p.battery_keepout_width_mm,
+            p.battery_keepout_depth_mm,
+            p.battery_keepout_height_mm,
         )
-        parts[f"button_{index}"] = _place_on_active_deck(
-            button,
-            p,
-            x_mm=x,
-            from_front_mm=p.button_center_from_front_mm,
+        .translate(
+            (
+                0.0,
+                p.battery_keepout_center_y_mm,
+                p.battery_keepout_center_z_mm,
+            )
         )
+    )
+    parts["electronics_keepout"] = (
+        cq.Workplane("XY")
+        .box(
+            p.electronics_keepout_width_mm,
+            p.electronics_keepout_depth_mm,
+            p.electronics_keepout_height_mm,
+        )
+        .translate(
+            (
+                0.0,
+                p.electronics_keepout_center_y_mm,
+                p.electronics_keepout_center_z_mm,
+            )
+        )
+    )
 
     parts["speaker_grille"] = (
-        cq.Workplane("XY").circle(10.0).extrude(0.7).translate((-37.0, 34.0, 52.0))
+        cq.Workplane("XY")
+        .circle(10.0)
+        .extrude(-0.7)
+        .translate((-30.0, 24.0, 0.0))
     )
     parts["microphone"] = (
-        cq.Workplane("XY").circle(1.0).extrude(0.8).translate((37.0, 34.0, 52.0))
+        cq.Workplane("XY")
+        .circle(1.0)
+        .extrude(p.power_button_protrusion_mm)
+        .rotate((0.0, 0.0, 0.0), (1.0, 0.0, 0.0), -90.0)
+        .translate((-30.0, p.depth_mm / 2.0, 29.0))
     )
-    parts["status_strip"] = (
-        cq.Workplane("XY").box(72.0, 1.2, 2.2).translate((0.0, -50.4, 8.0))
+    parts["status_led"] = (
+        cq.Workplane("XY")
+        .circle(1.0)
+        .extrude(p.power_button_protrusion_mm)
+        .rotate((0.0, 0.0, 0.0), (1.0, 0.0, 0.0), -90.0)
+        .translate((0.0, p.depth_mm / 2.0, 12.0))
     )
-    for index, x in enumerate((-18.0, 18.0), start=1):
-        parts[f"usb_c_{index}"] = (
-            cq.Workplane("XY").box(9.0, 2.0, 3.4).translate((x, 49.2, 18.0))
+    parts["front_light_strip"] = (
+        cq.Workplane("XY")
+        .box(
+            p.front_light_strip_width_mm,
+            p.front_light_strip_depth_mm,
+            p.front_light_strip_height_mm,
         )
+        .translate(
+            (
+                0.0,
+                -p.depth_mm / 2.0
+                + p.front_light_strip_face_recess_mm
+                + p.front_light_strip_depth_mm / 2.0,
+                p.front_light_strip_center_z_mm,
+            )
+        )
+    )
+    parts["usb_c_charge_data"] = (
+        cq.Workplane("XY")
+        .box(9.0, 2.0, 3.4)
+        .translate(
+            (0.0, p.depth_mm / 2.0 + 0.2, p.rear_usb_c_center_z_mm)
+        )
+    )
+    foot_x = p.width_mm / 2.0 - 8.0
+    foot_y = p.depth_mm / 2.0 - 10.0
     for index, (x, y) in enumerate(
-        ((-52.0, -38.0), (52.0, -38.0), (-52.0, 38.0), (52.0, 38.0)),
+        (
+            (-foot_x, -foot_y),
+            (foot_x, -foot_y),
+            (-foot_x, foot_y),
+            (foot_x, foot_y),
+        ),
         start=1,
     ):
         parts[f"foot_{index}"] = (
@@ -345,6 +486,12 @@ def _max_vertex_radius(
     return maximum
 
 
+def _intersection_volume(
+    first: cq.Workplane | cq.Shape, second: cq.Workplane | cq.Shape
+) -> float:
+    return _shape(first).intersect(_shape(second)).Volume()
+
+
 def _geometry_report(
     p: V7Defaults,
     custom: dict[str, cq.Workplane],
@@ -361,6 +508,21 @@ def _geometry_report(
 
     floor_clearance = motor_world_box["zmin"] - p.housing_wall_mm
     screen_to_ring = p.knob_inner_diameter_mm / 2.0 - display_radius
+    battery_box = _bbox(custom["battery_keepout"])
+    electronics_box = _bbox(custom["electronics_keepout"])
+    power_button_box = _bbox(custom["power_button"])
+    usb_c_box = _bbox(custom["usb_c_charge_data"])
+    front_light_strip_box = _bbox(custom["front_light_strip"])
+    inner_x = p.width_mm / 2.0 - p.housing_wall_mm
+    inner_rear_y = p.depth_mm / 2.0 - p.housing_wall_mm
+    inner_roof_z = p.rear_height_mm - p.housing_wall_mm
+    battery_motor_intersection = _intersection_volume(
+        custom["battery_keepout"], motor_world
+    )
+    battery_support_intersection = _intersection_volume(
+        custom["battery_keepout"], custom["support_tube"]
+    )
+    side_button_names = [name for name in custom if name.startswith("button_")]
     checks = {
         "official_gl30_axis_length_28p2": abs(motor_local_box["xlen"] - 28.2) <= 0.2,
         "official_gl30_radial_diameter_34p5": abs(2.0 * motor_radius - 34.5) <= 0.25,
@@ -371,6 +533,49 @@ def _geometry_report(
         "moving_gap_at_least_0p5mm": p.moving_radial_gap_mm >= 0.5,
         "screen_to_ring_clearance_at_least_0p5mm": screen_to_ring >= 0.5,
         "motor_to_inner_floor_clearance_at_least_0p5mm": floor_clearance >= 0.5,
+        "battery_keepout_inside_rear_bay": (
+            battery_box["xmin"] >= -inner_x
+            and battery_box["xmax"] <= inner_x
+            and battery_box["ymin"] >= p.deck_break_y_mm
+            and battery_box["ymax"] <= inner_rear_y
+            and battery_box["zmin"] >= p.housing_wall_mm
+            and battery_box["zmax"] <= inner_roof_z
+        ),
+        "electronics_keepout_inside_rear_bay": (
+            electronics_box["xmin"] >= -inner_x
+            and electronics_box["xmax"] <= inner_x
+            and electronics_box["ymin"] >= p.deck_break_y_mm
+            and electronics_box["ymax"] <= inner_rear_y
+            and electronics_box["zmin"] >= p.housing_wall_mm
+            and electronics_box["zmax"] <= inner_roof_z
+        ),
+        "battery_to_motor_no_intersection": battery_motor_intersection <= 1.0e-6,
+        "battery_to_center_support_no_intersection": (
+            battery_support_intersection <= 1.0e-6
+        ),
+        "four_user_keys_are_side_mounted": len(side_button_names) == 4,
+        "single_rear_power_key_present": "power_button" in custom,
+        "rear_power_key_is_recessed": (
+            power_button_box["ymax"]
+            <= p.depth_mm / 2.0 - p.power_button_face_recess_mm + 1.0e-6
+        ),
+        "single_rear_usb_c_present": sum(
+            name.startswith("usb_c_") for name in custom
+        )
+        == 1,
+        "rear_usb_c_is_above_battery_keepout": (
+            usb_c_box["zmin"] - battery_box["zmax"] >= 3.0
+        ),
+        "front_bottom_light_strip_present": "front_light_strip" in custom,
+        "front_light_strip_is_recessed": (
+            front_light_strip_box["ymin"]
+            >= -p.depth_mm / 2.0 + p.front_light_strip_face_recess_mm - 1.0e-6
+        ),
+        "front_light_strip_clear_of_floor_and_deck": (
+            front_light_strip_box["zmin"] > p.housing_wall_mm
+            and front_light_strip_box["zmax"]
+            < p.front_height_mm - p.housing_wall_mm
+        ),
     }
     return {
         "release_label": "CONCEPT_FIT_DEFAULTS",
@@ -389,6 +594,25 @@ def _geometry_report(
             "screen_to_ring_radial_clearance_mm": screen_to_ring,
             "official_gl30_max_radius_mm": motor_radius,
             "motor_to_inner_floor_clearance_mm": floor_clearance,
+            "battery_to_motor_bbox_y_clearance_mm": (
+                battery_box["ymin"] - motor_world_box["ymax"]
+            ),
+            "battery_to_motor_intersection_mm3": battery_motor_intersection,
+            "battery_to_center_support_intersection_mm3": (
+                battery_support_intersection
+            ),
+            "rear_power_button_face_recess_mm": (
+                p.depth_mm / 2.0 - power_button_box["ymax"]
+            ),
+            "rear_usb_c_to_battery_vertical_clearance_mm": (
+                usb_c_box["zmin"] - battery_box["zmax"]
+            ),
+            "front_light_strip_face_recess_mm": (
+                front_light_strip_box["ymin"] + p.depth_mm / 2.0
+            ),
+            "footprint_reduction_from_128x100_percent": (
+                100.0 - p.width_mm * p.depth_mm / (128.0 * 100.0) * 100.0
+            ),
         },
         "official_local_bounding_boxes": {
             "gl30_factory_encoder": motor_local_box,
@@ -399,6 +623,27 @@ def _geometry_report(
             "gl30_factory_encoder": motor_world_box,
             "waveshare_display": _bbox(display_world),
             "ring_cap": _bbox(custom["ring_cap"]),
+            "battery_keepout": battery_box,
+            "electronics_keepout": electronics_box,
+        },
+        "battery_candidate": {
+            "architecture": (
+                "3S pack -> BQ25798 SYS -> external bidirectional isolation -> "
+                "MOTOR_BUS; independent brake required"
+            ),
+            "mechanical_reference_only": "published 3S 800 mAh pack 80 x 20 x 16 mm",
+            "modeled_keepout_mm": {
+                "width": p.battery_keepout_width_mm,
+                "depth": p.battery_keepout_depth_mm,
+                "height": p.battery_keepout_height_mm,
+            },
+            "not_frozen": [
+                "cell and pack manufacturer",
+                "capacity and runtime",
+                "BMS/protector and balancing implementation",
+                "continuous/pulse current and charge rate",
+                "swelling allowance, holder and thermal barrier",
+            ],
         },
         "checks": checks,
         "all_checks_pass": all(checks.values()),
@@ -407,6 +652,8 @@ def _geometry_report(
             "rotor/stator face roles and cable bend envelope",
             "6 mm bore support/wiring permission",
             "allowed radial/axial load and bearing selection",
+            "battery pack, protector/BMS, NTC and production certifications",
+            "power-PCB, logic-PCB, speaker and fastener production geometry",
         ],
     }
 
@@ -423,9 +670,14 @@ COLORS: dict[str, tuple[float, float, float, float]] = {
     "display_glass": (0.02, 0.05, 0.07, 1.0),
     "speaker_grille": (0.05, 0.05, 0.06, 1.0),
     "microphone": (0.03, 0.03, 0.03, 1.0),
-    "status_strip": (0.10, 0.75, 0.90, 1.0),
+    "status_led": (0.10, 0.75, 0.90, 1.0),
+    "front_light_strip": (0.08, 0.78, 0.96, 0.92),
     "usb_c": (0.35, 0.37, 0.40, 1.0),
     "button": (0.22, 0.24, 0.27, 1.0),
+    "power_button": (0.15, 0.16, 0.18, 1.0),
+    "service_pinhole": (0.03, 0.03, 0.03, 1.0),
+    "battery_keepout": (0.12, 0.44, 0.22, 0.62),
+    "electronics_keepout": (0.15, 0.34, 0.68, 0.58),
     "foot": (0.04, 0.04, 0.04, 1.0),
     "motor_official": (0.82, 0.48, 0.12, 1.0),
     "display_official": (0.10, 0.34, 0.22, 1.0),
@@ -609,7 +861,10 @@ def build(output_dir: Path, *, skip_render: bool = False) -> dict[str, object]:
             "display_glass",
             "speaker_grille",
             "microphone",
-            "status_strip",
+            "status_led",
+            "front_light_strip",
+            "power_button",
+            "service_pinhole",
             "display_official",
         }
         external_items = []
@@ -619,7 +874,7 @@ def build(output_dir: Path, *, skip_render: bool = False) -> dict[str, object]:
         _render(
             output_dir / "V7_CONCEPT_FIT_DEFAULTS_isometric.png",
             external_items,
-            title="GL30 AMOLED V7 - CONCEPT_FIT_DEFAULTS",
+            title="GL30 AMOLED V7 - WIRELESS CONCEPT_FIT_DEFAULTS",
             camera=(165.0, -195.0, 145.0),
         )
         _render(
@@ -627,6 +882,12 @@ def build(output_dir: Path, *, skip_render: bool = False) -> dict[str, object]:
             external_items,
             title="V7 SIDE / PACKAGE REVIEW",
             camera=(210.0, 0.0, 55.0),
+        )
+        _render(
+            output_dir / "V7_CONCEPT_FIT_DEFAULTS_rear.png",
+            external_items,
+            title="V7 REAR / POWER AND USB-C REVIEW",
+            camera=(145.0, 195.0, 105.0),
         )
 
         n = _normal(p)
@@ -647,7 +908,10 @@ def build(output_dir: Path, *, skip_render: bool = False) -> dict[str, object]:
             if name.startswith(("button_", "usb_c_", "foot_")) or name in {
                 "speaker_grille",
                 "microphone",
-                "status_strip",
+                "status_led",
+                "front_light_strip",
+                "power_button",
+                "service_pinhole",
             }:
                 continue
             distance = explode_normal.get(name, 0.0)

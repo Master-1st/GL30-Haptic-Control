@@ -120,7 +120,8 @@
 #define GL30_VBUS_WARN_V                         13.2f
 #define GL30_VBUS_CLAMP_V                        14.4f
 #define GL30_VBUS_FAULT_V                        16.0f
-#define GL30_VBUS_MIN_RUN_V                       8.0f
+/* 3S wireless default.  Validate sag and usable torque at 9.0 V on hardware. */
+#define GL30_VBUS_MIN_RUN_V                       9.0f
 #define GL30_MOTOR_TEMP_WARN_C                   70.0f
 #define GL30_MOTOR_TEMP_FAULT_C                  85.0f
 
