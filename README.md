@@ -44,22 +44,18 @@ These are platform targets, not present-day product claims. The status sections 
 
 These are design and engineering advantages, not completed performance claims. Torque quality, noise, thermal behavior, lifetime, and usable bandwidth require physical measurements.
 
-## Reusing earlier configurations and ecosystems
+## Reusing earlier force-feedback configurations
 
-**Reuse is a goal, but native compatibility, converted compatibility, and behavioral references are different claims.** The project should not force the community to recreate every preset, and it must not import motor-specific calibration, PID, or current values into GL30.
+**Compatibility targets are limited to force-feedback knobs with portable configuration formats.** The project should not force the community to recreate existing haptic presets, and it must not import motor-specific calibration, PID, or current values into GL30.
 
 | Source | Current conclusion | Practical meaning |
 | --- | --- | --- |
 | GL30 AMOLED V6 `profileVersion: 1` | ✅ **Native format compatibility** | The V6 and current Schemas differ only in identifiers; both V6 examples pass unchanged, 2/2 in the present audit; inconsistent or out-of-range input is still rejected by stricter semantic/safety rules |
-| V6 real-time frame / `HAPTIC_COMMAND` | 🧩 **Implemented-subset specification compatibility** | Header, CRC32C, packet IDs, `0x01` fast state, and the 64-byte `0x10` command retain their layouts; V6 registered `0x02` without freezing its payload; physical-device interoperability is unproven |
 | SmartKnob `SmartKnobConfig` | 🛠 **Converter planned** | Detent width, endstops, snap point, and magnetic positions are mappable; Protobuf, normalized strengths, and runtime state are not direct copies |
-| X-Knob `XKnobConfig` | 🛠 **Planned to reuse SmartKnob mapping** | Core haptic fields are similar, but existing modes are C++ constants rather than portable Profile files |
-| SuperDial | 📖 **Behavioral reference, not file compatibility** | BLE Dial/HID, concentric mechanics, and recentering can inform the design; upstream has no stable external haptic configuration format |
-| Surface Dial, Home Assistant, MQTT | 🛠 **Planned application adapters** | Reuses mature ecosystems, but these are application I/O and data-source integrations—not STM32 motor protocols |
 
-Compatibility belongs in PC Companion: `legacy source → adapter → Canonical Profile → validation/clamping/report → device command`. The STM32 real-time core keeps one deterministic binary interface and does not parse JSON/Protobuf or accumulate legacy protocol stacks.
+Compatibility belongs in PC Companion: `legacy haptic configuration → adapter → Canonical Profile → validation/clamping/report → device command`. The STM32 real-time core keeps one deterministic binary interface and does not parse JSON/Protobuf or accumulate legacy protocol stacks.
 
-See the [Profile compatibility and migration plan](docs/profile-compatibility.md) for field mappings, rejected hardware data, pinned upstream commits, and intentionally blank future-adapter slots. **Only V6 Profile objects have native format compatibility today; SmartKnob/X-Knob importers do not yet exist.**
+Non-haptic application I/O protocols, automation interfaces, and UI-only formats are outside this compatibility matrix. Projects without a public, stable haptic configuration format do not occupy adapter targets. See the [force-feedback configuration compatibility plan](docs/profile-compatibility.md) for mappings, rejected hardware data, the pinned SmartKnob commit, and intentionally blank future-adapter slots. **Only V6 Profile objects have native format compatibility today; the SmartKnob importer does not yet exist.**
 
 ## How the system works
 

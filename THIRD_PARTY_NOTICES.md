@@ -28,10 +28,8 @@ Product names, logos, data sheets, and reference geometry remain the property of
 
 ## Related open-source projects
 
-The wider haptic-knob ecosystem informs the problem domain. The compatibility audit currently references:
+The compatibility audit currently targets this external force-feedback configuration format:
 
 - [SmartKnob](https://github.com/scottbez1/smartknob/tree/4eb988399c3fda6ffd3006772856093dfe9adb86), Apache License 2.0;
-- [X-Knob](https://github.com/SmallPond/X-Knob/tree/05be44fc62b27c4fa941aabd2a7e9b2553f91fb9), MIT License;
-- [SuperDial](https://github.com/CharlieYu4994/superdial/tree/1973d9436a7220f16eec6f76aac6d7029588c03f), MIT License.
 
-No source tree, firmware binary, artwork, CAD, or configuration fixture from these projects is vendored in this repository. The current documentation describes interoperability semantics only. Any future adapter that includes upstream code or fixtures must preserve attribution, notices, license compatibility, and a pinned source revision before merge; see `docs/profile-compatibility.md`.
+No SmartKnob source tree, firmware binary, artwork, CAD, or configuration fixture is vendored in this repository. The current documentation describes configuration-mapping semantics only. Any future adapter that includes upstream code or fixtures must preserve attribution, notices, license compatibility, and a pinned source revision before merge; see `docs/profile-compatibility.md`.

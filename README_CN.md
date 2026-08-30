@@ -44,22 +44,18 @@ CubeMars GL30 力反馈旋钮是首个参考设备，但平台面向的不只是
 
 这里的优势是**设计与工程能力**，不是已经完成的性能宣传。力矩质量、噪声、温升、寿命和实时带宽必须等实物测量后再给结论。
 
-## 能否复用前人的配置和生态
+## 能否复用前人的力反馈配置
 
-**可以复用，但必须区分“原生兼容”“转换兼容”和“只参考交互思想”。** 项目不会要求社区从零重写所有配置，也不会把前人硬件专属的校准值、PID 和电流参数直接带进 GL30。
+**可以复用，但兼容目标只收录具有可移植配置格式的力反馈旋钮。** 项目不会要求社区从零重写已有触觉配置，也不会把前人硬件专属的校准值、PID 和电流参数直接带进 GL30。
 
 | 来源 | 当前兼容结论 | 对用户的意义 |
 | --- | --- | --- |
 | GL30 AMOLED V6 `profileVersion: 1` | ✅ **格式原生兼容** | V6 Schema 与当前 Schema 只有标识信息不同；两个 V6 示例无需改字段即可通过当前校验器，当前实测为 2/2 通过；不一致或越界配置仍会被更严格的语义/安全规则拒绝 |
-| V6 实时帧 / `HAPTIC_COMMAND` | 🧩 **已实现子集规格兼容** | 帧头、CRC32C、类型号、`0x01` 快速状态和 64 B `0x10` 命令布局被保留；`0x02` 只有类型/用途来自 V6，V6 未冻结其 payload；尚无两台实物互通证据 |
 | SmartKnob `SmartKnobConfig` | 🛠 **计划提供转换器** | 档位宽度、端点、snap point、magnetic positions 等语义可转换；Protobuf、强度单位和运行时状态不能直接复制 |
-| X-Knob `XKnobConfig` | 🛠 **计划共用 SmartKnob 映射** | 主要触觉字段相近，但现有模式是 C++ 常量，不是可直接拖入的 Profile 文件 |
-| SuperDial | 📖 **交互参考，不宣称文件兼容** | 可借鉴 BLE Dial/HID、同心结构和回中行为；上游没有稳定的外部触觉配置格式 |
-| Surface Dial、Home Assistant、MQTT | 🛠 **计划作为上层适配目标** | 复用成熟生态，但它们属于输入输出/数据源适配，不是 STM32 电机协议 |
 
-兼容层将位于 PC Companion：`旧格式 → Source Adapter → Canonical Profile → 校验/限幅/转换报告 → 设备命令`。STM32 实时核仍只保留一种确定性二进制接口，不解析 JSON/Protobuf，也不堆叠多套旧协议。
+兼容层将位于 PC Companion：`旧力反馈配置 → Source Adapter → Canonical Profile → 校验/限幅/转换报告 → 设备命令`。STM32 实时核仍只保留一种确定性二进制接口，不解析 JSON/Protobuf，也不堆叠多套旧协议。
 
-详细字段映射、安全拒绝项、固定上游 commit 和故意留空的未来适配槽位见 [Profile 兼容与迁移计划](docs/profile-compatibility-cn.md)。**当前只有 V6 Profile 对象达到原生格式兼容；SmartKnob/X-Knob 导入器尚未完成。**
+非力反馈的上层输入输出协议、自动化接口和 UI-only 配置不进入兼容矩阵；没有公开稳定触觉配置格式的项目也不占兼容目标。详细字段映射、安全拒绝项、固定上游 commit 和故意留空的未来适配槽位见 [力反馈配置兼容与迁移计划](docs/profile-compatibility-cn.md)。**当前只有 V6 Profile 对象达到原生格式兼容；SmartKnob 导入器尚未完成。**
 
 ## 系统如何工作
 
