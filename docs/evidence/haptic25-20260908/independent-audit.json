@@ -1,0 +1,2543 @@
+{
+  "Utc": "2026-09-08T04:30:43.350170+00:00",
+  "Result": "OFFLINE_AUDIT_PASS",
+  "Build": "${REPO}\\output\\bench\\haptic25-20260907",
+  "CaptureCount": 37,
+  "HardwareAccess": false,
+  "Limitations": [
+    "Waveform buffers are tails, not full-duration recordings",
+    "No external supply current, torque, thermal or tactile measurements",
+    "Fault captures remain failures even when upload consistency passes"
+  ],
+  "Captures": [
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\active-stop",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "22EF0EDB941E05828ADA4BC199526C205BE44B5C97273EC59D640FA0C615CF9F",
+      "Gate": {
+        "Mode": 0,
+        "Fault": 0,
+        "Health": 42
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 13095,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02159455128205128,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.196399097591149,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 2619,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97479707,
+        "us": 579258238,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 1,
+        "stage": 5,
+        "acquired": 676,
+        "observed": 932,
+        "gated": 1260,
+        "trajectory": 1549,
+        "foc": 3072,
+        "total": 3287,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.05369781810683269,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\align-1",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "91E020BD7CA05EA63A93D2C0C25132AB6B6D852A772FA4D46D2C73A599AE6E2D",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 90001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.3410113324175824,
+        "VmMinV": 12.001775707735973,
+        "VmMaxV": 12.20721150813866,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 18000,
+        "GapUsMin": 249,
+        "GapUsMax": 251,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 95806567,
+        "us": 495601238,
+        "entry": 3721,
+        "mode": 2,
+        "observer": 1,
+        "stage": 4,
+        "acquired": 662,
+        "observed": 847,
+        "gated": 1172,
+        "trajectory": 1745,
+        "foc": 2799,
+        "total": 2007,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 0,
+        "LastHalfMeanMa": null,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\align-2",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "A625C60832FA748672FE0C3E8B4279932275C01131E6A6E3890442B6D24097A5",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 90001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.35735152434371187,
+        "VmMinV": 12.001775707735973,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 18000,
+        "GapUsMin": 249,
+        "GapUsMax": 251,
+        "Invalid": 0,
+        "TailNetRad": -0.0007669903939428206,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.3313951721191406,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -1.4572815895080566,
+        "OriginRad": -0.6971940994262695
+      },
+      "Timing": {
+        "sample": 97601703,
+        "us": 585358038,
+        "entry": 3721,
+        "mode": 2,
+        "observer": 0,
+        "stage": 4,
+        "acquired": 663,
+        "observed": 758,
+        "gated": 1084,
+        "trajectory": 1657,
+        "foc": 2888,
+        "total": 1919,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 0,
+        "LastHalfMeanMa": null,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\free-duration-max",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "A28B13CF80E29AB013D41A6CD28A8653340E3B19747B9895EA747A8023AB4A21",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 200001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02025144993894994,
+        "VmMinV": 12.045025349926012,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 40000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96248601,
+        "us": 517702938,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.026762718719017295,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-0-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "419EB6827E2182095D50ECDE56CD540FD88C529578D85D8F4429C0C6C673E5E4",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.01759672619047619,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0015339807878856412,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96304380,
+        "us": 520491888,
+        "entry": 3717,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.004377136705345135,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-1-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "C55F6C568686E0B0FB25A05B0EABD987A0DBE39B69E1CA002228C0232AE0D326",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02428075396825397,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.153149455401111,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0007669903939428206,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96360164,
+        "us": 523281088,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.8853371910862934,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-2-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "F6784B33DCB76658E1F2FFDEB9864F435E20C9D08608F79CE33E7036E33F7ABD",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.021626030219780216,
+        "VmMinV": 12.034212939378502,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96415927,
+        "us": 526069238,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 1,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 932,
+        "gated": 1283,
+        "trajectory": 1389,
+        "foc": 2912,
+        "total": 1613,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 1.4188074341141463,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-3-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "F151384584DB3E1548E01A668EED8C4782EBE4D16E064F31AB83A9A4B47CC9F4",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.01219284188034188,
+        "VmMinV": 11.969338476093442,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96471640,
+        "us": 528854888,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.1297212875726296,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-4-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "63DCF02E657D80B9EE5EA0AE348479F2E5CEE536F2780ECC944AE366E3DE43DB",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02159455128205128,
+        "VmMinV": 12.001775707735973,
+        "VmMaxV": 12.153149455401111,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0007669903939428206,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96527761,
+        "us": 531660938,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.5655915764767088,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-5-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "2980655971F70274AD921CEC88BFDF0A2CCC64EBE8B6437BACD939BAC2859D0B",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02272779304029304,
+        "VmMinV": 12.023400528830992,
+        "VmMaxV": 12.131524634306093,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0011504855909142309,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96583608,
+        "us": 534453288,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1549,
+        "foc": 3072,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -1.6113953204057863,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-6-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "00FC9FD6A1D96D99D112F379141344B71EF5FF8D0EC6D5AE2708A4668366DF76",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.021626030219780216,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96639586,
+        "us": 537252188,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 2.129666757042465,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-7-1000ms",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "8683AC2A546A76663DD9537625E6F35FAF1CD9CDF10563F69BA6BF4FC0BBCD5D",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 20001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.04023795215201465,
+        "VmMinV": 12.034212939378502,
+        "VmMaxV": 12.153149455401111,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 4000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0011504855909142309,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96695081,
+        "us": 540026938,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -24.178775333484264,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\haptic-min",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "C9C8FB885D60BBF129060D309B8B85F251B85474B45921E16E7F746F3EBF4296",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 21,
+        "Total": 21,
+        "TailSpanUs": 1000,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.016062127976190475,
+        "VmMinV": 12.077462581568541,
+        "VmMaxV": 12.163961865948622,
+        "MOESamples": 21,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": false
+      },
+      "Encoder": {
+        "Count": 4,
+        "Total": 4,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 95920628,
+        "us": 501304288,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1549,
+        "foc": 3072,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 17,
+        "LastHalfMeanMa": -1.1632545400291066,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\iq-duration-max",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "322D2202F6AE421970EF96C4BDCBE118C692550E9E48781930710C2C3CC3E664",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 40001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02159455128205128,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 2048,
+        "Total": 8000,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96011765,
+        "us": 505861138,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1384,
+        "foc": 2907,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.9983781083915345,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\iq-min-negative",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "6A2F6903F884B7BBA9E3EBFF4BD6FE98C0E6CE2E39DDE24D23661D855EE65DF0",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 21,
+        "Total": 21,
+        "TailSpanUs": 1000,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.015980807387057386,
+        "VmMinV": 12.077462581568541,
+        "VmMaxV": 12.12071222375858,
+        "MOESamples": 21,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": false
+      },
+      "Encoder": {
+        "Count": 4,
+        "Total": 4,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 95878864,
+        "us": 499216088,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1384,
+        "foc": 2907,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 18,
+        "LastHalfMeanMa": -1.2411634560798526,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\iq-min-positive",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "BBB06013C58A70006E10C631E40AE92EF8761D6F9B0194B541B9ACADA318D83F",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 21,
+        "Total": 21,
+        "TailSpanUs": 1000,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.005317317231379731,
+        "VmMinV": 12.045025349926012,
+        "VmMaxV": 12.131524634306093,
+        "MOESamples": 21,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": false
+      },
+      "Encoder": {
+        "Count": 4,
+        "Total": 4,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 95842748,
+        "us": 497410288,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1543,
+        "foc": 3066,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 17,
+        "LastHalfMeanMa": -0.8668907234157744,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\lease-expiry",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "FAULT_RECORDED",
+      "RAMSHA256": "343C40FB76E14AAB4A8782D348DC08472AE57E2A81491196F66C3C881F0BBB29",
+      "Gate": {
+        "Mode": 5,
+        "Fault": 4,
+        "Health": 42
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 2001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.023210470085470083,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 400,
+        "Total": 400,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.3313951721191406,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -1.4572815895080566,
+        "OriginRad": -0.6971940994262695
+      },
+      "Timing": {
+        "sample": 97639544,
+        "us": 587250088,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1104,
+        "trajectory": 1389,
+        "foc": 2912,
+        "total": 1807,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": {
+        "Fault": 4,
+        "Sample": 97639544,
+        "Us": 587250088,
+        "Raw": [
+          1868,
+          1869,
+          1873,
+          1120
+        ],
+        "Sync": 1,
+        "Outputs": 3,
+        "TailMatches": true
+      },
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.12417433794765467,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-00",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "6EB59B6AA3D555B192A12E1C2E2F8893785D138B2EF7F3EAD7BF4C0C7D416927",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.018908348595848595,
+        "VmMinV": 12.023400528830992,
+        "VmMaxV": 12.1423370448536,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0007669903939428206,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96731834,
+        "us": 541864588,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.005681616101373586,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-01",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "F0B7F0BA60FD1A1D9A719C3CA7275DA4872432CE5D00D4D642146A8A803F91D5",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.014829202915140413,
+        "VmMinV": 12.034212939378502,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96768597,
+        "us": 543702738,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 1,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 932,
+        "gated": 1283,
+        "trajectory": 1389,
+        "foc": 2912,
+        "total": 1613,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.02061533510940338,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-02",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "168A6D3AED79DC64168CD1E0A436FF058548A94B7D0872E90AF7595B8F363A30",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.018908348595848595,
+        "VmMinV": 12.045025349926012,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96805370,
+        "us": 545541388,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.1484327377805961,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-03",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "FF3106E0051B3C57B26415BB14B528E8C736B7250BA93EC663D9012C44DF3753",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.016062127976190475,
+        "VmMinV": 12.001775707735973,
+        "VmMaxV": 12.163961865948622,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96842138,
+        "us": 547379788,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1549,
+        "foc": 3072,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.2293718724799827,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-04",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "ECC42565AFE8318FC07B08EC7022AABC2B8E619AF756D26433CCD395B16DE092",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.022937652625152623,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96878674,
+        "us": 549206588,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.026914392988064213,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-05",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "9D6201EAFEDB3E39C8A3B119AAE9B0D206813E20CB48FA8CCA8BA440DDA2A3B6",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02562385531135531,
+        "VmMinV": 12.023400528830992,
+        "VmMaxV": 12.196399097591149,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0007669903939428206,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96915373,
+        "us": 551041538,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1549,
+        "foc": 3072,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.044823841563512136,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-06",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "422183579ECBF72D72D69E1D00A09BA134E9BA51D6AA23F4B01C3FA9E8E6BC7E",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.022937652625152623,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.153149455401111,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96951876,
+        "us": 552866688,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.011507025201422518,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-07",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "02539AB86DA0D4E94528BFAC7A9B922D8221489B9F5E25BA9EE0F5072890F80F",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02159455128205128,
+        "VmMinV": 12.034212939378502,
+        "VmMaxV": 12.153149455401111,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0011504855909142309,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 96988319,
+        "us": 554688838,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.028842315027483512,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-08",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "CB50349A589F7D8453F0D79C7718C685AC31C6FAE8A069A342BD8C32E53BD12A",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.01759672619047619,
+        "VmMinV": 12.045025349926012,
+        "VmMaxV": 12.163961865948622,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97025025,
+        "us": 556524138,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.012072468959883063,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-09",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "194C0271FB1A88C25F0ADE24E5644DFF0C55E212E99CE9C64712A55634CAB2C7",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.017323908730158728,
+        "VmMinV": 12.034212939378502,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97061656,
+        "us": 558355688,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.046110251310862924,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-10",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "772B3EF12FD833ADCDA99DED69B5C99E294A2F330BB28D263D5C523AB204EF29",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.01356742216117216,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0007669903939428206,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97098474,
+        "us": 560196588,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.01281451001648572,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-11",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "1938812468B8D0FEF53E7061F28A8587A033F769AA710D8F47C224D497A7F027",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.014637706043956044,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0011504855909142309,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97138220,
+        "us": 562183888,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.08208547614333389,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-12",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "FD20FBD6670F31A9546356DABA3C2AFA77CCD3D8FDB5158284AF492F67EC67D5",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.01356742216117216,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97174715,
+        "us": 564008638,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.21013647664340696,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-13",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "BB4789DAC7B233C42460688AD4B377134A239C3D6C47A8F2FEE4F5C291FB6C5B",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.01759672619047619,
+        "VmMinV": 11.980150886640953,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97211239,
+        "us": 565834838,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.062425466876826034,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-14",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "F6D84CF53A05FA410134D64BBF6E52126A2BE546A4B24D105E648AFAB9485142",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.016062127976190475,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.17477427649613,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97248262,
+        "us": 567685988,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 1,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 932,
+        "gated": 1283,
+        "trajectory": 1389,
+        "foc": 2912,
+        "total": 1613,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.005233997868105956,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-15",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "9B81DF0B3EBDE008D206BD51BA7A642DA0C170C03C1D3C9BDFBA8D50FFE41EF4",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02025144993894994,
+        "VmMinV": 12.023400528830992,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": 0.0011504855909142309,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97284788,
+        "us": 569512288,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 677,
+        "observed": 772,
+        "gated": 1124,
+        "trajectory": 1549,
+        "foc": 3072,
+        "total": 1454,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.001521794463143984,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-16",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "0992ADF2C809C92A8E0536EC92D13AE5DD1425D51003A28E79189FE86E46DC5A",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.0226963141025641,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0015339807878856412,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97321433,
+        "us": 571344538,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1549,
+        "foc": 3072,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": -0.22431704627439963,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-17",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "56A2308C8455EF21D5297A676B50E39C7388C4D05DD364F94818231E25A1E490",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.02562385531135531,
+        "VmMinV": 12.012588118283482,
+        "VmMaxV": 12.196399097591149,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97358074,
+        "us": 573176588,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.1577267598061698,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-18",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "827DA9D4F306F617A8E81CBC1786E98E779FE4AD70186C69CF2A57A421D5434B",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.01740522931929182,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.185586687043642,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97394611,
+        "us": 575003438,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.04242285713900474,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    },
+    {
+      "Folder": "${REPO}\\output\\bench\\haptic25-extended-20260908\\run-1\\repeat-19",
+      "EvidenceResult": "INDEPENDENT_RAM_CSV_CONSISTENCY_PASS",
+      "FunctionalVerdict": "NO_FAULT_IN_FROZEN_CAPTURE",
+      "RAMSHA256": "84F4476844E2C6792AFE129245B88DB9965F39A81265EE84B146D60213DBC03C",
+      "Gate": {
+        "Mode": 3,
+        "Fault": 0,
+        "Health": 63
+      },
+      "ZeroMatchesSumCount": true,
+      "ADC": {
+        "Count": 512,
+        "Total": 1001,
+        "TailSpanUs": 25550,
+        "GapUsMin": 50,
+        "GapUsMax": 50,
+        "NotSynchronized": 0,
+        "MaxAbsPhaseA": 0.021626030219780216,
+        "VmMinV": 11.990963297188463,
+        "VmMaxV": 12.163961865948622,
+        "MOESamples": 512,
+        "ActivePhaseLimitExceedances": 0,
+        "TailOnly": true
+      },
+      "Encoder": {
+        "Count": 200,
+        "Total": 200,
+        "GapUsMin": 250,
+        "GapUsMax": 250,
+        "Invalid": 0,
+        "TailNetRad": -0.0003834951969714103,
+        "TailOnly": true
+      },
+      "Alignment": {
+        "Stage": 2,
+        "StaticCount": 2000,
+        "MeanIdA": 0.33139361572265624,
+        "MeanVdV": 0.38000384521484376,
+        "Direction": -1,
+        "ZeroRad": -0.689140796661377,
+        "OriginRad": 0.21859227120876312
+      },
+      "Timing": {
+        "sample": 97431061,
+        "us": 576825938,
+        "entry": 3719,
+        "mode": 4,
+        "observer": 0,
+        "stage": 3,
+        "acquired": 676,
+        "observed": 771,
+        "gated": 1123,
+        "trajectory": 1390,
+        "foc": 2913,
+        "total": 1453,
+        "reason": 0,
+        "stop": 0,
+        "counter": 0,
+        "down": 0
+      },
+      "FirstTrip": null,
+      "ApproxIQ": {
+        "Samples": 512,
+        "LastHalfMeanMa": 0.04729623068793255,
+        "Method": "RAW_ADC + CSA matrix + latest prior encoder; approximate, not bit-exact ISR observer or torque metrology"
+      }
+    }
+  ]
+}

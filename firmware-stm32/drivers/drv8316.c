@@ -99,30 +99,6 @@ static uint32_t duty_to_ccr(float duty) {
 }
 #endif
 
-uint8_t gl30_drv8316_even_parity_bit(uint16_t word_without_parity) {
-  uint16_t word = word_without_parity & (uint16_t)~(1u << 8u);
-  uint8_t parity = 0u;
-  for (uint8_t bit = 0u; bit < 16u; ++bit) {
-    parity ^= (uint8_t)((word >> bit) & 1u);
-  }
-  return parity;
-}
-
-uint16_t gl30_drv8316_make_frame(bool read, uint8_t address, uint8_t data) {
-  uint16_t word = (uint16_t)((uint16_t)(read ? 1u : 0u) << 15u) |
-                  (uint16_t)((uint16_t)(address & 0x3Fu) << 9u) |
-                  (uint16_t)data;
-  word |= (uint16_t)gl30_drv8316_even_parity_bit(word) << 8u;
-  return word;
-}
-
-bool gl30_drv8316_word_has_even_parity(uint16_t word) {
-  uint8_t parity = 0u;
-  for (uint8_t bit = 0u; bit < 16u; ++bit) {
-    parity ^= (uint8_t)((word >> bit) & 1u);
-  }
-  return parity == 0u;
-}
 
 void gl30_drv8316_init(void) {
   g_configured = false;
@@ -207,7 +183,8 @@ bool gl30_drv8316_clear_faults(void) {
   gl30_timebase_delay_us(1000u);
   gl30_drv8316_status_t status;
   return gl30_drv8316_read_faults(&status) && status.n_fault_released &&
-         status.stat0 == 0u && status.stat1 == 0u && status.stat2 == 0u;
+         status.stat0 == 0u && status.stat1 == 0u &&
+         (status.stat2 & GL30_DRV8316_STAT2_FAULT_MASK) == 0u;
 #endif
 }
 

@@ -1,0 +1,10 @@
+{
+  "Result": "TEST_PLAN_COVERAGE_INCOMPLETE",
+  "OriginalReportedResult": "OFF_TRANSPORT_AND_PREPARE_STRESS_PASS",
+  "ExpectedInvalidFrames": 3,
+  "ActualInvalidFrames": 1,
+  "Cause": "PowerShell comma binds within unparenthesized concatenation in first array element; three frames collapsed into one",
+  "HardwareFault": false,
+  "OriginalEvidencePreserved": true,
+  "Correction": "Parenthesize each array element and assert exact plan counts; rerun in off-transport-2"
+}

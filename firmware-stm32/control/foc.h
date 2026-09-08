@@ -59,11 +59,25 @@ typedef struct {
   uint32_t current_ticks;
 } gl30_foc_state_t;
 
+#if defined(GL30_FOC_USE_CORDIC)
+/* Platform port: finite canonical radians, ADC IRQ exclusive after startup.
+ * Failure must return false; caller invalidates the PWM result (no fallback). */
+bool gl30_foc_sincos(float angle, float *sine, float *cosine);
+#endif
+
 void gl30_foc_init(gl30_foc_state_t *state);
 bool gl30_foc_apply_command(gl30_foc_state_t *state, const gl30_haptic_command_t *command);
 void gl30_foc_observer_tick_4k(gl30_foc_state_t *state, float angle_rad, bool valid);
-gl30_foc_output_t gl30_foc_current_tick_40k(
-    gl30_foc_state_t *state, float ia_a, float ib_a, float ic_a, float vbus_v);
+/* Caller supplies its measured schedule and a positive voltage-vector ceiling.
+ * Invalid input returns neutral duties with valid=false; hardware must coast. */
+gl30_foc_output_t gl30_foc_current_tick(
+    gl30_foc_state_t *state, float ia_a, float ib_a, float ic_a, float vbus_v,
+    float dt_s, float max_voltage_v);
+/* Fixed voltage vector for sensor alignment. Current sensing, numeric checks,
+ * vector/duty limits remain active; PI integrators are cleared, not regulated. */
+gl30_foc_output_t gl30_foc_voltage_tick(
+    gl30_foc_state_t *state, float ia_a, float ib_a, float ic_a, float vbus_v,
+    float dt_s, float max_voltage_v, float v_d_v, float v_q_v);
 void gl30_foc_force_zero(gl30_foc_state_t *state);
 void gl30_foc_make_telemetry(
     const gl30_foc_state_t *state,

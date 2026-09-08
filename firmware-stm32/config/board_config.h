@@ -87,16 +87,27 @@
 #define GL30_IWDG_NOMINAL_TIMEOUT_MS          64u
 #define GL30_STARTUP_ADC_TIMEOUT_US         50000u
 
-/* Motor/control initial values. HARDWARE_TUNE_REQUIRED. */
+/* Motor/control initial values. HARDWARE_TUNE_REQUIRED.
+ * The supplier table labels 1.53 ohm / 330 uH as line-to-line values for the
+ * star winding. The dq current loop uses phase current and phase voltage, so
+ * its first-power PI is based on 0.765 ohm / 165 uH at about 150 Hz bandwidth.
+ * Only raise toward 250 Hz (about 0.26 / 1200) after current polarity, ADC
+ * timing, R/L, dead time, and low-amplitude step response are measured.
+ * Re-identify all three line pairs before changing these values. */
 #define GL30_MOTOR_POLE_PAIRS                  7u
 #define GL30_MOTOR_KT_NM_PER_A              0.038f
 #define GL30_MOTOR_LINE_R_OHM                1.53f
 #define GL30_MOTOR_LINE_L_H              0.000330f
-#define GL30_CURRENT_KP_V_PER_A              0.52f
-#define GL30_CURRENT_KI_V_PER_AS           2400.0f
+#define GL30_MOTOR_PHASE_R_OHM              0.765f
+#define GL30_MOTOR_PHASE_L_H             0.000165f
+#define GL30_CURRENT_KP_V_PER_A              0.16f
+#define GL30_CURRENT_KI_V_PER_AS            720.0f
 #define GL30_CURRENT_KAW                       0.2f
+/* Supplier ratings are 2.13 A / 0.08 N.m continuous and 7.4 A / 0.28 N.m
+ * peak, but neither has been reproduced. Keep the first board below them:
+ * 1.6 A -> 0.0608 N.m, 1.75 A -> 0.0665 N.m at the initial Kt. */
 #define GL30_CURRENT_SOFT_LIMIT_A              1.60f
-#define GL30_CURRENT_HARD_LIMIT_A              2.00f
+#define GL30_CURRENT_HARD_LIMIT_A              1.75f
 #define GL30_USER_TORQUE_LIMIT_NM              0.060f
 #define GL30_SELF_DRIVE_LIMIT_NM               0.015f
 #define GL30_ELECTRICAL_ZERO_RAD                0.0f

@@ -34,16 +34,48 @@ jobs:
         run: git diff --exit-code -- protocol/generated/v1.json
 
   stm32-host:
-    name: STM32 portable core host tests
+    name: STM32 host (${{ matrix.profile }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: debug
+            build_type: Debug
+            c_flags: '-Wall -Wextra'
+            ipo: 'OFF'
+          - profile: sanitizer
+            build_type: Debug
+            c_flags: '-Wall -Wextra -fsanitize=address,undefined -fno-omit-frame-pointer'
+            ipo: 'OFF'
+          - profile: release-lto
+            build_type: Release
+            c_flags: ''
+            ipo: 'ON'
     steps:
       - uses: actions/checkout@v4
 
+      - name: Verify qualified H25 source identity
+        run: python3 firmware-stm32/bench/NUCLEO_G474RE_FOC/tools/verify_source_identity.py docs/evidence/haptic25-20260908/source-identity.json
+
       - name: Configure
-        run: cmake -S firmware-stm32/tests -B build/stm32-host -DCMAKE_BUILD_TYPE=Debug
+        run: >-
+          cmake -S firmware-stm32/tests -B build/stm32-host
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_C_FLAGS="${{ matrix.c_flags }}"
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=${{ matrix.ipo }}
 
       - name: Build
-        run: cmake --build build/stm32-host --config Debug --parallel 2
+        run: cmake --build build/stm32-host --parallel 2
 
       - name: Test
-        run: ctest --test-dir build/stm32-host -C Debug --output-on-failure
+        run: ctest --test-dir build/stm32-host --output-on-failure
+
+  encoder-viewer:
+    name: Encoder viewer offline unit tests
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and test without opening serial or UI
+        shell: powershell
+        run: .\firmware-stm32\bench\NUCLEO_G474RE_FOC\encoder-viewer\Open_Encoder_Viewer.ps1 -Check
