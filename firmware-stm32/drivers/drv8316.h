@@ -17,6 +17,9 @@ enum {
   GL30_DRV8316_REG_CTRL10 = 0x0Cu
 };
 
+/* TI SLVSF16B Table 8-15: STAT2 bit 7 is reserved, not a fault flag. */
+#define GL30_DRV8316_STAT2_FAULT_MASK 0x7Fu
+
 typedef struct {
   uint8_t stat0;
   uint8_t stat1;
@@ -31,6 +34,7 @@ typedef struct {
 uint8_t gl30_drv8316_even_parity_bit(uint16_t word_without_parity);
 uint16_t gl30_drv8316_make_frame(bool read, uint8_t address, uint8_t data);
 bool gl30_drv8316_word_has_even_parity(uint16_t word);
+uint32_t gl30_drv8316_status_word_faults(uint8_t address, uint16_t reply);
 
 void gl30_drv8316_init(void);
 bool gl30_drv8316_configure(void);

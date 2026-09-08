@@ -10,6 +10,8 @@ The generated STM32 project contains the minimal CMSIS and STM32G4 LL dependency
 - `firmware-stm32/cubemx/GL30_AMOLED_V7/Drivers/CMSIS/Device/ST/STM32G4xx/LICENSE.md`
 - `firmware-stm32/cubemx/GL30_AMOLED_V7/Drivers/STM32G4xx_HAL_Driver/LICENSE.md`
 
+The NUCLEO commissioning target also retains the same upstream license files under `firmware-stm32/bench/NUCLEO_G474RE_FOC/Drivers/` (CMSIS, STM32G4 device headers, and LL drivers). The project license does not relicense those files or any firmware release containing them.
+
 STM32CubeMX, STM32CubeG4, STM32, and STMicroelectronics names are owned by STMicroelectronics. Keil, Arm Compiler, and CMSIS names are owned by Arm or their respective rights holders.
 
 ## JavaScript dependencies

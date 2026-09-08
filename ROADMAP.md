@@ -19,6 +19,14 @@ v1.0 means another developer can build, commission, and safely evaluate the refe
 - at least two independent external builds or equivalent third-party reproduction evidence;
 - open issues documenting remaining limitations.
 
+## 已取得的台架证据（2026-09-08 UTC）
+
+[HAPTIC25 续测报告](docs/bench-validation-20260907-haptic25-cn.md)记录 NUCLEO + TI EVM + AS5048A：三次 ALIGN、±10/25/50/100 mA 各 20 ms、八类 HAPTIC 各 250 ms、58 项关断命令、60 s 无 PWM 及原始采样审计通过。本轮修复控制时序，没有提高电源限流或放宽保护。
+
+这关闭了此前“台架完全没有 IQ / 触觉出力通过”的缺口，**不勾选下列完整产品里程碑**：力矩/手感、长时运行、热/回灌、nFAULT 整链、CET6 端口、ESP32/AMOLED/无线仍缺实测。短动作与软件故障注入不能代替测量验收。
+
+[2026-09-08 扩展验收](docs/bench-validation-20260908-haptic25-extended-cn.md)补充 37 组实机冻结采样、ACTIVE STOP/失联关断、重复运行和 2000 次通信回归。只关闭相应台架测试项，不勾选下列产品里程碑。
+
 ## Phase 0 — Public engineering baseline (August–September 2026)
 
 - [x] Publish a clean repository without private history or generated build trees.

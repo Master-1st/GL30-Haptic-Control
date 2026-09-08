@@ -640,7 +640,8 @@ static void run_monitor(uint64_t now_us) {
       return;
     }
     if (!driver_status.n_fault_released || driver_status.stat0 != 0u ||
-        driver_status.stat1 != 0u || driver_status.stat2 != 0u) {
+        driver_status.stat1 != 0u ||
+        (driver_status.stat2 & GL30_DRV8316_STAT2_FAULT_MASK) != 0u) {
       latch_fault(GL30_FAULT_HARDWARE_BKIN);
       return;
     }
@@ -818,8 +819,9 @@ void gl30_app_adc1_2_irq(void) {
       gl30_drv8316_set_duty(0.5f, 0.5f, 0.5f);
     }
   } else {
-    const gl30_foc_output_t output = gl30_foc_current_tick_40k(
-        &g_foc, current_a, current_b, current_c, g_vbus_v);
+    const gl30_foc_output_t output = gl30_foc_current_tick(
+        &g_foc, current_a, current_b, current_c, g_vbus_v,
+        1.0f / (float)GL30_PWM_HZ, g_vbus_v);
     if (output.overcurrent) {
       latch_fault(GL30_FAULT_OVERCURRENT);
     } else if (!output.valid) {

@@ -447,6 +447,11 @@
               <FilePath>../../../drivers/drv8316.c</FilePath>
             </File>
             <File>
+              <FileName>drv8316_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../../../drivers/drv8316_spi.c</FilePath>
+            </File>
+            <File>
               <FileName>factory_encoder_pending.c</FileName>
               <FileType>1</FileType>
               <FilePath>../../../drivers/factory_encoder_pending.c</FilePath>
@@ -557,4 +562,3 @@
     <files />
   </RTE>
 </Project>
-

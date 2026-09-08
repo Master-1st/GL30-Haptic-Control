@@ -479,6 +479,139 @@ static void test_drv8316_frames(void) {
   CHECK(((masked >> 9u) & 0x3Fu) == 0x3Fu, "DRV8316 address is masked to 6 bits");
 }
 
+static void test_drv8316_status_word_faults_regression(void) {
+  CHECK(gl30_drv8316_status_word_faults(3u, 0x0808u) == UINT32_MAX,
+        "DRV8316 status-word faults rejects illegal register 3");
+  CHECK(gl30_drv8316_status_word_faults(255u, 0x0808u) == UINT32_MAX,
+        "DRV8316 status-word faults rejects illegal register 255");
+
+  CHECK(gl30_drv8316_status_word_faults(0u, 0x0808u) == 0u,
+        "DRV8316 status-word faults normal STAT0 no fault");
+  CHECK(gl30_drv8316_status_word_faults(1u, 0x0800u) == 0u,
+        "DRV8316 status-word faults normal STAT1 no fault");
+  CHECK(gl30_drv8316_status_word_faults(2u, 0x0800u) == 0u,
+        "DRV8316 status-word faults normal STAT2 no fault");
+  CHECK(gl30_drv8316_status_word_faults(0u, 0x0800u) == 0x08u,
+        "DRV8316 status-word faults normal STAT0 with NPOR in low byte yields only low-bit fault");
+
+  CHECK(gl30_drv8316_status_word_faults(0u, 0x0000u) != 0u,
+        "DRV8316 status-word faults summary NPOR clear on STAT0 is abnormal");
+  CHECK(gl30_drv8316_status_word_faults(0u, 0x0008u) != 0u,
+        "DRV8316 status-word faults summary NPOR clear on STAT0 with low-byte NPOR set is abnormal");
+  CHECK(gl30_drv8316_status_word_faults(1u, 0x0000u) != 0u,
+        "DRV8316 status-word faults summary NPOR clear on STAT1 is abnormal");
+  CHECK(gl30_drv8316_status_word_faults(2u, 0x0000u) != 0u,
+        "DRV8316 status-word faults summary NPOR clear on STAT2 is abnormal");
+
+  CHECK(gl30_drv8316_status_word_faults(0u, 0x0000u) != 0u,
+        "DRV8316 status-word faults blocks all-zero frame");
+  CHECK(gl30_drv8316_status_word_faults(1u, 0xFFFFu) != 0u,
+        "DRV8316 status-word faults blocks all-ones frame");
+
+  CHECK(gl30_drv8316_status_word_faults(0u, 0x0908u) == 0x01u,
+        "DRV8316 status-word faults keeps STAT0 fault bit instead of discarding as parity");
+
+  CHECK(gl30_drv8316_status_word_faults(0u, 0x0888u) == 0x80u,
+        "DRV8316 status-word faults preserves STAT0 fault bit at 0x80");
+  CHECK(gl30_drv8316_status_word_faults(1u, 0x0888u) == 0x8800u,
+        "DRV8316 status-word faults preserves STAT1 low-bit3 unchanged");
+  CHECK(gl30_drv8316_status_word_faults(2u, 0x0888u) == 0x00080000u,
+        "DRV8316 status-word faults ignores STAT2 reserved bit7");
+
+  for (uint8_t address = 0u; address < 3u; ++address) {
+    for (uint32_t raw = 0u; raw <= 0xFFFFu; ++raw) {
+      const uint16_t reply = (uint16_t)raw;
+      const uint8_t summary = (uint8_t)(reply >> 8u);
+      uint8_t detail = (uint8_t)reply;
+      if (address == 0u) { detail ^= 0x08u; }
+      if (address == 2u) { detail &= 0x7Fu; }
+      const uint32_t expected = (uint32_t)(summary ^ 0x08u) |
+                               ((uint32_t)detail << (address * 8u));
+      const uint32_t actual = gl30_drv8316_status_word_faults(address, reply);
+      CHECK(actual == expected,
+            "DRV8316 status-word faults keeps literal summary+detail mask across all 16-bit replies");
+    }
+  }
+
+  for (uint8_t bit = 0u; bit < 8u; ++bit) {
+    if (bit == 3u) {
+      continue;
+    }
+    const uint16_t reply = (uint16_t)(((uint16_t)(0x08u | (1u << bit)) << 8u) | 0x08u);
+    const uint32_t actual = gl30_drv8316_status_word_faults(0u, reply);
+    CHECK(actual == (uint32_t)(1u << bit),
+          "DRV8316 status-word faults STAT0 preserves summary bits by 1<<bit");
+  }
+  for (uint8_t bit = 0u; bit < 8u; ++bit) {
+    if (bit == 3u) {
+      continue;
+    }
+    const uint16_t reply = (uint16_t)(((uint16_t)(0x08u | (1u << bit)) << 8u) | 0x00u);
+    const uint8_t summary = (uint8_t)(reply >> 8u);
+    const uint8_t detail = (uint8_t)(reply ^ 0x08u);
+    const uint32_t actual = gl30_drv8316_status_word_faults(0u, reply);
+    CHECK(actual == ((uint32_t)(summary ^ 0x08u) | (uint32_t)detail),
+          "DRV8316 status-word faults preserves STAT0 status bits in summary domain");
+  }
+  for (uint8_t bit = 0u; bit < 8u; ++bit) {
+    if (bit == 3u) {
+      continue;
+    }
+    const uint16_t reply = (uint16_t)(((uint16_t)(0x08u | (1u << bit)) << 8u) | 0x08u);
+    const uint32_t expected = (uint32_t)(1u << bit);
+    const uint32_t actual = gl30_drv8316_status_word_faults(0u, reply);
+    CHECK(actual == expected,
+          "DRV8316 status-word faults STAT0 keeps low-byte 0x08 from generating extra faults");
+  }
+  for (uint8_t bit = 0u; bit < 8u; ++bit) {
+    if (bit == 3u) {
+      continue;
+    }
+    const uint16_t reply = (uint16_t)(((uint16_t)(0x08u | (1u << bit)) << 8u) | 0x00u);
+    const uint32_t actual = gl30_drv8316_status_word_faults(1u, reply);
+    CHECK(actual == (uint32_t)(1u << bit),
+          "DRV8316 status-word faults preserves STAT1 summary bits by 1<<bit");
+    const uint32_t actual2 = gl30_drv8316_status_word_faults(2u, reply);
+    CHECK(actual2 == (uint32_t)(1u << bit),
+          "DRV8316 status-word faults preserves STAT2 summary bits by 1<<bit");
+  }
+  for (uint8_t bit = 0u; bit < 8u; ++bit) {
+    if (bit == 3u) {
+      continue;
+    }
+    const uint16_t reply = (uint16_t)(((uint16_t)0x08u << 8u) | (uint16_t)(1u << bit));
+    const uint8_t summary = (uint8_t)(reply >> 8u);
+    const uint8_t detail = (uint8_t)reply;
+    const uint8_t detail_masked = (uint8_t)(detail & 0x7Fu);
+    const uint32_t expected1 = (uint32_t)(summary ^ 0x08u) | (uint32_t)((uint32_t)detail << 8u);
+    const uint32_t actual = gl30_drv8316_status_word_faults(1u, reply);
+    CHECK(actual == expected1,
+          "DRV8316 status-word faults preserves STAT1 fault and summary bits");
+    const uint32_t expected2 = (uint32_t)(summary ^ 0x08u) |
+                               ((uint32_t)detail_masked << 16u);
+    const uint32_t actual2 = gl30_drv8316_status_word_faults(2u, reply);
+    CHECK(actual2 == expected2,
+          "DRV8316 status-word faults preserves STAT2 fault and summary bits");
+    CHECK((((uint32_t)detail_masked << 16u) == (actual2 & 0x007F0000u)),
+          "DRV8316 status-word faults keeps STAT2 defined low-detail detail bits");
+  }
+
+  {
+    const uint32_t normal0 = gl30_drv8316_status_word_faults(0u, 0x0808u);
+    const uint32_t normal1 = gl30_drv8316_status_word_faults(1u, 0x0800u);
+    const uint32_t normal2 = gl30_drv8316_status_word_faults(2u, 0x0800u);
+    CHECK((normal0 | normal1 | normal2) == 0u, "DRV8316 status-word faults normal OR of STAT0/1/2 is zero");
+
+    const uint32_t stat1_fault = gl30_drv8316_status_word_faults(1u, 0x0801u);
+    const uint32_t stat2_fault = gl30_drv8316_status_word_faults(2u, 0x0802u);
+    CHECK((stat1_fault | stat2_fault) ==
+               (uint32_t)(0x00000100u | 0x00020000u),
+           "DRV8316 status-word faults OR across STAT1 and STAT2 preserves fault bits");
+    CHECK(stat1_fault == 0x00000100u, "DRV8316 status-word faults STAT1 single bit remains lane-local");
+    CHECK(stat2_fault == 0x00020000u, "DRV8316 status-word faults STAT2 single bit remains lane-local");
+  }
+}
+
 static void test_ina228_decode_raw(void) {
   gl30_ina228_sample_t sample = {0};
 
@@ -621,7 +754,8 @@ static void test_foc_behavior(void) {
   state.theta_elec_rad = 0.0f;
   state.i_d_ref_a = 100.0f;
   state.i_q_ref_a = -100.0f;
-  gl30_foc_output_t out = gl30_foc_current_tick_40k(&state, 0.2f, 0.2f, 0.2f, 5.0f);
+  gl30_foc_output_t out =
+      gl30_foc_current_tick(&state, 0.2f, 0.2f, 0.2f, 5.0f, 1.0f / (float)GL30_PWM_HZ, 5.0f);
   CHECK(out.valid, "FOC output valid for finite currents");
   CHECK(out.duty_a >= GL30_TIM1_MIN_DUTY && out.duty_a <= GL30_TIM1_MAX_DUTY,
         "FOC duty A within board macro bounds");
@@ -630,14 +764,15 @@ static void test_foc_behavior(void) {
   CHECK(out.duty_c >= GL30_TIM1_MIN_DUTY && out.duty_c <= GL30_TIM1_MAX_DUTY,
         "FOC duty C within board macro bounds");
 
-  gl30_foc_output_t oc = gl30_foc_current_tick_40k(&state, 3.0f, 3.0f, 3.0f, 12.0f);
+  gl30_foc_output_t oc =
+      gl30_foc_current_tick(&state, 3.0f, 3.0f, 3.0f, 12.0f, 1.0f / (float)GL30_PWM_HZ, 12.0f);
   CHECK(oc.overcurrent, "FOC overcurrent flag set");
   CHECK(!oc.valid, "FOC overcurrent path is not valid");
 
   state.i_d_ref_a = 25.0f;
   state.i_q_ref_a = -25.0f;
   for (int i = 0; i < 200; i++) {
-    (void)gl30_foc_current_tick_40k(&state, 0.0f, 0.0f, 0.0f, 12.0f);
+    (void)gl30_foc_current_tick(&state, 0.0f, 0.0f, 0.0f, 12.0f, 1.0f / (float)GL30_PWM_HZ, 12.0f);
   }
   CHECK(isfinite(state.integrator_d_v) && isfinite(state.integrator_q_v), "FOC integrators remain finite");
   const float voltage_limit = 0.57735026918962576451f * 12.0f * 0.95f;
@@ -654,7 +789,8 @@ static void test_foc_voltage_extreme_request_limits_pwm_window(void) {
   state.i_d_ref_a = 250.0f;
   state.i_q_ref_a = -250.0f;
 
-  gl30_foc_output_t out = gl30_foc_current_tick_40k(&state, 0.01f, 0.02f, -0.01f, 12.0f);
+  gl30_foc_output_t out =
+      gl30_foc_current_tick(&state, 0.01f, 0.02f, -0.01f, 12.0f, 1.0f / (float)GL30_PWM_HZ, 12.0f);
   CHECK(isfinite(out.duty_a) && isfinite(out.duty_b) && isfinite(out.duty_c),
         "FOC duty values are finite under extreme command");
   CHECK(out.duty_a >= GL30_TIM1_MIN_DUTY && out.duty_a <= GL30_TIM1_MAX_DUTY,
@@ -865,6 +1001,7 @@ static void test_control_ready(void) {
 int main(void) {
   test_protocol_vectors();
   test_drv8316_frames();
+  test_drv8316_status_word_faults_regression();
   test_ina228_decode_raw();
   test_veml7700_counts_to_lux();
   test_factory_encoder_init_and_snapshot();

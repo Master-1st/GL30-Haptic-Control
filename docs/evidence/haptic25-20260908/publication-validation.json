@@ -1,0 +1,220 @@
+{
+  "Utc": "2026-09-08T05:06:21.428Z",
+  "Result": "ISOLATED_PUBLICATION_VALIDATION_PASS",
+  "Firmware": "20260907_HAPTIC25",
+  "FirmwareSourceChangedThisExtension": false,
+  "HardwareFlashedThisExtension": false,
+  "SourceInputs": 37,
+  "ExcludedGeneratedProbe": 1,
+  "Checks": [
+    {
+      "Name": "host-debug",
+      "ExitCode": 0,
+      "Log": "host-debug.log",
+      "LogSHA256": "F85EE62899A942F409DD0575DD7949742E96E2979DDB4082374B572E440E1A53"
+    },
+    {
+      "Name": "host-sanitizer",
+      "ExitCode": 0,
+      "Log": "host-sanitizer.log",
+      "LogSHA256": "A787EF638E2ED287C2EA3139D3BCCB666D5C4911388352767D5B37C0BA2DECA1"
+    },
+    {
+      "Name": "host-release-lto",
+      "ExitCode": 0,
+      "Log": "host-release-lto.log",
+      "LogSHA256": "7720AC0C843D37318FC5320DA6A2874FFB6384073FDCBB3D09EC948F997C7877"
+    },
+    {
+      "Name": "pnpm-install",
+      "ExitCode": 0,
+      "Log": "pnpm-install.log",
+      "LogSHA256": "C74E1D6010CF1433C3ADD6D8A694712991DF633A0528B0B7707B0419D9818675"
+    },
+    {
+      "Name": "pnpm-verify",
+      "ExitCode": 0,
+      "Log": "pnpm-verify.log",
+      "LogSHA256": "E52B74B1434927450E87C238E3CBF0B9424564C709E7FDFD2CABC5164837E22D"
+    },
+    {
+      "Name": "viewer-check",
+      "ExitCode": 0,
+      "Log": "viewer-check.log",
+      "LogSHA256": "76A26D84DA9E3FA98883F4829458C4A92E99C8B0F0C68FDCE8261CDE037D4617"
+    },
+    {
+      "Name": "keil-NUCLEO_G474RE_FOC",
+      "ExitCode": 0,
+      "Log": "keil-NUCLEO_G474RE_FOC.log",
+      "LogSHA256": "78E30D8537A7F907179D44095EBFBD4EBCB66D5A23653282F764D7C000238766"
+    },
+    {
+      "Name": "keil-GL30_AMOLED_V7",
+      "ExitCode": 0,
+      "Log": "keil-GL30_AMOLED_V7.log",
+      "LogSHA256": "CBD1E6DEEF01EAE3B36F9A692E4114D33A867E970F35450F167D935C28416A36"
+    }
+  ],
+  "SourceIdentity": "PASS; 37 UTF8/LF project inputs",
+  "Host": {
+    "Debug": "7/7",
+    "Sanitizer": "7/7 ASan+UBSan",
+    "ReleaseLTO": "7/7; custom CHECK remains enabled"
+  },
+  "TypeScript": {
+    "TypecheckWorkspaces": 4,
+    "Tests": "21/21",
+    "E2E": "SIM_ONLY_PASS",
+    "GoldenVectorsDiff": "NONE"
+  },
+  "Viewer": "18/18; no serial/UI opened",
+  "Keil": {
+    "NUCLEO": {
+      "Errors": 0,
+      "Warnings": 0,
+      "BinarySHA256": "B98161DB5EDAE02EBCE29F0F645405C2DA73CC1B99387A67D55181E98964DFB7",
+      "MatchesTestedImage": true
+    },
+    "CET6": {
+      "Errors": 0,
+      "Warnings": 0,
+      "BinarySHA256": "925EDB033238AD7A0CECAD502EB1983FE5070D79CA63B55600B2BAFBBBFC80DF",
+      "HardwareFlashed": false,
+      "HardwareValidated": false
+    }
+  },
+  "ToolGuards": {
+    "Utc": "2026-09-08T05:03:30.371053+00:00",
+    "Result": "OFFLINE_TOOL_GUARDS_PASS",
+    "HardwareAccess": false,
+    "Checks": [
+      {
+        "Name": "identity-original",
+        "Result": "PASS",
+        "Accepted": true
+      },
+      {
+        "Name": "identity-crlf",
+        "Result": "PASS",
+        "Accepted": true
+      },
+      {
+        "Name": "identity-wrong-image",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "identity-wrong-format",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "identity-missing-input",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "identity-duplicate-input",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "identity-outside-tree",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "identity-wrong-source-hash",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "identity-altered-source",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "read_frozen_capture.py refuses Python -O",
+        "Result": "PASS",
+        "Accepted": false
+      },
+      {
+        "Name": "audit_frozen_captures.py refuses Python -O",
+        "Result": "PASS",
+        "Accepted": false
+      }
+    ]
+  },
+  "PowerShell": {
+    "ParsedScripts": [
+      {
+        "Result": "PARSE_PASS",
+        "Name": "evm_console.ps1"
+      },
+      {
+        "Result": "PARSE_PASS",
+        "Name": "test_bare_board.ps1"
+      },
+      {
+        "Result": "PARSE_PASS",
+        "Name": "test_encoder_off.ps1"
+      },
+      {
+        "Result": "PARSE_PASS",
+        "Name": "test_watchdog.ps1"
+      },
+      {
+        "Result": "PARSE_PASS",
+        "Name": "Open_Encoder_Viewer.ps1"
+      },
+      {
+        "Result": "PARSE_PASS",
+        "Name": "test_extended_h25.ps1"
+      },
+      {
+        "Result": "PARSE_PASS",
+        "Name": "test_off_transport_h25.ps1"
+      }
+    ],
+    "Result": "POWERSHELL_PARSE_AND_EXACT_PREFLIGHT_PASS",
+    "PreflightReachedEnd": true,
+    "HardwareAccess": false
+  },
+  "GitHubCI": "Validated separately by the pull request checks; not claimed by this local record",
+  "CompletedUtc": "2026-09-08T05:09:15.520Z",
+  "Archive": {
+    "Result": "ZIP_ROUNDTRIP_AND_INDEPENDENT_AUDIT_PASS",
+    "DistributedFiles": 582,
+    "ExtendedCaptures": 37,
+    "BaselineCaptures": 21,
+    "LeaseFaultRetained": 4,
+    "BytePreservedTypes": [
+      "BIN",
+      "MAP",
+      "RAM",
+      "CSV"
+    ],
+    "Redactions": "Local filesystem paths in JSON/text only; diagnostic values unchanged",
+    "Assets": [
+      {
+        "Name": "gl30-haptic25-evidence-20260908.zip",
+        "Bytes": 2936593,
+        "SHA256": "3160C84EDDA4F9214E40DC74E891D846796C596FDD76B9A0F620294AABC1CBDF"
+      },
+      {
+        "Name": "NUCLEO_G474RE_FOC_HAPTIC25.bin",
+        "Bytes": 60136,
+        "SHA256": "B98161DB5EDAE02EBCE29F0F645405C2DA73CC1B99387A67D55181E98964DFB7"
+      }
+    ]
+  },
+  "FinalHardwareRecord": "final-off.json, 2026-09-08T04:35:25.9443718Z; no hardware access during publication",
+  "KnownCorrections": [
+    "Original off-transport-1 PASS was insufficient coverage; preserved and superseded by independently counted off-transport-2",
+    "Original 38-entry source list included one generated CMake probe; canonical project identity has 37 entries with exclusion provenance",
+    "A literal typo introduced while preparing the new offline identity checker failed before host tests; fixed and verified on Windows/Linux plus negative fixtures"
+  ],
+  "PrivacyScan": "No personal-home/token/private-key patterns in exact source publication candidates or selected archive text; not a guarantee against every possible secret",
+  "PublicationScope": "Firmware, bench tools/tests, evidence/docs and CI only. Unrelated CAD/mechanical changes and local build/output trees are not committed."
+}

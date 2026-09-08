@@ -17,7 +17,7 @@ The current product target is **fully wireless force feedback**: a 3S battery se
 ![GL30 Haptic Control concept render](hardware/cad/out/CONCEPT_FIT_DEFAULTS/V7_CONCEPT_FIT_DEFAULTS_isometric.png)
 
 > [!IMPORTANT]
-> **Current reality:** the no-hardware stack builds, tests, and simulates. The STM32 FOC, haptic primitives, safety path, telemetry, and fault trace exist at code level. The GL30 factory-encoder interface still needs written vendor confirmation, so the real motor is intentionally prevented from producing torque. This repository does not yet claim physical closed-loop or measured haptic performance.
+> **Current reality:** the no-hardware stack builds, tests, and simulates. The NUCLEO-G474RE + TI DRV8316REVM + AS5048A bench has now passed bounded physical alignment, bidirectional current pulses up to ±100 mA, eight haptic-mode smoke tests, timed shutdown, active STOP and host-lease expiry. See the [September 8 bench acceptance](docs/bench-validation-20260908-haptic25-extended-cn.md). This is not measured tactile/torque, thermal, regeneration, external fault-chain or complete-product acceptance. The separate CET6 product port still uses `factory_encoder_pending` and refuses arm.
 
 Status shorthand: ✅ available now · 🧩 low-level code exists, hardware pending · 🛠 explicitly planned, not implemented · 🔌 external host/network/service required · ❌ unsupported or not promised.
 

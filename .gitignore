@@ -108,3 +108,7 @@ hardware/cad/out/**/*.stl
 Thumbs.db
 .idea/
 .vscode/
+
+# Local hardware evidence and experiment scratch; publish reviewed release assets only
+/output/
+/tmp/

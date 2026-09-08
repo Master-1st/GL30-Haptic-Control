@@ -1,7 +1,9 @@
 # GL30 AMOLED V7 当前架构
 
-> 当前等级：`WIRELESS_POWER_DEFAULT + CAD_CHECKED + CUBEMX_GENERATED + KEIL_AC6_BUILD_ONLY + SIM_ONLY`。
-> 当前阻塞：CubeMars 工厂编码器接口、安装面、出线、通孔和载荷数据未公开。
+> **当前状态（2026-09-08 UTC）：`BOUNDED_BENCH_ACCEPTANCE_PASS`，产品仍为 pre-alpha。**
+> NUCLEO-G474RE + TI DRV8316REVM + GL30/AS5048A 的 H25 已通过受限 ALIGN、双向 IQ、八模式 smoke 和新增状态机/通信压力回归，见 [扩展验收](bench-validation-20260908-haptic25-extended-cn.md)。
+
+9 月 6 日静态 Buck 状态和 H8/H10 中间失败属于历史，不再作为“当前禁止所有台架输出”的状态；历史证据没有改写。台架通过不放行 CET6 端口、无线功率路径、AMOLED 整机、手感计量、热或回灌，也不替代外部 nFAULT→BKIN 整链实测。供电设定和 H25 保护阈值未更改；最终硬件关断证据见报告。
 
 ## 1. 活动目录
 
@@ -48,13 +50,13 @@ MOTOR_BUS -> 独立比较器 -> 制动 MOSFET/电阻
           -> 过压关断 -> TIM1 BKIN
 ```
 
-`SYS` 是首板唯一默认电机输入路径，不同时保留两套生产实现；它仍是 `HARDWARE_REQUIRED`，必须与独立电池母线做一次脉冲负载、充电终止和回灌 A/B。制动耗能位于隔离后的 `MOTOR_BUS`，在主 MCU 关机或电机高侧开关断开后仍要能处理反拖。Waveshare 模块的 1S 电池口不接产品电池。
+`SYS` 是首板默认电机输入路径，不同时保留两套生产实现；它仍是 `HARDWARE_REQUIRED`，必须与独立电池母线做一次脉冲负载、充电终止和回灌 A/B。制动耗能位于隔离后的 `MOTOR_BUS`，在主 MCU 关机或电机高侧开关断开后仍要能处理反拖。Waveshare 模块的 1S 电池口不接产品电池。
 
 当前机械参考为窄型 3S 800 mAh 包，不承诺续航。初始充电目标为 12.45 V/0.4 A，最低运行目标为 9.0 V；BMS、电芯、充电阈值、回灌阈值和正式容量均是 `PCB_HOLD + HARDWARE_REQUIRED`。
 
 ## 4. STM32 当前安全链
 
-厂家回复前：
+以下门禁属于尚未完成实板端口的 **产品 CET6 工程**；不是说 AS5048A 型号未知，也不表示 NUCLEO 联调驱动尚未实现：
 
 ```text
 factory_encoder_pending
@@ -69,13 +71,13 @@ ACTIVE 后编码器 invalid/stale
   -> TIM1 MOE off + DRV8316 safe off
 ```
 
-厂家确认后只实现一种真实接口，不同时维护 SPI/ABI/PWM 多后端，不保留 MT6835 路径。
+产品硬件端口完成后仅接入已确定的 AS5048A SPI 驱动，不同时维护 ABI/PWM 多后端，不恢复 MT6835 路径。台架按 NUCLEO 工程既有联调流程推进，不等待所有未来产品载荷资料齐备。
 
 其余可复用控制链：
 
 ```text
 三相电流 ADC 同步采样
-  -> 40 kHz FOC 纯函数/调度
+  -> 20 kHz FOC 首测基线（NUCLEO+TI EVM）
   -> TIM1 互补 6-PWM
   -> DRV8316
 
@@ -83,28 +85,34 @@ HARD_FAULT_N -> TIM1 BKIN -> 异步关断
 ESP32 <-> USART3 DMA <-> 当前二进制协议
 ```
 
-唯一 STM32 工程由 STM32CubeMX 6.18.1 生成 MDK-ARM，外设和中断使用 LL，Keil ARMCLANG 6.21 clean rebuild 已达到 `0 Error(s), 0 Warning(s)`。这只证明工程可编译链接，不证明 MCU 已启动或实时截止期已满足。
+产品 CET6 工程与 NUCLEO RET6 联调工程使用同一控制内核、不同硬件端口，均由 STM32CubeMX 6.18.1 生成 MDK-ARM，外设和中断使用 LL。Keil ARMCLANG 6.21 已有两者的 0 错误/0 警告构建记录。NUCLEO 另有烧录回读、运行及故障注入证据；已对 TI 做一次带电静态配置读回，但故障门未过，电机三相断开，未带转。详见[联调验收记录](../firmware-stm32/bench/NUCLEO_G474RE_FOC/TEST_RESULT_CN.md)。产品 40 kHz、EVM 20 kHz，不能互相代替参数或验收。
 
 ## 5. 当前冻结与 HOLD
 
 | 项目 | 当前结论 |
 | --- | --- |
-| 产品电机方向 | GL30 KV290 工厂编码器版，已冻结 |
+| 产品电机方向 | GL30 工厂编码器版实物已到；7 极对和 `Kt=0.038 N·m/A` 作初值；官方网页与到货空载点对应 `255 rpm/V`，`KV290` 视为型号标签，不强制要求先测 Ke 作为首测前置条件 |
 | 自制 MT6835 磁环 | 已从活动产品树删除 |
-| 编码器固件接口 | `PENDING_VENDOR`，失效安全，可构建 |
-| 编码器电气/连接器/供电 | `PCB_HOLD` |
+| 编码器固件接口 | `AS5048A + SPI`；NUCLEO 联调已有真实驱动；产品后端 `PENDING_VENDOR` 保留至产品硬件端口完成验证 |
+| 编码器电气/连接器/供电 | 用户确认标称 5 V、线色、芯片+两电容；实际电平/通信待测，连接器料号待核 |
 | 外壳/旋环默认几何 | `CONCEPT_FIT_DEFAULTS` |
-| 无线电源拓扑 | `3S + BQ25798 SYS + 外部隔离 + 独立 MOTOR_BUS 制动`，首板默认 |
+| 无线电源拓扑 | `3S + BQ25798 SYS + 外部隔离 + 独立 MOTOR_BUS 制动`，候选工程基线；台架先用外部电源 |
 | 电池容量、BMS、电芯与充电参数 | `PCB_HOLD + HARDWARE_REQUIRED` |
 | SYS 电机路径的脉冲/回灌能力 | `HARDWARE_REQUIRED`；与独立 BAT 轨 A/B 后只保留通过者 |
 | 四个普通键/灯条/电源键/Type-C | 左右侧各两键、正面底部嵌入式灯条、后置 PWR/QON、单后置 Type-C，概念几何已固定 |
 | 电机安装面、出线、中心孔、轴承 | `MECHANICAL_HOLD` |
-| 实物 FOC/热/手感 | `HARDWARE_REQUIRED` |
+| 实物 FOC/热/手感 | 电机已到，可做被动测试；带转仍需通过 TI / NUCLEO 接线与 EVM 硬件闭环，当前为 `HARDWARE_REQUIRED` |
 
 ## 6. 事实源优先级
 
-1. CubeMars/Waveshare/ST/TI 的正式资料与厂家书面回复。
-2. `firmware-stm32/config/board_config.h` 和当前生产代码。
+**电路专项约束（用户要求，2026-09-05）：电路结论只能依据对应器件与评估板的官方手册、官方原理图。** 记录型号、文档编号/版本、章节或表格、适用条件；资料不足时标记待厂家确认，不以其他型号、第三方教程、商家介绍或 AI 回答替代。千问、DeepSeek 等仅协助核查，不作为改线、选电平、解释故障或解除保护的依据。手册规定、实测记录、待验证假设必须分开；软件通过不代表实板通过。
+
+该约束已同步写入[主设计 MD](G:/Agent/GL30_AMOLED_V7_Product_Edition/design/reference/current/GL30_AMOLED_V7_Product_Edition_Design_Manual.md)开头，不提升版本。当前台架按 TI DRV8316 Rev B、DRV8316REVM SLVUBZ9B、ams AS5048 DS000298 v1-11、ST UM2505/MB1367 对应资料核对；实际波形和读数另见[联调验收记录](../firmware-stm32/bench/NUCLEO_G474RE_FOC/TEST_RESULT_CN.md)。
+
+1. CubeMars/Waveshare/ST/TI/ams OSRAM 的对应官方手册、官方原理图；厂家书面回复作为待核验补充，不替代器件电气限制。
+2. 对应硬件端口的当前代码/配置；EVM 操作参照 `firmware-stm32/bench/NUCLEO_G474RE_FOC/README_CN.md`，产品板参照 `firmware-stm32/config/board_config.h`。
 3. `hardware/cad/v7_params.py` 与几何报告。
 4. `protocol/schema/protocol-v1.md` 与金样。
 5. 当前 V7 手册；若与官方资料冲突，以核对后的官方事实和当前工程为准。
+
+本轮台架覆盖与推进边界见 [H25 扩展验收](bench-validation-20260908-haptic25-extended-cn.md)。

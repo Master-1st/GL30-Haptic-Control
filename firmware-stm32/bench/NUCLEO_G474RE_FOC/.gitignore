@@ -1,0 +1,11 @@
+.mxproject
+MXTmpFiles/
+MDK-ARM/NUCLEO_G474RE_FOC/
+MDK-ARM/RTE/
+MDK-ARM/DebugConfig/
+MDK-ARM/*.uvguix.*
+MDK-ARM/*.uvoptx
+!MDK-ARM/NUCLEO_G474RE_FOC.uvoptx
+
+# One-machine CubeMX launch script (contains local absolute paths)
+generate_cube.script
