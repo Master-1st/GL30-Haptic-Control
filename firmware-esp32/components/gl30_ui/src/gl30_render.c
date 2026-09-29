@@ -774,132 +774,182 @@ static void settings_card(int y,const char *label,const char *value,bool selecte
         text(368-w,y+8,value,gl30_font_body,selected?accent:MUTED);
     }
 }
-static void menu_disc(float x,float y,float radius,uint32_t c) {
-    /* The generic FilledEllipse searches from radius for every scanline.
-     * raster_disc keeps a monotonic edge cursor, which matters when eight
-     * perspective menu discs are repainted every animation frame. */
-    raster_disc(x,y,radius,rgb(c));
-}
-static const float oct_sin[8]={0.0f,0.70710678f,1.0f,0.70710678f,0.0f,-0.70710678f,-1.0f,-0.70710678f};
-static const float oct_cos[8]={1.0f,0.70710678f,0.0f,-0.70710678f,-1.0f,-0.70710678f,0.0f,0.70710678f};
-/* Shared flat icons use midpoint arcs/Bresenham strokes at every size. They
- * keep the same geometry on app pages and throughout the carousel without
- * read-modify-write AA traffic to the PSRAM framebuffer. */
-static int menu_stroke_count(float scale) {
-    /* Match the approved flat icon references: bold foreground outlines,
-     * medium side outlines, and one-pixel rear silhouettes. */
-    return scale >= 3.40f ? 4 : scale >= 1.85f ? 2 : 1;
-}
-static void menu_fast_line(float x0,float y0,float x1,float y1,float scale,uint32_t c) {
-    int x0i=(int)lroundf(x0+offset_x),y0i=(int)lroundf(y0);
-    int x1i=(int)lroundf(x1+offset_x),y1i=(int)lroundf(y1);
-    int count=menu_stroke_count(scale);
-    OLED_SetColor(rgb(c),0);
-    int first=-(count/2);
-    if(abs(x1i-x0i)>=abs(y1i-y0i)) {
-        for(int n=0;n<count;n++) { int o=first+n; OLED_DrawLine((int16_t)x0i,(int16_t)(y0i+o),(int16_t)x1i,(int16_t)(y1i+o)); }
-    } else {
-        for(int n=0;n<count;n++) { int o=first+n; OLED_DrawLine((int16_t)(x0i+o),(int16_t)y0i,(int16_t)(x1i+o),(int16_t)y1i); }
+/* One rounded duotone icon family, in a 24-unit design grid. All sizes use
+ * the same paths; depth affects color only. White structure + one app accent
+ * replaces the old multicolored discs, dark borders and ambiguous capsule.
+ * Filled spans and connected arc strips keep the icon path out of the slow generic
+ * per-pixel distance loop. No allocation, bitmap resampling, or frame cache. */
+static void icon_segment(float x0,float y0,float x1,float y1,float width,uint32_t color)
+{
+    float dx=x1-x0,dy=y1-y0,length=sqrtf(dx*dx+dy*dy),half=width*0.5f;
+    if(length>0.01f) {
+        float nx=-dy*half/length,ny=dx*half/length;
+        int16_t ax=(int16_t)lroundf(x0+nx+offset_x),ay=(int16_t)lroundf(y0+ny);
+        int16_t bx=(int16_t)lroundf(x1+nx+offset_x),by=(int16_t)lroundf(y1+ny);
+        int16_t cx=(int16_t)lroundf(x1-nx+offset_x),cy=(int16_t)lroundf(y1-ny);
+        int16_t dxp=(int16_t)lroundf(x0-nx+offset_x),dyp=(int16_t)lroundf(y0-ny);
+        OLED_SetColor(rgb(color),0);
+        OLED_DrawFilledTriangle(ax,ay,bx,by,cx,cy);
+        OLED_DrawFilledTriangle(ax,ay,cx,cy,dxp,dyp);
     }
+    raster_disc(x0,y0,half,rgb(color));
+    raster_disc(x1,y1,half,rgb(color));
 }
-static void menu_fast_arc(float x,float y,float radius,float start,float sweep,float scale,uint32_t c) {
-    int count=menu_stroke_count(scale);
-    int cx=(int)lroundf(x+offset_x),cy=(int)lroundf(y),base=(int)lroundf(radius);
-    int a0=(int)lroundf(start-90.0f),a1=(int)lroundf(start+sweep-90.0f);
-    OLED_SetColor(rgb(c),0);
-    int first=-(count/2);
-    for(int n=0;n<count;n++) {
-        int o=first+n;
-        int r=base+o;
-        if(r<=0) continue;
-        if(sweep>=359.5f) OLED_DrawCircle((int16_t)cx,(int16_t)cy,(uint16_t)r);
-        else OLED_DrawArc((int16_t)cx,(int16_t)cy,(uint16_t)r,(int16_t)a0,(int16_t)a1);
+static void icon_curve(float x,float y,float radius,float start,float sweep,
+                       float width,uint32_t color)
+{
+    if(sweep>=359.5f) {
+        raster_full_ring(x,y,radius,width,rgb(color));
+        return;
     }
+    /* Fill a connected annular strip: adjacent midpoint circles leave
+     * pinholes on diagonals when stacked to make a thick arc. Chord sagitta
+     * stays below 0.2 px; trig is evaluated per arc, never per pixel. */
+    float start_rad=start*0.01745329252f,sweep_rad=sweep*0.01745329252f;
+    float outer=radius+width*0.5f,inner=radius-width*0.5f;
+    if(inner<0) inner=0;
+    float step=sqrtf(1.6f/(outer>1?outer:1));
+    if(step>0.35f) step=0.35f;
+    int segments=(int)ceilf(sweep_rad/step);
+    if(segments<1) segments=1;
+    float delta=sweep_rad/segments,cs=cosf(delta),sn=sinf(delta);
+    float u=sinf(start_rad),v=-cosf(start_rad);
+    float end_u=sinf(start_rad+sweep_rad),end_v=-cosf(start_rad+sweep_rad);
+    OLED_SetColor(rgb(color),0);
+    for(int i=0;i<segments;i++) {
+        float nu=i+1==segments?end_u:u*cs-v*sn;
+        float nv=i+1==segments?end_v:v*cs+u*sn;
+        int16_t ax=(int16_t)lroundf(x+outer*u+offset_x),ay=(int16_t)lroundf(y+outer*v);
+        int16_t bx=(int16_t)lroundf(x+outer*nu+offset_x),by=(int16_t)lroundf(y+outer*nv);
+        int16_t cx=(int16_t)lroundf(x+inner*nu+offset_x),cy=(int16_t)lroundf(y+inner*nv);
+        int16_t dx=(int16_t)lroundf(x+inner*u+offset_x),dy=(int16_t)lroundf(y+inner*v);
+        OLED_DrawFilledTriangle(ax,ay,bx,by,cx,cy);
+        OLED_DrawFilledTriangle(ax,ay,cx,cy,dx,dy);
+        u=nu;v=nv;
+    }
+    raster_disc(x+radius*sinf(start_rad),y-radius*cosf(start_rad),width*0.5f,rgb(color));
+    raster_disc(x+radius*end_u,y+radius*end_v,width*0.5f,rgb(color));
 }
-static void menu_flat_box(float x,float y,float left,float top,float width,float height,
-                          float radius,float scale,uint32_t c) {
-    int w=(int)lroundf(width*scale),h=(int)lroundf(height*scale);
-    int r=(int)lroundf(radius*scale);
-    if(w<1) w=1;
-    if(h<1) h=1;
-    if(r<1) r=1;
-    OLED_SetColor(rgb(c),0);
-    OLED_DrawRBox((int16_t)lroundf(x+left*scale+offset_x),
-                  (int16_t)lroundf(y+top*scale),(uint16_t)w,(uint16_t)h,(uint16_t)r);
+static void icon_box(float x,float y,float w,float h,float r,float width,uint32_t color)
+{
+    icon_segment(x+r,y,x+w-r,y,width,color);
+    icon_segment(x+w,y+r,x+w,y+h-r,width,color);
+    icon_segment(x+w-r,y+h,x+r,y+h,width,color);
+    icon_segment(x,y+h-r,x,y+r,width,color);
+    icon_curve(x+r,y+r,r,270,90,width,color);
+    icon_curve(x+w-r,y+r,r,0,90,width,color);
+    icon_curve(x+w-r,y+h-r,r,90,90,width,color);
+    icon_curve(x+r,y+h-r,r,180,90,width,color);
 }
-static void menu_flat_triangle(float x,float y,float x0,float y0,float x1,float y1,
-                               float x2,float y2,float scale,uint32_t c) {
-    OLED_SetColor(rgb(c),0);
-    OLED_DrawFilledTriangle((int16_t)lroundf(x+x0*scale+offset_x),(int16_t)lroundf(y+y0*scale),
-                            (int16_t)lroundf(x+x1*scale+offset_x),(int16_t)lroundf(y+y1*scale),
-                            (int16_t)lroundf(x+x2*scale+offset_x),(int16_t)lroundf(y+y2*scale));
-}
-static void app_icon(int app,float x,float y,float diameter_px,float depth) {
-    /* Longest geometric extent of each design, before raster rounding. Two
-     * pixels reserve the outer stroke/rounding margin, so size refers to the
-     * icon itself rather than the removed circular tile around it. */
-    static const float span[GL30_APP_COUNT]={45.0f,42.0f,45.0f,44.0f,46.0f,42.8f,40.4f,40.0f,39.0f};
-    float scale=(diameter_px-2.0f)/span[app];
-    float light=0.46f+0.54f*depth;
-    uint32_t dark=dim(0x202a31,0.55f+0.45f*depth);
-    uint32_t blue=dim(0x279cf4,light), yellow=dim(0xffc43d,light);
-    uint32_t red=dim(0xf05b5f,light);
-    uint32_t peach=dim(0xffc99f,light), gray=dim(0x8795a5,light);
-    uint32_t purple=dim(0xb5a1ff,light), white=dim(0xf7f5ef,0.72f+0.28f*depth);
-#define MLC(a,b,d,e,col) menu_fast_line(x+(a)*scale,y+(b)*scale,x+(d)*scale,y+(e)*scale,scale,(col))
-#define MAC(a,b,r,start,sweep,col) menu_fast_arc(x+(a)*scale,y+(b)*scale,(r)*scale,start,sweep,scale,(col))
-#define MDC(a,b,r,col) menu_disc(x+(a)*scale,y+(b)*scale,(r)*scale,(col))
-#define MBC(a,b,w,h,r,col) menu_flat_box(x,y,(a),(b),(w),(h),(r),scale,(col))
-#define MTC(x0,y0,x1,y1,x2,y2,col) menu_flat_triangle(x,y,(x0),(y0),(x1),(y1),(x2),(y2),scale,(col))
-    /* One definition for all scales: no depth threshold swaps silhouettes,
-     * hands, gear teeth, or the calendar date during a menu rotation. */
+static void app_icon(int app,float x,float y,float diameter_px,float depth)
+{
+    if(app<0 || app>=GL30_APP_COUNT || diameter_px<4.0f) return;
+    /* Extent includes the common 1.7-unit stroke; two screen pixels reserve
+     * rounding/AA. Diameter continues to mean visible glyph, not a tile. */
+    static const float extent[GL30_APP_COUNT]={21.7f,20.7f,21.7f,21.7f,23.2f,22.8f,20.72f,21.7f,21.9f};
+    static const float origin[GL30_APP_COUNT][2]={{12,12},{12.5f,12},{12,12},{12,12},
+        {11.75f,10},{12,11.45f},{12,12},{12,12},{12,10.9f}};
+    float scale=(diameter_px-2.0f)/extent[app];
+    float width=1.7f*scale;
+    if(width<1.5f) width=1.5f;
+    depth=bound(depth,0.0f,1.0f);
+    uint32_t ink=dim(0xe6edf3,0.62f+0.38f*depth);
+    uint32_t accent=dim(app_colors[app],0.72f+0.28f*depth);
+#define IX(a) (x+((a)-origin[app][0])*scale)
+#define IY(b) (y+((b)-origin[app][1])*scale)
+#define IL(a,b,c,d,col) icon_segment(IX(a),IY(b),IX(c),IY(d),width,(col))
+#define IA(a,b,r,start,sweep,col) icon_curve(IX(a),IY(b),(r)*scale,(start),(sweep),width,(col))
+#define IB(a,b,w,h,r,col) icon_box(IX(a),IY(b),(w)*scale,(h)*scale,(r)*scale,width,(col))
+#define ID(a,b,r,col) raster_disc(IX(a),IY(b),(r)*scale,rgb(col))
+#define IT(a,b,c,d,e,f,col) do { OLED_SetColor(rgb(col),0); \
+    OLED_DrawFilledTriangle((int16_t)lroundf(IX(a)+offset_x),(int16_t)lroundf(IY(b)), \
+        (int16_t)lroundf(IX(c)+offset_x),(int16_t)lroundf(IY(d)), \
+        (int16_t)lroundf(IX(e)+offset_x),(int16_t)lroundf(IY(f))); } while(0)
     switch(app) {
     case GL30_TIMER:
-        MBC(-6,-25,12,7,3,dark); MBC(-5,-24,10,5,2,blue);
-        MDC(0,1,19,dark); MDC(0,1,17,blue); MDC(0,1,13,white); MDC(0,1,10,yellow);
-        MDC(0,1,2.2f,white); MLC(0,1,7,-7,white); break;
+        /* Countdown is an hourglass, deliberately not another stopwatch. */
+        IL(5,2,19,2,ink); IL(5,22,19,22,ink);
+        IL(6,3,6,6,ink); IL(6,6,18,18,ink); IL(18,18,18,21,ink);
+        IL(18,3,18,6,ink); IL(18,6,6,18,ink); IL(6,18,6,21,ink);
+        IT(8.7f,6,15.3f,6,12,9.3f,accent);
+        IT(8.3f,19,15.7f,19,12,15.3f,accent);
+        break;
     case GL30_VOLUME:
-        MBC(-19,-10,10,20,4,dark); MTC(-13,0,7,-16,7,16,dark);
-        MBC(-17,-8,7,16,3,red); MTC(-12,0,4,-12,4,12,red);
-        MAC(4,0,11,50,80,gray); MAC(4,0,19,44,92,gray); break;
+        IL(3,9,7.5f,9,ink); IL(7.5f,9,13,4.5f,ink);
+        IL(13,4.5f,13,19.5f,ink); IL(13,19.5f,7.5f,15,ink);
+        IL(7.5f,15,3,15,ink); IL(3,15,3,9,ink);
+        IA(12,12,6,50,80,accent); IA(12,12,10,50,80,accent);
+        break;
     case GL30_STOPWATCH:
-        MBC(-6,-24,12,7,3,dark); MBC(-5,-23,10,5,2,gray);
-        MBC(12,-15,6,8,2,dark); MBC(13,-14,4,6,1,gray);
-        MDC(0,2,19,dark); MDC(0,2,16,gray); MDC(0,2,13,white);
-        MDC(0,2,2.0f,red); MLC(0,2,0,-7,red); MLC(0,2,8,5,red); break;
+        IL(9,2,15,2,ink); IL(12,2,12,5,ink);
+        IL(18.7f,5.2f,20.5f,3.4f,ink);
+        IA(12,13.5f,8.5f,0,360,ink);
+        IL(12,13.5f,12,8.5f,accent); ID(12,13.5f,1.0f,accent);
+        break;
     case GL30_ALARM:
-        MDC(-12,-16,7,dark); MDC(-12,-16,5,gray); MDC(12,-16,7,dark); MDC(12,-16,5,gray);
-        MDC(0,1,18,dark); MDC(0,1,15,yellow);
-        MLC(-10,15,-14,21,dark); MLC(10,15,14,21,dark);
-        MDC(0,1,2.0f,dark); MLC(0,1,-7,-7,dark); MLC(0,1,8,-4,dark); break;
+        IA(5,5,3,270,140,ink); IA(19,5,3,310,140,ink);
+        IA(12,12,7.5f,0,360,ink);
+        IL(7,19,5,22,ink); IL(17,19,19,22,ink);
+        IL(12,12,12,8,accent); IL(12,12,16,14,accent);
+        break;
     case GL30_WEATHER:
-        MDC(-9,-9,11,dark); MDC(-9,-9,8.5f,yellow);
-        MLC(-9,-24,-9,-19,yellow); MLC(-9,1,-9,6,yellow); MLC(-24,-9,-19,-9,yellow); MLC(1,-9,6,-9,yellow);
-        MDC(5,7,13,dark); MBC(-13,7,35,13,6,dark);
-        MDC(5,7,10,blue); MBC(-11,9,31,9,4,blue); break;
+        /* Sun behind one continuous cloud outline, not overlapping discs. */
+        IA(7,7,3.2f,215,245,accent);
+        IL(7,1,7,2,accent); IL(1,7,2,7,accent);
+        IL(2.1f,2.1f,3.0f,3.0f,accent); IL(11,3,12,2,accent);
+        IA(14,12,5,270,180,ink); IA(19,15.5f,3.5f,0,180,ink);
+        IL(19,19,6,19,ink); IA(6,15,4,180,180,ink); IL(6,11,9,11,ink);
+        break;
     case GL30_FEEL:
-        MBC(-8,-21,16,32,8,dark); MBC(-5.5f,-18,11,27,5.5f,peach);
-        MLC(-9,-13,-15,-7,purple); MLC(-15,-7,-15,7,purple); MLC(-15,7,-9,13,purple);
-        MLC(-14,-19,-23,-10,purple); MLC(-23,-10,-23,10,purple); MLC(-23,10,-14,19,purple);
-        MDC(17,-3,2.8f,purple); break;
-    case GL30_SETTINGS:
-        for(int i=0;i<8;i++) MDC(16*oct_sin[i],16*oct_cos[i],4.2f,yellow);
-        MDC(0,0,16,dark); MDC(0,0,12,yellow); MDC(0,0,5,dark); MDC(0,0,2.5f,white); break;
-    case GL30_CALENDAR:
-        MBC(-18,-18,36,36,5,dark); MBC(-16,-16,32,32,4,red);
-        MBC(-11,-22,5,10,2,dark); MBC(-10,-21,3,8,1,yellow);
-        MBC(6,-22,5,10,2,dark); MBC(7,-21,3,8,1,yellow);
-        MLC(-11,-7,11,-7,dark); MLC(-7,-1,-7,10,white);
-        MLC(1,-1,9,-1,white); MLC(1,-1,1,4,white); MLC(1,4,8,4,white); MLC(8,4,8,10,white); MLC(1,10,8,10,white); break;
-    case GL30_LIGHTING:
-        MDC(0,-4,14,dark); MDC(0,-4,11,yellow); MLC(0,-23,0,-19,yellow);
-        MLC(-19,-12,-15,-10,yellow); MLC(19,-12,15,-10,yellow); MLC(-8,13,8,13,dark); break;
+        /* Pointing finger, bent thumb and palm; two feedback arcs above it.
+         * A recognisable hand replaces the old skin-coloured capsule. */
+        IA(11.7f,8,4.3f,300,120,accent); IA(11.7f,8,7.1f,300,120,accent);
+        IL(10,8,10,16,ink); IA(11.7f,8,1.7f,270,180,ink);
+        IL(13.4f,8,13.4f,12,ink); IL(13.4f,12,15.6f,11.7f,ink);
+        IL(15.6f,11.7f,18,12.4f,ink); IL(18,12.4f,20,14,ink);
+        IL(20,14,20,18,ink); IL(20,18,18,22,ink); IL(18,22,10,22,ink);
+        IL(10,22,4,16,ink); IL(4,16,4,14,ink); IL(4,14,6,13.6f,ink);
+        IL(6,13.6f,10,16,ink);
+        break;
+    case GL30_SETTINGS: {
+        /* Six real teeth with recessed valleys, not a ring of flower petals.
+         * Fixed vertices avoid trigonometry for each tooth on every frame. */
+        static const float gear[][2]={
+            {10.210f,4.820f},{9.629f,2.491f},{14.371f,2.491f},{13.790f,4.820f},
+            {17.323f,6.860f},{19.050f,5.192f},{21.421f,9.629f},{19.114f,10.210f},
+            {19.114f,13.790f},{21.421f,14.371f},{19.050f,18.808f},{17.323f,17.140f},
+            {13.790f,19.180f},{14.371f,21.509f},{9.629f,21.509f},{10.210f,19.180f},
+            {6.677f,17.140f},{4.950f,18.808f},{2.579f,14.371f},{4.886f,13.790f},
+            {4.886f,10.210f},{2.579f,9.629f},{4.950f,5.192f},{6.677f,6.860f}};
+        for(unsigned i=0;i<sizeof(gear)/sizeof(*gear);i++) {
+            unsigned j=(i+1U)%(sizeof(gear)/sizeof(*gear));
+            IL(gear[i][0],gear[i][1],gear[j][0],gear[j][1],ink);
+        }
+        IA(12,12,3.2f,0,360,accent);
+        break;
     }
-#undef MTC
-#undef MBC
-#undef MDC
-#undef MAC
-#undef MLC
+    case GL30_CALENDAR:
+        IB(3,5,18,17,2.5f,ink);
+        IL(7,2,7,7,ink); IL(17,2,17,7,ink); IL(3.5f,10,20.5f,10,ink);
+        /* One large date mark survives the rear row; no tiny 31-cell grid. */
+        IL(9,14,16,14,accent); IL(16,14,11.8f,19,accent);
+        break;
+    case GL30_LIGHTING:
+        IA(12,9,6,225,270,ink);
+        IL(7.757f,13.243f,9,16,ink); IL(9,16,9,18,ink);
+        IL(9,18,15,18,ink); IL(15,18,15,16,ink); IL(15,16,16.243f,13.243f,ink);
+        IL(10,21,14,21,ink); IL(12,11.5f,12,15.5f,accent);
+        IL(12,0.8f,12,1.5f,accent); IL(3,4,4.2f,4.8f,accent);
+        IL(19.8f,4.8f,21,4,accent); IL(2,10,3,10,accent); IL(21,10,22,10,accent);
+        break;
+    }
+#undef IT
+#undef ID
+#undef IB
+#undef IA
+#undef IL
+#undef IY
+#undef IX
 }
 static void get_date(const gl30_model *s,struct tm *result) {
     /* The product demo uses Beijing time; the API always accepts real Unix time. */
@@ -947,12 +997,12 @@ static void menu(const gl30_model *s) {
     /* Let the circular motion own the page. The old English header cost a
      * surprisingly large fraction of every animation frame and competed with
      * the icons for attention; the selected app name below is sufficient. */
-    /* Draw the orbit itself in perspective rather than as a face-on circle.
-     * Its 178 x 85 px ellipse also matches the icon centres, so the foreground
-     * naturally falls lower while the rear row rises toward the top. */
+    /* A subtle ellipse is the depth cue. The front-facing icon centres bow
+     * out a little farther to separate wide outlines from their neighbours;
+     * the side/rear positions stay safely inside the circular panel. */
     const int orbit_radius_x=178;
     OLED_SetColor(rgb(0x182329),0);
-    OLED_DrawEllipse((int16_t)(233+offset_x),170,(uint16_t)orbit_radius_x,85);
+    OLED_DrawEllipse((int16_t)(233+offset_x),171,(uint16_t)orbit_radius_x,92);
     /* An ellipse in perspective: back objects are smaller and drawn first. */
     typedef struct { int id; float x,y,diameter,depth; } item;
     item items[GL30_MENU_APP_COUNT];
@@ -983,7 +1033,8 @@ static void menu(const gl30_model *s) {
          * their visible extents therefore remain at least 3 mm. */
         float diameter_mm=3.2f+2.17f*z+8.63f*z14;
         float diameter_px=diameter_mm*(466.0f/(1.32f*25.4f));
-        items[i]=(item){i,233+orbit_radius_x*item_sin,170+85*item_cos,diameter_px,z};
+        items[i]=(item){i,233+(orbit_radius_x+24.0f*item_cos)*item_sin,
+                         171+92*item_cos,diameter_px,z};
         float next_sin=item_sin*step_cos+item_cos*step_sin;
         float next_cos=item_cos*step_cos-item_sin*step_sin;
         item_sin=next_sin; item_cos=next_cos;
@@ -993,14 +1044,7 @@ static void menu(const gl30_model *s) {
     for(int i=0;i<GL30_MENU_APP_COUNT;i++) {
         item p=items[i];
         section_us=gl30_platform_time_us();
-        /* The approved concept uses floating flat icons rather than circular
-         * wireframe tiles. Keep only a soft foreground spotlight; rear icons
-         * are carried by scale and brightness, which is both cleaner and faster. */
-        if(p.depth>0.97f) {
-            OLED_SetColor(rgb(dim(0x304554,0.34f)),0);
-            OLED_DrawFilledEllipse((int16_t)lroundf(p.x+offset_x),(int16_t)lroundf(p.y+0.42f*p.diameter),
-                                   (uint16_t)lroundf(0.36f*p.diameter),(uint16_t)lroundf(0.08f*p.diameter));
-        }
+        /* All apps share a clean floating outline; no capsule spotlight. */
         render_profile.menu_disc_us+=(uint32_t)(gl30_platform_time_us()-section_us);
         section_us=gl30_platform_time_us();
         render_profile.menu_ring_us+=(uint32_t)(gl30_platform_time_us()-section_us);

@@ -155,3 +155,10 @@ high-byte-first DRAW buffer before applying those channel limits.
 Current production-renderer previews (software rendering, not device captures):
 
 ![English and Chinese home, ring menu, calendar and settings](evidence/esp32-ui-20260929/ui-preview-current.png)
+
+
+## 9. 后续图标统一
+
+用户反馈旧图标识别性不足后，九种图标改为统一圆角双色轮廓，并调整菜单间距。
+具体变化、当前预览及复现命令见 [图标改版记录](esp32-icons-20260929.md)。
+本节不改写前述历史 FPS 或 H25 验证结论。

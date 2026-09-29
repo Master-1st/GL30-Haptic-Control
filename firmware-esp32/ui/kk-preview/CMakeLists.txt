@@ -89,3 +89,8 @@ target_include_directories(gl30_round_layout_tests PRIVATE
   "${APP}/include" "${KK_OLED}/include" "${KK_OLED}/graphics" "${KK_OLED}/driver")
 target_link_libraries(gl30_round_layout_tests PRIVATE gl30_preview gl30_model)
 gl30_add_host_test(gl30_round_layout_tests round_panel_text_bounds)
+
+# Export exact icon/app/menu pixels for review; caller supplies an output dir.
+add_executable(gl30_capture_icons capture_icons.c)
+target_include_directories(gl30_capture_icons PRIVATE "${APP}/include" "${KK_OLED}/include")
+target_link_libraries(gl30_capture_icons PRIVATE gl30_preview gl30_model)
