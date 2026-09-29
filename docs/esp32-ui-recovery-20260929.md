@@ -126,3 +126,32 @@ python firmware-stm32/bench/NUCLEO_G474RE_FOC/tools/verify_source_identity.py \
 
 hardware-gates、H25 证据、37 项冻结源码和黄金协议向量保持相对于
 `26da47a61862be94ba880a13a0b63a96d2073714` 原样，CI 继续执行既有身份校验。
+
+## 8. Published PR and final regression coverage
+
+PR [#7](https://github.com/Master-1st/GL30-Haptic-Control/pull/7) targets `main`
+from `fix/ui-display-pipeline-20260929`; creating a PR does not merge it.
+The initial published recovery revision `79c8e41462129c2c64de061aefe31ab4debf0506`
+passed all 11 CI jobs in
+[run 36554538662](https://github.com/Master-1st/GL30-Haptic-Control/actions/runs/36554538662),
+including both ESP32-S3 IDF 5.5.1 configurations. This run applies to that exact
+revision, not to later commits. The PR checks identify the current head's result.
+
+An additional `round_panel_text_bounds` host test now checks actual glyph ink,
+not only nominal bounding boxes: both languages, every menu/app label, settings,
+maximum-duration running/paused home timers, and six-row/leap-year calendars
+with both week origins. The test intercepts production text calls only in its
+own translation unit, rasterizes glyphs away from clipping, and projects their
+pixels back into the 466-pixel circular display. It does not change firmware
+rendering or claim physical millimetre calibration. It runs in all three host
+CI profiles alongside the existing ownership, input, model and rendering tests.
+
+The same regression also compares 27 icon silhouettes (nine app designs at
+3.2/6/14 mm nominal sizes) across foreground/rear brightness. Only disappearing
+boundary pixels within one 5-bit or two 6-bit RGB565 channel LSBs are allowed;
+new pixels or disappearing visible strokes fail. This test decodes the
+high-byte-first DRAW buffer before applying those channel limits.
+
+Current production-renderer previews (software rendering, not device captures):
+
+![English and Chinese home, ring menu, calendar and settings](evidence/esp32-ui-20260929/ui-preview-current.png)

@@ -80,3 +80,12 @@ gl30_add_host_test(gl30_motor_menu_tests motor_menu_protocol_and_state)
 add_executable(gl30_board_dma_tests tests/board_dma_tests.c)
 target_include_directories(gl30_board_dma_tests PRIVATE tests/board_fake "${COMPONENTS}/gl30_board/include")
 gl30_add_host_test(gl30_board_dma_tests board_dma_failure_ownership)
+
+# Intercept only text calls in the production renderer and test actual glyph
+# ink, including long timer labels and six-row calendars in both languages.
+add_executable(gl30_round_layout_tests tests/round_layout_tests.c)
+target_compile_definitions(gl30_round_layout_tests PRIVATE KK_OLED_TEST=1)
+target_include_directories(gl30_round_layout_tests PRIVATE
+  "${APP}/include" "${KK_OLED}/include" "${KK_OLED}/graphics" "${KK_OLED}/driver")
+target_link_libraries(gl30_round_layout_tests PRIVATE gl30_preview gl30_model)
+gl30_add_host_test(gl30_round_layout_tests round_panel_text_bounds)
