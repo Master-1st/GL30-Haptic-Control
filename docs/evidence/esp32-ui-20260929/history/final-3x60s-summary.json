@@ -1,0 +1,359 @@
+[
+  {
+    "run": 1,
+    "seconds": 60.020751,
+    "completed_raster_frames": 3601,
+    "pixel_uniqueness_verified": false,
+    "metric_schema": 2,
+    "frame_interval_ms": 16,
+    "target_fps": 60,
+    "frame_period_us": 16667,
+    "frame_deadline_drops_delta": 1,
+    "panel_fps": 59.99591707874499,
+    "strip_count": 8,
+    "interval_fps": 59.9998080006144,
+    "ten_second_fps": [
+      59.9,
+      60.1,
+      59.9,
+      60.0,
+      60.0,
+      60.0
+    ],
+    "completion_interval_us": {
+      "p50": 16267,
+      "p95": 21142,
+      "p99": 23429,
+      "max": 27366
+    },
+    "raster_us": {
+      "p50": 12891,
+      "p95": 14250,
+      "p99": 14629,
+      "max": 15255
+    },
+    "send_wall_us": {
+      "p50": 14349,
+      "p95": 14971,
+      "p99": 15172,
+      "max": 15591
+    },
+    "raster_start_to_dma_us": {
+      "p50": 28379,
+      "p95": 30488,
+      "p99": 34732,
+      "max": 39446
+    },
+    "source_age_at_submit_ms": {
+      "p50": 20,
+      "p95": 25,
+      "p99": 29,
+      "max": 31
+    },
+    "clear_us": {
+      "p50": 740,
+      "p95": 1134,
+      "p99": 1206,
+      "max": 1317
+    },
+    "compare_us": {
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "copy_us": {
+      "p50": 1865,
+      "p95": 2453,
+      "p99": 2711,
+      "max": 3322
+    },
+    "io_submit_us": {
+      "p50": 886,
+      "p95": 992,
+      "p99": 1044,
+      "max": 1129
+    },
+    "wait_us": {
+      "p50": 10545,
+      "p95": 10737,
+      "p99": 10834,
+      "max": 10961
+    },
+    "motor_fast_delta": 0,
+    "motor_haptic_delta": 0,
+    "motor_tx": 0,
+    "input_drops": 0,
+    "frame_errors": 0,
+    "motor_poll_max_us": 1188,
+    "internal_free": 141379,
+    "psram_free": 6547756,
+    "stack_free": 1620,
+    "display_stack_free": 2596,
+    "dma_largest_free": 100352,
+    "copy_submit_us": {
+      "p50": 945,
+      "p95": 1081,
+      "p99": 1147,
+      "max": 1379
+    },
+    "copy_wait_us": {
+      "p50": 1865,
+      "p95": 2453,
+      "p99": 2711,
+      "max": 3322
+    },
+    "copy_span_us": {
+      "p50": 10980,
+      "p95": 11939,
+      "p99": 12230,
+      "max": 12549
+    },
+    "copy_worker_submit_plus_wait_us": {
+      "p50": 2803,
+      "p95": 3399,
+      "p99": 3656,
+      "max": 4286
+    },
+    "compare_calls_delta": 0,
+    "skipped_compares_delta": 3604
+  },
+  {
+    "run": 2,
+    "seconds": 60.031218,
+    "completed_raster_frames": 3602,
+    "pixel_uniqueness_verified": false,
+    "metric_schema": 2,
+    "frame_interval_ms": 16,
+    "target_fps": 60,
+    "frame_period_us": 16667,
+    "frame_deadline_drops_delta": 1,
+    "panel_fps": 60.002114233297746,
+    "strip_count": 8,
+    "interval_fps": 60.005249667829865,
+    "ten_second_fps": [
+      60.0,
+      60.0,
+      60.0,
+      60.0,
+      60.0,
+      60.0
+    ],
+    "completion_interval_us": {
+      "p50": 16243,
+      "p95": 21011,
+      "p99": 23783,
+      "max": 27235
+    },
+    "raster_us": {
+      "p50": 12855,
+      "p95": 14262,
+      "p99": 14791,
+      "max": 15464
+    },
+    "send_wall_us": {
+      "p50": 14348,
+      "p95": 14988,
+      "p99": 15184,
+      "max": 15711
+    },
+    "raster_start_to_dma_us": {
+      "p50": 28312,
+      "p95": 30313,
+      "p99": 32042,
+      "max": 39751
+    },
+    "source_age_at_submit_ms": {
+      "p50": 20,
+      "p95": 25,
+      "p99": 27,
+      "max": 40
+    },
+    "clear_us": {
+      "p50": 733,
+      "p95": 1126,
+      "p99": 1203,
+      "max": 1308
+    },
+    "compare_us": {
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "copy_us": {
+      "p50": 1864,
+      "p95": 2491,
+      "p99": 2694,
+      "max": 3462
+    },
+    "io_submit_us": {
+      "p50": 890,
+      "p95": 1008,
+      "p99": 1052,
+      "max": 1150
+    },
+    "wait_us": {
+      "p50": 10527,
+      "p95": 10723,
+      "p99": 10848,
+      "max": 10953
+    },
+    "motor_fast_delta": 0,
+    "motor_haptic_delta": 0,
+    "motor_tx": 0,
+    "input_drops": 0,
+    "frame_errors": 0,
+    "motor_poll_max_us": 1218,
+    "internal_free": 141131,
+    "psram_free": 6547756,
+    "stack_free": 1620,
+    "display_stack_free": 2596,
+    "dma_largest_free": 100352,
+    "copy_submit_us": {
+      "p50": 943,
+      "p95": 1084,
+      "p99": 1165,
+      "max": 1326
+    },
+    "copy_wait_us": {
+      "p50": 1864,
+      "p95": 2491,
+      "p99": 2694,
+      "max": 3462
+    },
+    "copy_span_us": {
+      "p50": 10977,
+      "p95": 11933,
+      "p99": 12197,
+      "max": 12522
+    },
+    "copy_worker_submit_plus_wait_us": {
+      "p50": 2802,
+      "p95": 3441,
+      "p99": 3636,
+      "max": 4396
+    },
+    "compare_calls_delta": 0,
+    "skipped_compares_delta": 3604
+  },
+  {
+    "run": 3,
+    "seconds": 60.017889,
+    "completed_raster_frames": 3600,
+    "pixel_uniqueness_verified": false,
+    "metric_schema": 2,
+    "frame_interval_ms": 16,
+    "target_fps": 60,
+    "frame_period_us": 16667,
+    "frame_deadline_drops_delta": 1,
+    "panel_fps": 59.982116332015615,
+    "strip_count": 8,
+    "interval_fps": 59.99474033329537,
+    "ten_second_fps": [
+      59.9,
+      60.0,
+      60.0,
+      60.0,
+      60.0,
+      59.9
+    ],
+    "completion_interval_us": {
+      "p50": 16252,
+      "p95": 21233,
+      "p99": 23360,
+      "max": 27114
+    },
+    "raster_us": {
+      "p50": 12854,
+      "p95": 14266,
+      "p99": 14753,
+      "max": 15387
+    },
+    "send_wall_us": {
+      "p50": 14338,
+      "p95": 14971,
+      "p99": 15206,
+      "max": 15498
+    },
+    "raster_start_to_dma_us": {
+      "p50": 28334,
+      "p95": 30531,
+      "p99": 32479,
+      "max": 38923
+    },
+    "source_age_at_submit_ms": {
+      "p50": 20,
+      "p95": 25,
+      "p99": 27,
+      "max": 31
+    },
+    "clear_us": {
+      "p50": 733,
+      "p95": 1128,
+      "p99": 1213,
+      "max": 1319
+    },
+    "compare_us": {
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "copy_us": {
+      "p50": 1861,
+      "p95": 2466,
+      "p99": 2706,
+      "max": 3236
+    },
+    "io_submit_us": {
+      "p50": 888,
+      "p95": 992,
+      "p99": 1041,
+      "max": 1122
+    },
+    "wait_us": {
+      "p50": 10542,
+      "p95": 10724,
+      "p99": 10828,
+      "max": 10969
+    },
+    "motor_fast_delta": 0,
+    "motor_haptic_delta": 0,
+    "motor_tx": 0,
+    "input_drops": 0,
+    "frame_errors": 0,
+    "motor_poll_max_us": 1218,
+    "internal_free": 141379,
+    "psram_free": 6547756,
+    "stack_free": 1620,
+    "display_stack_free": 2596,
+    "dma_largest_free": 100352,
+    "copy_submit_us": {
+      "p50": 948,
+      "p95": 1085,
+      "p99": 1154,
+      "max": 1374
+    },
+    "copy_wait_us": {
+      "p50": 1861,
+      "p95": 2466,
+      "p99": 2706,
+      "max": 3236
+    },
+    "copy_span_us": {
+      "p50": 10950,
+      "p95": 11915,
+      "p99": 12200,
+      "max": 12537
+    },
+    "copy_worker_submit_plus_wait_us": {
+      "p50": 2807,
+      "p95": 3411,
+      "p99": 3678,
+      "max": 4232
+    },
+    "compare_calls_delta": 0,
+    "skipped_compares_delta": 3603
+  }
+]

@@ -21,6 +21,21 @@ The current product target is **fully wireless force feedback**: a 3S battery se
 
 Status shorthand: ✅ available now · 🧩 low-level code exists, hardware pending · 🛠 explicitly planned, not implemented · 🔌 external host/network/service required · ❌ unsupported or not promised.
 
+## ESP32 UI recovery — September 29
+
+The previously uncommitted ESP32 application is now included: mountain desktop
+without the large weather icon, a complete month calendar, consistent carousel
+icons, English/Chinese text, and the render/transfer pipeline. The same C renderer
+runs in the host preview and automated tests; ESP-IDF 5.5.1 builds run in CI.
+See the [recovery audit](docs/esp32-ui-recovery-20260929.md) and
+[build instructions](firmware-esp32/README.md).
+
+Historical display runs near 60 FPS are labelled by their original September
+16/17 dates. This revision has no new device FPS measurement. Default ESP32 builds
+only receive motor telemetry, because the optional menu-control acknowledgement
+is not produced by the published STM32 application. The H25 evidence and hardware
+gate conclusions above are unchanged.
+
 ## Feel is the primary feature
 
 One knob should not be limited to one fixed mechanical feel. As its application or value changes, it can move from smooth free rotation to crisp numerical detents, from a heavy flywheel to a spring that returns to center, or place a tactile landmark at a limit, clip boundary, mute point, or hazard zone.
@@ -46,7 +61,7 @@ Selecting a Haptic Profile is intended to change feel, input behavior, and AMOLE
 | Scenario | Intended experience | Integration path and boundary |
 | --- | --- | --- |
 | **Volume and media** | Turn for volume, touch/button for mute, soft limits at minimum/maximum, and distinct feels for playback and seeking | 🛠 Global controls can use USB/BLE HID; Windows per-app volume requires PC Companion and OS audio APIs and cannot be done by HID alone |
-| **Timer / Pomodoro** | Fast-turn minutes, slow-turn fine adjustment, touch to start/pause, progress on screen, and a bounded tactile completion cue | 🛠 Can become a local offline ESP32 app; UI, persistence, and alerts are not implemented, and optional sound depends on final audio hardware |
+| **Timer / Pomodoro** | Fast-turn minutes, slow-turn fine adjustment, touch to start/pause, progress on screen, and a bounded tactile completion cue | ✅ Local timer UI and host-tested state exist; persistence, physical alerts and a Pomodoro workflow remain open |
 | **Home Assistant smart home** | Brightness, color temperature, thermostat, blinds, fan, media volume, and scenes each get meaningful detents and limits | 🔌 Wi-Fi + MQTT/Home Assistant Discovery is the preferred path; it needs the user's HA instance, broker credentials, and entity mapping, and no client exists yet |
 | **Weather / air quality** | Show current and hourly forecasts, rotate through time, and place tactile landmarks at rain, freeze, or heat thresholds | 🔌 Open-Meteo is the fixed first demo source; a Home Assistant weather adapter may follow. Wi-Fi, location, and a provider are required; this is not an offline weather station |
 | **Video editing / timelines** | Frame detents, clip-boundary attraction, inertial long-timeline navigation, and playback speed that returns to pause and snaps to 1×/2×/4× | 🛠 SmartKnob publicly demonstrated the interaction; GL30 still needs a host integration, momentum logic, and measured tuning |
@@ -137,6 +152,7 @@ Status vocabulary:
 | Capability | What works now | Evidence limit |
 | --- | --- | --- |
 | STM32 project | Regenerate the MDK-ARM project with STM32CubeMX and build the active LL path | `BUILD_ONLY`; it does not prove motor motion |
+| ESP32 display and host preview | Build the 466×466 firmware and inspect its actual C renderer, calendar, carousel and input state on a host | Software tests and firmware builds; historical panel measurements are separately labelled, with no new hardware acceptance |
 | Protocol and PC core | Encode/decode V1 binary frames, CRC32C, stream resynchronization, command clamping, time sync, and trace downsampling | TypeScript tests and deterministic golden vectors |
 | Haptic Profile | Validate JSON Profiles and inspect game-dashboard and video-timeline examples | Schema works; the physical-device pipeline does not yet |
 | Device simulator | Exercise commands, telemetry, communication timeouts, safety states, and the no-hardware end-to-end data path | `SIM_ONLY`; it does not model real motor mechanics or feel |
@@ -159,7 +175,7 @@ Status vocabulary:
 1. **Close the real motor loop:** implement the confirmed encoder backend, then calibrate phase order, current sensing, electrical zero, and low-torque operation.
 2. **Complete the Profile pipeline:** `JSON Profile → PC/ESP32 → binary command → STM32 haptic runtime`, so changing applications changes physical feel.
 3. **Expand haptic effects:** texture, asymmetric detents, marker attraction, composed effects, robust recentering, and a safety-limited active-position mode.
-4. **Build the ESP32-S3 application:** 5 Mbaud motor-core transport, log record/replay, AMOLED UI, Profile selection, and engineering status pages.
+4. **Extend the ESP32-S3 application:** add matched STM32 control feedback, full-load link testing, persistent settings and Profile deployment to the existing AMOLED UI and telemetry receiver.
 5. **Deliver the first experience apps:** USB/BLE HID global volume/media, a local timer, Home Assistant/MQTT light control, and a weather card with source and stale/offline state.
 6. **Expose creator and host interfaces:** MIDI, video timeline, Windows per-app volume, WebSocket/local plugins, plus device connection and fault-trace tooling.
 7. **Complete Profile tooling:** edit, preview, clamp report, deploy, share, and SmartKnob/X-Knob haptic-configuration converters.
@@ -205,7 +221,7 @@ The Schema and examples validate today, and the STM32 contains matching base pri
 
 ```text
 firmware-stm32/   STM32G474 motor core, CubeMX/Keil project, and host tests
-firmware-esp32/   ESP32-S3 application-layer boundaries (application incomplete)
+firmware-esp32/   ESP32-S3 display firmware, shared C preview and telemetry receiver
 protocol/         Frame format, payload specification, and TypeScript codec
 pc-companion/     Profile API, device simulator, and desktop-side core packages
 hardware/         Bench-board BOM/guides and parameterized concept CAD
