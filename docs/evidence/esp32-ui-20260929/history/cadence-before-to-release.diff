@@ -1,0 +1,123 @@
+--- cadence-fix-before/firmware-esp32/main/app_main.c
++++ release-20260917/firmware-esp32/main/app_main.c
+@@ -334,7 +334,13 @@
+          * painting must still be accepted on the next pass. */
+         int64_t tick_started_us = esp_timer_get_time();
+         if(next_frame_us==0) next_frame_us=(uint64_t)tick_started_us;
++        /* Completion/spare-ready wakes may flush one immutable prepared frame
++         * immediately. This never rasterizes, so presentation can overlap DMA
++         * without allowing extra animation frames between 60 Hz deadlines. */
++        gl30_demo_service_display((uint32_t)(tick_started_us/1000));
++        if(!gl30_demo_display_ok()) gl30_motor_arm(false);
+         bool frame_due=(uint64_t)tick_started_us>=next_frame_us;
++        bool frame_blocked=false;
+         if(frame_due) {
+             uint64_t behind=(uint64_t)tick_started_us-next_frame_us;
+             if(behind>=frame_period_us) {
+@@ -342,8 +348,20 @@
+                 next_frame_us+=skipped*frame_period_us;
+                 s_frame_deadline_drops+=(uint32_t)skipped;
+             }
++            gl30_demo_metrics before_raster,after_raster;
++            gl30_demo_get_metrics(&before_raster);
+             gl30_demo_render((uint32_t)(tick_started_us/1000));
+-            next_frame_us+=frame_period_us;
++            gl30_demo_get_metrics(&after_raster);
++            bool rastered=after_raster.frames!=before_raster.frames;
++            if(rastered || !gl30_demo_animation_active()) {
++                /* Consume this 60 Hz slot only after it really produced a
++                 * raster (or the page became static). If the frame was merely
++                 * blocked by DMA/spare ownership, keep the slot due so a
++                 * completion wake can retry it without creating an extra slot. */
++                next_frame_us+=frame_period_us;
++            } else {
++                frame_blocked=true;
++            }
+             if(!gl30_demo_display_ok()) gl30_motor_arm(false);
+         }
+         s_last_tick_us = (uint32_t)(esp_timer_get_time() - tick_started_us);
+@@ -359,16 +377,18 @@
+             vTaskDelay(1);
+             s_last_idle_yield_us = (uint64_t)esp_timer_get_time();
+         }
+-        /* Presentation is tied to a 16.667 ms absolute grid. Input and DMA
+-         * completions may wake this owner early, but they no longer create an
+-         * extra frame. If raster work overruns a slot, drop that deadline
+-         * instead of bursting a catch-up frame with uneven motion. */
++        /* Raster cadence stays on the 16.667 ms absolute grid. DMA/spare wakes
++         * are allowed to service a prepared frame, but never create a raster.
++         * If ordinary work crosses a deadline by less than one full period,
++         * run that due slot immediately instead of incorrectly dropping it. */
+         uint64_t now_us=(uint64_t)esp_timer_get_time();
+-        if(next_frame_us<=now_us) {
+-            uint64_t skipped=(now_us-next_frame_us)/frame_period_us+1U;
+-            next_frame_us+=skipped*frame_period_us;
+-            s_frame_deadline_drops+=(uint32_t)skipped;
+-        }
++        if(frame_blocked) {
++            /* Wait for DMA/spare-ready/input to free ownership, but retain a
++             * short bounded fallback so a lost notification cannot stall UI. */
++            (void)ulTaskNotifyTake(pdTRUE,pdMS_TO_TICKS(4));
++            continue;
++        }
++        if(next_frame_us<=now_us) continue;
+         (void)esp_timer_stop(s_frame_timer);
+         ESP_ERROR_CHECK(esp_timer_start_once(s_frame_timer,next_frame_us-now_us));
+         (void)ulTaskNotifyTake(pdTRUE,portMAX_DELAY);
+--- cadence-fix-before/firmware-esp32/components/kk_ui/src/kk_ui.c
++++ release-20260917/firmware-esp32/components/kk_ui/src/kk_ui.c
+@@ -675,20 +675,38 @@
+     return KK_UI_OK;
+ }
+ 
+-KK_UI_Status KK_UI_Update(uint32_t now, KK_UI_Input input)
++KK_UI_Status KK_UI_ServiceDisplay(uint32_t now)
+ {
+     KK_UI_Status status;
+     if (kk_ui.initialized == 0U) {
+         return KK_UI_NOT_INITIALIZED;
+     }
+-    if (kk_ui.keys_initialized == 0U) {
+-        kk_ui.next_frame = now;
+-    }
+-    kk_ui.last_update = now;
+     status = kk_ui_check_transfer(now);
+     if (status != KK_UI_OK || kk_ui.display_fault != 0U) {
+         return status != KK_UI_OK ? status : KK_UI_DISPLAY_ERROR;
+     }
++    /* A prepared raster is immutable. DMA completion and spare-retire wakes
++     * may submit it immediately without advancing animation or drawing a new
++     * frame. This keeps raster cadence fixed while preserving overlap. */
++    if (kk_ui.frame_ready != 0U && !OLED_IsBusy()) {
++        status = kk_ui_submit(now);
++        if (status != KK_UI_OK) return status;
++    }
++    return KK_UI_OK;
++}
++
++KK_UI_Status KK_UI_Update(uint32_t now, KK_UI_Input input)
++{
++    KK_UI_Status status;
++    if (kk_ui.initialized == 0U) {
++        return KK_UI_NOT_INITIALIZED;
++    }
++    if (kk_ui.keys_initialized == 0U) {
++        kk_ui.next_frame = now;
++    }
++    kk_ui.last_update = now;
++    status = KK_UI_ServiceDisplay(now);
++    if (status != KK_UI_OK) return status;
+ 
+     KK_UI_AnimateNavigation(now);
+     KK_UI_HomeAnimate(now);
+--- cadence-fix-before/firmware-esp32/components/kk_ui/include/kk_ui.h
++++ release-20260917/firmware-esp32/components/kk_ui/include/kk_ui.h
+@@ -187,6 +187,8 @@
+ 
+ KK_UI_Status KK_UI_Init(const KK_UI_App *app);
+ KK_UI_Status KK_UI_Update(uint32_t now_ms, KK_UI_Input input);
++/* Poll/submit display ownership only; never animates, handles input or rasterizes. */
++KK_UI_Status KK_UI_ServiceDisplay(uint32_t now_ms);
+ void KK_UI_Invalidate(void);
+ KK_UI_Status KK_UI_RecoverDisplay(void);
+ 

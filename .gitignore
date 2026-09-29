@@ -21,6 +21,10 @@ venv/
 # Native and firmware build output
 **/build/
 **/build-*/
+firmware-esp32/managed_components/
+firmware-esp32/sdkconfig
+firmware-esp32/sdkconfig.old
+firmware-esp32/ui/kk-preview/browser-checks.json
 **/CMakeFiles/
 *.axf
 *.elf

@@ -1,0 +1,19 @@
+menu "GL30 experimental development"
+
+config GL30_EXPERIMENTAL_MOTOR_CONTROL
+    bool "Enable experimental motor commands"
+    default n
+    help
+        Allow the USB MOTOR ARM command to enable the experimental menu
+        control transmitter. This requires separately developed, paired
+        STM32 firmware emitting HAPTIC_STATE (0x06) with the applied command
+        nonce. The STM32 application on the current main branch does not
+        emit that frame and is not a compatible peer for this experiment.
+
+        This option does not establish hardware validation or change H25
+        evidence. It is for explicit development experiments only. Leave
+        it disabled for normal UI and display-performance builds: the UART
+        still receives telemetry, MOTOR ARM is refused, and no motor
+        command frames are transmitted.
+
+endmenu

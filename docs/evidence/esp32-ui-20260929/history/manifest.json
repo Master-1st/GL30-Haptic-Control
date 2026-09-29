@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "archived_utc": "2026-09-29T09:48:04.884560+00:00",
+  "scope": "Historical 2026-09-16 snapshots compared with unpublished 2026-09-17 release worktree. Not a 2026-09-29 device benchmark.",
+  "snapshots": [
+    {
+      "before": {
+        "path": "outputs/esp32-ui-perf-audit-20260916/cadence-fix-before/app_main.c",
+        "sha256": "189cd2d50b3c719c023547875eb365a13cf1b6fa75295a8089883f37cb89a0b0",
+        "bytes": 17437
+      },
+      "after": {
+        "path": "outputs/workspace-consolidated-20260927/firmware/GL30-Haptic-Control-release-20260917/firmware-esp32/main/app_main.c",
+        "sha256": "63c8ac4e831c6029940270062896aed6c5f2a842d62b9ea983385c02685d82e2",
+        "bytes": 18644
+      }
+    },
+    {
+      "before": {
+        "path": "outputs/esp32-ui-perf-audit-20260916/cadence-fix-before/kk_ui.c",
+        "sha256": "950ee745bbee3695d11afae3ef07056c807e0b73c622d36e2630ebcd4562a735",
+        "bytes": 25754
+      },
+      "after": {
+        "path": "outputs/workspace-consolidated-20260927/firmware/GL30-Haptic-Control-release-20260917/firmware-esp32/components/kk_ui/src/kk_ui.c",
+        "sha256": "b562d6403b66fe9f5ea86e8b7d9c08025d3f88fd171c1f2ab40f3b54d099479c",
+        "bytes": 26405
+      }
+    },
+    {
+      "before": {
+        "path": "outputs/esp32-ui-perf-audit-20260916/cadence-fix-before/kk_ui.h",
+        "sha256": "b05428745574b72b45874c4f146aed8a4224c641ec5bb3ef6f86fe7803517e78",
+        "bytes": 5467
+      },
+      "after": {
+        "path": "outputs/workspace-consolidated-20260927/firmware/GL30-Haptic-Control-release-20260917/firmware-esp32/components/kk_ui/include/kk_ui.h",
+        "sha256": "b65624978e6f7e2952be249144ad8514cfcfcfb98ebbdbd740bbbc04587a1596",
+        "bytes": 5608
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "archive_name": "current-recheck-summary.json",
+      "path": "outputs/current-40fps-recheck-20260916/summary.json",
+      "sha256": "93b0a251860ec2d6e8410b5f4ffb4151d5f5237f7c6e5991d94b46a90aa8622a",
+      "bytes": 2372
+    },
+    {
+      "archive_name": "final-3x60s-summary.json",
+      "path": "outputs/esp32-ui-final-60fps-20260916/3x60s/summary.json",
+      "sha256": "f300d61c81a25071d9bb55da2357197ee86e28cd39dad62ae6233ae54e704f82",
+      "bytes": 7311
+    },
+    {
+      "archive_name": "audit-baseline-summary.json",
+      "path": "outputs/esp32-ui-perf-audit-20260916/baseline/summary.json",
+      "sha256": "341feac57154697f50fdbcf66a1a18cb42558b4e8f47be7f10f94db5c6aa9d53",
+      "bytes": 2368
+    },
+    {
+      "archive_name": "service-display-summary.json",
+      "path": "outputs/esp32-ui-perf-audit-20260916/cadence-service-pass1/summary.json",
+      "sha256": "c34a30ecb0dbc1a41ebac651259a5893ba1c357a4dd01faf2066fcdf5bba64cc",
+      "bytes": 2369
+    },
+    {
+      "archive_name": "slot-retry-summary.json",
+      "path": "outputs/esp32-ui-perf-audit-20260916/slot-retry-pass1/summary.json",
+      "sha256": "9190b57e3107750594eaf9fa6e89c9c02d24447eb480f795a3d7fc45b6b83091",
+      "bytes": 2372
+    }
+  ],
+  "caveats": [
+    "The folder named current-40fps-recheck-20260916 actually records about 60.009 FPS, not a 40 FPS result.",
+    "Historic summaries count completed raster identifiers; pixel_uniqueness_verified is false.",
+    "No hardware was flashed, read back, or benchmarked during this archive operation."
+  ]
+}

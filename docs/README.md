@@ -4,6 +4,8 @@ The detailed engineering notes are currently Chinese-first while the public repo
 
 ## Read in this order
 
+ESP32 界面与显示调度先看 [2026-09-29 恢复审计](esp32-ui-recovery-20260929.md)：原 main 缺失核对、本机源码恢复、UI/流水线修复、主机测试与历史 FPS 证据边界。
+
 当前实测先看 [2026-09-08 H25 扩展验收](bench-validation-20260908-haptic25-extended-cn.md)：37 组新增冻结采样、定时边界、ACTIVE STOP/失联关断、20 次重复运行和无出力通信/准备状态压力测试通过。此前 H25 电流阶梯见 [基线报告](bench-validation-20260907-haptic25-cn.md)，H8/H10 及中间失败保留为历史。
 
 1. [`feature-research-cn.md`](feature-research-cn.md) / [`feature-research.md`](feature-research.md) — haptic-first product scope, public demand, integrations, and explicit non-capabilities.

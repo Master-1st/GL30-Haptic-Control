@@ -193,6 +193,40 @@ int gl30_decode_haptic_command(const uint8_t *in, size_t in_len, gl30_haptic_com
   return 0;
 }
 
+int gl30_encode_haptic_state(const gl30_haptic_state_t *in, uint8_t *out, size_t out_cap) {
+  if (in == NULL || out == NULL || out_cap < GL30_HAPTIC_STATE_LEN) {
+    return -1;
+  }
+
+  memcpy(out + 0u, &in->profileId, sizeof(uint32_t));
+  memcpy(out + 4u, &in->commandNonce, sizeof(uint32_t));
+  memcpy(out + 8u, &in->modeFlags, sizeof(uint32_t));
+  memcpy(out + 12u, &in->logicalPosition, sizeof(int32_t));
+  memcpy(out + 16u, &in->subPosition, sizeof(float));
+  memcpy(out + 20u, &in->detentWidthRad, sizeof(float));
+  memcpy(out + 24u, &in->motorState, sizeof(uint32_t));
+  memcpy(out + 28u, &in->faultBits, sizeof(uint32_t));
+  memcpy(out + 32u, &in->status, sizeof(uint32_t));
+  return 0;
+}
+
+int gl30_decode_haptic_state(const uint8_t *in, size_t in_len, gl30_haptic_state_t *out) {
+  if (in == NULL || out == NULL || in_len != GL30_HAPTIC_STATE_LEN) {
+    return -1;
+  }
+
+  memcpy(&out->profileId, in + 0u, sizeof(uint32_t));
+  memcpy(&out->commandNonce, in + 4u, sizeof(uint32_t));
+  memcpy(&out->modeFlags, in + 8u, sizeof(uint32_t));
+  memcpy(&out->logicalPosition, in + 12u, sizeof(int32_t));
+  memcpy(&out->subPosition, in + 16u, sizeof(float));
+  memcpy(&out->detentWidthRad, in + 20u, sizeof(float));
+  memcpy(&out->motorState, in + 24u, sizeof(uint32_t));
+  memcpy(&out->faultBits, in + 28u, sizeof(uint32_t));
+  memcpy(&out->status, in + 32u, sizeof(uint32_t));
+  return 0;
+}
+
 int gl30_frame_encode(uint8_t type, uint16_t flags, uint32_t sequence, uint64_t timestamp_us,
                       const uint8_t *payload, size_t payload_len,
                       uint8_t *out_frame, size_t out_cap, size_t *out_len) {
@@ -208,6 +242,9 @@ int gl30_frame_encode(uint8_t type, uint16_t flags, uint32_t sequence, uint64_t 
     return -1;
   }
   if (type == GL30_V6_FRAME_PAYLOAD_MOTOR_STATE_SLOW && payload_len != GL30_MOTOR_STATE_SLOW_LEN) {
+    return -1;
+  }
+  if (type == GL30_V6_FRAME_PAYLOAD_HAPTIC_STATE && payload_len != GL30_HAPTIC_STATE_LEN) {
     return -1;
   }
   if (type == GL30_V6_FRAME_PAYLOAD_HAPTIC_COMMAND && payload_len != GL30_HAPTIC_COMMAND_LEN) {

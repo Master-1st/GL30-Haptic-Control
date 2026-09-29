@@ -1,0 +1,116 @@
+[
+  {
+    "run": 1,
+    "seconds": 10.031896,
+    "completed_raster_frames": 602,
+    "pixel_uniqueness_verified": false,
+    "metric_schema": 2,
+    "frame_interval_ms": 16,
+    "target_fps": 60,
+    "frame_period_us": 16667,
+    "frame_deadline_drops_delta": 1,
+    "panel_fps": 60.00859658034732,
+    "strip_count": 8,
+    "interval_fps": 60.02991507415093,
+    "ten_second_fps": [
+      60.0
+    ],
+    "completion_interval_us": {
+      "p50": 16349,
+      "p95": 20014,
+      "p99": 23227,
+      "max": 23958
+    },
+    "raster_us": {
+      "p50": 12821,
+      "p95": 14169,
+      "p99": 14535,
+      "max": 14755
+    },
+    "send_wall_us": {
+      "p50": 14339,
+      "p95": 14975,
+      "p99": 15183,
+      "max": 15469
+    },
+    "raster_start_to_dma_us": {
+      "p50": 28127,
+      "p95": 30210,
+      "p99": 30945,
+      "max": 32515
+    },
+    "source_age_at_submit_ms": {
+      "p50": 20,
+      "p95": 25,
+      "p99": 26,
+      "max": 41
+    },
+    "clear_us": {
+      "p50": 730,
+      "p95": 1133,
+      "p99": 1204,
+      "max": 1302
+    },
+    "compare_us": {
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "copy_us": {
+      "p50": 1846,
+      "p95": 2549,
+      "p99": 2787,
+      "max": 3217
+    },
+    "io_submit_us": {
+      "p50": 886,
+      "p95": 1010,
+      "p99": 1050,
+      "max": 1075
+    },
+    "wait_us": {
+      "p50": 10522,
+      "p95": 10732,
+      "p99": 10842,
+      "max": 10980
+    },
+    "motor_fast_delta": 0,
+    "motor_haptic_delta": 0,
+    "motor_tx": 0,
+    "input_drops": 0,
+    "frame_errors": 0,
+    "motor_poll_max_us": 1218,
+    "internal_free": 141379,
+    "psram_free": 6547756,
+    "stack_free": 1604,
+    "display_stack_free": 2596,
+    "dma_largest_free": 100352,
+    "copy_submit_us": {
+      "p50": 939,
+      "p95": 1080,
+      "p99": 1166,
+      "max": 1251
+    },
+    "copy_wait_us": {
+      "p50": 1846,
+      "p95": 2549,
+      "p99": 2787,
+      "max": 3217
+    },
+    "copy_span_us": {
+      "p50": 11016,
+      "p95": 11932,
+      "p99": 12232,
+      "max": 12512
+    },
+    "copy_worker_submit_plus_wait_us": {
+      "p50": 2788,
+      "p95": 3468,
+      "p99": 3709,
+      "max": 4196
+    },
+    "compare_calls_delta": 0,
+    "skipped_compares_delta": 604
+  }
+]

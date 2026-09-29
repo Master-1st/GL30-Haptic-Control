@@ -71,6 +71,110 @@ jobs:
       - name: Test
         run: ctest --test-dir build/stm32-host --output-on-failure
 
+  esp32-host:
+    name: ESP32 UI and transport host (${{ matrix.profile }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: debug
+            build_type: Debug
+            c_flags: ''
+            ipo: 'OFF'
+          - profile: sanitizer
+            build_type: Debug
+            c_flags: '-fsanitize=address,undefined -fno-omit-frame-pointer'
+            ipo: 'OFF'
+          - profile: release-lto
+            build_type: Release
+            c_flags: ''
+            ipo: 'ON'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure shared UI and transport tests
+        run: |
+          cmake -S firmware-esp32/ui/kk-preview -B build/esp32-ui \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DCMAKE_C_FLAGS="${{ matrix.c_flags }}" \
+            -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=${{ matrix.ipo }}
+          cmake -S firmware-esp32/transport -B build/esp32-transport \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DCMAKE_C_FLAGS="${{ matrix.c_flags }}" \
+            -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=${{ matrix.ipo }}
+      - name: Build
+        run: |
+          cmake --build build/esp32-ui --parallel 2
+          cmake --build build/esp32-transport --parallel 2
+      - name: Test rendering, DMA ownership, input and protocol
+        run: |
+          ctest --test-dir build/esp32-ui --output-on-failure
+          ctest --test-dir build/esp32-transport --output-on-failure
+      - name: Compare complete Debug and Release framebuffers
+        if: matrix.profile == 'release-lto'
+        run: |
+          cmake -S firmware-esp32/ui/kk-preview -B build/esp32-ui-reference -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build/esp32-ui-reference --target gl30_preview --parallel 2
+          python3 firmware-esp32/tools/verify_frame_equivalence.py \
+            --before build/esp32-ui-reference/libgl30_preview.so \
+            --after build/esp32-ui/libgl30_preview.so \
+            --output build/ui-frame-equivalence.json
+
+  esp32-tools:
+    name: ESP32 offline tools and checked-in assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pyserial==3.5
+      - name: Test tools with simulated serial, without device access
+        run: python -m unittest discover -s firmware-esp32/tools/tests -v
+      - name: Verify checked-in fonts and background without regeneration
+        run: python firmware-esp32/tools/verify_kk_assets.py
+
+  esp32-firmware:
+    name: ESP32-S3 IDF 5.5.1 build (${{ matrix.profile }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: default
+            defaults: sdkconfig.defaults
+          - profile: experimental-motor
+            defaults: sdkconfig.defaults;sdkconfig.ci
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare explicit experimental compile coverage
+        if: matrix.profile == 'experimental-motor'
+        run: printf 'CONFIG_GL30_EXPERIMENTAL_MOTOR_CONTROL=y\n' > firmware-esp32/sdkconfig.ci
+      - name: Build only; no flash or hardware connection
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.5.1
+          target: esp32s3
+          path: firmware-esp32
+          command: idf.py -DSDKCONFIG_DEFAULTS="${{ matrix.defaults }}" build
+      - name: Verify the locked components were preserved
+        run: git diff --exit-code -- firmware-esp32/dependencies.lock
+      - name: Retain firmware and build configuration
+        uses: actions/upload-artifact@v4
+        with:
+          name: esp32s3-idf-5.5.1-${{ matrix.profile }}
+          path: |
+            firmware-esp32/build/gl30_haptic_control.bin
+            firmware-esp32/build/gl30_haptic_control.elf
+            firmware-esp32/build/gl30_haptic_control.map
+            firmware-esp32/build/project_description.json
+            firmware-esp32/sdkconfig
+          if-no-files-found: error
+
   encoder-viewer:
     name: Encoder viewer offline unit tests
     runs-on: windows-latest
