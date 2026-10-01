@@ -19,7 +19,7 @@
     "@gl30/profile": "workspace:*",
     "@gl30/protocol": "workspace:*",
     "typescript": "^5.6.3",
-    "tsx": "^4.19.2",
+    "tsx": "^4.23.15",
     "ajv": "^8.17.1",
     "@types/node": "^24.3.0"
   }
