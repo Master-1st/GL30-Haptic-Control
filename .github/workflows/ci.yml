@@ -17,7 +17,7 @@ jobs:
     name: TypeScript and no-hardware checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v4
         with:
@@ -53,7 +53,7 @@ jobs:
             c_flags: ''
             ipo: 'ON'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # H25's frozen source manifest remains a gate for H25 live runners, not
       # a claim that this newer, offline-only source has H25 qualification.
@@ -99,7 +99,7 @@ jobs:
     name: Encoder viewer offline unit tests
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Compile and test without opening serial or UI
         shell: powershell
         run: .\firmware-stm32\bench\NUCLEO_G474RE_FOC\encoder-viewer\Open_Encoder_Viewer.ps1 -Check
