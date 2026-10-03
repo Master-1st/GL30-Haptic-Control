@@ -1,0 +1,62 @@
+{
+  "status": "PASS_ADDED_FOOTPRINTS_WITH_J7_PROJECT_CORRECTION",
+  "review": [
+    {
+      "refs": [
+        "C28",
+        "C29",
+        "C53",
+        "C54"
+      ],
+      "result": "ACCEPT",
+      "reason": "Exact 35SVPF39M SchLib model link; E7 lands a=2.8, b=11.1, c=1.9 mm. Pin 1 positive, pin 2 negative.",
+      "adjudication": "The 9.0 x 8.3 mm 3D body projection includes the base/terminals; it is not a cylinder diameter or height. The worker blocking inference based on unlike dimensions is not adopted.",
+      "source": "https://industrial.panasonic.com/cdbs/www-data/pdf/AAB8000/AAB8000COL10.pdf"
+    },
+    {
+      "refs": [
+        "U1"
+      ],
+      "result": "ACCEPT",
+      "reason": "48 pads and 0.5 mm pitch; numbering is a rotated equivalent of the ST top-view drawing. Lands are 1.475 x 0.3 mm versus ST example 1.2 x 0.3 mm; the longer user-library lands are retained.",
+      "source": "https://www.st.com/resource/en/datasheet/stm32g474ce.pdf",
+      "pages": "206-208"
+    },
+    {
+      "refs": [
+        "SW1"
+      ],
+      "result": "ACCEPT",
+      "reason": "ALPS land dimensions match; 1/2 internally common, 3/4 internally common, same groups as existing NRST/GND schematic.",
+      "source": "https://tech.alpsalpine.com/cms.media/product_catalog_ta_02_skrp_en_2cd80f610b.pdf",
+      "pages": "2"
+    },
+    {
+      "refs": [
+        "J5",
+        "J6"
+      ],
+      "result": "ACCEPT",
+      "reason": "All 10 signal lands and both hold-down lands match existing KiCad FH12 geometry after coordinate-origin conversion. Pads 11/12 are mechanical and remain without signal nets.",
+      "source": "https://www.hirose.com/en/product/p/CL0586-0522-3-55",
+      "comparison_file": "G:\\Agent\\GL30-Haptic-Control\\hardware\\pcb\\stm32-foc-a\\GL30.pretty\\Hirose_FH12-10S-0.5SH_1x10-1MP_P0.50mm_Horizontal.kicad_mod",
+      "comparison_sha256": "d0fb91e5268c1e5cb04bbbcaafe0a8db857a7306c31ac8d01ef7ad9d0a701d75"
+    },
+    {
+      "refs": [
+        "J7"
+      ],
+      "result": "ACCEPT_PROJECT_DERIVATIVE",
+      "original_footprint": "SHDR2W50P0X200_1X2_590X450X600P",
+      "derived_footprint": "GL30_B2B_PH_K_S_FR4_D085",
+      "reason": "Source holes 0.70 mm; derived finished holes 0.85 mm and lands 1.40 mm (annular ring 0.275 mm). Locations, numbers, pad shapes and body retained.",
+      "source": "https://www.jst.com/resources/faq/",
+      "derived_sha256": "a4532bbf7c98cc3d573ad380bea1a05ec62156da2bd30c833743132edf722cca"
+    }
+  ],
+  "new_refs": 9,
+  "total_assigned": 141,
+  "original_source_sha256": "4cd4001cb54f48fb99550ab83c48b2eef710c9dd8e9426d25fe15de86a0950f7",
+  "source_library_unchanged": true,
+  "worker_report": "G:\\Agent\\GL30-Haptic-Control\\outputs\\a-schematic-altium-20260927\\verification\\user_library_additions_20260927.json"
+}

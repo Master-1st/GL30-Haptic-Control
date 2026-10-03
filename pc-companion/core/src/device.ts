@@ -20,7 +20,8 @@ const ZERO_COMMAND: HapticCommandType = {
   userTorqueLimitNm: 0,
   activeSpeedLimitRadS: 0,
   modeFlags: 0,
-  textureId: 0
+  textureId: 0,
+  leaseGeneration: 0n
 };
 
 export interface DeviceTickTelemetry {

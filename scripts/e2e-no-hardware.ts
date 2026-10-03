@@ -102,6 +102,8 @@ if (validProfiles.length === 0) {
 }
 
 const profile = validProfiles[0] as ProfileLike;
+// Synthetic SIM_ONLY generation; it is not an acquired STM32 control lease.
+const SIM_ONLY_LEASE_GENERATION = 1n;
 
 let rngState = 0x12345678;
 function nextUInt32(): number {
@@ -132,7 +134,8 @@ function buildCommandFromProfile(profileLike: ProfileLike, nonce: number): Hapti
     userTorqueLimitNm: 0,
     activeSpeedLimitRadS: 0,
     modeFlags: 0x0001,
-    textureId: 1
+    textureId: 1,
+    leaseGeneration: SIM_ONLY_LEASE_GENERATION
   };
 }
 

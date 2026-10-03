@@ -1,5 +1,9 @@
 # GL30 AMOLED V7 当前架构
 
+2026-10-02 当前代码与交付见[离线入口](../outputs/project-goal-closeout-20261002/README_CN.md)：产品AS5048A端口、驱动/供电/采零保护链已实现离线候选；ESP32为KK_OLED/KK_UI同源界面，新增NVS设置保存及STM32/显示独占维护。三配置ESP32各8/8、STM32各15/15，固件构建通过；未烧录，CET6实体资格和整机手感仍未验收。下方按日期保留设计与台架历史，不能覆盖当前工程的实板边界。
+
+> **2026-09-09 产品设计增量：**新增旋环按压、底部至少 24 颗 RGB、灯光跟随实测角度并替代实体标记。按 3 块自制 PCB 加显示/原厂编码器/电池保护组件规划，详见[板件与装配方案](knob-press-rgb-architecture-cn.md)。这次只更新方案与文档；下述既有 CAD、固件和台架验收不自动覆盖新增功能。
+
 > **当前状态（2026-09-08 UTC）：`BOUNDED_BENCH_ACCEPTANCE_PASS`，产品仍为 pre-alpha。**
 > NUCLEO-G474RE + TI DRV8316REVM + GL30/AS5048A 的 H25 已通过受限 ALIGN、双向 IQ、八模式 smoke 和新增状态机/通信压力回归，见 [扩展验收](bench-validation-20260908-haptic25-extended-cn.md)。
 
@@ -24,6 +28,8 @@ GL30-Haptic-Control/
 ```
 
 ## 2. 产品机械链
+
+以下为**既有 CAD**的机械链。新增按压方案改用独立承载的轴向浮动组件，灯环固定于底座；按压力不得默认经过 GL30 轴承、编码器或屏幕玻璃。原实体标记/前灯条由新方案取代，尚未改模；载荷、行程、遮光和装配空间须按专项方案重新核对。
 
 ```text
 固定链：机壳/后支架 → GL30 定子（具体安装面待厂家确认）
@@ -85,7 +91,7 @@ HARD_FAULT_N -> TIM1 BKIN -> 异步关断
 ESP32 <-> USART3 DMA <-> 当前二进制协议
 ```
 
-产品 CET6 工程与 NUCLEO RET6 联调工程使用同一控制内核、不同硬件端口，均由 STM32CubeMX 6.18.1 生成 MDK-ARM，外设和中断使用 LL。Keil ARMCLANG 6.21 已有两者的 0 错误/0 警告构建记录。NUCLEO 另有烧录回读、运行及故障注入证据；已对 TI 做一次带电静态配置读回，但故障门未过，电机三相断开，未带转。详见[联调验收记录](../firmware-stm32/bench/NUCLEO_G474RE_FOC/TEST_RESULT_CN.md)。产品 40 kHz、EVM 20 kHz，不能互相代替参数或验收。
+产品 CET6 工程与 NUCLEO RET6 联调工程使用同一控制内核、不同硬件端口，均由 STM32CubeMX 6.18.1 生成 MDK-ARM，外设和中断使用 LL。Keil ARMCLANG 6.21 已有两者的 0 错误/0 警告构建记录。NUCLEO H25 已完成真实电机受限 ALIGN、双向小电流和八模式定时 smoke；不再停留在 TI 静态配置阶段。产品 CET6 仍未完成实板端口验证。最新实测边界见 [H25 扩展验收](bench-validation-20260908-haptic25-extended-cn.md)；旧故障按历史记录保留。产品 40 kHz、EVM 20 kHz，不能互相代替参数或验收。
 
 ## 5. 当前冻结与 HOLD
 
@@ -94,14 +100,15 @@ ESP32 <-> USART3 DMA <-> 当前二进制协议
 | 产品电机方向 | GL30 工厂编码器版实物已到；7 极对和 `Kt=0.038 N·m/A` 作初值；官方网页与到货空载点对应 `255 rpm/V`，`KV290` 视为型号标签，不强制要求先测 Ke 作为首测前置条件 |
 | 自制 MT6835 磁环 | 已从活动产品树删除 |
 | 编码器固件接口 | `AS5048A + SPI`；NUCLEO 联调已有真实驱动；产品后端 `PENDING_VENDOR` 保留至产品硬件端口完成验证 |
-| 编码器电气/连接器/供电 | 用户确认标称 5 V、线色、芯片+两电容；实际电平/通信待测，连接器料号待核 |
+| 编码器电气/连接器/供电 | NUCLEO H25 台架已有 AS5048A SPI/角度诊断和有限 ALIGN 实测；不等于完整角度精度、产品电气端口或连接器料号已确认 |
 | 外壳/旋环默认几何 | `CONCEPT_FIT_DEFAULTS` |
 | 无线电源拓扑 | `3S + BQ25798 SYS + 外部隔离 + 独立 MOTOR_BUS 制动`，候选工程基线；台架先用外部电源 |
 | 电池容量、BMS、电芯与充电参数 | `PCB_HOLD + HARDWARE_REQUIRED` |
 | SYS 电机路径的脉冲/回灌能力 | `HARDWARE_REQUIRED`；与独立 BAT 轨 A/B 后只保留通过者 |
-| 四个普通键/灯条/电源键/Type-C | 左右侧各两键、正面底部嵌入式灯条、后置 PWR/QON、单后置 Type-C，概念几何已固定 |
+| 四个普通键/灯光/电源键/Type-C | 保留左右各两键、后置 PWR/QON 与单 Type-C；新方向为旋环按压及底部至少 24 RGB，替代原前灯条与实体标记，尚未改 CAD |
+| 自制 PCB 数量 | 规划控制板、功率板、RGB/按压板共 3 块；显示、原厂编码器及 BMS 另计，排布/层数/连接器尚未冻结 |
 | 电机安装面、出线、中心孔、轴承 | `MECHANICAL_HOLD` |
-| 实物 FOC/热/手感 | 电机已到，可做被动测试；带转仍需通过 TI / NUCLEO 接线与 EVM 硬件闭环，当前为 `HARDWARE_REQUIRED` |
+| 实物 FOC/热/手感 | H25 受限校准、电流与模式 smoke 已通过；完整手感、速度跟踪性能、热、回灌及整机仍为 `HARDWARE_REQUIRED` |
 
 ## 6. 事实源优先级
 
@@ -115,4 +122,4 @@ ESP32 <-> USART3 DMA <-> 当前二进制协议
 4. `protocol/schema/protocol-v1.md` 与金样。
 5. 当前 V7 手册；若与官方资料冲突，以核对后的官方事实和当前工程为准。
 
-本轮台架覆盖与推进边界见 [H25 扩展验收](bench-validation-20260908-haptic25-extended-cn.md)。
+最新进展和开源借鉴决策见 [2026-09-08 项目审查](project-progress-review-20260908-cn.md)。模型用途及早期取舍保留在 [2026-09-05 历史复盘](project-reassessment-cn.md)，其中旧首测条件不作为当前操作指令。

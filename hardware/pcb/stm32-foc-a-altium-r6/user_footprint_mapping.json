@@ -1,0 +1,1145 @@
+{
+  "revision": "A-SCH-AD-R6-USER-LIB-NO-TP",
+  "source_policy": "Reuse user libraries read-only; J7 and J4 have explicitly documented project derivatives. Original libraries are never modified.",
+  "unreadable_libraries": [],
+  "assignments": {
+    "C27": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "footprint": "CAPC3225X270N",
+      "project_library": "User_SamacSys.PcbLib",
+      "basis": "SchLib Manufacturer_Part_Number and Arrow Part Number exactly equal BOM MPN; symbol implementation ModelName/DatafileEntity = CAPC3225X270N; BOM package 1210 matches 3.2 x 2.5 mm body."
+    },
+    "R1": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R3": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R4": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R5": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R6": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R7": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R8": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R9": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R10": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R11": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R12": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R13": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R14": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R15": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R16": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R17": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R18": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R19": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R20": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R21": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R22": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R23": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R24": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R25": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R26": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R27": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R28": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R29": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R42": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R43": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R30": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R31": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R32": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R33": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R34": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R35": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R36": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R37": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R38": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R39": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R40": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R44": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R45": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R46": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R47": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R48": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R49": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R50": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R51": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R52": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R53": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R54": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R55": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R56": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R57": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R58": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R59": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R60": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R61": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R62": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R63": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R64": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R65": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R66": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R67": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R68": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R69": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R70": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R71": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R72": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.70 x 0.80 mm."
+    },
+    "R2": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "R0805_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib R symbol explicitly offers R0805_M; 2 pads, pad 1 left/pad 2 right, body outline about 2.30 x 1.35 mm."
+    },
+    "C1": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C2": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C3": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C4": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C5": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C6": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C7": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C8": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C10": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C11": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C12": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C15": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C16": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C17": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C18": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C19": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C20": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C21": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C22": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C23": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C24": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C25": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C26": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C30": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C31": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C33": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C35": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C36": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C38": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C39": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C40": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C41": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C42": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C43": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C44": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C45": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C46": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C47": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C48": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C49": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C50": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C51": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C52": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0603_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0603_M; 2 pads, pad 1 left/pad 2 right, body outline about 1.60 x 0.80 mm."
+    },
+    "C9": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0805_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0805_M; 2 pads, pad 1 left/pad 2 right, body outline about 2.00 x 1.25 mm."
+    },
+    "C13": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0805_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0805_M; 2 pads, pad 1 left/pad 2 right, body outline about 2.00 x 1.25 mm."
+    },
+    "C14": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0805_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0805_M; 2 pads, pad 1 left/pad 2 right, body outline about 2.00 x 1.25 mm."
+    },
+    "C32": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0805_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0805_M; 2 pads, pad 1 left/pad 2 right, body outline about 2.00 x 1.25 mm."
+    },
+    "C34": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0805_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0805_M; 2 pads, pad 1 left/pad 2 right, body outline about 2.00 x 1.25 mm."
+    },
+    "C37": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "C0805_M",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "SchLib C symbol explicitly offers C0805_M; 2 pads, pad 1 left/pad 2 right, body outline about 2.00 x 1.25 mm."
+    },
+    "R41": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "footprint": "RESC3116X65N",
+      "project_library": "User_SamacSys.PcbLib",
+      "basis": "1206 resistor geometry: 3.10 x 1.60 mm outline, pads at +/-1.45 mm with rotated 1.05 x 1.75 mm lands, numbers 1/2. Preserve purchased 22 ohm 0.5 W resistor; thermal/pulse qualification remains a PCB-level task."
+    },
+    "U3": {
+      "library_path": "G:\\dontdel\\AD\\_Lib\\LCSC.PcbLib",
+      "footprint": "C181596_TSSOP-14",
+      "project_library": "User_LCSC.PcbLib",
+      "basis": "SchLib parameter MPN=TLV1704AIPWR and LCSC=C181596; exact symbol model record links to C181596_TSSOP-14.",
+      "replaces_footprint": "SOP65P640X120-14N"
+    },
+    "U4": {
+      "library_path": "G:\\dontdel\\AD\\_Lib\\LCSC.PcbLib",
+      "footprint": "C181596_TSSOP-14",
+      "project_library": "User_LCSC.PcbLib",
+      "basis": "SchLib parameter MPN=TLV1704AIPWR and LCSC=C181596; exact symbol model record links to C181596_TSSOP-14.",
+      "replaces_footprint": "SOP65P640X120-14N"
+    },
+    "U9": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "footprint": "SOP65P640X120-14N",
+      "project_library": "User_SamacSys.PcbLib",
+      "basis": "TI PW0014A: 14 pins, 0.65 mm pitch, body 4.4 x 5.0 mm; 6.4 mm in library name is lead span, not body width. Library copper 1.475 x 0.45 mm, row centers 5.876 mm, matches standard PW pin order; retain purchased IC symbols."
+    },
+    "U5": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "footprint": "SOT95P280X145-5N",
+      "project_library": "User_SamacSys.PcbLib",
+      "basis": "TI DBV0005A: five pins, 0.95 mm pitch, standard 1/2/3 left and 4/5 right numbering. Library copper 1.2 x 0.6 mm, row centers 2.5 mm. Different source symbol MPN is not a procurement replacement."
+    },
+    "U6": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "footprint": "SOT95P280X145-5N",
+      "project_library": "User_SamacSys.PcbLib",
+      "basis": "TI DBV0005A: five pins, 0.95 mm pitch, standard 1/2/3 left and 4/5 right numbering. Library copper 1.2 x 0.6 mm, row centers 2.5 mm. Different source symbol MPN is not a procurement replacement."
+    },
+    "U7": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "footprint": "SOT95P280X145-5N",
+      "project_library": "User_SamacSys.PcbLib",
+      "basis": "TI DBV0005A: five pins, 0.95 mm pitch, standard 1/2/3 left and 4/5 right numbering. Library copper 1.2 x 0.6 mm, row centers 2.5 mm. Different source symbol MPN is not a procurement replacement."
+    },
+    "U8": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "footprint": "SOP50P310X90-8N",
+      "project_library": "User_SamacSys.PcbLib",
+      "basis": "TI DCU0008A: 8 pins, 0.5 mm pitch, body 2.3 x 2.0 mm, lead span 3.1 mm. Library copper 0.85 x 0.3 mm, row centers 3.15 mm, standard counterclockwise numbering."
+    },
+    "X1": {
+      "library_path": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "footprint": "XTAL-3225-4P",
+      "project_library": "User_STM32F407_Ctrl.PcbLib",
+      "basis": "User XTAL-4P symbol links this footprint. ABM8 3.2 x 2.5 mm, pins 1/3 crystal and 2/4 case ground preserved; footprint top-view numbering 1 lower-left, 2 lower-right, 3 upper-right, 4 upper-left. Pad centers +/-1.05 and +/-0.85 mm, pads 1.3 x 1.2 mm; existing library land variant, not an exact copy of the manufacturer land example."
+    },
+    "U2": {
+      "library_path": "G:\\dontdel\\AD\\_Lib\\LCSC.PcbLib",
+      "footprint": "C5218861_VQFN-40_5x7",
+      "project_library": "User_LCSC.PcbLib",
+      "basis": "SchLib parameter MPN=DRV8316RRGFR and LCSC=C5218861; symbol record 45 ModelName points to the exact PcbLib footprint; no MPN substitution. TI RGF0040E checked: 40 perimeter lands, 0.5 mm pitch, 0.6 x 0.25 mm lands; row-center spans 4.8 and 6.8 mm; EP41 3.7 x 5.7 mm. Ground pin retained. Thermal vias and stencil design remain PCB tasks."
+    },
+    "D1": {
+      "library_path": "G:\\dontdel\\AD\\_Lib\\LCSC.PcbLib",
+      "footprint": "C151256_DO-214AA",
+      "project_library": "User_LCSC.PcbLib",
+      "basis": "SchLib parameter MPN=SMBJ18A and LCSC=C151256; exact symbol model record links to C151256_DO-214AA. Exact SMBJ18A footprint, pads 2.5 x 2.3 mm; pad 1 cathode, pad 2 anode."
+    },
+    "C28": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "16SVF270M",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. Exact 35SVPF39M SchLib model link; E7 lands a=2.8, b=11.1, c=1.9 mm. Pin 1 positive, pin 2 negative.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "16SVF270M"
+    },
+    "C29": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "16SVF270M",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. Exact 35SVPF39M SchLib model link; E7 lands a=2.8, b=11.1, c=1.9 mm. Pin 1 positive, pin 2 negative.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "16SVF270M"
+    },
+    "C53": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "16SVF270M",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. Exact 35SVPF39M SchLib model link; E7 lands a=2.8, b=11.1, c=1.9 mm. Pin 1 positive, pin 2 negative.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "16SVF270M"
+    },
+    "C54": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "16SVF270M",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. Exact 35SVPF39M SchLib model link; E7 lands a=2.8, b=11.1, c=1.9 mm. Pin 1 positive, pin 2 negative.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "16SVF270M"
+    },
+    "U1": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "QFP50P900X900X160-48N",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. 48 pads and 0.5 mm pitch; numbering is a rotated equivalent of the ST top-view drawing. Lands are 1.475 x 0.3 mm versus ST example 1.2 x 0.3 mm; the longer user-library lands are retained.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "QFP50P900X900X160-48N"
+    },
+    "SW1": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "SKRPASE010",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. ALPS land dimensions match; 1/2 internally common, 3/4 internally common, same groups as existing NRST/GND schematic.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "SKRPASE010"
+    },
+    "J5": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "FH1210S05SH55",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. All 10 signal lands and both hold-down lands match existing KiCad FH12 geometry after coordinate-origin conversion. Pads 11/12 are mechanical and remain without signal nets.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "FH1210S05SH55"
+    },
+    "J6": {
+      "library_path": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "project_library": "User_SamacSys.PcbLib",
+      "footprint": "FH1210S05SH55",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. All 10 signal lands and both hold-down lands match existing KiCad FH12 geometry after coordinate-origin conversion. Pads 11/12 are mechanical and remain without signal nets.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "FH1210S05SH55"
+    },
+    "J7": {
+      "library_path": "G:\\Agent\\GL30-Haptic-Control\\outputs\\a-schematic-altium-20260927\\verification\\GL30_Adjusted_User.PcbLib",
+      "project_library": "GL30_Adjusted_User.PcbLib",
+      "footprint": "GL30_B2B_PH_K_S_FR4_D085",
+      "basis": "Exact Manufacturer_Part_Number parameter and exact record-45 ModelName/ModelDatafileEntity0 in the new native SchLib. Source holes 0.70 mm; derived finished holes 0.85 mm and lands 1.40 mm (annular ring 0.275 mm). Locations, numbers, pad shapes and body retained.",
+      "original_library": "G:\\dontdel\\AD_Lib\\SamacSys.PcbLib",
+      "original_footprint": "SHDR2W50P0X200_1X2_590X450X600P"
+    },
+    "J4": {
+      "library_path": "G:\\Agent\\GL30-Haptic-Control\\outputs\\a-schematic-altium-20260927\\verification\\GL30_J4_Header.PcbLib",
+      "project_library": "GL30_J4_Header.PcbLib",
+      "footprint": "GL30_HDR_1X05_P254_D102",
+      "basis": "User approved generic 1x5 2.54 mm straight header. Original user HDR2.54-LI-5P: 5 numbered plated pads on 2.54 mm pitch. Project-only holes enlarged from 0.90 to 1.02 mm for common 0.64 mm square posts; 1.70 mm lands and pin 1 square marker retained.",
+      "original_library": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+      "original_footprint": "HDR2.54-LI-5P"
+    }
+  },
+  "notes": [
+    "C27 matches explicit MPN in user SchLib. That symbol has an incorrect datasheet hyperlink; no parameters or symbol graphics are copied from it.",
+    "All original BOM MPN/value/package/fitted fields are preserved except the explicitly user-authorized J4 change to a generic 1x5 2.54 mm straight header. Generic two-terminal geometry does not replace purchased component specifications.",
+    "ModelDatafileEntity0 is the footprint name; ModelDatafile0 is a project-relative library filename, matching observed native user library records."
+  ],
+  "manufacturer_package_sources": [
+    {
+      "refs": [
+        "U3",
+        "U4",
+        "U9"
+      ],
+      "url": "https://www.ti.com/lit/ds/symlink/tlv1704.pdf",
+      "pages": "35-36",
+      "package": "PW0014A"
+    },
+    {
+      "refs": [
+        "U5",
+        "U6",
+        "U7"
+      ],
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "pages": "37-38",
+      "package": "DBV0005A"
+    },
+    {
+      "refs": [
+        "U8"
+      ],
+      "url": "https://www.ti.com/lit/ds/symlink/txu0202.pdf",
+      "pages": "32-33",
+      "package": "DCU0008A"
+    },
+    {
+      "refs": [
+        "X1"
+      ],
+      "url": "https://abracon.com/Resonators/abm8.pdf",
+      "pages": "2",
+      "package": "ABM8 3225 four-pad"
+    },
+    {
+      "refs": [
+        "U2"
+      ],
+      "url": "https://www.ti.com/lit/ds/symlink/drv8316.pdf",
+      "pages": "92-94",
+      "package": "RGF0040E"
+    },
+    {
+      "refs": [
+        "C28",
+        "C29",
+        "C53",
+        "C54"
+      ],
+      "url": "https://industrial.panasonic.com/cdbs/www-data/pdf/AAB8000/AAB8000COL10.pdf",
+      "pages": ""
+    },
+    {
+      "refs": [
+        "U1"
+      ],
+      "url": "https://www.st.com/resource/en/datasheet/stm32g474ce.pdf",
+      "pages": "206-208"
+    },
+    {
+      "refs": [
+        "SW1"
+      ],
+      "url": "https://tech.alpsalpine.com/cms.media/product_catalog_ta_02_skrp_en_2cd80f610b.pdf",
+      "pages": "2"
+    },
+    {
+      "refs": [
+        "J5",
+        "J6"
+      ],
+      "url": "https://www.hirose.com/en/product/p/CL0586-0522-3-55",
+      "pages": ""
+    },
+    {
+      "refs": [
+        "J7"
+      ],
+      "url": "https://www.jst.com/resources/faq/",
+      "pages": ""
+    },
+    {
+      "refs": [
+        "J4"
+      ],
+      "url": "https://suddendocs.samtec.com/catalog_english/tsw_th.pdf",
+      "basis": "Dimensional reference for standard 0.64 mm square posts, not a required purchase brand."
+    }
+  ],
+  "lcsc_read_retry": {
+    "status": "READ_SUCCESS_ON_RETRY",
+    "source_files": [
+      {
+        "path": "G:\\dontdel\\AD\\_Lib\\LCSC.SchLib",
+        "sha256": "835747b8ed1b85f873e03b7a286b6783a279d9e60349b1f05777d832456fbe2f"
+      },
+      {
+        "path": "G:\\dontdel\\AD\\_Lib\\LCSC.PcbLib",
+        "sha256": "557d32bb83caf8f80db5aca3ab9755813e987ceaaaa8a674948ab19fd64be87b"
+      }
+    ],
+    "note": "Earlier OS read attempts failed. Shared read and later Python reads succeeded; no permissions or source files were changed."
+  },
+  "lcsc_inventory": {
+    "symbols": 80,
+    "footprints": 81,
+    "source_hashes": {
+      "schlib": {
+        "path": "G:\\dontdel\\AD\\_Lib\\LCSC.SchLib",
+        "sha256": "835747b8ed1b85f873e03b7a286b6783a279d9e60349b1f05777d832456fbe2f",
+        "size_bytes": 279552,
+        "symbol_count": 80
+      },
+      "pcblib": {
+        "path": "G:\\dontdel\\AD\\_Lib\\LCSC.PcbLib",
+        "sha256": "557d32bb83caf8f80db5aca3ab9755813e987ceaaaa8a674948ab19fd64be87b",
+        "size_bytes": 21311488,
+        "footprint_count": 81
+      }
+    },
+    "unmatched_exact_parts": [
+      {
+        "refs": [
+          "U1"
+        ],
+        "mpn": "STM32G474CET6",
+        "required_package": "LQFP48 7x7 mm, 0.5 mm pitch",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library",
+        "evidence": "Full 80-symbol/81-footprint scan found no STM32G474CET6 parameter/symbol and no LQFP-48 footprint."
+      },
+      {
+        "refs": [
+          "U5"
+        ],
+        "mpn": "TLV75533PDBVR",
+        "required_package": "SOT-23-5",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "U6",
+          "U7"
+        ],
+        "mpn": "SN74LVC1G07DBVR",
+        "required_package": "SOT-23-5",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "U8"
+        ],
+        "mpn": "TXU0202DCUR",
+        "required_package": "VSSOP-8, 0.5 mm pitch",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "U9"
+        ],
+        "mpn": "TMUX1511PWR",
+        "required_package": "TSSOP-14",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "C28",
+          "C29",
+          "C53",
+          "C54"
+        ],
+        "mpn": "35SVPF39M",
+        "required_package": "SMD polarized capacitor, dia 8 x 6.9 mm",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "SW1"
+        ],
+        "mpn": "SKRPASE010",
+        "required_package": "SMD tactile switch 4.2 x 3.2 x 2.5 mm",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "JP1"
+        ],
+        "mpn": "PCB焊盘，无采购",
+        "required_package": "2-pad open solder bridge",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_purchased_mpn_and_no_exact_named_item",
+        "evidence": "This is a board-defined copper feature; no exact purchased component can be matched in LCSC.SchLib/PcbLib."
+      },
+      {
+        "refs": [
+          "J1",
+          "J2",
+          "J3"
+        ],
+        "mpn": "board-defined solder-wire interfaces",
+        "required_package": "respectively 2/3/6 solder pads with strain relief",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_purchased_mpn_and_no_exact_named_item"
+      },
+      {
+        "refs": [
+          "J4"
+        ],
+        "mpn": "2x5P 1.27mm Cortex keyed",
+        "required_package": "THT 2x5, 1.27 mm pitch",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "J5",
+          "J6"
+        ],
+        "mpn": "FH12-10S-0.5SH(55)",
+        "required_package": "10P 0.5 mm SMT, bottom contact",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      },
+      {
+        "refs": [
+          "J7"
+        ],
+        "mpn": "B2B-PH-K-S(LF)(SN)",
+        "required_package": "JST PH 2.0 mm 2P vertical",
+        "schlib_exact_hits": [],
+        "pcblib_exact_hits": [],
+        "status": "no_exact_item_in_LCSC_library"
+      }
+    ]
+  },
+  "delivery_note": "Separate editable copy; previously loaded schematic files were not overwritten.",
+  "new_library_review": "verification/added_library_review_r5.json",
+  "j4_review": "verification/j4_change_r6.json",
+  "lcsc_inventory_note": "Historical LCSC-only lookup; current assignments above include later SamacSys additions and the R6 J4 replacement."
+}

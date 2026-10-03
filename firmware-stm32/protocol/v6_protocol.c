@@ -11,6 +11,51 @@ static uint8_t parse_buffer[GL30_PROTOCOL_PARSER_BUFFER_BYTES];
 static uint8_t parsed_payload[GL30_FRAME_MAX_PAYLOAD_BYTES];
 static size_t parse_length;
 
+static void write_u64_le(uint8_t *out, uint64_t value) {
+  for (uint32_t i = 0u; i < 8u; ++i) {
+    out[i] = (uint8_t)(value >> (8u * i));
+  }
+}
+
+static uint64_t read_u64_le(const uint8_t *in) {
+  uint64_t value = 0u;
+  for (uint32_t i = 0u; i < 8u; ++i) {
+    value |= (uint64_t)in[i] << (8u * i);
+  }
+  return value;
+}
+
+static void write_u32_le(uint8_t *out, uint32_t value) {
+  out[0u] = (uint8_t)value;
+  out[1u] = (uint8_t)(value >> 8u);
+  out[2u] = (uint8_t)(value >> 16u);
+  out[3u] = (uint8_t)(value >> 24u);
+}
+
+static uint32_t read_u32_le(const uint8_t *in) {
+  return (uint32_t)in[0u] | ((uint32_t)in[1u] << 8u) |
+         ((uint32_t)in[2u] << 16u) | ((uint32_t)in[3u] << 24u);
+}
+
+static int control_lease_request_valid(const gl30_control_lease_request_t *in) {
+  if (in == NULL) {
+    return 0;
+  }
+  switch (in->action) {
+    case GL30_CONTROL_RELEASE:
+      return in->zeroNonce != 0u && in->currentGeneration != 0u &&
+             in->nextGeneration == 0u;
+    case GL30_CONTROL_ACQUIRE:
+      return in->zeroNonce != 0u && in->nextGeneration != 0u &&
+             in->nextGeneration != in->currentGeneration;
+    case GL30_CONTROL_QUERY:
+      return in->zeroNonce == 0u && in->currentGeneration == 0u &&
+             in->nextGeneration == 0u;
+    default:
+      return 0;
+  }
+}
+
 void gl30_crc32c(const uint8_t *data, size_t len, uint32_t *out_crc) {
   static uint32_t table[256];
   static uint8_t table_ready;
@@ -166,6 +211,7 @@ int gl30_encode_haptic_command(const gl30_haptic_command_t *in, uint8_t *out, si
   memcpy(out + 52u, &in->activeSpeedLimitRadS, sizeof(float));
   memcpy(out + 56u, &in->modeFlags, sizeof(uint32_t));
   memcpy(out + 60u, &in->textureId, sizeof(uint32_t));
+  write_u64_le(out + 64u, in->leaseGeneration);
   return 0;
 }
 
@@ -190,6 +236,91 @@ int gl30_decode_haptic_command(const uint8_t *in, size_t in_len, gl30_haptic_com
   memcpy(&out->activeSpeedLimitRadS, in + 52u, sizeof(float));
   memcpy(&out->modeFlags, in + 56u, sizeof(uint32_t));
   memcpy(&out->textureId, in + 60u, sizeof(uint32_t));
+  out->leaseGeneration = read_u64_le(in + 64u);
+  return 0;
+}
+
+int gl30_encode_haptic_state(const gl30_haptic_state_t *in, uint8_t *out, size_t out_cap) {
+  if (in == NULL || out == NULL || out_cap < GL30_HAPTIC_STATE_LEN) {
+    return -1;
+  }
+  if ((in->status & ~(uint32_t)GL30_HAPTIC_STATE_STATUS_MASK) != 0u ||
+      (in->status & (GL30_HAPTIC_STATE_CONTROL_RELEASED |
+                     GL30_HAPTIC_STATE_CONTROL_WAITING_ZERO)) ==
+          (GL30_HAPTIC_STATE_CONTROL_RELEASED |
+           GL30_HAPTIC_STATE_CONTROL_WAITING_ZERO)) {
+    return -1;
+  }
+
+  memcpy(out + 0u, &in->profileId, sizeof(uint32_t));
+  memcpy(out + 4u, &in->commandNonce, sizeof(uint32_t));
+  memcpy(out + 8u, &in->modeFlags, sizeof(uint32_t));
+  memcpy(out + 12u, &in->logicalPosition, sizeof(int32_t));
+  memcpy(out + 16u, &in->subPosition, sizeof(float));
+  memcpy(out + 20u, &in->detentWidthRad, sizeof(float));
+  memcpy(out + 24u, &in->motorState, sizeof(uint32_t));
+  memcpy(out + 28u, &in->faultBits, sizeof(uint32_t));
+  memcpy(out + 32u, &in->status, sizeof(uint32_t));
+  write_u64_le(out + 36u, in->leaseGeneration);
+  return 0;
+}
+
+int gl30_decode_haptic_state(const uint8_t *in, size_t in_len, gl30_haptic_state_t *out) {
+  uint32_t status;
+  if (in == NULL || out == NULL || in_len != GL30_HAPTIC_STATE_LEN) {
+    return -1;
+  }
+  memcpy(&status, in + 32u, sizeof(status));
+  if ((status & ~(uint32_t)GL30_HAPTIC_STATE_STATUS_MASK) != 0u ||
+      (status & (GL30_HAPTIC_STATE_CONTROL_RELEASED |
+                 GL30_HAPTIC_STATE_CONTROL_WAITING_ZERO)) ==
+          (GL30_HAPTIC_STATE_CONTROL_RELEASED |
+           GL30_HAPTIC_STATE_CONTROL_WAITING_ZERO)) {
+    return -1;
+  }
+
+  memcpy(&out->profileId, in + 0u, sizeof(uint32_t));
+  memcpy(&out->commandNonce, in + 4u, sizeof(uint32_t));
+  memcpy(&out->modeFlags, in + 8u, sizeof(uint32_t));
+  memcpy(&out->logicalPosition, in + 12u, sizeof(int32_t));
+  memcpy(&out->subPosition, in + 16u, sizeof(float));
+  memcpy(&out->detentWidthRad, in + 20u, sizeof(float));
+  memcpy(&out->motorState, in + 24u, sizeof(uint32_t));
+  memcpy(&out->faultBits, in + 28u, sizeof(uint32_t));
+  memcpy(&out->status, in + 32u, sizeof(uint32_t));
+  out->leaseGeneration = read_u64_le(in + 36u);
+  return 0;
+}
+
+int gl30_encode_control_lease(
+    const gl30_control_lease_request_t *in, uint8_t *out, size_t out_cap) {
+  if (in == NULL || out == NULL || out_cap < GL30_CONTROL_LEASE_LEN ||
+      !control_lease_request_valid(in)) {
+    return -1;
+  }
+  write_u32_le(out + 0u, in->action);
+  write_u32_le(out + 4u, in->zeroNonce);
+  write_u64_le(out + 8u, in->currentGeneration);
+  write_u64_le(out + 16u, in->nextGeneration);
+  return 0;
+}
+
+int gl30_decode_control_lease(
+    const uint8_t *in, size_t in_len, gl30_control_lease_request_t *out) {
+  gl30_control_lease_request_t decoded;
+  if (in == NULL || out == NULL || in_len != GL30_CONTROL_LEASE_LEN) {
+    return -1;
+  }
+  decoded = (gl30_control_lease_request_t){
+      .action = read_u32_le(in + 0u),
+      .zeroNonce = read_u32_le(in + 4u),
+      .currentGeneration = read_u64_le(in + 8u),
+      .nextGeneration = read_u64_le(in + 16u),
+  };
+  if (!control_lease_request_valid(&decoded)) {
+    return -1;
+  }
+  *out = decoded;
   return 0;
 }
 
@@ -210,7 +341,13 @@ int gl30_frame_encode(uint8_t type, uint16_t flags, uint32_t sequence, uint64_t 
   if (type == GL30_V6_FRAME_PAYLOAD_MOTOR_STATE_SLOW && payload_len != GL30_MOTOR_STATE_SLOW_LEN) {
     return -1;
   }
+  if (type == GL30_V6_FRAME_PAYLOAD_HAPTIC_STATE && payload_len != GL30_HAPTIC_STATE_LEN) {
+    return -1;
+  }
   if (type == GL30_V6_FRAME_PAYLOAD_HAPTIC_COMMAND && payload_len != GL30_HAPTIC_COMMAND_LEN) {
+    return -1;
+  }
+  if (type == GL30_V6_FRAME_PAYLOAD_CONTROL_LEASE && payload_len != GL30_CONTROL_LEASE_LEN) {
     return -1;
   }
 

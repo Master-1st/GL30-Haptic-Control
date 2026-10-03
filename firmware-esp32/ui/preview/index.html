@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101112">
+<meta name="description" content="GL30 SVG 交互演示：烤箱式自动回转、可手动调时、连续 RGB 灯带。">
+<title>GL30 · 把时间，握在手里</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23101112'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23ff8c43' stroke-width='4'/%3E%3Cpath d='M24 20h16l-13 24h13' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="watch-page-home">
+<svg class="icon-defs" aria-hidden="true"><defs>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 0 7M4 3v6h6"/></symbol>
+<symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v9M7 5a8 8 0 1 0 10 0"/></symbol>
+<symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M9 2h6M12 8v5l3 2"/></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3ZM16 8a6 6 0 0 1 0 8M19 4a11 11 0 0 1 0 16"/></symbol>
+<symbol id="i-stopwatch" viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><path d="M12 5V2M9 2h6M17.5 7.5l2-2M12 9v4l2.5 1.5"/></symbol>
+<symbol id="i-alarm" viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><path d="M7 5 4 3M17 5l3-2M12 9v4l2.5 1.5"/></symbol>
+<symbol id="i-weather" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2v2M8 12v2M2 8h2m8 0h2M4 4l1.5 1.5M12 12l1.5 1.5M6 18h11a4 4 0 0 0 0-8 5 5 0 0 0-9.5-1A3.5 3.5 0 0 0 6 18Z"/></symbol>
+<symbol id="i-haptics" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 7.5a6.4 6.4 0 0 1 0 9M4.5 4.5a10.7 10.7 0 0 0 0 15M19.5 4.5a10.7 10.7 0 0 1 0 15"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="m19 13 2-1-2-1-.5-2 1-1.8-2.2-1.2-1.5 1.3-2-.8L13 4h-2l-.8 2.5-2 .8-1.5-1.3L4.5 7.2l1 1.8-.5 2-2 1 2 1 .5 2-1 1.8 2.2 1.2 1.5-1.3 2 .8L11 20h2l.8-2.5 2-.8 1.5 1.3 2.2-1.2-1-1.8Z"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7 14h.01M12 14h.01M17 14h.01M7 18h.01M12 18h.01"/></symbol>
+<symbol id="i-lighting" viewBox="0 0 24 24"><circle cx="12" cy="11" r="4"/><path d="M12 2v3M12 17v5M3 11h3M18 11h3M5.6 4.6l2.1 2.1M16.3 15.3l2.1 2.1M18.4 4.6l-2.1 2.1M7.7 15.3l-2.1 2.1"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3Z"/><path d="M9 20v-6h6v6"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+</defs></svg>
+<header class="masthead"><a class="wordmark" href="./index.html" aria-label="GL30 交互演示首页">GL<span>30</span><i></i></a><span class="mast-sub">可编程力反馈旋钮</span><div class="build"><span class="live-dot"></span>交互演示<span class="build-id">V7 / 01</span></div></header>
+<main>
+<section class="intro"><div><div class="eyebrow">A LITTLE TURN. A LITTLE FOCUS.</div><h1>把时间，<span>握在手里。</span></h1><p>雪山表盘叠加本地时间，旋转选择；单击确认，双击返回。</p></div><button id="demo" class="demo-button"><svg><use href="#i-play"/></svg><span>看一次完整演示<small>90 分钟浓缩为 12 秒</small></span><span class="demo-arrow">↗</span></button></section>
+<section class="experience" aria-label="GL30 旋钮交互体验">
+<div class="product-area"><div class="scene-label"><span>01 / INTERACTION</span><span id="sceneState">等待旋转</span></div>
+<div class="stage" id="stage" data-page="home">
+<svg id="product" viewBox="0 0 680 600" role="group" aria-label="黑色 GL30 旋钮，中央屏幕固定，外环可旋转和按压">
+<defs>
+<linearGradient id="body-front" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#292b2b"/><stop offset=".3" stop-color="#151617"/><stop offset="1" stop-color="#0c0d0e"/></linearGradient>
+<linearGradient id="body-top" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#333536"/><stop offset=".45" stop-color="#202223"/><stop offset="1" stop-color="#111213"/></linearGradient>
+<linearGradient id="rim-edge" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#6b6e6e"/><stop offset=".28" stop-color="#17191a"/><stop offset=".62" stop-color="#080909"/><stop offset=".85" stop-color="#3e4141"/><stop offset="1" stop-color="#181919"/></linearGradient>
+<radialGradient id="metal" cx="34%" cy="18%" r="85%"><stop stop-color="#494c4d"/><stop offset=".32" stop-color="#303233"/><stop offset=".66" stop-color="#1d1f20"/><stop offset=".9" stop-color="#141617"/><stop offset="1" stop-color="#090a0b"/></radialGradient>
+<radialGradient id="glass-surface" cx="32%" cy="12%" r="85%"><stop stop-color="#111519"/><stop offset=".6" stop-color="#040708"/><stop offset="1" stop-color="#010203"/></radialGradient>
+<linearGradient id="glass-light" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e1eeee" stop-opacity=".09"/><stop offset=".45" stop-color="#e1eeee" stop-opacity="0"/></linearGradient>
+<linearGradient id="home-top-shade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#03070d" stop-opacity=".78"/><stop offset=".7" stop-color="#03070d" stop-opacity=".28"/><stop offset="1" stop-color="#03070d" stop-opacity="0"/></linearGradient>
+<linearGradient id="home-bottom-shade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#04080d" stop-opacity="0"/><stop offset=".35" stop-color="#04080d" stop-opacity=".28"/><stop offset="1" stop-color="#04080d" stop-opacity=".76"/></linearGradient>
+<radialGradient id="floor-shadow"><stop stop-color="#000" stop-opacity=".7"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<linearGradient id="sand-color" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffce86"/><stop offset="1" stop-color="#f17d37"/></linearGradient>
+<filter id="soft-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
+<filter id="case-shadow" x="-30%" y="-20%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-opacity=".55"/></filter>
+<clipPath id="screen-clip"><circle cx="340" cy="275" r="147"/></clipPath>
+</defs>
+<ellipse cx="340" cy="520" rx="268" ry="54" fill="url(#floor-shadow)"/>
+<g filter="url(#case-shadow)"><path d="M101 206Q101 175 132 172H548Q579 175 579 206L601 483Q604 511 574 515H106Q76 511 79 483Z" fill="url(#body-front)" stroke="#333535"/><path d="M117 151Q119 125 148 124H532Q561 125 563 151L593 450Q597 476 569 480H111Q83 476 87 450Z" fill="url(#body-top)" stroke="#4b4c4c" stroke-opacity=".6"/><path d="M110 482H570" stroke="#3b3d3d" stroke-opacity=".5"/></g>
+<g aria-hidden="true"><rect x="159" y="143" width="45" height="9" rx="4" fill="#0b0c0c" stroke="#4a4c4b"/><rect x="166" y="146" width="31" height="3" rx="1" fill="#272929"/><text x="340" y="494" text-anchor="middle" fill="#7b7e7e" font-size="10" letter-spacing="4">G L 3 0</text></g>
+<circle cx="340" cy="284" r="229" fill="#090a0b" stroke="#373a3a" stroke-width="1.5"/>
+<g id="ledGlow" aria-hidden="true" filter="url(#soft-glow)"></g><g id="ledRing" aria-label="底座连续 RGB 灯带"></g>
+<g id="floating"><circle cx="340" cy="280" r="216" fill="url(#rim-edge)" stroke="#080909" stroke-width="2"/>
+<g id="rotor"><circle cx="340" cy="275" r="211" fill="url(#metal)" stroke="#626665" stroke-width=".75"/><g id="knurl" aria-hidden="true"></g><circle cx="340" cy="275" r="195" fill="none" stroke="#777e7e" stroke-opacity=".17"/><circle cx="340" cy="275" r="190" fill="none" stroke="#080a0a" stroke-width="2"/></g>
+<circle cx="340" cy="275" r="173" fill="#07090a" stroke="#45494a" stroke-width="1.5"/><circle cx="340" cy="275" r="160" fill="#050708" stroke="#1d2224" stroke-width="1"/>
+<circle id="glass" cx="340" cy="275" r="148" fill="url(#glass-surface)" stroke="#383d3f" stroke-width=".7"/>
+<g id="display" clip-path="url(#screen-clip)" aria-hidden="true"><g id="appScreen"><g id="timeRings" transform="rotate(-90 340 275)"></g><g id="screenContent">
+<text id="screenMode" class="screen-kicker" x="340" y="196">FOCUS TIMER</text>
+<g id="timerArt" transform="translate(340 244)"><g id="hourglassBody"><path d="M-17-25H17V-20Q17-13 4 0Q17 13 17 20V25H-17V20Q-17 13-4 0Q-17-13-17-20Z" fill="#ffac57" fill-opacity=".07" stroke="#bba28b" stroke-width="1.5"/><path d="M-22-28H22M-22 28H22" stroke="#f2c298" stroke-width="3" stroke-linecap="round"/><path id="upperSand" d="M-13-19H13L0-4Z" fill="url(#sand-color)"/><path id="lowerSand" d="M-13 21H13L0 20Z" fill="url(#sand-color)"/><g id="sandStream" fill="#ffc78b"><circle cx="0" cy="3" r="1.1"/><circle cx="0" cy="10" r="1"/><circle cx="0" cy="17" r=".8"/></g></g><g id="finishArt"><circle r="29" fill="#ffad62" fill-opacity=".08"/><path d="m-13 0 9 9 18-19" fill="none" stroke="#ffd2a0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><g id="finishRays"/></g></g>
+<g id="volumeArt" transform="translate(340 242)" fill="none" stroke="#b6d9dc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><g id="volumeIcon" transform="translate(-4.1 0)"><path d="M-28-9H-17L-2-22V22L-17 9H-28Z" fill="#8fcad3" fill-opacity=".09"/><g id="soundWaves"><path d="M8-11a17 17 0 0 1 0 22"/><path d="M16-21a30 30 0 0 1 0 42"/><path d="M24-30a43 43 0 0 1 0 60"/></g><path id="muteCross" d="m9-10 20 20m0-20L9 10"/></g></g>
+<text id="screenTime" class="screen-time" x="340" y="319" text-anchor="middle">00:00:00</text><text id="screenPrompt" class="screen-prompt" x="340" y="347">转动旋环 · 设定时间</text><g id="statePill"><circle id="screenDot" cx="309" cy="372" r="2.3"/><text id="screenStatus" x="343" y="376">READY</text></g></g></g>
+<g id="homeScreen" class="home-screen" aria-label="手表式照片桌面">
+<image id="homeBackdrop" href="assets/summit-dawn.png" x="140" y="128" width="400" height="400" preserveAspectRatio="xMidYMid slice" clip-path="url(#screen-clip)" aria-hidden="true"/>
+<rect class="home-top-shade" x="140" y="128" width="400" height="144" fill="url(#home-top-shade)" clip-path="url(#screen-clip)"/><rect class="home-bottom-shade" x="140" y="260" width="400" height="268" fill="url(#home-bottom-shade)" clip-path="url(#screen-clip)"/>
+<circle class="home-orbit" cx="340" cy="275" r="142" fill="none" stroke="#d8e2df" stroke-opacity=".16"/><g id="homeClockMarks" fill="none" stroke="#e2ece9" stroke-linecap="round" stroke-opacity=".25"><path d="M340 145v10M340 385v10M210 275h10M460 275h10" stroke-width="1.2"/><path d="m248 183 5 9m164 0 5-9m-5 174-5-9m-164 0-5 9" stroke-width=".8"/></g>
+<text id="homeDate" class="home-date" x="340" y="166">本地日期</text><text id="homeTime" class="home-time" x="333" y="236">--:--</text><text id="homeSeconds" class="home-seconds" x="420" y="226">--</text>
+<g class="home-info-card"><rect x="235" y="330" width="100" height="44" rx="10"/><text class="home-card-label" x="245" y="344">天气</text><text id="homeWeather" class="home-card-value" x="245" y="363">24°C 晴 · 示例</text></g><g class="home-info-card"><rect x="345" y="330" width="100" height="44" rx="10"/><text class="home-card-label" x="355" y="344">后台计时</text><text id="homeTimerText" class="home-card-value" x="355" y="363">计时器 · 待设定</text></g></g>
+ <g id="menuScreen" class="menu-screen" aria-label="主菜单"><rect class="menu-surface" x="193" y="128" width="294" height="294" fill="#000"/><ellipse class="menu-orbit-track" cx="340" cy="260" rx="93" ry="57" fill="none"/><text class="menu-kicker" x="340" y="172">主菜单</text><g id="menuOrbit" aria-label="九项应用轨道"></g><text id="menuName" class="menu-name" x="340" y="365">计时器</text><text id="menuCaption" class="menu-caption" x="340" y="383">旋转选择 · 单击打开</text></g>
+<g id="utilityScreen" class="utility-screen" aria-label="辅助应用"><rect class="utility-surface" x="193" y="128" width="294" height="294" fill="#05080b"/><g id="lightPreview" aria-label="灯效预览"><path id="screenLightTrail" d="" fill="none" stroke-width="2.5" stroke-linecap="round"/><path id="screenLightHead" d="" fill="none" stroke-width="3" stroke-linecap="round"/></g><use id="utilityIcon" href="#i-stopwatch" x="328" y="191" width="24" height="24"/><text id="utilityTitle" class="utility-title" x="340" y="247">秒表</text><text id="utilityValue" class="utility-value" x="340" y="291">00:00:00.00</text><text id="utilityDetail" class="utility-detail" x="340" y="324">辅助应用 · 示例页</text><text id="utilityHint" class="utility-hint" x="340" y="358">双击返回 · 长按暂未设置</text></g><circle cx="340" cy="275" r="147" fill="url(#glass-light)" pointer-events="none"/></g>
+<circle id="knobControl" cx="340" cy="275" r="187" fill="none" stroke="transparent" stroke-width="44" role="slider" tabindex="0" aria-label="外旋环；方向键旋转，空格或回车按压" aria-valuemin="0" aria-valuemax="360" aria-valuenow="0" aria-valuetext="设定 0 分钟"/>
+</g><g fill="#777e7f" font-size="9" letter-spacing="1.5" aria-hidden="true"><text x="340" y="547" text-anchor="middle">ROTATE TO SELECT · TAP TO CONFIRM</text></g></svg>
+<button class="hardware-key left-key key-top" id="sideTimer" aria-label="左侧上键：计时器" title="计时器"><svg><use href="#i-timer"/></svg></button><button class="hardware-key left-key key-bottom" id="sideVolume" aria-label="左侧下键：音量" title="音量"><svg><use href="#i-volume"/></svg></button><button class="hardware-key right-key key-top" id="sidePlus" aria-label="右侧上键：增加一格" title="增加一格">+</button><button class="hardware-key right-key key-bottom" id="sideMinus" aria-label="右侧下键：减少一格" title="减少一格">−</button><button class="hardware-power" id="rearPower" aria-label="后电源键：熄屏或唤醒" title="后键：熄屏 / 唤醒"><svg><use href="#i-power"/></svg></button>
+</div><div class="gesture-hint"><span class="gesture-orbit">↻</span><span>旋转选择 / 进入应用后调值</span><span class="hint-divider"></span><span>单击确认 · 双击返回 · 长按暂未设置</span></div>
+<div class="readouts"><div><span class="data-label">模拟编码器</span><strong id="angleText">000.0°</strong></div><div><span class="data-label">连续灯带</span><strong id="ledText">蓝色前端 <em>· 1圈</em></strong></div><div><span class="data-label">旋转映射</span><strong id="mappingText">360° <em>= 60 min</em></strong></div></div></div>
+<aside class="control-panel" aria-label="交互控制"><div class="panel-top"><span class="eyebrow">YOUR MOMENT</span><span class="serial">GL—030</span></div>
+<div id="navBar" class="nav-bar" aria-label="应用导航"><button id="navHome" type="button" aria-label="返回桌面"><svg><use href="#i-home"/></svg><span>桌面</span></button><span id="navTitle">桌面</span><button id="navBack" type="button" aria-label="返回上一级"><span>返回</span><svg><use href="#i-back"/></svg></button></div>
+<div id="homePanel" class="page-panel home-panel"><div class="panel-panel-label">WALLPAPER DIAL</div><div class="wallpaper-preview"><span class="wallpaper-thumb" aria-hidden="true"></span><div><strong>雪山 · 日照金山</strong><small>时间与信息实时叠加</small></div></div><div class="desktop-time"><span>本地时间</span><output id="desktopTime">--:--:--</output></div><div class="desktop-weather"><span>天气（示例）</span><strong>24°C 晴</strong></div><p>背景为生成素材；天气仅作示例。</p></div>
+ <div id="menuPanel" class="page-panel menu-panel"><div class="panel-panel-label">MAIN MENU</div><div id="menuChoices" class="menu-choice-list" aria-label="九项应用选择"></div><p>旋转选择 · 单击打开</p></div>
+ <div id="utilityPanel" class="page-panel utility-panel" hidden><div class="panel-panel-label">UTILITY VIEW</div><div class="utility-panel-card"><strong id="utilityPanelTitle">秒表</strong><output id="utilityPanelValue">00:00:00.00</output><p id="utilityPanelHint">示例辅助页 · 暂无独立控制</p></div><div id="lightingControls" class="lighting-controls" hidden><div class="lighting-field-tabs" role="group" aria-label="灯效调整字段"><button type="button" data-light-field="0" aria-pressed="true">效果</button><button type="button" data-light-field="1" aria-pressed="false">颜色</button><button type="button" data-light-field="2" aria-pressed="false">亮度</button></div><div id="lightingFields"><div id="lightEffectChoices" class="lighting-choice-list" aria-label="灯效选择"></div><div id="lightColorChoices" class="lighting-choice-list lighting-color-list" aria-label="颜色选择" hidden></div><div id="lightBrightnessControl" class="lighting-brightness" hidden><label for="lightBrightness">亮度</label><div class="brightness-row"><input id="lightBrightness" type="range" min="0" max="100" step="5" value="100"><output id="lightBrightnessText">100%</output></div></div></div><p class="lighting-hint">旋转选择项目 · 单击调整</p></div></div>
+<div id="appControls" class="app-controls"><div class="setting-head"><span id="valueLabel">设定时长</span><span id="phaseText">待设定</span></div><div class="big-value"><output id="targetText" class="timer-value">00:00:00</output><span id="unit">时:分:秒</span></div>
+<div class="adjust-row"><button id="minus" aria-label="减少一格">−</button><input id="target" type="range" min="0" max="360" step="any" value="0" aria-label="设定时长（分钟）"><button id="plus" aria-label="增加一格">+</button></div><div class="scale-labels"><span id="scaleMin">0 min</span><span id="scaleMax">360 min</span></div><p id="endstopHint" class="endstop-hint" role="status" aria-live="polite" hidden></p>
+<div class="presets" id="presets" aria-label="快捷时长"><button data-minutes="25">25 <small>MIN</small></button><button data-minutes="60">60 <small>MIN</small></button><button data-minutes="90">90 <small>MIN</small></button></div></div>
+<button id="primary" class="primary"><svg id="primaryIcon"><use href="#i-play"/></svg><span id="primaryText">确定</span><kbd>SPACE</kbd></button>
+<div class="secondary-actions"><button id="reset"><svg><use href="#i-reset"/></svg>清零重设</button><button id="power" aria-pressed="false"><svg><use href="#i-power"/></svg><span>熄屏</span></button></div>
+<div class="feedback"><div class="feedback-heading"><span class="mini-dot" id="feedbackDot"></span><strong id="feedbackTitle">从一次小小的转动开始</strong></div><p id="feedbackText">转动外环，或选择一个快捷时长。按压外环开始计时，中央玻璃保持固定。</p></div><div id="backgroundTimer" class="background-timer" role="group" aria-label="后台计时器" hidden><div><span>后台计时</span><output id="backgroundTime">00:00:00</output></div><div><button id="backgroundPrimary">暂停计时</button><button id="backToTimer">返回计时 ↗</button></div></div><div id="demoBadge" class="demo-badge" hidden>加速演示 · 450× · 非真实 90 分钟</div>
+<details class="diagnostics"><summary>输入与显示检查<span>＋</span></summary><div class="diagnostic-actions"><button id="lost" aria-pressed="false">模拟断连</button><button id="fault" aria-pressed="false">模拟故障</button><button id="reduce" aria-pressed="false">减少动态效果</button></div><p>断连后角度未知，恢复首帧不补猜圈数。故障会暂停计时，解除后须手动继续。</p></details></aside></section>
+<section class="principles" aria-label="交互设计说明"><article><span class="principle-no">01</span><div><h2>雪山表盘叠加时间</h2><p>照片表盘保留本地时间、日期和秒数；天气卡片明确标注为示例天气 · 24°C 晴。</p></div></article><article><span class="principle-no">02</span><div><h2>旋转选择，单击确认</h2><p>黑底圆环包含九项应用，连续旋转，把选中项带到前方放大；单击打开，菜单灯只亮一个蓝色指针。</p></div></article><article><span class="principle-no">03</span><div><h2>双击返回，长按待设置</h2><p>双击返回上一级，长按动作暂未设置；四侧快捷键仍保留，屏幕与灯带保持连续表达。</p></div></article></section>
+<p id="status" class="sr-only" role="status" aria-live="polite">准备就绪，设定 0 分钟。</p></main>
+<footer><span>GL30 <b>HAPTIC CONTROL</b></span><p>SVG 交互原型 · 雪山表盘背景，时间与信息实时叠加。背景为生成素材，天气为示例；未连接电机 / 串口 / 系统音量。</p><a href="../../../PROJECT_ALL_IN_ONE_CN.md">项目手册 ↗</a></footer>
+<script src="model.js"></script><script src="gesture.js"></script><script src="interaction.js"></script>
+</body></html>
+
+
+
+

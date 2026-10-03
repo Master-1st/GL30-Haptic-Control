@@ -1,0 +1,85 @@
+{
+  "status": "PASS_NATIVE_CONNECTIVITY_NO_TESTPOINTS",
+  "sheets": 7,
+  "component_references": 146,
+  "connected_pins": 447,
+  "physical_pins": 456,
+  "explicit_nc_pins": 9,
+  "named_nets": 98,
+  "testpoints": 0,
+  "checks": [
+    "native project reopened with seven relative sheet paths and GLOBAL net scope",
+    "native OLE files reopened",
+    "physical pins reconstructed from actual saved coordinates and wires",
+    "global net labels compared to independent original design input",
+    "BOM reference set matches native sheets"
+  ],
+  "project_sha256": "3ab9499ce6093543c322ec4b65d29320a708c012e9489c96ee36aab5a0946038",
+  "records": [
+    {
+      "file": "A01_POWER_MCU.SchDoc",
+      "sha256": "e65b68d0b2d6828ec6d73ef566bc667ed0d79f04c6d33e48edada618e2f4dfe7",
+      "components": 24,
+      "pins": 99,
+      "wires": 95,
+      "net_labels": 95,
+      "explicit_nc": 4
+    },
+    {
+      "file": "A02_DRV8316.SchDoc",
+      "sha256": "1c768673d40b707a2ec40187a62167099a4d3cf40998d4db7cdb487384043975",
+      "components": 26,
+      "pins": 91,
+      "wires": 80,
+      "net_labels": 80,
+      "explicit_nc": 2
+    },
+    {
+      "file": "A03_CURRENT_ADC.SchDoc",
+      "sha256": "7ca003d66858fd55b4231a2ac2a0781e066029d02b7d78b890211131f82c0ddb",
+      "components": 23,
+      "pins": 58,
+      "wires": 51,
+      "net_labels": 44,
+      "explicit_nc": 0
+    },
+    {
+      "file": "A04_HARD_PROTECT.SchDoc",
+      "sha256": "def268a730041e85742730a88b0b42217a9b989bfcdbbbd69957e8f410e9b3ac",
+      "components": 26,
+      "pins": 60,
+      "wires": 63,
+      "net_labels": 47,
+      "explicit_nc": 1
+    },
+    {
+      "file": "A05_ENCODER_NTC.SchDoc",
+      "sha256": "9694233f749dbef8cdc59f5abd9be1b65096bf0ffb10bc709244e6ecd511c8bd",
+      "components": 13,
+      "pins": 30,
+      "wires": 30,
+      "net_labels": 30,
+      "explicit_nc": 0
+    },
+    {
+      "file": "A06_LINKS_POWER.SchDoc",
+      "sha256": "e469de64726f04f95ebb5f077e628b741681bd0127cb478abd5fb111da52cec1",
+      "components": 21,
+      "pins": 75,
+      "wires": 73,
+      "net_labels": 73,
+      "explicit_nc": 2
+    },
+    {
+      "file": "A07_BUS_CONTROL.SchDoc",
+      "sha256": "873cbd85b5e159b85aa885ccd4b8fa41e505260fd34397613d04e48477f24a71",
+      "components": 21,
+      "pins": 43,
+      "wires": 43,
+      "net_labels": 43,
+      "explicit_nc": 0
+    }
+  ],
+  "errors": [],
+  "boundary": "Independent file-level graph check, not Altium application compilation/ERC, PCB DRC or hardware acceptance"
+}

@@ -1,0 +1,6 @@
+{
+  "checks": 41,
+  "frames": 361,
+  "result": "PASS",
+  "scope": "DOM keyboard/shortcuts, HTTP bulk rotations/time advance, same native C model and renderer"
+}

@@ -55,8 +55,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify qualified H25 source identity
-        run: python3 firmware-stm32/bench/NUCLEO_G474RE_FOC/tools/verify_source_identity.py docs/evidence/haptic25-20260908/source-identity.json
+      # H25's frozen source manifest remains a gate for H25 live runners, not
+      # a claim that this newer, offline-only source has H25 qualification.
 
       - name: Configure
         run: >-
@@ -70,6 +70,30 @@ jobs:
 
       - name: Test
         run: ctest --test-dir build/stm32-host --output-on-failure
+
+      - name: Configure current ESP32 UI, motor link and settings regressions
+        run: >-
+          cmake -S firmware-esp32/ui/kk-preview -B build/esp-current
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_C_FLAGS="${{ matrix.c_flags }}"
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=${{ matrix.ipo }}
+
+      - name: Build and test current ESP32 source without hardware
+        run: |
+          cmake --build build/esp-current --parallel 2
+          ctest --test-dir build/esp-current --output-on-failure
+
+      - name: Configure UI animation model (no ESP or display required)
+        run: >-
+          cmake -S firmware-esp32/ui/tests -B build/esp-ui-model
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_C_FLAGS="${{ matrix.c_flags }}"
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=${{ matrix.ipo }}
+
+      - name: Build and test UI animation model
+        run: |
+          cmake --build build/esp-ui-model --parallel 2
+          ctest --test-dir build/esp-ui-model --output-on-failure
 
   encoder-viewer:
     name: Encoder viewer offline unit tests

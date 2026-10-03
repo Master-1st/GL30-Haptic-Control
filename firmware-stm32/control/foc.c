@@ -91,6 +91,24 @@ bool gl30_foc_apply_command(gl30_foc_state_t *state, const gl30_haptic_command_t
     return false;
   }
 
+  if ((command->modeFlags & GL30_HAPTIC_DETENT) != 0u) {
+    if (command->detentWidthRad <= 1.0e-5f) {
+      state->rejected_commands++;
+      return false;
+    }
+    if ((command->modeFlags & GL30_HAPTIC_ENDSTOP) != 0u) {
+      const double lo = ceil(((double)command->endstopMinRad -
+                              (double)command->targetPositionRad) / (double)command->detentWidthRad);
+      const double hi = floor(((double)command->endstopMaxRad -
+                               (double)command->targetPositionRad) / (double)command->detentWidthRad);
+      if (lo > hi || lo < INT32_MIN || hi > INT32_MAX) {
+        state->rejected_commands++;
+        return false;
+      }
+    }
+  }
+
+  gl30_haptic_command_t previous = state->active_command;
   state->active_command = *command;
   state->active_command.modeFlags &=
       GL30_HAPTIC_DETENT | GL30_HAPTIC_ENDSTOP | GL30_HAPTIC_POSITION |
@@ -107,6 +125,15 @@ bool gl30_foc_apply_command(gl30_foc_state_t *state, const gl30_haptic_command_t
       clampf(command->userTorqueLimitNm, 0.0f, GL30_USER_TORQUE_LIMIT_NM);
   state->command_torque_limit_nm = state->active_command.userTorqueLimitNm;
   state->last_command_nonce = command->commandNonce;
+  /* A transport nonce is not a new effect. Compare normalized commands so
+   * repeated clamped parameters also preserve the logical detent and ramp. */
+  previous.commandNonce = state->active_command.commandNonce;
+  if (memcmp(&previous, &state->active_command, sizeof(previous)) != 0) {
+    state->detent_initialized = false;
+    state->haptic_transition_from_nm = state->haptic_torque_nm;
+    state->haptic_transition_pending = true;
+    state->haptic_transition_ticks = 0u;
+  }
   return true;
 }
 
@@ -298,6 +325,13 @@ void gl30_foc_force_zero(gl30_foc_state_t *state) {
   }
   state->torque_command_nm = 0.0f;
   state->haptic_torque_nm = 0.0f;
+  state->detent_initialized = false;
+  state->detent_position = 0;
+  state->detent_center_rad = 0.0f;
+  state->detent_fraction = 0.0f;
+  state->haptic_transition_from_nm = 0.0f;
+  state->haptic_transition_ticks = 0u;
+  state->haptic_transition_pending = true;
   state->i_d_ref_a = 0.0f;
   state->i_q_ref_a = 0.0f;
   state->integrator_d_v = 0.0f;
@@ -329,8 +363,15 @@ void gl30_foc_make_telemetry(
   out->torqueEstNm = state->torque_estimate_nm;
   out->busVoltageV = state->vbus_v;
   out->busCurrentA = fabsf(state->i_q_a);
-  out->logicalPosition = (int32_t)lrintf(state->theta_unwrapped_rad / GL30_TWO_PI_F);
-  out->subPosition = wrap_pi(state->theta_unwrapped_rad);
+  if ((state->active_command.modeFlags & GL30_HAPTIC_DETENT) != 0u) {
+    out->logicalPosition = state->detent_initialized ? state->detent_position : 0;
+    out->subPosition = state->detent_initialized ?
+        (state->theta_unwrapped_rad - state->detent_center_rad) /
+          state->active_command.detentWidthRad : 0.0f;
+  } else {
+    out->logicalPosition = (int32_t)lrintf(state->theta_unwrapped_rad / GL30_TWO_PI_F);
+    out->subPosition = wrap_pi(state->theta_unwrapped_rad);
+  }
   out->motorState = motor_state;
   out->faultBits = fault_bits;
   out->warningBits = warning_bits;

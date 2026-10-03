@@ -1,0 +1,52 @@
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-legacy-debug
+Consolidate compiler generated dependencies of target gl30_esp_link
+Consolidate compiler generated dependencies of target gl30_ui_anim_model
+[ 42%] Built target gl30_esp_link
+[ 42%] Built target gl30_ui_anim_model
+Consolidate compiler generated dependencies of target gl30_ui_anim_model_tests
+Consolidate compiler generated dependencies of target gl30_ui_app_tests
+[ 71%] Built target gl30_ui_anim_model_tests
+[ 71%] Built target gl30_ui_app_tests
+Consolidate compiler generated dependencies of target gl30_ui_controller
+[ 85%] Built target gl30_ui_controller
+Consolidate compiler generated dependencies of target gl30_ui_controller_tests
+[ 92%] Linking C executable gl30_ui_controller_tests
+[100%] Built target gl30_ui_controller_tests
+Internal ctest changing into directory: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-legacy-debug
+Test project /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-legacy-debug
+    Start 1: gl30_ui_anim_model_tests
+1/3 Test #1: gl30_ui_anim_model_tests .........***Failed    0.00 sec
+PASS defaults                                               
+PASS dt_zero                                                
+PASS elapsed_clamp                                          
+PASS smooth_angle                                           
+PASS smoothed_numeric_text                                  
+PASS off_zero_outputs                                       
+PASS nan_inf                                                
+PASS null_input_lost                                        
+PASS fault_vs_lost                                          
+PASS mode_fallback                                          
+PASS mode_jump                                              
+FAIL timer_fill reflects ready/running/paused semantics with clamp and finished state expected 0.00000000 got 1.00000000
+PASS completion                                             
+PASS pause_phase                                            
+PASS wake_hold                                              
+PASS null_input                                             
+PASS input_limits                                           
+
+16 passed, 1 failed
+
+    Start 2: gl30_ui_app_tests
+2/3 Test #2: gl30_ui_app_tests ................   Passed    0.00 sec
+    Start 3: gl30_ui_controller_tests
+3/3 Test #3: gl30_ui_controller_tests .........   Passed    0.00 sec
+
+67% tests passed, 1 tests failed out of 3
+
+Total Test time (real) =   0.03 sec
+
+The following tests FAILED:
+	  1 - gl30_ui_anim_model_tests (Failed)
+Errors while running CTest

@@ -25,6 +25,9 @@ typedef struct {
   uint8_t stat1;
   uint8_t stat2;
   uint8_t spi_status;
+  /* OR of all three normalized replies in this read, including each SDO
+   * summary. Raw bytes above remain unchanged. App safety owns fault latching. */
+  uint32_t normalized_faults;
   bool n_fault_released;
   bool configured;
   bool output_enabled;
@@ -37,9 +40,17 @@ bool gl30_drv8316_word_has_even_parity(uint16_t word);
 uint32_t gl30_drv8316_status_word_faults(uint8_t address, uint16_t reply);
 
 void gl30_drv8316_init(void);
-bool gl30_drv8316_configure(void);
+/* Foreground-only: rejects a canceled startup before any SPI transaction. */
+bool gl30_drv8316_configure(uint32_t requested_off_generation);
+/* Foreground-only startup check; verifies cold safe state and never enables MOE. */
+bool gl30_drv8316_verify_startup(uint32_t expected_off_generation);
+bool gl30_drv8316_startup_verified(void);
+/* Foreground-only, explicit recovery operation; arm never calls this. */
 bool gl30_drv8316_clear_faults(void);
 bool gl30_drv8316_arm(uint32_t expected_off_generation);
+/* ISR-safe invalidation before external driver power is removed. */
+void gl30_drv8316_invalidate_configuration(void);
+/* ISR-safe; ordinary safe-off preserves a completed register configuration. */
 void gl30_drv8316_safe_off(void);
 void gl30_drv8316_set_duty(float duty_a, float duty_b, float duty_c);
 bool gl30_drv8316_read_register(uint8_t address, uint8_t *data);

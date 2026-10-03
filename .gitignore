@@ -112,3 +112,24 @@ Thumbs.db
 # Local hardware evidence and experiment scratch; publish reviewed release assets only
 /output/
 /tmp/
+
+# ESP-IDF managed downloads and local preview process state
+firmware-esp32/managed_components/
+firmware-esp32/sdkconfig.old
+firmware-esp32/ui/kk-preview/*.pid
+
+# Local engineering output archives are delivered as reviewed release assets.
+/outputs/
+!docs/evidence/offline-20261002/*.log
+!docs/evidence/publication-20261003/*.log
+*.obj
+/System.Management.Automation.Internal.Host.InternalHost/
+# Retain the reviewed full sdkconfig for reproducing this offline candidate.
+!firmware-esp32/sdkconfig
+firmware-esp32/tools/font-source/*.otf
+hardware/pcb/**/User_*.PcbLib
+hardware/pcb/**/GL30_Adjusted_User.PcbLib
+hardware/pcb/**/GL30_J4_Header.PcbLib
+hardware/pcb/**/History/
+hardware/pcb/**/__Previews/
+hardware/pcb/**/*.PrjPcbStructure

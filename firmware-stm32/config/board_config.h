@@ -3,8 +3,9 @@
 
 #include <stdint.h>
 
-/* This file is the single current hardware/firmware freeze. Values marked
- * HARDWARE_TUNE_REQUIRED are safe first-board values, not measured evidence. */
+/* Product firmware inputs, reconciled with A-SCH-INPUT-20260914.
+ * HARDWARE_TUNE_REQUIRED values, the unqualified encoder port and pending
+ * power sequence are not measured/qualified first-power settings. */
 
 #define GL30_HARDWARE_TUNE_REQUIRED 1
 
@@ -47,6 +48,10 @@
 #define GL30_UART3_BAUD                5000000u
 #define GL30_DRV8316_SPI_HZ            5000000u
 #define GL30_DRV8316_SPI_TIMEOUT_US        2000u
+#define GL30_ENCODER_SPI_HZ            2500000u
+/* Shared deadline for the complete ANGLE/DIAG/NOP read, not per word.
+ * ADC/BKIN may preempt it; first-board worst-case timing remains to be measured. */
+#define GL30_ENCODER_SPI_TIMEOUT_US         50u
 #define GL30_I2C1_HZ                    400000u
 /* I2CCLK=80 MHz, Fast-mode 400 kHz, analog filter enabled, DNF=0,
  * 250 ns rise / 100 ns fall assumption. Verify SCL/SDA on the first board. */
@@ -86,6 +91,12 @@
 #define GL30_FOC_DEADLINE_CYCLES       3200u /* 20 us at 160 MHz. */
 #define GL30_IWDG_NOMINAL_TIMEOUT_MS          64u
 #define GL30_STARTUP_ADC_TIMEOUT_US         50000u
+/* Product preparation only; these engineering margins require first-board
+ * waveform validation. No PWM is enabled by the preparation sequencer. */
+#define GL30_STARTUP_BUS_TIMEOUT_US        100000u
+#define GL30_STARTUP_BUS_STABLE_US          10000u
+#define GL30_STARTUP_DRIVER_WAKE_US         10000u
+#define GL30_ADC_SAMPLE_STALE_US              500u
 
 /* Motor/control initial values. HARDWARE_TUNE_REQUIRED.
  * The supplier table labels 1.53 ohm / 330 uH as line-to-line values for the
@@ -121,10 +132,19 @@
 #define GL30_CSA_GAIN_V_PER_A                      0.6f
 #define GL30_ADC_ZERO_DEFAULT_COUNTS             2048.0f
 #define GL30_ADC_ZERO_CAL_SAMPLES                  512u
+#define GL30_ADC_ZERO_SETTLE_US                  10000u
+#define GL30_ADC_ZERO_TIMEOUT_US                 50000u
+/* Initial rejection bound from the bench pattern, not product noise evidence. */
+#define GL30_ADC_ZERO_MAX_SPAN_COUNTS                60u
 #define GL30_ADC_ZERO_MAX_ERROR_COUNTS             350.0f
-#define GL30_VBUS_DIVIDER_RATIO                    6.0f
-#define GL30_TEMP_SENSOR_MV_AT_25C              750.0f
-#define GL30_TEMP_SENSOR_MV_PER_C                10.0f
+/* A-SCH-INPUT-20260914: ADC uses (100k + 100k) / 20k. The separate
+ * hardware comparator still uses 100k / 20k; do not reuse its ratio here. */
+#define GL30_VBUS_DIVIDER_RATIO                   11.0f
+#define GL30_NTC_PULLUP_OHM                    10000.0f
+#define GL30_NTC_R25_OHM                       10000.0f
+#define GL30_NTC_BETA_K                         3950.0f
+#define GL30_NTC_MIN_C                           -40.0f
+#define GL30_NTC_MAX_C                           125.0f
 
 /* Initial board protection values; the comparator ratios and final limits are
  * frozen only after regulator/TVS/brake characterization. */
@@ -159,9 +179,9 @@ typedef struct {
 
 static const gl30_pin_desc_t GL30_PINMAP[] = {
   { 1u, '-', 0u, 0u, GL30_PIN_POWER,     "VBAT" },
-  { 2u, 'C',13u, 0u, GL30_PIN_OUTPUT_OD, "SYS_FAULT_N_TO_ESP_GP1" },
-  { 3u, 'C',14u, 0u, GL30_PIN_RESERVED,  "RSV_ENC_AUX" },
-  { 4u, 'C',15u, 0u, GL30_PIN_OUTPUT_PP, "EXT_WATCHDOG_WDI_DNP" },
+  { 2u, 'C',13u, 0u, GL30_PIN_OUTPUT_PP, "SYS_FAULT_N_TO_ESP_GP1" },
+  { 3u, 'C',14u, 0u, GL30_PIN_RESERVED,  "RSV_PC14" },
+  { 4u, 'C',15u, 0u, GL30_PIN_RESERVED,  "RSV_PC15" },
   { 5u, 'F', 0u, 0u, GL30_PIN_RESERVED,  "HSE_IN_24MHZ" },
   { 6u, 'F', 1u, 0u, GL30_PIN_RESERVED,  "HSE_OUT_24MHZ" },
   { 7u, '-', 0u, 0u, GL30_PIN_RESERVED,  "NRST_SWD_EXT_WDOG" },
@@ -169,10 +189,11 @@ static const gl30_pin_desc_t GL30_PINMAP[] = {
   { 9u, 'A', 1u, 0u, GL30_PIN_ANALOG,    "DRV_SOB_ADC2_IN2" },
   {10u, 'A', 2u, 0u, GL30_PIN_OUTPUT_PP, "BRAKE_FORCE_TEST" },
   {11u, 'A', 3u, 0u, GL30_PIN_OUTPUT_OD, "DRV_DRVOFF" },
-  {12u, 'A', 4u, 0u, GL30_PIN_RESERVED,  "RSV_ENC_0" },
-  {13u, 'A', 5u, 0u, GL30_PIN_RESERVED,  "RSV_ENC_1" },
-  {14u, 'A', 6u, 0u, GL30_PIN_RESERVED,  "RSV_ENC_2" },
-  {15u, 'A', 7u, 0u, GL30_PIN_RESERVED,  "RSV_ENC_3" },
+  /* Read-only encoder port; electrical/timing qualification is separate. */
+  {12u, 'A', 4u, 0u, GL30_PIN_OUTPUT_PP, "AS5048A_CS_N" },
+  {13u, 'A', 5u, 5u, GL30_PIN_AF,        "AS5048A_SPI1_SCK" },
+  {14u, 'A', 6u, 5u, GL30_PIN_AF,        "AS5048A_SPI1_MISO" },
+  {15u, 'A', 7u, 5u, GL30_PIN_AF,        "AS5048A_SPI1_MOSI" },
   {16u, 'B', 0u, 0u, GL30_PIN_ANALOG,    "DRV_SOC_ADC3_IN12" },
   {17u, 'B', 1u, 0u, GL30_PIN_ANALOG,    "VBUS_ADC1_IN12" },
   {18u, 'B', 2u, 0u, GL30_PIN_ANALOG,    "MOTOR_TEMP_ADC2_IN12" },
@@ -191,7 +212,7 @@ static const gl30_pin_desc_t GL30_PINMAP[] = {
   {31u, 'A', 9u, 6u, GL30_PIN_AF,        "DRV_INHB_TIM1_CH2" },
   {32u, 'A',10u, 6u, GL30_PIN_AF,        "DRV_INHC_TIM1_CH3" },
   {33u, 'A',11u,11u, GL30_PIN_AF,        "ADC_SAMPLE_TRIG_TIM1_CH4" },
-  {34u, 'A',12u, 0u, GL30_PIN_RESERVED,  "USB_DP_DNP" },
+  {34u, 'A',12u, 0u, GL30_PIN_OUTPUT_PP, "DRV8316_NSLEEP" },
   {35u, '-', 0u, 0u, GL30_PIN_POWER,     "VSS" },
   {36u, '-', 0u, 0u, GL30_PIN_POWER,     "VDD_3V3" },
   {37u, 'A',13u, 0u, GL30_PIN_RESERVED,  "SWDIO" },
@@ -203,7 +224,7 @@ static const gl30_pin_desc_t GL30_PINMAP[] = {
   {43u, 'B', 6u, 0u, GL30_PIN_OUTPUT_PP, "DRV8316_CS_N" },
   {44u, 'B', 7u, 4u, GL30_PIN_AF,        "I2C1_SDA_INA228_VEML7700" },
   {45u, 'B', 8u, 0u, GL30_PIN_INPUT,     "BOOT0_STRAP" },
-  {46u, 'B', 9u, 0u, GL30_PIN_OUTPUT_PP, "SYNC_SCOPE_TP" },
+  {46u, 'B', 9u, 0u, GL30_PIN_OUTPUT_PP, "MOTOR_PWR_EN" },
   {47u, '-', 0u, 0u, GL30_PIN_POWER,     "VSS" },
   {48u, '-', 0u, 0u, GL30_PIN_POWER,     "VDD_3V3" }
 };

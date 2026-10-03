@@ -1,0 +1,44 @@
+[
+  {
+    "skill": "kk-oled-port",
+    "source": "https://gitee.com/keysking/kk_oled",
+    "commit": "f01831d63b1d426b629921edaba644732aa29223",
+    "files_verified_identical": 14,
+    "skill_sha256": "9ba8e86698ca47a28ebb752036ff9547e644946eae7ba619725d3835646d415f"
+  },
+  {
+    "skill": "kk-oled-use",
+    "source": "https://gitee.com/keysking/kk_oled",
+    "commit": "f01831d63b1d426b629921edaba644732aa29223",
+    "files_verified_identical": 4,
+    "skill_sha256": "2505fbaca4e5b6a2c93445d42f76e1383d9933aa5ac6edfedbb9f56c0ad30ecf"
+  },
+  {
+    "skill": "kk-oled-font",
+    "source": "https://gitee.com/keysking/kk_oled",
+    "commit": "f01831d63b1d426b629921edaba644732aa29223",
+    "files_verified_identical": 3,
+    "skill_sha256": "59c7cceb8126a7d34c0c4c370322e9393468f84925d47a10e9d41c79b2e0a332"
+  },
+  {
+    "skill": "kk-ui-port",
+    "source": "https://gitee.com/keysking/kk_ui",
+    "commit": "582c3442ecbc539c1c82a342676b5b2eda69eee0",
+    "files_verified_identical": 20,
+    "skill_sha256": "8344e7be972a4eda8da92ac33929d2ddd3ee8485cb07f29d9318848b0f775a6d"
+  },
+  {
+    "skill": "kk-ui-use",
+    "source": "https://gitee.com/keysking/kk_ui",
+    "commit": "582c3442ecbc539c1c82a342676b5b2eda69eee0",
+    "files_verified_identical": 4,
+    "skill_sha256": "1da6d4504f222d08b91a67ccc19233a3dc189f5289a9fe8d497cf81f1f317a76"
+  },
+  {
+    "skill": "kk-ui-extend",
+    "source": "https://gitee.com/keysking/kk_ui",
+    "commit": "582c3442ecbc539c1c82a342676b5b2eda69eee0",
+    "files_verified_identical": 4,
+    "skill_sha256": "0a7dbf3a0aedd4583ea8f6c3cfd704a7be14a59c884e7ea5113e4727a7f11d59"
+  }
+]

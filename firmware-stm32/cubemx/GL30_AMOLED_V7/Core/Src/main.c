@@ -60,6 +60,7 @@ static void MX_TIM2_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -120,6 +121,7 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM7_Init();
   MX_USART3_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   gl30_app_init();
 
@@ -162,11 +164,9 @@ void SystemClock_Config(void)
   }
 
   LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_6, 80, LL_RCC_PLLR_DIV_2);
-  /* ES0430 2.7.11: concurrent ADCs share PLLP, with no ADC prescaling.
-   * Keep the ADC at 40 MHz and TIM1 at 160 MHz (40 kHz PWM). */
   LL_RCC_PLL_ConfigDomain_ADC(LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_6, 80, LL_RCC_PLLP_DIV_8);
-  LL_RCC_PLL_EnableDomain_ADC();
   LL_RCC_PLL_EnableDomain_SYS();
+  LL_RCC_PLL_EnableDomain_ADC();
   LL_RCC_PLL_Enable();
    /* Wait till PLL is ready */
   while(LL_RCC_PLL_IsReady() != 1)
@@ -613,6 +613,78 @@ static void MX_IWDG_Init(void)
 }
 
 /**
+  * @brief SPI1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  LL_SPI_InitTypeDef SPI_InitStruct = {0};
+
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* Peripheral clock enable */
+  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI1);
+
+  LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
+  /**SPI1 GPIO Configuration
+  PA5   ------> SPI1_SCK
+  PA6   ------> SPI1_MISO
+  PA7   ------> SPI1_MOSI
+  */
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_5;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Alternate = LL_GPIO_AF_5;
+  LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_6;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Alternate = LL_GPIO_AF_5;
+  LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_7;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Alternate = LL_GPIO_AF_5;
+  LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  SPI_InitStruct.TransferDirection = LL_SPI_FULL_DUPLEX;
+  SPI_InitStruct.Mode = LL_SPI_MODE_MASTER;
+  SPI_InitStruct.DataWidth = LL_SPI_DATAWIDTH_16BIT;
+  SPI_InitStruct.ClockPolarity = LL_SPI_POLARITY_LOW;
+  SPI_InitStruct.ClockPhase = LL_SPI_PHASE_2EDGE;
+  SPI_InitStruct.NSS = LL_SPI_NSS_SOFT;
+  SPI_InitStruct.BaudRate = LL_SPI_BAUDRATEPRESCALER_DIV64;
+  SPI_InitStruct.BitOrder = LL_SPI_MSB_FIRST;
+  SPI_InitStruct.CRCCalculation = LL_SPI_CRCCALCULATION_DISABLE;
+  SPI_InitStruct.CRCPoly = 7;
+  LL_SPI_Init(SPI1, &SPI_InitStruct);
+  LL_SPI_SetStandard(SPI1, LL_SPI_PROTOCOL_MOTOROLA);
+  LL_SPI_DisableNSSPulseMgt(SPI1);
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
   * @brief SPI3 Initialization Function
   * @param None
   * @retval None
@@ -649,7 +721,7 @@ static void MX_SPI3_Init(void)
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_DOWN;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
   GPIO_InitStruct.Alternate = LL_GPIO_AF_6;
   LL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -755,7 +827,7 @@ static void MX_TIM1_Init(void)
   LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_RESET);
   LL_TIM_SetTriggerOutput2(TIM1, LL_TIM_TRGO2_OC4);
   LL_TIM_DisableMasterSlaveMode(TIM1);
-  LL_TIM_SetBreakInputSourcePolarity(TIM1, LL_TIM_BREAK_INPUT_BKIN, LL_TIM_BKIN_SOURCE_BKIN, LL_TIM_BKIN_POLARITY_LOW);
+  LL_TIM_SetBreakInputSourcePolarity(TIM1, LL_TIM_BREAK_INPUT_BKIN, LL_TIM_BKIN_SOURCE_BKIN, LL_TIM_BKIN_POLARITY_HIGH);
   TIM_BDTRInitStruct.OSSRState = LL_TIM_OSSR_ENABLE;
   TIM_BDTRInitStruct.OSSIState = LL_TIM_OSSI_ENABLE;
   TIM_BDTRInitStruct.LockLevel = LL_TIM_LOCKLEVEL_OFF;
@@ -1053,38 +1125,33 @@ static void MX_GPIO_Init(void)
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
 
   /**/
-  LL_GPIO_SetOutputPin(SYS_FAULT_N_GPIO_Port, SYS_FAULT_N_Pin);
-
-  /**/
-  LL_GPIO_SetOutputPin(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin);
-
-  /**/
-  LL_GPIO_SetOutputPin(DRV8316_NSS_GPIO_Port, DRV8316_NSS_Pin);
-
-  /**/
-  LL_GPIO_ResetOutputPin(EXT_WATCHDOG_WDI_DNP_GPIO_Port, EXT_WATCHDOG_WDI_DNP_Pin);
+  LL_GPIO_ResetOutputPin(SYS_FAULT_N_GPIO_Port, SYS_FAULT_N_Pin);
 
   /**/
   LL_GPIO_ResetOutputPin(BRAKE_FORCE_TEST_GPIO_Port, BRAKE_FORCE_TEST_Pin);
 
   /**/
-  LL_GPIO_ResetOutputPin(SCOPE_TP_GPIO_Port, SCOPE_TP_Pin);
+  LL_GPIO_ResetOutputPin(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin);
+
+  /**/
+  LL_GPIO_ResetOutputPin(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin);
+
+  /**/
+  LL_GPIO_SetOutputPin(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin);
+
+  /**/
+  LL_GPIO_SetOutputPin(ENC_CS_MCU_GPIO_Port, ENC_CS_MCU_Pin);
+
+  /**/
+  LL_GPIO_SetOutputPin(DRV8316_NSS_GPIO_Port, DRV8316_NSS_Pin);
 
   /**/
   GPIO_InitStruct.Pin = SYS_FAULT_N_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(SYS_FAULT_N_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = EXT_WATCHDOG_WDI_DNP_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(EXT_WATCHDOG_WDI_DNP_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_DOWN;
+  LL_GPIO_Init(SYS_FAULT_N_GPIO_Port, &GPIO_InitStruct);
 
   /**/
   GPIO_InitStruct.Pin = BRAKE_FORCE_TEST_Pin;
@@ -1103,6 +1170,22 @@ static void MX_GPIO_Init(void)
   LL_GPIO_Init(DRV8316_DRVOFF_GPIO_Port, &GPIO_InitStruct);
 
   /**/
+  GPIO_InitStruct.Pin = ENC_CS_MCU_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+  LL_GPIO_Init(ENC_CS_MCU_GPIO_Port, &GPIO_InitStruct);
+
+  /**/
+  GPIO_InitStruct.Pin = DRV8316_NSLEEP_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_DOWN;
+  LL_GPIO_Init(DRV8316_NSLEEP_GPIO_Port, &GPIO_InitStruct);
+
+  /**/
   GPIO_InitStruct.Pin = DRV8316_NSS_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
@@ -1111,17 +1194,15 @@ static void MX_GPIO_Init(void)
   LL_GPIO_Init(DRV8316_NSS_GPIO_Port, &GPIO_InitStruct);
 
   /**/
-  GPIO_InitStruct.Pin = SCOPE_TP_Pin;
+  GPIO_InitStruct.Pin = MOTOR_PWR_EN_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(SCOPE_TP_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_DOWN;
+  LL_GPIO_Init(MOTOR_PWR_EN_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
-  LL_GPIO_SetPinOutputType(SYS_FAULT_N_GPIO_Port, SYS_FAULT_N_Pin,
-                          LL_GPIO_OUTPUT_OPENDRAIN);
   LL_GPIO_SetPinOutputType(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin,
                           LL_GPIO_OUTPUT_OPENDRAIN);
 

@@ -1,15 +1,23 @@
 import { crc32c } from "./crc32c.js";
 import {
   HAPTIC_COMMAND_PAYLOAD_LEN,
+  HAPTIC_STATE_PAYLOAD_LEN,
+  CONTROL_LEASE_PAYLOAD_LEN,
   MOTOR_STATE_FAST_PAYLOAD_LEN,
   MOTOR_STATE_SLOW_PAYLOAD_LEN,
   encodeHapticCommand,
+  encodeHapticState,
+  encodeControlLease,
   encodeMotorStateFast,
   decodeHapticCommand,
+  decodeHapticState,
+  decodeControlLease,
   decodeMotorStateFast,
   encodeMotorStateSlow,
   decodeMotorStateSlow,
   HapticCommand,
+  HapticState,
+  ControlLease,
   MotorStateFast,
   MotorStateSlow
 } from "./payloads.js";
@@ -18,7 +26,7 @@ export const FRAME_SYNC = 0xA55A;
 export const FRAME_VERSION = 1;
 export const MAX_PAYLOAD = 4096;
 
-export type FrameType = 0x01 | 0x02 | 0x10 | number;
+export type FrameType = 0x01 | 0x02 | 0x06 | 0x10 | 0x15 | number;
 
 export interface V6Frame {
   version: number;
@@ -53,7 +61,9 @@ export class FrameError extends Error {
 const KNOWN_STATIC_LEN_BY_TYPE: Record<number, number | null> = {
   0x01: MOTOR_STATE_FAST_PAYLOAD_LEN,
   0x02: MOTOR_STATE_SLOW_PAYLOAD_LEN,
-  0x10: HAPTIC_COMMAND_PAYLOAD_LEN
+  0x06: HAPTIC_STATE_PAYLOAD_LEN,
+  0x10: HAPTIC_COMMAND_PAYLOAD_LEN,
+  0x15: CONTROL_LEASE_PAYLOAD_LEN
 };
 
 export function encodeFrame(
@@ -133,13 +143,19 @@ export function decodeFrame(frame: Uint8Array): V6Frame {
 
 export function encodePayloadByType(
   type: FrameType,
-  payload: MotorStateFast | MotorStateSlow | HapticCommand
+  payload: MotorStateFast | MotorStateSlow | HapticState | HapticCommand | ControlLease
 ): Uint8Array {
   if (type === 0x01) {
     return encodeMotorStateFast(payload as MotorStateFast);
   }
   if (type === 0x10) {
     return encodeHapticCommand(payload as HapticCommand);
+  }
+  if (type === 0x06) {
+    return encodeHapticState(payload as HapticState);
+  }
+  if (type === 0x15) {
+    return encodeControlLease(payload as ControlLease);
   }
   if (type === 0x02) {
     return encodeMotorStateSlow(payload as MotorStateSlow);
@@ -150,12 +166,18 @@ export function encodePayloadByType(
 export function decodePayloadByType(
   type: FrameType,
   payload: Uint8Array
-): MotorStateFast | MotorStateSlow | HapticCommand {
+): MotorStateFast | MotorStateSlow | HapticState | HapticCommand | ControlLease {
   if (type === 0x01) {
     return decodeMotorStateFast(payload);
   }
   if (type === 0x10) {
     return decodeHapticCommand(payload);
+  }
+  if (type === 0x06) {
+    return decodeHapticState(payload);
+  }
+  if (type === 0x15) {
+    return decodeControlLease(payload);
   }
   if (type === 0x02) {
     return decodeMotorStateSlow(payload);

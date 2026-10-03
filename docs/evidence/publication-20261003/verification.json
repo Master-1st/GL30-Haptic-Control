@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-03",
+  "kind": "isolated_publication_host_regression",
+  "hardware_opened": false,
+  "motor_enabled": false,
+  "shutdown_requested": false,
+  "qwen_called_this_turn": false,
+  "tests": [
+    {
+      "suite": "stm32",
+      "profile": "debug",
+      "passed": 15,
+      "failed": 0,
+      "log": "stm32-debug.log"
+    },
+    {
+      "suite": "stm32",
+      "profile": "sanitizer",
+      "passed": 15,
+      "failed": 0,
+      "log": "stm32-sanitizer.log"
+    },
+    {
+      "suite": "stm32",
+      "profile": "release-lto",
+      "passed": 15,
+      "failed": 0,
+      "log": "stm32-release-lto.log"
+    },
+    {
+      "suite": "esp-current",
+      "profile": "debug",
+      "passed": 8,
+      "failed": 0,
+      "log": "esp-current-debug.log"
+    },
+    {
+      "suite": "esp-current",
+      "profile": "sanitizer",
+      "passed": 8,
+      "failed": 0,
+      "log": "esp-current-sanitizer.log"
+    },
+    {
+      "suite": "esp-current",
+      "profile": "release-lto",
+      "passed": 8,
+      "failed": 0,
+      "log": "esp-current-release-lto.log"
+    },
+    {
+      "suite": "esp-legacy",
+      "profile": "debug",
+      "passed": 3,
+      "failed": 0,
+      "log": "esp-legacy-debug-final.log"
+    },
+    {
+      "suite": "esp-legacy",
+      "profile": "sanitizer",
+      "passed": 3,
+      "failed": 0,
+      "log": "esp-legacy-sanitizer-final.log"
+    },
+    {
+      "suite": "esp-legacy",
+      "profile": "release-lto",
+      "passed": 3,
+      "failed": 0,
+      "log": "esp-legacy-release-lto-final.log"
+    }
+  ],
+  "typescript": {
+    "tests_passed": 25,
+    "tests_failed": 0,
+    "typecheck_packages": 4,
+    "e2e": "SIM_ONLY",
+    "log": "pnpm-verify.log"
+  },
+  "frozen_source_count": 205,
+  "original_source_hash_mismatches": [],
+  "public_source_missing": [],
+  "public_line_endings_only": [
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Inc/bench_cordic.h",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Inc/main.h",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Inc/stm32_assert.h",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Inc/stm32g4xx_it.h",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Src/bench_cordic.c",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Src/bench_hw.c",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Src/stm32g4xx_it.c",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/Core/Src/system_stm32g4xx.c",
+    "firmware-stm32/bench/NUCLEO_G474RE_FOC/MDK-ARM/NUCLEO_G474RE_FOC.uvprojx",
+    "firmware-stm32/tests/bench_cordic_fake/main.h",
+    "firmware-stm32/tests/bench_cordic_fake/stm32g4xx_ll_cordic.h",
+    "firmware-stm32/tests/bench_cordic_tests.c",
+    "firmware-stm32/tests/bench_hw_fake/stm32g4xx_ll_iwdg.h",
+    "firmware-stm32/trace/trace_buffer.c",
+    "firmware-stm32/trace/trace_buffer.h"
+  ],
+  "public_document_edits": [
+    "PROJECT_INDEX_CN.md",
+    "firmware-esp32/README.md"
+  ],
+  "public_production_semantic_changes": [],
+  "native_schematic_count": 7,
+  "private_footprint_libraries_distributed": 0,
+  "legacy_reference_repairs": [
+    "libm transitive link ordering in CMake",
+    "finished-timer fixture now has zero remaining time, assertions retained"
+  ],
+  "github_ci": "pending_after_push",
+  "frozen_idf_and_keil": "previous frozen build records; not rebuilt in this publication turn"
+}

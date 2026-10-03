@@ -1,0 +1,103 @@
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-current-release-lto
+[  1%] Building C object CMakeFiles/gl30_board_dma_tests.dir/tests/board_dma_tests.c.o
+[  3%] Building C object CMakeFiles/gl30_wire.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/protocol/v6_protocol.c.o
+[  5%] Linking C static library libgl30_wire.a
+[  5%] Built target gl30_wire
+[  7%] Building C object CMakeFiles/gl30_model.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/src/gl30_model.c.o
+[  8%] Linking C executable gl30_board_dma_tests
+[  8%] Built target gl30_board_dma_tests
+[ 10%] Building C object CMakeFiles/gl30_model.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/src/gl30_preferences.c.o
+[ 12%] Building C object CMakeFiles/gl30_model.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/src/gl30_gesture.c.o
+[ 14%] Building C object CMakeFiles/gl30_model.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui_anim.c.o
+[ 16%] Linking C static library libgl30_model.a
+[ 16%] Built target gl30_model
+[ 17%] Building C object CMakeFiles/gl30_model_tests.dir/tests/model_tests.c.o
+[ 19%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_oled/graphics/kk_oled.c.o
+[ 21%] Linking C executable gl30_model_tests
+[ 23%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_oled/graphics/kk_oled_draw.c.o
+[ 23%] Built target gl30_model_tests
+[ 25%] Building C object CMakeFiles/gl30_preferences_tests.dir/tests/preferences_tests.c.o
+[ 26%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_oled/graphics/kk_oled_bitmap.c.o
+[ 28%] Linking C executable gl30_preferences_tests
+[ 30%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_oled/graphics/kk_oled_font.c.o
+[ 30%] Built target gl30_preferences_tests
+[ 32%] Building C object CMakeFiles/gl30_motor_menu_tests.dir/tests/motor_menu_tests.c.o
+[ 33%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui.c.o
+[ 35%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui_dialog.c.o
+[ 37%] Building C object CMakeFiles/gl30_motor_menu_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_motor/src/gl30_menu_session.c.o
+[ 39%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui_draw.c.o
+[ 41%] Building C object CMakeFiles/gl30_motor_menu_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/transport/gl30_esp_link.c.o
+[ 42%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui_home.c.o
+[ 44%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui_menu.c.o
+[ 46%] Building C object CMakeFiles/gl30_motor_menu_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/protocol/v6_protocol.c.o
+[ 48%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui_nav.c.o
+[ 50%] Building C object CMakeFiles/gl30_motor_menu_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/control/foc.c.o
+[ 51%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/kk_ui/src/kk_ui_page.c.o
+[ 53%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/src/gl30_demo.c.o
+[ 55%] Building C object CMakeFiles/gl30_motor_menu_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/haptics/haptics.c.o
+[ 57%] Linking C executable gl30_motor_menu_tests
+[ 58%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/src/gl30_render.c.o
+[ 58%] Built target gl30_motor_menu_tests
+[ 60%] Building C object CMakeFiles/gl30_motor_stop_tests.dir/tests/motor_stop_tests.c.o
+[ 62%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/src/gl30_type.c.o
+[ 64%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/assets/gl30_type_data.c.o
+[ 66%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/assets/gl30_font_body.c.o
+[ 67%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/assets/gl30_font_title.c.o
+[ 69%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/assets/gl30_font_digits.c.o
+[ 71%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/assets/gl30_font_small.c.o
+[ 73%] Building C object CMakeFiles/gl30_motor_stop_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_motor/src/gl30_menu_session.c.o
+[ 75%] Building C object CMakeFiles/gl30_preview.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_ui/assets/gl30_summit.c.o
+[ 76%] Building C object CMakeFiles/gl30_preview.dir/host_driver.c.o
+[ 78%] Building C object CMakeFiles/gl30_motor_stop_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/transport/gl30_esp_link.c.o
+[ 80%] Linking C shared library libgl30_preview.so
+[ 82%] Building C object CMakeFiles/gl30_motor_stop_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/protocol/v6_protocol.c.o
+lto-wrapper: warning: using serial compilation of 2 LTRANS jobs
+[ 83%] Linking C executable gl30_motor_stop_tests
+[ 83%] Built target gl30_preview
+[ 85%] Building C object CMakeFiles/gl30_settings_store_tests.dir/tests/settings_store_tests.c.o
+[ 85%] Built target gl30_motor_stop_tests
+[ 87%] Building C object CMakeFiles/gl30_render_tests.dir/tests/render_tests.c.o
+[ 89%] Linking C executable gl30_settings_store_tests
+[ 89%] Built target gl30_settings_store_tests
+[ 91%] Building C object CMakeFiles/gl30_input_stop_tests.dir/tests/input_stop_tests.c.o
+[ 92%] Linking C executable gl30_render_tests
+[ 92%] Built target gl30_render_tests
+[ 94%] Building C object CMakeFiles/gl30_input_stop_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/components/gl30_motor/src/gl30_menu_session.c.o
+[ 96%] Building C object CMakeFiles/gl30_input_stop_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/transport/gl30_esp_link.c.o
+In file included from /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/kk-preview/tests/input_stop_tests.c:34:
+/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/kk-preview/tests/../../../main/app_main.c:34:20: warning: ‘TAG’ defined but not used [-Wunused-variable]
+   34 | static const char *TAG = "gl30_app";
+      |                    ^~~
+[ 98%] Building C object CMakeFiles/gl30_input_stop_tests.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/protocol/v6_protocol.c.o
+[100%] Linking C executable gl30_input_stop_tests
+[100%] Built target gl30_input_stop_tests
+Internal ctest changing into directory: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-current-release-lto
+Test project /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-current-release-lto
+    Start 1: model_and_gestures
+1/8 Test #1: model_and_gestures .........................   Passed    0.00 sec
+    Start 2: preferences_record_and_runtime_isolation
+2/8 Test #2: preferences_record_and_runtime_isolation ...   Passed    0.00 sec
+    Start 3: rgb565_and_ui
+3/8 Test #3: rgb565_and_ui ..............................   Passed    0.09 sec
+    Start 4: motor_menu_protocol_and_state
+4/8 Test #4: motor_menu_protocol_and_state ..............   Passed    0.00 sec
+    Start 5: board_dma_failure_ownership
+5/8 Test #5: board_dma_failure_ownership ................   Passed    0.00 sec
+    Start 6: input_stop_without_ui_queue
+6/8 Test #6: input_stop_without_ui_queue ................   Passed    0.01 sec
+    Start 7: motor_stop_generation_and_owner
+7/8 Test #7: motor_stop_generation_and_owner ............   Passed    0.00 sec
+    Start 8: settings_store_reservations_and_failures
+8/8 Test #8: settings_store_reservations_and_failures ...   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Total Test time (real) =   0.15 sec

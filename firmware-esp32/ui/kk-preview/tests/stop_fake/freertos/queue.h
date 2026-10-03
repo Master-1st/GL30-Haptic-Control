@@ -1,0 +1,4 @@
+#ifndef GL30_STOP_TEST_FREERTOS_QUEUE_H
+#define GL30_STOP_TEST_FREERTOS_QUEUE_H
+#include "FreeRTOS.h"
+#endif

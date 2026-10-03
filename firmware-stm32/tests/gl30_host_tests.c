@@ -11,6 +11,7 @@
 
 #include "control/foc.h"
 #include "drivers/drv8316.h"
+#include "drivers/board_sense.h"
 #include "drivers/factory_encoder.h"
 #include "drivers/ina228.h"
 #include "haptics/haptics.h"
@@ -951,15 +952,25 @@ static void test_trace_ring(void) {
 
 static void test_factory_encoder_init_and_snapshot(void) {
   gl30_factory_encoder_sample_t sample = {0};
+  gl30_factory_encoder_diagnostics_t diag = {0};
   gl30_factory_encoder_init();
   gl30_factory_encoder_snapshot(&sample);
 
   CHECK(sample.angle_rad == 0.0f, "factory encoder init sets angle 0");
   CHECK(sample.timestamp_us == 0u, "factory encoder init sets timestamp 0");
-  CHECK(sample.status == GL30_FACTORY_ENCODER_STATUS_PENDING_VENDOR,
-        "factory encoder init sets pending vendor status");
+  CHECK(sample.status == GL30_FACTORY_ENCODER_STATUS_INITIALIZING,
+        "factory encoder init sets initializing status");
   CHECK(sample.valid == false, "factory encoder init sets valid false");
   CHECK(sample.sample_index == 0u, "factory encoder init sets sample index 0");
+
+  gl30_factory_encoder_poll_4k();
+  gl30_factory_encoder_snapshot(&sample);
+  gl30_factory_encoder_diagnostics_snapshot(&diag);
+  CHECK(sample.status == GL30_FACTORY_ENCODER_STATUS_INITIALIZING && !sample.valid,
+        "host-only encoder polling stays initializing and invalid");
+  CHECK(diag.latest_faults == 0u && diag.successful_samples == 0u &&
+        diag.failed_samples == 0u,
+        "host-only encoder polling does not fabricate transport diagnostics");
 }
 
 static void test_control_ready(void) {
@@ -973,8 +984,8 @@ static void test_control_ready(void) {
 
   CHECK(!control_ready(NULL, 999u, 1000u), "control_ready returns false on NULL");
 
-  sample.status = GL30_FACTORY_ENCODER_STATUS_PENDING_VENDOR;
-  CHECK(!control_ready(&sample, 2000u, 100u), "control_ready returns false for pending vendor");
+  sample.status = GL30_FACTORY_ENCODER_STATUS_INITIALIZING;
+  CHECK(!control_ready(&sample, 2000u, 100u), "control_ready returns false while initializing");
 
   sample.status = GL30_FACTORY_ENCODER_STATUS_INVALID;
   CHECK(!control_ready(&sample, 2000u, 100u), "control_ready returns false for invalid status");
@@ -996,9 +1007,80 @@ static void test_control_ready(void) {
   sample.timestamp_us = 1000u;
   CHECK(control_ready(&sample, 2000u, 1000u), "control_ready true at max age boundary");
   CHECK(control_ready(&sample, 1500u, 600u), "control_ready true for ready/valid and not expired");
+  sample.angle_rad = NAN;
+  CHECK(!control_ready(&sample, 1500u, 600u), "control_ready rejects NaN angle despite ready flags");
+  sample.angle_rad = INFINITY;
+  CHECK(!control_ready(&sample, 1500u, 600u), "control_ready rejects positive infinity angle");
+  sample.angle_rad = -INFINITY;
+  CHECK(!control_ready(&sample, 1500u, 600u), "control_ready rejects negative infinity angle");
+}
+
+static void test_product_schematic_contract(void) {
+  CHECK(GL30_PINMAP_COUNT == 48u, "product pin table covers LQFP48");
+  CHECK(GL30_PINMAP[1].mode == GL30_PIN_OUTPUT_PP,
+        "PC13 drives the buffered ready input high against its default pull-down");
+  CHECK(GL30_PINMAP[3].mode == GL30_PIN_RESERVED,
+        "PC15 remains unallocated, not an unsolicited watchdog clock");
+  CHECK(strcmp(GL30_PINMAP[33].net, "DRV8316_NSLEEP") == 0 &&
+        GL30_PINMAP[33].mode == GL30_PIN_OUTPUT_PP,
+        "PA12 owns nSLEEP, not the obsolete USB reserve");
+  CHECK(strcmp(GL30_PINMAP[45].net, "MOTOR_PWR_EN") == 0 &&
+        GL30_PINMAP[45].mode == GL30_PIN_OUTPUT_PP,
+        "PB9 owns motor power permission, never scope pulses or LED data");
+  /* J1 VM -> 100k + 100k -> ADC node -> 20k -> GND. The separate
+   * comparator divider remains 6:1 and must not define ADC scaling. */
+  const float adc_at_16v = (16.0f / 11.0f) / GL30_ADC_VREF_V *
+                         GL30_ADC_FULL_SCALE_COUNTS;
+  const float measured_v = adc_at_16v * GL30_ADC_VREF_V /
+                           GL30_ADC_FULL_SCALE_COUNTS * GL30_VBUS_DIVIDER_RATIO;
+  CHECK(fabsf(measured_v - 16.0f) < 0.001f,
+        "16 V on the selected ADC divider must not be reported as 8.73 V");
+}
+
+static void test_product_ntc_conversion(void) {
+  float temperature_c = 1234.0f;
+  CHECK(!gl30_board_ntc_temperature_c(2048u, NULL), "NTC rejects null output");
+  const uint16_t invalid[] = {0u, 1u, 20u, 4090u, 4094u, 4095u, 65535u};
+  for (size_t i = 0; i < sizeof(invalid) / sizeof(invalid[0]); ++i) {
+    CHECK(!gl30_board_ntc_temperature_c(invalid[i], &temperature_c),
+          "NTC rejects open, short and implausible endpoint readings");
+    CHECK(temperature_c == 1234.0f, "failed NTC conversion leaves output unchanged");
+  }
+  CHECK(gl30_board_ntc_temperature_c(2048u, &temperature_c) &&
+        fabsf(temperature_c - 25.0f) < 0.02f,
+        "equal 10k resistances produce approximately 25 C, not TMP36 temperature");
+  /* Independent double-precision resistor synthesis -> integer ADC ->
+   * production single-precision conversion. Includes both protection levels. */
+  const double samples_c[] = {-39.0, -20.0, 0.0, 25.0, 50.0, 70.0, 84.5, 85.5, 100.0, 124.0};
+  for (size_t i = 0; i < sizeof(samples_c) / sizeof(samples_c[0]); ++i) {
+    const double resistance = 10000.0 * exp(3950.0 *
+        (1.0 / (samples_c[i] + 273.15) - 1.0 / 298.15));
+    const uint16_t raw = (uint16_t)lround(4095.0 * resistance / (10000.0 + resistance));
+    CHECK(gl30_board_ntc_temperature_c(raw, &temperature_c), "NTC valid reference point");
+    CHECK(fabs((double)temperature_c - samples_c[i]) < 0.2,
+          "NTC reference point within ADC quantization allowance");
+    if (samples_c[i] == 84.5) {
+      CHECK(temperature_c < GL30_MOTOR_TEMP_FAULT_C, "NTC below thermal fault boundary");
+    } else if (samples_c[i] == 85.5) {
+      CHECK(temperature_c > GL30_MOTOR_TEMP_FAULT_C, "NTC above thermal fault boundary");
+    }
+  }
+  float previous = 1000.0f;
+  unsigned valid_count = 0u;
+  for (uint16_t raw = 1u; raw < 4095u; ++raw) {
+    if (gl30_board_ntc_temperature_c(raw, &temperature_c)) {
+      CHECK(isfinite(temperature_c) && temperature_c < previous,
+            "NTC conversion decreases monotonically as pull-down resistance rises");
+      previous = temperature_c;
+      ++valid_count;
+    }
+  }
+  CHECK(valid_count > 3800u, "NTC accepts its broad plausible measurement interval");
 }
 
 int main(void) {
+  test_product_schematic_contract();
+  test_product_ntc_conversion();
   test_protocol_vectors();
   test_drv8316_frames();
   test_drv8316_status_word_faults_regression();

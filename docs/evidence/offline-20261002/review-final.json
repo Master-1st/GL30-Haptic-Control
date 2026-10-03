@@ -1,0 +1,124 @@
+{
+  "host": {
+    "completed": true,
+    "independent_before_external_code_results": "host-code-judgment-round3.md",
+    "qwen_claim_counterevidence_before_cross_result": "host-qwen-code-r3-adjudication.md",
+    "final_adjudication": "code-adjudication-cn.md"
+  },
+  "deepseek": {
+    "architecture_round1": {
+      "completed": true,
+      "job_id": "20261002163226-69ff389f5a88"
+    },
+    "architecture_round2": {
+      "completed": true,
+      "job_id": "20261002164303-f50e9e783822"
+    },
+    "code_round3": {
+      "completed": true,
+      "status": "done",
+      "job_id": "20261002175454-cf0ffe70ae37",
+      "finish_reason": "stop",
+      "answer_eof": true,
+      "packet_sha256": "da89a2bbafc4e15537fdf402fc7d9028cbf55352ed9666812835a6d764e9cba0",
+      "final_file": "deepseek-code-r3.json"
+    },
+    "cross_round4": {
+      "completed": true,
+      "status": "done",
+      "job_id": "20261002181959-f199187a95c1",
+      "finish_reason": "stop",
+      "answer_eof": true,
+      "packet_sha256": "6b8a9b9b4e26fdcb49be1dbd02357cad93cd591d6eff074a329ad2daf6422e57",
+      "final_file": "deepseek-followup-r4.json"
+    },
+    "final_cross_round5": {
+      "completed": true,
+      "status": "done",
+      "job_id": "20261003030607-0b66672da616",
+      "finish_reason": "stop",
+      "answer_eof": true,
+      "packet_sha256": "64c2337482205292844b641b285b9382684be2e132ece746628c96c6d780b8d2",
+      "final_file": "deepseek-final-cross-r5.json"
+    }
+  },
+  "qwen": {
+    "architecture_round1": {
+      "completed": true,
+      "job_id": "15831e5ed05d"
+    },
+    "architecture_round2": {
+      "completed": false,
+      "job_id": "fae9f5316c68",
+      "reason": "Native input-token precheck failed; historical failure is preserved."
+    },
+    "code_round3": {
+      "completed": true,
+      "status": "done",
+      "job_id": "fccd6c7f1eee",
+      "finish_reason": "stop",
+      "preflight_prompt_match": true,
+      "prompt_tokens": 30682,
+      "completion_tokens": 9783,
+      "packet_sha256": "da89a2bbafc4e15537fdf402fc7d9028cbf55352ed9666812835a6d764e9cba0",
+      "final_file": "qwen-code-r3.json",
+      "prior_error": {
+        "job_id": "3fd12820b48b",
+        "status": "error",
+        "error": "HTTP 503",
+        "reason_not_proven": true
+      }
+    },
+    "cross_round4": {
+      "completed": true,
+      "status": "done",
+      "job_id": "3c1bd7b01d3f",
+      "finish_reason": "stop",
+      "preflight_prompt_match": true,
+      "prompt_tokens": 17514,
+      "completion_tokens": 9141,
+      "packet_sha256": "6b8a9b9b4e26fdcb49be1dbd02357cad93cd591d6eff074a329ad2daf6422e57",
+      "final_file": "qwen-followup-r4.json"
+    },
+    "final_cross_round5": {
+      "completed": true,
+      "status": "done",
+      "job_id": "28d14d12469f",
+      "finish_reason": "stop",
+      "preflight_prompt_match": true,
+      "prompt_tokens": 14781,
+      "completion_tokens": 9208,
+      "packet_sha256": "64c2337482205292844b641b285b9382684be2e132ece746628c96c6d780b8d2",
+      "final_file": "qwen-final-cross-r5.json"
+    },
+    "authorization_deadline_utc": "2026-10-03T04:00:00Z",
+    "actual_service_context_tokens": 65536,
+    "already_online_service_reused": true,
+    "started_during_code_reuse": false,
+    "restarted_during_code_reuse": false,
+    "disabled_marker_removed": false,
+    "automatic_start_enabled": false
+  },
+  "same_packet_confirmed_for_rounds": [
+    3,
+    4,
+    5
+  ],
+  "decision": {
+    "offline_candidate_accepted": true,
+    "physical_release": false,
+    "flashed": false,
+    "shutdown_cancelled_by_user": true,
+    "limitations": [
+      "Asynchronous STOP cannot recall UART bytes already submitted; final check-to-submit gap may send one frame.",
+      "An API reservation holder must call maintenance_end; active Flash cannot safely trigger automatic cleanup.",
+      "Generation exhaustion fails closed and requires explicit restart; no wrap, reuse or automatic ARM.",
+      "Flash pause, power-loss persistence, actual GPIO/current/bridge, new FPS and assembled motor feel remain unverified."
+    ]
+  },
+  "test_worker": {
+    "final_status": "usage_limit",
+    "integration_and_final_verification_owner": "host",
+    "no_retry_of_unavailable_native_agent": true
+  }
+}

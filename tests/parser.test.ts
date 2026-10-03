@@ -1,9 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  crc32c,
   V6StreamParser,
   encodeFrame,
-  encodeMotorStateFast,
   encodeHapticCommand,
   HAPTIC_COMMAND_PAYLOAD_LEN,
   FRAME_VERSION
@@ -18,30 +18,6 @@ function concat(chunks: readonly Uint8Array[]): Uint8Array {
     offset += chunk.length;
   }
   return out;
-}
-
-function makeMotorPayload() {
-  return encodeMotorStateFast({
-    angleRad: 0.1,
-    velocityRadPerSec: 0.2,
-    accelerationRadPerSec2: 0.3,
-    iqRefA: 0.4,
-    iqMeasA: 0.5,
-    idMeasA: 0.6,
-    torqueCmdNm: 0.7,
-    torqueEstNm: 0.8,
-    busVoltageV: 7.2,
-    busCurrentA: 0.05,
-    logicalPosition: 12,
-    subPosition: 0.9,
-    motorState: 1,
-    faultBits: 0,
-    warningBits: 0,
-    isrCycles: 1,
-    encoderStatus: 2,
-    droppedCmds: 3,
-    reserved: 0
-  });
 }
 
 function makeHapticPayload() {
@@ -61,7 +37,8 @@ function makeHapticPayload() {
     userTorqueLimitNm: 0.01,
     activeSpeedLimitRadS: 0.9,
     modeFlags: 0,
-    textureId: 0
+    textureId: 0,
+    leaseGeneration: 0x1_0000_0001n
   });
 }
 
@@ -78,12 +55,17 @@ test("stream parser reports bad CRC", () => {
 
 test("stream parser reports known-type fixed payload mismatch", () => {
   const parser = new V6StreamParser();
-  const frame = encodeFrame(FRAME_VERSION, 0x01, makeMotorPayload(), { timestampUs: 1000n });
-  const bad = new Uint8Array(frame);
-  const view = new DataView(bad.buffer, bad.byteOffset, bad.byteLength);
-  view.setUint16(4, HAPTIC_COMMAND_PAYLOAD_LEN - 1, true);
-  const out = parser.feed(bad);
+  const legacyLengthPayload = makeHapticPayload().subarray(0, HAPTIC_COMMAND_PAYLOAD_LEN - 8);
+  const oldCommandFrame = encodeFrame(FRAME_VERSION, 0x22, legacyLengthPayload, {
+    timestampUs: 1000n
+  });
+  oldCommandFrame[3] = 0x10;
+  const view = new DataView(oldCommandFrame.buffer, oldCommandFrame.byteOffset, oldCommandFrame.byteLength);
+  view.setUint32(oldCommandFrame.length - 4,
+    crc32c(oldCommandFrame.subarray(2, oldCommandFrame.length - 4)), true);
+  const out = parser.feed(oldCommandFrame);
   assert.equal(out.frames.length, 0);
+  assert.equal(out.errors.length, 1);
   assert.equal(out.errors[0].code, "bad_payload_len");
 });
 

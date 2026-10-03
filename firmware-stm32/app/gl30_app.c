@@ -2,8 +2,8 @@
  *
  * CubeMX owns clock, pin and peripheral register initialization. This file
  * owns the application scheduler and the LL-only run-time control paths.
- * Torque remains fail-closed until the factory encoder protocol and the
- * electrical zero are confirmed on real hardware.
+ * Torque remains fail-closed until the product power sequence, encoder
+ * electrical interface and electrical zero are qualified on real hardware.
  */
 
 #include "gl30_app.h"
@@ -17,6 +17,9 @@
 #include "main.h"
 
 #include "board_config.h"
+#include "board_sense.h"
+#include "control_lease.h"
+#include "current_zero.h"
 #include "drv8316.h"
 #include "factory_encoder.h"
 #include "foc.h"
@@ -36,7 +39,6 @@ void DMA1_Channel2_IRQHandler(void);
 
 static gl30_safety_t g_safety;
 static gl30_foc_state_t g_foc;
-static gl30_factory_encoder_sample_t g_encoder;
 
 static __ALIGNED(4) uint8_t g_uart_rx[GL30_UART_RX_BUFFER_SIZE];
 static __ALIGNED(4) uint8_t g_uart_tx[GL30_UART_TX_BUFFER_SIZE];
@@ -45,16 +47,27 @@ static volatile bool g_uart_tx_busy;
 static volatile bool g_pending_command_ready;
 static gl30_haptic_command_t g_pending_command;
 static volatile uint32_t g_pending_command_sequence;
+static volatile uint64_t g_pending_command_received_us;
+static volatile bool g_pending_control_request_ready;
+static gl30_control_lease_request_t g_pending_control_request;
+static volatile uint64_t g_pending_control_request_received_us;
+static gl30_control_lease_t g_control_lease;
+static uint64_t g_arm_ready_since_us;
 
 static volatile bool g_telemetry_due;
 static volatile bool g_slow_telemetry_due;
+static volatile bool g_haptic_state_due;
+static volatile uint64_t g_haptic_measurement_us;
+static bool g_prefer_haptic_when_tied;
 static gl30_ina228_sample_t g_power_monitor;
 static gl30_veml7700_sample_t g_ambient_light;
 static uint64_t g_last_ina_config_attempt_us;
 static uint64_t g_last_veml_config_attempt_us;
 static uint32_t g_slow_sensor_tick_divider;
 static volatile bool g_monitor_due;
+static volatile bool g_driver_arm_in_progress;
 static volatile uint32_t g_control_progress;
+static volatile uint32_t g_safety_progress;
 static volatile uint16_t g_last_isr_cycles;
 static volatile uint16_t g_encoder_status;
 static volatile uint32_t g_dropped_commands;
@@ -63,23 +76,35 @@ static uint32_t g_tx_sequence;
 static uint32_t g_last_rx_sequence;
 static bool g_have_rx_sequence;
 
-static volatile uint32_t g_adc_zero_samples;
-static volatile uint32_t g_adc_zero_sum_a;
-static volatile uint32_t g_adc_zero_sum_b;
-static volatile uint32_t g_adc_zero_sum_c;
-static volatile bool g_adc_zero_ready;
-static float g_adc_zero_a = GL30_ADC_ZERO_DEFAULT_COUNTS;
-static float g_adc_zero_b = GL30_ADC_ZERO_DEFAULT_COUNTS;
-static float g_adc_zero_c = GL30_ADC_ZERO_DEFAULT_COUNTS;
+/* ADC and foreground timeout checks share this state only under PRIMASK. */
+static gl30_current_zero_t g_current_zero;
 static volatile float g_vbus_v;
 static volatile float g_motor_temperature_c;
+static volatile uint16_t g_motor_temperature_raw;
+static volatile bool g_motor_temperature_sample_received;
+static volatile uint64_t g_last_adc_sample_us;
+
+typedef enum {
+  GL30_POWER_WAIT_LOGIC,
+  GL30_POWER_WAIT_BUS,
+  GL30_POWER_WAIT_WAKE,
+  GL30_POWER_WAIT_ZERO,
+  GL30_POWER_VERIFY_DRIVER,
+  GL30_POWER_COMPLETE,
+  GL30_POWER_FAILED
+} gl30_power_stage_t;
+
+/* Foreground advances preparation; emergency-off may only move it to FAILED.
+ * Preparation never enables PWM. READY still needs a new explicit command. */
+static volatile gl30_power_stage_t g_power_stage;
+static uint64_t g_power_stage_started_us;
+static volatile uint64_t g_bus_valid_since_us;
 
 static volatile uint32_t g_haptic_tick_divider;
 static volatile bool g_trace_frozen;
-static uint64_t g_last_driver_config_attempt_us;
-static uint64_t g_last_watchdog_toggle_us;
 static uint64_t g_last_watchdog_refresh_us;
 static uint32_t g_last_watchdog_progress;
+static uint32_t g_last_watchdog_safety_progress;
 
 static uint16_t saturate_u16(uint32_t value) {
   return (value > UINT16_MAX) ? UINT16_MAX : (uint16_t)value;
@@ -116,16 +141,42 @@ static void hardware_safe_state(void) {
 }
 
 static void latch_fault(uint32_t fault_bit) {
-  hardware_safe_state();
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  gl30_app_emergency_off();
   gl30_foc_force_zero(&g_foc);
   gl30_safety_latch_fault(&g_safety, fault_bit);
   g_trace_frozen = true;
   publish_fault_line(true);
+  if (primask == 0u) {
+    __enable_irq();
+  }
 }
 
 void gl30_app_emergency_off(void) {
-  hardware_safe_state();
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  /* Sleep/power loss resets the driver's registers. Cancel in-flight
+   * preparation before removing power; normal bridge-only off retains them. */
+  gl30_drv8316_invalidate_configuration();
+  gl30_current_zero_reset(&g_current_zero);
+  g_power_stage = GL30_POWER_FAILED;
+  g_arm_ready_since_us = 0u;
+  /* Bridge off first. The independent regeneration clamp must remain on
+   * MOTOR_BUS downstream of the upstream isolation switch. This hard-off
+   * path is distinct from normal zero torque, which only calls the bridge
+   * safe-state helper above. */
+  if ((RCC->AHB2ENR & RCC_AHB2ENR_GPIOAEN) != 0u) {
+    LL_GPIO_ResetOutputPin(BRAKE_FORCE_TEST_GPIO_Port, BRAKE_FORCE_TEST_Pin);
+    LL_GPIO_ResetOutputPin(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin);
+  }
+  if ((RCC->AHB2ENR & RCC_AHB2ENR_GPIOBEN) != 0u) {
+    LL_GPIO_ResetOutputPin(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin);
+  }
   publish_fault_line(true);
+  if (primask == 0u) {
+    __enable_irq();
+  }
 }
 
 static void configure_dwt_counter(void) {
@@ -135,18 +186,38 @@ static void configure_dwt_counter(void) {
 }
 
 static void init_runtime_state(uint64_t now_us) {
+  gl30_factory_encoder_sample_t encoder;
   memset(&g_foc, 0, sizeof(g_foc));
-  memset(&g_encoder, 0, sizeof(g_encoder));
   memset(&g_pending_command, 0, sizeof(g_pending_command));
+  memset(&g_pending_control_request, 0, sizeof(g_pending_control_request));
+  g_pending_command_ready = false;
+  g_pending_command_received_us = 0u;
+  g_pending_control_request_ready = false;
+  g_pending_control_request_received_us = 0u;
+  gl30_control_lease_init(&g_control_lease);
+  g_arm_ready_since_us = 0u;
+  g_safety_progress = 0u;
+  g_driver_arm_in_progress = false;
   memset(&g_power_monitor, 0, sizeof(g_power_monitor));
   memset(&g_ambient_light, 0, sizeof(g_ambient_light));
+  g_telemetry_due = false;
+  g_slow_telemetry_due = false;
+  g_haptic_state_due = false;
+  g_haptic_measurement_us = 0u;
+  g_motor_temperature_sample_received = false;
+  g_last_adc_sample_us = 0u;
+  g_power_stage = GL30_POWER_WAIT_LOGIC;
+  g_power_stage_started_us = now_us;
+  g_bus_valid_since_us = 0u;
+  g_prefer_haptic_when_tied = false;
   gl30_foc_init(&g_foc);
+  gl30_current_zero_reset(&g_current_zero);
   gl30_safety_init(&g_safety, now_us);
   gl30_frame_parse_init();
   gl30_trace_init();
   gl30_factory_encoder_init();
-  gl30_factory_encoder_snapshot(&g_encoder);
-  g_encoder_status = (uint16_t)g_encoder.status;
+  gl30_factory_encoder_snapshot(&encoder);
+  g_encoder_status = (uint16_t)encoder.status;
 }
 
 static bool adc_enable(ADC_TypeDef *adc) {
@@ -304,6 +375,22 @@ static void handle_parsed_frame(const gl30_frame_t *frame) {
   if (frame == NULL) {
     return;
   }
+  if (frame->type == GL30_V6_FRAME_PAYLOAD_CONTROL_LEASE) {
+    gl30_control_lease_request_t request;
+    if (frame->payload_len != GL30_CONTROL_LEASE_LEN || frame->payload == NULL ||
+        gl30_decode_control_lease(frame->payload, frame->payload_len, &request) != 0) {
+      gl30_safety_on_bad_length(&g_safety);
+      return;
+    }
+    if (g_pending_control_request_ready) {
+      g_dropped_commands++;
+      return;
+    }
+    g_pending_control_request = request;
+    g_pending_control_request_received_us = gl30_timebase_now_us();
+    g_pending_control_request_ready = true;
+    return;
+  }
   if (frame->type != GL30_V6_FRAME_PAYLOAD_HAPTIC_COMMAND) {
     gl30_safety_on_unknown_type(&g_safety);
     return;
@@ -322,6 +409,7 @@ static void handle_parsed_frame(const gl30_frame_t *frame) {
   }
   g_pending_command = decoded;
   g_pending_command_sequence = frame->sequence;
+  g_pending_command_received_us = gl30_timebase_now_us();
   g_pending_command_ready = true;
 }
 
@@ -351,8 +439,11 @@ static void parse_bytes(const uint8_t *data, size_t length) {
 }
 
 static void uart_rx_drain(void) {
-  uint16_t produced = (uint16_t)(GL30_UART_RX_BUFFER_SIZE -
-                                 LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_1));
+  /* NDTR may be zero at circular reload. Normalize the end position, and
+   * drain only this entry snapshot so a continuous sender cannot pin this
+   * IRQ in a moving-producer loop. Later HT/TC/IDLE events drain new data. */
+  const uint16_t produced = (uint16_t)((GL30_UART_RX_BUFFER_SIZE -
+      LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_1)) % GL30_UART_RX_BUFFER_SIZE);
 
   while (g_uart_rx_consumed != produced) {
     uint16_t count;
@@ -364,17 +455,110 @@ static void uart_rx_drain(void) {
     parse_bytes(&g_uart_rx[g_uart_rx_consumed], count);
     g_uart_rx_consumed =
         (uint16_t)((g_uart_rx_consumed + count) % GL30_UART_RX_BUFFER_SIZE);
-    produced = (uint16_t)(GL30_UART_RX_BUFFER_SIZE -
-                          LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_1));
+  }
+}
+
+static void process_pending_control_request(void) {
+  gl30_control_lease_request_t request;
+  gl30_foc_state_t acquire_candidate = {0};
+  uint64_t received_us;
+  uint64_t now_us;
+  uint32_t primask;
+  bool release_allowed;
+  bool acquire_candidate_valid = true;
+  gl30_control_lease_result_t result;
+
+  if (!g_pending_control_request_ready) {
+    return;
+  }
+
+  primask = __get_PRIMASK();
+  __disable_irq();
+  request = g_pending_control_request;
+  received_us = g_pending_control_request_received_us;
+  now_us = gl30_timebase_now_us();
+  if (primask == 0u) {
+    __enable_irq();
+  }
+  if (received_us == 0u || now_us < received_us ||
+      now_us - received_us >= GL30_COMM_WARN_US) {
+    primask = __get_PRIMASK();
+    __disable_irq();
+    g_pending_control_request_ready = false;
+    g_pending_control_request_received_us = 0u;
+    if (primask == 0u) {
+      __enable_irq();
+    }
+    g_dropped_commands++;
+    return;
+  }
+
+  primask = __get_PRIMASK();
+  __disable_irq();
+  now_us = gl30_timebase_now_us();
+  if (now_us < received_us || now_us - received_us >= GL30_COMM_WARN_US) {
+    g_pending_control_request_ready = false;
+    g_pending_control_request_received_us = 0u;
+    g_dropped_commands++;
+    if (primask == 0u) {
+      __enable_irq();
+    }
+    return;
+  }
+  g_pending_control_request_ready = false;
+  g_pending_control_request_received_us = 0u;
+
+  release_allowed =
+      gl30_control_lease_command_is_fullzero(&g_foc.active_command) &&
+      g_foc.active_command.leaseGeneration == request.currentGeneration &&
+      g_foc.active_command.commandNonce == request.zeroNonce &&
+      !g_safety.arm_requested && !gl30_drv8316_outputs_enabled() &&
+      !g_driver_arm_in_progress;
+
+  if (request.action == GL30_CONTROL_ACQUIRE) {
+    gl30_haptic_command_t zero_command = {0};
+    zero_command.commandNonce = request.zeroNonce;
+    zero_command.leaseGeneration = request.nextGeneration;
+    acquire_candidate = g_foc;
+    acquire_candidate_valid =
+        gl30_foc_apply_command(&acquire_candidate, &zero_command);
+  }
+
+  result = acquire_candidate_valid
+      ? gl30_control_lease_process_request(&g_control_lease, &request,
+                                           release_allowed)
+      : GL30_CONTROL_LEASE_REQUEST_REJECTED;
+
+  if (result == GL30_CONTROL_LEASE_RELEASE_ACCEPTED) {
+    g_pending_command_ready = false;
+    g_pending_command_received_us = 0u;
+    gl30_safety_release_control(&g_safety);
+    gl30_foc_force_zero(&g_foc);
+    hardware_safe_state();
+  } else if (result == GL30_CONTROL_LEASE_ACQUIRE_ACCEPTED) {
+    g_pending_command_ready = false;
+    g_pending_command_received_us = 0u;
+    gl30_safety_release_control(&g_safety);
+    hardware_safe_state();
+    g_foc = acquire_candidate;
+    gl30_foc_force_zero(&g_foc);
+  } else if (result == GL30_CONTROL_LEASE_REQUEST_REJECTED) {
+    g_dropped_commands++;
+  }
+  if (primask == 0u) {
+    __enable_irq();
   }
 }
 
 static void process_pending_command(void) {
   gl30_haptic_command_t command;
+  gl30_factory_encoder_sample_t encoder;
   uint32_t sequence;
   uint32_t primask;
   uint64_t now_us;
+  uint64_t received_us;
   bool accepted;
+  bool lease_allowed;
   bool encoder_ok;
   bool should_arm;
   uint32_t expected_off_generation;
@@ -387,22 +571,72 @@ static void process_pending_command(void) {
   __disable_irq();
   command = g_pending_command;
   sequence = g_pending_command_sequence;
-  g_pending_command_ready = false;
+  received_us = g_pending_command_received_us;
   if (primask == 0u) {
     __enable_irq();
   }
 
   now_us = gl30_timebase_now_us();
+  if (received_us == 0u || now_us < received_us ||
+      now_us - received_us >= GL30_COMM_WARN_US) {
+    primask = __get_PRIMASK();
+    __disable_irq();
+    g_pending_command_ready = false;
+    g_pending_command_received_us = 0u;
+    if (primask == 0u) {
+      __enable_irq();
+    }
+    g_dropped_commands++;
+    return;
+  }
   primask = __get_PRIMASK();
   __disable_irq();
-  accepted = gl30_foc_apply_command(&g_foc, &command);
-  gl30_factory_encoder_snapshot(&g_encoder);
-  g_encoder_status = (uint16_t)g_encoder.status;
-  encoder_ok = control_ready(&g_encoder, now_us, GL30_ENCODER_STALE_US);
+  now_us = gl30_timebase_now_us();
+  if (received_us == 0u || now_us < received_us ||
+      now_us - received_us >= GL30_COMM_WARN_US) {
+    g_pending_command_ready = false;
+    g_pending_command_received_us = 0u;
+    g_dropped_commands++;
+    if (primask == 0u) {
+      __enable_irq();
+    }
+    return;
+  }
+  if (g_pending_control_request_ready) {
+    if (primask == 0u) {
+      __enable_irq();
+    }
+    return;
+  }
+  g_pending_command_ready = false;
+  g_pending_command_received_us = 0u;
+  lease_allowed = gl30_control_lease_command_is_allowed(&g_control_lease, &command);
+  accepted = lease_allowed && gl30_foc_apply_command(&g_foc, &command);
+  if (accepted) {
+    gl30_control_lease_command_accepted(&g_control_lease, &command);
+  }
+  gl30_factory_encoder_snapshot(&encoder);
+  encoder_ok = control_ready(&encoder, gl30_timebase_now_us(), GL30_ENCODER_STALE_US);
   expected_off_generation = gl30_drv8316_off_generation_snapshot();
   if (accepted) {
-    gl30_safety_on_valid_command(&g_safety, now_us);
-    if (encoder_ok) {
+    gl30_safety_on_valid_command(&g_safety, received_us);
+    if (command.userTorqueLimitNm == 0.0f) {
+      /* A zero heartbeat must not cancel idle driver setup or reset an
+       * already-neutral FOC phase. Only stop hardware when it is enabled. */
+      gl30_safety_disarm(&g_safety);
+      if (g_foc.torque_command_nm != 0.0f || g_foc.haptic_torque_nm != 0.0f ||
+          g_foc.i_d_ref_a != 0.0f || g_foc.i_q_ref_a != 0.0f ||
+          g_foc.integrator_d_v != 0.0f || g_foc.integrator_q_v != 0.0f ||
+          g_foc.v_d_v != 0.0f || g_foc.v_q_v != 0.0f) {
+        gl30_foc_force_zero(&g_foc);
+      }
+      if (gl30_drv8316_outputs_enabled() ||
+          LL_TIM_IsEnabledAllOutputs(TIM1) != 0u) {
+        hardware_safe_state();
+      }
+    } else if (encoder_ok && g_current_zero.state == GL30_CURRENT_ZERO_READY &&
+        g_power_stage == GL30_POWER_COMPLETE && gl30_drv8316_startup_verified() &&
+        g_arm_ready_since_us != 0u && received_us >= g_arm_ready_since_us) {
       gl30_safety_request_arm(&g_safety);
     } else {
       gl30_safety_disarm(&g_safety);
@@ -411,6 +645,7 @@ static void process_pending_command(void) {
   should_arm = accepted && encoder_ok &&
                gl30_safety_torque_allowed(&g_safety) &&
                !gl30_drv8316_outputs_enabled();
+  g_driver_arm_in_progress = should_arm;
   if (primask == 0u) {
     __enable_irq();
   }
@@ -425,29 +660,72 @@ static void process_pending_command(void) {
   g_have_rx_sequence = true;
   g_last_rx_sequence = sequence;
 
-  if (should_arm && !gl30_drv8316_arm(expected_off_generation)) {
-    if (!gl30_safety_fault_latched(&g_safety)) {
-      latch_fault(GL30_FAULT_DRIVER_SPI);
+  if (should_arm) {
+    const bool armed = gl30_drv8316_arm(expected_off_generation);
+    primask = __get_PRIMASK();
+    __disable_irq();
+    g_driver_arm_in_progress = false;
+    if (primask == 0u) {
+      __enable_irq();
     }
-    return;
+    if (!armed) {
+      if (!gl30_safety_fault_latched(&g_safety)) {
+        latch_fault(GL30_FAULT_DRIVER_SPI);
+      }
+      return;
+    }
   }
 }
 
 static void send_telemetry(void) {
   size_t frame_length = 0u;
+  bool send_slow = false;
+  bool send_haptic = false;
+  bool control_ack;
+  const uint32_t lease_primask = __get_PRIMASK();
+  __disable_irq();
+  const gl30_control_lease_t lease_snapshot = g_control_lease;
+  const bool lease_released =
+      lease_snapshot.state == GL30_CONTROL_LEASE_RELEASED;
+  control_ack = lease_snapshot.ack_pending;
+  if (lease_released) {
+    g_telemetry_due = false;
+    g_slow_telemetry_due = false;
+    g_haptic_state_due = false;
+  }
+  if (lease_primask == 0u) {
+    __enable_irq();
+  }
 
-  if (!g_telemetry_due && !g_slow_telemetry_due) {
+  if (lease_released && !control_ack) {
+    return;
+  }
+  if (!lease_released && !control_ack &&
+      !g_telemetry_due && !g_slow_telemetry_due && !g_haptic_state_due) {
     return;
   }
   if (g_uart_tx_busy) {
-    if (g_telemetry_due) {
+    if (!lease_released && g_telemetry_due) {
       g_telemetry_due = false;
       g_telemetry_drops++;
     }
     return;
   }
 
-  if (g_slow_telemetry_due) {
+  if (lease_released || control_ack) {
+    send_haptic = true;
+  } else if (g_slow_telemetry_due && g_haptic_state_due) {
+    send_haptic = g_prefer_haptic_when_tied;
+    send_slow = !send_haptic;
+    g_prefer_haptic_when_tied = !g_prefer_haptic_when_tied;
+  } else if (g_slow_telemetry_due) {
+    send_slow = true;
+  } else if (g_haptic_state_due) {
+    send_haptic = true;
+  }
+
+  if (send_slow) {
+    gl30_factory_encoder_diagnostics_t encoder_diag;
     gl30_ina228_counters_t ina_counters;
     gl30_veml7700_counters_t veml_counters;
     gl30_motor_state_slow_t state;
@@ -456,15 +734,16 @@ static void send_telemetry(void) {
     uint32_t foc_deadline_misses;
     uint32_t primask;
 
+    ina_counters = gl30_ina228_counters();
+    veml_counters = gl30_veml7700_counters();
+    gl30_factory_encoder_diagnostics_snapshot(&encoder_diag);
+    primask = __get_PRIMASK();
+    __disable_irq();
     g_slow_telemetry_due = false;
     if (g_telemetry_due) {
       g_telemetry_due = false;
       g_telemetry_drops++;
     }
-    ina_counters = gl30_ina228_counters();
-    veml_counters = gl30_veml7700_counters();
-    primask = __get_PRIMASK();
-    __disable_irq();
     foc_deadline_misses = g_safety.foc_deadline_count;
     if (primask == 0u) {
       __enable_irq();
@@ -501,7 +780,8 @@ static void send_telemetry(void) {
         .inaI2cErrors = ina_counters.i2c_errors,
         .vemlI2cErrors = veml_counters.i2c_errors,
         .telemetryDrops = g_telemetry_drops,
-        .encoderCrcErrors = 0u,
+        /* Existing wire field counts AS5048A parity failures on this board. */
+        .encoderCrcErrors = encoder_diag.parity_errors,
         .focDeadlineMisses = foc_deadline_misses,
     };
     if (gl30_encode_motor_state_slow(&state, payload, sizeof(payload)) != 0 ||
@@ -511,6 +791,99 @@ static void send_telemetry(void) {
                           &frame_length) != 0 ||
         !uart_tx_start(g_uart_tx, frame_length)) {
       g_telemetry_drops++;
+    }
+    return;
+  }
+
+  if (send_haptic) {
+    gl30_foc_state_t foc_snapshot;
+    gl30_safety_t safety_snapshot;
+    gl30_haptic_state_t state;
+    uint8_t payload[GL30_HAPTIC_STATE_LEN];
+    uint16_t encoder_status;
+    uint64_t measurement_us;
+    int32_t logical_position = 0;
+    float sub_position = 0.0f;
+    uint32_t status = 0u;
+    uint32_t primask;
+    bool encoder_valid;
+    bool detent_ready;
+
+    primask = __get_PRIMASK();
+    __disable_irq();
+    foc_snapshot = g_foc;
+    safety_snapshot = g_safety;
+    encoder_status = g_encoder_status;
+    measurement_us = g_haptic_measurement_us;
+    g_haptic_state_due = false;
+    if (primask == 0u) {
+      __enable_irq();
+    }
+
+    encoder_valid = encoder_status ==
+                        (uint16_t)GL30_FACTORY_ENCODER_STATUS_READY &&
+                    foc_snapshot.observer_initialized &&
+                    safety_snapshot.encoder_ok;
+    detent_ready = foc_snapshot.detent_initialized &&
+                   (foc_snapshot.active_command.modeFlags & GL30_HAPTIC_DETENT) != 0u;
+    if (encoder_valid) {
+      status |= GL30_HAPTIC_STATE_ENCODER_VALID;
+    }
+    if ((foc_snapshot.active_command.modeFlags & GL30_HAPTIC_DETENT) != 0u) {
+      if (detent_ready) {
+        status |= GL30_HAPTIC_STATE_DETENT_READY;
+        logical_position = foc_snapshot.detent_position;
+        if (isfinite(foc_snapshot.active_command.detentWidthRad) &&
+            foc_snapshot.active_command.detentWidthRad > 0.0f) {
+          sub_position = foc_snapshot.detent_fraction;
+        }
+      }
+    } else {
+      gl30_motor_state_fast_t telemetry_snapshot;
+      gl30_foc_make_telemetry(&foc_snapshot,
+                              (uint32_t)safety_snapshot.startup_state,
+                              safety_snapshot.fault_bits,
+                              safety_snapshot.warning_bits,
+                              0u, encoder_status, 0u, &telemetry_snapshot);
+      logical_position = telemetry_snapshot.logicalPosition;
+      sub_position = telemetry_snapshot.subPosition;
+    }
+
+    if (lease_released) {
+      status |= GL30_HAPTIC_STATE_CONTROL_RELEASED;
+    } else if (lease_snapshot.state == GL30_CONTROL_LEASE_OWNED &&
+               lease_snapshot.awaiting_first_zero) {
+      status |= GL30_HAPTIC_STATE_CONTROL_WAITING_ZERO;
+    }
+
+    state = (gl30_haptic_state_t){
+        .profileId = foc_snapshot.active_command.profileId,
+        .commandNonce = foc_snapshot.active_command.commandNonce,
+        .modeFlags = foc_snapshot.active_command.modeFlags,
+        .logicalPosition = logical_position,
+        .subPosition = sub_position,
+        .detentWidthRad = foc_snapshot.active_command.detentWidthRad,
+        .motorState = (uint32_t)safety_snapshot.startup_state,
+        .faultBits = safety_snapshot.fault_bits,
+        .status = status,
+        .leaseGeneration = lease_snapshot.generation,
+    };
+    if (gl30_encode_haptic_state(&state, payload, sizeof(payload)) != 0 ||
+        gl30_frame_encode(GL30_V6_FRAME_PAYLOAD_HAPTIC_STATE, 0u,
+                          g_tx_sequence++, measurement_us, payload,
+                          sizeof(payload), g_uart_tx, sizeof(g_uart_tx),
+                          &frame_length) != 0) {
+      g_telemetry_drops++;
+    } else if (!uart_tx_start(g_uart_tx, frame_length)) {
+      g_telemetry_drops++;
+    } else if (control_ack) {
+      const uint32_t ack_primask = __get_PRIMASK();
+      __disable_irq();
+      gl30_control_lease_ack_submitted(&g_control_lease,
+                                       lease_snapshot.ack_revision);
+      if (ack_primask == 0u) {
+        __enable_irq();
+      }
     }
     return;
   }
@@ -525,7 +898,6 @@ static void send_telemetry(void) {
     uint32_t dropped;
     uint32_t primask;
 
-    g_telemetry_due = false;
     primask = __get_PRIMASK();
     __disable_irq();
     foc_snapshot = g_foc;
@@ -533,6 +905,7 @@ static void send_telemetry(void) {
     isr_cycles = g_last_isr_cycles;
     encoder_status = g_encoder_status;
     dropped = g_dropped_commands + g_telemetry_drops;
+    g_telemetry_due = false;
     if (primask == 0u) {
       __enable_irq();
     }
@@ -554,20 +927,45 @@ static void send_telemetry(void) {
   }
 }
 
-static bool encoder_is_healthy(uint64_t now_us) {
-  gl30_factory_encoder_snapshot(&g_encoder);
-  g_encoder_status = (uint16_t)g_encoder.status;
-  return control_ready(&g_encoder, now_us, GL30_ENCODER_STALE_US);
+static bool encoder_is_healthy(void) {
+  gl30_factory_encoder_sample_t encoder;
+  gl30_factory_encoder_snapshot(&encoder);
+  /* Slow I2C may have run since the monitor task's entry timestamp. */
+  return control_ready(&encoder, gl30_timebase_now_us(), GL30_ENCODER_STALE_US);
 }
 
-static bool adc_zero_is_healthy(void) {
-  return g_adc_zero_ready &&
-         fabsf(g_adc_zero_a - GL30_ADC_ZERO_DEFAULT_COUNTS) <=
-             GL30_ADC_ZERO_MAX_ERROR_COUNTS &&
-         fabsf(g_adc_zero_b - GL30_ADC_ZERO_DEFAULT_COUNTS) <=
-             GL30_ADC_ZERO_MAX_ERROR_COUNTS &&
-         fabsf(g_adc_zero_c - GL30_ADC_ZERO_DEFAULT_COUNTS) <=
-             GL30_ADC_ZERO_MAX_ERROR_COUNTS;
+static bool update_current_zero(const uint16_t raw[3], float offsets[3]) {
+  bool ready;
+  bool failed;
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  const bool analog_ready = !gl30_safety_fault_latched(&g_safety) &&
+      gl30_drv8316_is_configured() &&
+      LL_GPIO_IsOutputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin) &&
+      LL_GPIO_IsInputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin) &&
+      LL_GPIO_IsOutputPinSet(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin) &&
+      LL_GPIO_IsInputPinSet(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin) &&
+      g_vbus_v >= GL30_VBUS_MIN_RUN_V && g_vbus_v < GL30_VBUS_FAULT_V;
+  const bool bridge_off = LL_TIM_IsEnabledAllOutputs(TIM1) == 0u &&
+      LL_GPIO_IsOutputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin) &&
+      LL_GPIO_IsInputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin);
+  gl30_current_zero_update(&g_current_zero, gl30_timebase_now_us(),
+                           analog_ready, bridge_off, raw);
+  ready = g_current_zero.state == GL30_CURRENT_ZERO_READY;
+  failed = g_current_zero.state == GL30_CURRENT_ZERO_FAILED;
+  if (ready && offsets != NULL) {
+    offsets[0] = g_current_zero.offset[0];
+    offsets[1] = g_current_zero.offset[1];
+    offsets[2] = g_current_zero.offset[2];
+  }
+  if (failed) {
+    latch_fault(GL30_FAULT_STARTUP);
+  }
+  if (primask == 0u) {
+    __enable_irq();
+  }
+  /* An interrupt released above may have invalidated the completed window. */
+  return ready && g_current_zero.state == GL30_CURRENT_ZERO_READY;
 }
 
 static void run_slow_sensors(uint64_t now_us) {
@@ -605,6 +1003,204 @@ static void run_slow_sensors(uint64_t now_us) {
   }
 }
 
+/* Call with PRIMASK held: the ADC publishes a 64-bit timestamp on Cortex-M4. */
+static bool adc_sample_is_fresh(uint64_t now_us) {
+  return g_motor_temperature_sample_received &&
+      now_us >= g_last_adc_sample_us &&
+      now_us - g_last_adc_sample_us < GL30_ADC_SAMPLE_STALE_US;
+}
+
+static bool shared_driver_fault_asserted_locked(void) {
+  /* Ordinary re-arm releases DRVOFF and waits for nFAULT with MOE still off.
+   * The driver checks the line before enabling PWM; keep monitoring once
+   * either the actual MOE or the driver's output state is enabled. */
+  if (g_driver_arm_in_progress && LL_TIM_IsEnabledAllOutputs(TIM1) == 0u &&
+      !gl30_drv8316_outputs_enabled()) {
+    return false;
+  }
+  /* DRVOFF high may itself pull nFAULT low. Use the actual released pad,
+   * not an old TIM1 break flag, before interpreting shared HARD_FAULT_N. */
+  return !LL_GPIO_IsInputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin) &&
+      !LL_GPIO_IsInputPinSet(GPIOB, LL_GPIO_PIN_12);
+}
+
+static uint32_t power_startup_fault_locked(uint64_t now_us) {
+  if (!adc_sample_is_fresh(now_us)) {
+    return GL30_FAULT_ADC_SYNC;
+  }
+  if (SystemCoreClock != GL30_SYSCLK_HZ ||
+      (DWT->CTRL & DWT_CTRL_CYCCNTENA_Msk) == 0u) {
+    return GL30_FAULT_STARTUP;
+  }
+  if (!encoder_is_healthy()) {
+    return GL30_FAULT_ENCODER;
+  }
+  if (!LL_GPIO_IsOutputPinSet(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin) ||
+      !LL_GPIO_IsInputPinSet(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin)) {
+    return GL30_FAULT_STARTUP;
+  }
+  if (g_power_stage == GL30_POWER_WAIT_BUS) {
+    if (LL_GPIO_IsOutputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin) ||
+        LL_GPIO_IsInputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin)) {
+      return GL30_FAULT_STARTUP;
+    }
+  } else {
+    if (!LL_GPIO_IsOutputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin) ||
+        !LL_GPIO_IsInputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin)) {
+      return GL30_FAULT_STARTUP;
+    }
+    if (!(g_vbus_v >= GL30_VBUS_MIN_RUN_V && g_vbus_v < GL30_VBUS_FAULT_V)) {
+      return GL30_FAULT_VBUS;
+    }
+  }
+  if (g_power_stage < GL30_POWER_COMPLETE) {
+    if (LL_TIM_IsEnabledAllOutputs(TIM1) != 0u ||
+        gl30_drv8316_outputs_enabled()) {
+      return GL30_FAULT_STARTUP;
+    }
+    if (g_power_stage != GL30_POWER_VERIFY_DRIVER &&
+        (!LL_GPIO_IsOutputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin) ||
+         !LL_GPIO_IsInputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin))) {
+      return GL30_FAULT_STARTUP;
+    }
+  } else if (LL_TIM_IsEnabledAllOutputs(TIM1) != 0u &&
+             !gl30_drv8316_outputs_enabled()) {
+    return GL30_FAULT_STARTUP;
+  }
+  if (g_power_stage == GL30_POWER_COMPLETE &&
+      shared_driver_fault_asserted_locked()) {
+    return GL30_FAULT_HARDWARE_BKIN;
+  }
+  return 0u;
+}
+
+static void run_power_startup(void) {
+  bool configure = false;
+  bool verify = false;
+  uint32_t expected_off_generation = 0u;
+  uint32_t primask = __get_PRIMASK();
+  if (primask != 0u) {
+    /* Foreground-only: never let a masked caller enter synchronous SPI. */
+    latch_fault(GL30_FAULT_STARTUP);
+    return;
+  }
+  __disable_irq();
+  const uint64_t now_us = gl30_timebase_now_us();
+  if (gl30_safety_fault_latched(&g_safety) || g_power_stage == GL30_POWER_FAILED) {
+    goto unlock;
+  }
+
+  if (g_power_stage == GL30_POWER_WAIT_LOGIC) {
+    /* No command is consumed here: this only prepares an idle power stage.
+     * ESP waits for READY before accepting its explicit MOTOR ARM operation. */
+    if (SystemCoreClock != GL30_SYSCLK_HZ ||
+        (DWT->CTRL & DWT_CTRL_CYCCNTENA_Msk) == 0u) {
+      latch_fault(GL30_FAULT_STARTUP);
+      goto unlock;
+    }
+    if (!adc_sample_is_fresh(now_us) || !encoder_is_healthy()) {
+      goto unlock;
+    }
+    if (LL_TIM_IsEnabledAllOutputs(TIM1) != 0u ||
+        gl30_drv8316_outputs_enabled() ||
+        !LL_GPIO_IsOutputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin) ||
+        !LL_GPIO_IsInputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin) ||
+        LL_GPIO_IsOutputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin) ||
+        LL_GPIO_IsInputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin)) {
+      latch_fault(GL30_FAULT_STARTUP);
+      goto unlock;
+    }
+    g_power_stage = GL30_POWER_WAIT_BUS;
+    g_power_stage_started_us = now_us;
+    g_bus_valid_since_us = 0u;
+    LL_GPIO_SetOutputPin(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin);
+    goto unlock;
+  }
+
+  const uint32_t fault = power_startup_fault_locked(now_us);
+  if (fault != 0u) {
+    latch_fault(fault);
+    goto unlock;
+  }
+  /* Keep the default failure branch for an invalid stored state value. */
+  switch ((uint32_t)g_power_stage) {
+    case GL30_POWER_WAIT_BUS:
+      if (now_us - g_power_stage_started_us >= GL30_STARTUP_BUS_TIMEOUT_US) {
+        latch_fault(GL30_FAULT_VBUS);
+      } else if (!(g_vbus_v >= GL30_VBUS_MIN_RUN_V && g_vbus_v < GL30_VBUS_FAULT_V)) {
+        g_bus_valid_since_us = 0u;
+      } else if (g_bus_valid_since_us == 0u) {
+        g_bus_valid_since_us = now_us;
+      } else if (now_us - g_bus_valid_since_us >= GL30_STARTUP_BUS_STABLE_US) {
+        g_power_stage = GL30_POWER_WAIT_WAKE;
+        g_power_stage_started_us = now_us;
+        LL_GPIO_SetOutputPin(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin);
+      }
+      break;
+    case GL30_POWER_WAIT_WAKE:
+      configure = now_us - g_power_stage_started_us >= GL30_STARTUP_DRIVER_WAKE_US;
+      if (configure) {
+        expected_off_generation = gl30_drv8316_off_generation_snapshot();
+      }
+      break;
+    case GL30_POWER_WAIT_ZERO:
+      if (!gl30_drv8316_is_configured()) {
+        latch_fault(GL30_FAULT_STARTUP);
+      } else if (now_us - g_power_stage_started_us >= GL30_ADC_ZERO_TIMEOUT_US) {
+        latch_fault(GL30_FAULT_STARTUP);
+      } else if (g_current_zero.state == GL30_CURRENT_ZERO_READY) {
+        g_power_stage = GL30_POWER_VERIFY_DRIVER;
+        expected_off_generation = gl30_drv8316_off_generation_snapshot();
+        verify = true;
+      }
+      break;
+    case GL30_POWER_COMPLETE:
+      if (!gl30_drv8316_is_configured() || !gl30_drv8316_startup_verified() ||
+          g_current_zero.state != GL30_CURRENT_ZERO_READY) {
+        latch_fault(GL30_FAULT_STARTUP);
+      }
+      break;
+    case GL30_POWER_WAIT_LOGIC:
+    case GL30_POWER_VERIFY_DRIVER:
+    case GL30_POWER_FAILED:
+    default:
+      latch_fault(GL30_FAULT_STARTUP);
+      break;
+  }
+unlock:
+  if (primask == 0u) {
+    __enable_irq();
+  }
+
+  /* Bounded SPI and delays must remain interruptible. A fault during either
+   * operation sets FAILED; no foreground completion may overwrite it. */
+  if (configure || verify) {
+    if (gl30_safety_fault_latched(&g_safety) || g_power_stage == GL30_POWER_FAILED) {
+      return;
+    }
+    const bool ok = configure ? gl30_drv8316_configure(expected_off_generation) :
+        gl30_drv8316_verify_startup(expected_off_generation);
+    primask = __get_PRIMASK();
+    __disable_irq();
+    if (!gl30_safety_fault_latched(&g_safety) && g_power_stage != GL30_POWER_FAILED) {
+      uint32_t completion_fault = power_startup_fault_locked(gl30_timebase_now_us());
+      if (verify && completion_fault == 0u &&
+          shared_driver_fault_asserted_locked()) {
+        completion_fault = GL30_FAULT_HARDWARE_BKIN;
+      }
+      if (!ok || completion_fault != 0u) {
+        latch_fault(completion_fault != 0u ? completion_fault : GL30_FAULT_STARTUP);
+      } else {
+        g_power_stage = configure ? GL30_POWER_WAIT_ZERO : GL30_POWER_COMPLETE;
+        g_power_stage_started_us = gl30_timebase_now_us();
+      }
+    }
+    if (primask == 0u) {
+      __enable_irq();
+    }
+  }
+}
+
 static void run_monitor(uint64_t now_us) {
   bool power_ok;
   bool adc_ok;
@@ -619,19 +1215,37 @@ static void run_monitor(uint64_t now_us) {
     return;
   }
   g_monitor_due = false;
+  /* Also expire an attempt when the ADC stops delivering frames. */
+  (void)update_current_zero(NULL, NULL);
+  /* The beta equation uses logf. Run it at the 200 Hz monitor cadence,
+   * outside the current-loop ISR. No sample is not a valid temperature. */
+  if (!g_motor_temperature_sample_received) {
+    hardware_safe_state();
+    return;
+  }
+  {
+    float temperature_c;
+    if (!gl30_board_ntc_temperature_c(g_motor_temperature_raw, &temperature_c)) {
+      latch_fault(GL30_FAULT_TEMPERATURE);
+      return;
+    }
+    g_motor_temperature_c = temperature_c;
+    if (temperature_c >= GL30_MOTOR_TEMP_FAULT_C) {
+      latch_fault(GL30_FAULT_TEMPERATURE);
+      return;
+    }
+  }
+  run_power_startup();
+  if (gl30_safety_fault_latched(&g_safety)) {
+    return;
+  }
   run_slow_sensors(now_us);
 
   power_ok = g_vbus_v >= GL30_VBUS_MIN_RUN_V &&
              g_vbus_v < GL30_VBUS_FAULT_V;
-  adc_ok = adc_zero_is_healthy();
-  driver_ok = gl30_drv8316_is_configured();
+  driver_ok = g_power_stage == GL30_POWER_COMPLETE &&
+              gl30_drv8316_is_configured() && gl30_drv8316_startup_verified();
   alignment_ok = GL30_ELECTRICAL_ZERO_VALID != 0u;
-
-  if (power_ok && !driver_ok &&
-      now_us - g_last_driver_config_attempt_us >= 100000u) {
-    g_last_driver_config_attempt_us = now_us;
-    driver_ok = gl30_drv8316_configure();
-  }
 
   if (gl30_drv8316_outputs_enabled()) {
     gl30_drv8316_status_t driver_status;
@@ -639,9 +1253,7 @@ static void run_monitor(uint64_t now_us) {
       latch_fault(GL30_FAULT_DRIVER_SPI);
       return;
     }
-    if (!driver_status.n_fault_released || driver_status.stat0 != 0u ||
-        driver_status.stat1 != 0u ||
-        (driver_status.stat2 & GL30_DRV8316_STAT2_FAULT_MASK) != 0u) {
+    if (!driver_status.n_fault_released || driver_status.normalized_faults != 0u) {
       latch_fault(GL30_FAULT_HARDWARE_BKIN);
       return;
     }
@@ -649,13 +1261,21 @@ static void run_monitor(uint64_t now_us) {
 
   self_test_ok = SystemCoreClock == GL30_SYSCLK_HZ &&
                  (DWT->CTRL & DWT_CTRL_CYCCNTENA_Msk) != 0u;
-  encoder_ok = encoder_is_healthy(now_us);
+  encoder_ok = encoder_is_healthy();
   primask = __get_PRIMASK();
   __disable_irq();
   was_active = g_safety.startup_state == GL30_STARTUP_ACTIVE;
+  adc_ok = g_current_zero.state == GL30_CURRENT_ZERO_READY;
+  const bool was_ready = g_safety.startup_state == GL30_STARTUP_READY || was_active;
   gl30_safety_set_startup_checks(&g_safety, power_ok, self_test_ok,
                                  encoder_ok, driver_ok, adc_ok,
                                  alignment_ok);
+  if (g_safety.startup_state == GL30_STARTUP_READY && !was_ready) {
+    g_arm_ready_since_us = gl30_timebase_now_us();
+  } else if (g_safety.startup_state != GL30_STARTUP_READY &&
+             g_safety.startup_state != GL30_STARTUP_ACTIVE) {
+    g_arm_ready_since_us = 0u;
+  }
   gl30_safety_set_warning(&g_safety, GL30_WARNING_VBUS,
                           g_vbus_v >= GL30_VBUS_WARN_V);
   gl30_safety_set_warning(&g_safety, GL30_WARNING_TEMPERATURE,
@@ -669,21 +1289,57 @@ static void run_monitor(uint64_t now_us) {
     latch_fault(GL30_FAULT_ENCODER);
   } else if (was_active && !power_ok) {
     latch_fault(GL30_FAULT_VBUS);
-  } else if (g_motor_temperature_c >= GL30_MOTOR_TEMP_FAULT_C) {
-    latch_fault(GL30_FAULT_TEMPERATURE);
+  }
+}
+
+static void check_watchdog_reset(void) {
+  const bool watchdog_reset = LL_RCC_IsActiveFlag_IWDGRST() != 0u ||
+                              LL_RCC_IsActiveFlag_WWDGRST() != 0u;
+  LL_RCC_ClearResetFlags();
+  if (watchdog_reset) {
+    latch_fault(GL30_FAULT_STARTUP);
+  }
+}
+
+static void service_watchdog(uint64_t now_us) {
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  const bool safely_latched = gl30_safety_fault_latched(&g_safety) &&
+      g_power_stage == GL30_POWER_FAILED &&
+      LL_TIM_IsEnabledAllOutputs(TIM1) == 0u && !gl30_drv8316_outputs_enabled() &&
+      LL_GPIO_IsOutputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin) &&
+      LL_GPIO_IsInputPinSet(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin) &&
+      !LL_GPIO_IsOutputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin) &&
+      !LL_GPIO_IsInputPinSet(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin) &&
+      !LL_GPIO_IsOutputPinSet(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin) &&
+      !LL_GPIO_IsInputPinSet(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin);
+  if (now_us >= g_last_watchdog_refresh_us &&
+      now_us - g_last_watchdog_refresh_us >= 10000u &&
+      g_safety_progress != g_last_watchdog_safety_progress &&
+      (safely_latched || (g_control_progress != g_last_watchdog_progress &&
+                          adc_sample_is_fresh(now_us)))) {
+    g_last_watchdog_progress = g_control_progress;
+    g_last_watchdog_safety_progress = g_safety_progress;
+    g_last_watchdog_refresh_us = now_us;
+    LL_IWDG_ReloadCounter(IWDG);
+  }
+  if (primask == 0u) {
+    __enable_irq();
   }
 }
 
 void gl30_app_init(void) {
   uint64_t now_us;
 
-  /* CubeMX currently emits push-pull for these labels. Override the two
-   * fail-safe nets to their schematic open-drain contract. */
+  /* Reinforce reset-off before starting the idle preparation sequence.
+   * Preparation may request VM and wake the driver, but never enables MOE. */
   LL_GPIO_SetPinOutputType(SYS_FAULT_N_GPIO_Port, SYS_FAULT_N_Pin,
-                           LL_GPIO_OUTPUT_OPENDRAIN);
+                           LL_GPIO_OUTPUT_PUSHPULL);
   LL_GPIO_SetPinOutputType(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin,
                            LL_GPIO_OUTPUT_OPENDRAIN);
-  LL_GPIO_SetOutputPin(SYS_FAULT_N_GPIO_Port, SYS_FAULT_N_Pin);
+  LL_GPIO_ResetOutputPin(SYS_FAULT_N_GPIO_Port, SYS_FAULT_N_Pin);
+  LL_GPIO_ResetOutputPin(MOTOR_PWR_EN_GPIO_Port, MOTOR_PWR_EN_Pin);
+  LL_GPIO_ResetOutputPin(DRV8316_NSLEEP_GPIO_Port, DRV8316_NSLEEP_Pin);
   LL_GPIO_SetOutputPin(DRV8316_DRVOFF_GPIO_Port, DRV8316_DRVOFF_Pin);
 
   configure_dwt_counter();
@@ -692,7 +1348,8 @@ void gl30_app_init(void) {
   init_runtime_state(now_us);
   gl30_drv8316_init();
   hardware_safe_state();
-  publish_fault_line(false);
+  publish_fault_line(true);
+  check_watchdog_reset();
   LL_IWDG_ReloadCounter(IWDG);
 
   if (!uart_dma_init() || !start_adc_sampling()) {
@@ -707,36 +1364,36 @@ void gl30_app_init(void) {
   (void)gl30_veml7700_configure();
   LL_IWDG_ReloadCounter(IWDG);
 
-  /* PENDING_VENDOR is a non-armed startup state, not fabricated encoder
-   * evidence. A runtime loss after ACTIVE is promoted to a latched fault. */
+  /* Encoder health alone cannot qualify power preparation or electrical zero.
+   * A runtime loss after ACTIVE is promoted to a latched fault. */
   gl30_safety_set_warning(&g_safety, GL30_WARNING_ENCODER,
-                          !control_ready(&g_encoder, now_us,
-                                         GL30_ENCODER_STALE_US));
+                          !encoder_is_healthy());
   g_last_watchdog_progress = g_control_progress;
+  g_last_watchdog_safety_progress = g_safety_progress;
   g_last_watchdog_refresh_us = gl30_timebase_now_us();
 }
 
 void gl30_app_run_once(void) {
   const uint64_t now_us = gl30_timebase_now_us();
+  uint32_t primask;
   bool faulted;
 
+  process_pending_control_request();
   process_pending_command();
   run_monitor(now_us);
   send_telemetry();
 
+  /* An IRQ fault must not be overwritten by a stale foreground ready state. */
+  primask = __get_PRIMASK();
+  __disable_irq();
   faulted = gl30_safety_fault_latched(&g_safety);
-  publish_fault_line(faulted);
-  if (now_us - g_last_watchdog_refresh_us >= 10000u &&
-      g_control_progress != g_last_watchdog_progress) {
-    g_last_watchdog_progress = g_control_progress;
-    g_last_watchdog_refresh_us = now_us;
-    LL_IWDG_ReloadCounter(IWDG);
+  publish_fault_line(faulted ||
+      (g_safety.startup_state != GL30_STARTUP_READY &&
+       g_safety.startup_state != GL30_STARTUP_ACTIVE));
+  if (primask == 0u) {
+    __enable_irq();
   }
-  if (now_us - g_last_watchdog_toggle_us >= 10000u) {
-    g_last_watchdog_toggle_us = now_us;
-    LL_GPIO_TogglePin(EXT_WATCHDOG_WDI_DNP_GPIO_Port,
-                      EXT_WATCHDOG_WDI_DNP_Pin);
-  }
+  service_watchdog(gl30_timebase_now_us());
 }
 
 void gl30_app_adc1_2_irq(void) {
@@ -752,11 +1409,11 @@ void gl30_app_adc1_2_irq(void) {
   float current_a;
   float current_b;
   float current_c;
+  float zero[3];
 
   if (LL_ADC_IsActiveFlag_JEOS(ADC1) == 0u) {
     return;
   }
-  LL_GPIO_SetOutputPin(SCOPE_TP_GPIO_Port, SCOPE_TP_Pin);
   cycle_start = DWT->CYCCNT;
   adc2_ready = LL_ADC_IsActiveFlag_JEOS(ADC2) != 0u;
   adc3_ready = LL_ADC_IsActiveFlag_JEOS(ADC3) != 0u;
@@ -768,7 +1425,6 @@ void gl30_app_adc1_2_irq(void) {
     } else {
       hardware_safe_state();
     }
-    LL_GPIO_ResetOutputPin(SCOPE_TP_GPIO_Port, SCOPE_TP_Pin);
     return;
   }
 
@@ -783,33 +1439,44 @@ void gl30_app_adc1_2_irq(void) {
 
   raw_to_volts = GL30_ADC_VREF_V / GL30_ADC_FULL_SCALE_COUNTS;
   g_vbus_v = (float)raw_vbus * raw_to_volts * GL30_VBUS_DIVIDER_RATIO;
-  g_motor_temperature_c = 25.0f +
-      (((float)raw_temp * raw_to_volts * 1000.0f) -
-       GL30_TEMP_SENSOR_MV_AT_25C) / GL30_TEMP_SENSOR_MV_PER_C;
+  g_motor_temperature_raw = (uint16_t)raw_temp;
+  g_motor_temperature_sample_received = true;
+  g_last_adc_sample_us = gl30_timebase_now_us();
 
-  if (!g_adc_zero_ready) {
-    g_adc_zero_sum_a += raw_a;
-    g_adc_zero_sum_b += raw_b;
-    g_adc_zero_sum_c += raw_c;
-    g_adc_zero_samples++;
-    if (g_adc_zero_samples >= GL30_ADC_ZERO_CAL_SAMPLES) {
-      const float denominator = (float)g_adc_zero_samples;
-      g_adc_zero_a = (float)g_adc_zero_sum_a / denominator;
-      g_adc_zero_b = (float)g_adc_zero_sum_b / denominator;
-      g_adc_zero_c = (float)g_adc_zero_sum_c / denominator;
-      g_adc_zero_ready = true;
-    }
-    hardware_safe_state();
-    g_control_progress++;
-    LL_GPIO_ResetOutputPin(SCOPE_TP_GPIO_Port, SCOPE_TP_Pin);
-    return;
+  /* A dip between monitor visits must restart the bus-settling window. */
+  if (g_power_stage == GL30_POWER_WAIT_BUS && g_vbus_v < GL30_VBUS_MIN_RUN_V) {
+    g_bus_valid_since_us = 0u;
   }
 
-  current_a = ((float)raw_a - g_adc_zero_a) *
+  /* Never hide bus protection behind calibration's early return. */
+  if (g_vbus_v >= GL30_VBUS_FAULT_V) {
+    latch_fault(GL30_FAULT_VBUS);
+    g_control_progress++;
+    return;
+  }
+  if (g_power_stage >= GL30_POWER_WAIT_WAKE &&
+      g_power_stage <= GL30_POWER_COMPLETE && g_vbus_v < GL30_VBUS_MIN_RUN_V) {
+    latch_fault(GL30_FAULT_VBUS);
+    g_control_progress++;
+    return;
+  }
+  {
+    const uint16_t raw[3] = {(uint16_t)raw_a, (uint16_t)raw_b, (uint16_t)raw_c};
+    if (!update_current_zero(raw, zero)) {
+      gl30_foc_force_zero(&g_foc);
+      if (gl30_drv8316_outputs_enabled() ||
+          LL_TIM_IsEnabledAllOutputs(TIM1) != 0u) {
+        hardware_safe_state();
+      }
+      goto finish;
+    }
+  }
+
+  current_a = ((float)raw_a - zero[0]) *
               raw_to_volts / GL30_CSA_GAIN_V_PER_A;
-  current_b = ((float)raw_b - g_adc_zero_b) *
+  current_b = ((float)raw_b - zero[1]) *
               raw_to_volts / GL30_CSA_GAIN_V_PER_A;
-  current_c = ((float)raw_c - g_adc_zero_c) *
+  current_c = ((float)raw_c - zero[2]) *
               raw_to_volts / GL30_CSA_GAIN_V_PER_A;
 
   if (!gl30_safety_torque_allowed(&g_safety) ||
@@ -842,9 +1509,7 @@ void gl30_app_adc1_2_irq(void) {
     };
     gl30_trace_push(trace_sample);
   }
-  if (g_vbus_v >= GL30_VBUS_FAULT_V) {
-    latch_fault(GL30_FAULT_VBUS);
-  }
+finish:
   {
     const uint32_t elapsed_cycles = DWT->CYCCNT - cycle_start;
     g_last_isr_cycles = saturate_u16(elapsed_cycles);
@@ -854,7 +1519,6 @@ void gl30_app_adc1_2_irq(void) {
     }
   }
   g_control_progress++;
-  LL_GPIO_ResetOutputPin(SCOPE_TP_GPIO_Port, SCOPE_TP_Pin);
 }
 
 void gl30_app_tim1_break_irq(void) {
@@ -865,13 +1529,11 @@ void gl30_app_tim1_break_irq(void) {
 }
 
 void gl30_app_tim2_irq(void) {
-  if (LL_TIM_IsActiveFlag_UPDATE(TIM2) != 0u) {
-    LL_TIM_ClearFlag_UPDATE(TIM2);
-    gl30_timebase_on_tim2_overflow();
-  }
+  gl30_timebase_on_tim2_overflow();
 }
 
 void gl30_app_tim6_irq(void) {
+  gl30_factory_encoder_sample_t encoder;
   uint64_t now_us;
   bool encoder_ok;
   bool was_active;
@@ -880,16 +1542,17 @@ void gl30_app_tim6_irq(void) {
     return;
   }
   LL_TIM_ClearFlag_UPDATE(TIM6);
-  gl30_factory_encoder_snapshot(&g_encoder);
+  gl30_factory_encoder_poll_4k();
+  gl30_factory_encoder_snapshot(&encoder);
   now_us = gl30_timebase_now_us();
-  encoder_ok = control_ready(&g_encoder, now_us, GL30_ENCODER_STALE_US);
-  g_encoder_status = (uint16_t)g_encoder.status;
+  encoder_ok = control_ready(&encoder, now_us, GL30_ENCODER_STALE_US);
+  g_encoder_status = (uint16_t)encoder.status;
   was_active = g_safety.startup_state == GL30_STARTUP_ACTIVE;
   if (was_active && !encoder_ok) {
     latch_fault(GL30_FAULT_ENCODER);
     return;
   }
-  gl30_foc_observer_tick_4k(&g_foc, g_encoder.angle_rad, encoder_ok);
+  gl30_foc_observer_tick_4k(&g_foc, encoder.angle_rad, encoder_ok);
 }
 
 void gl30_app_tim7_irq(void) {
@@ -900,7 +1563,28 @@ void gl30_app_tim7_irq(void) {
     return;
   }
   LL_TIM_ClearFlag_UPDATE(TIM7);
-  now_us = gl30_timebase_now_us();
+  ++g_safety_progress;
+  {
+    const uint32_t primask = __get_PRIMASK();
+    __disable_irq();
+    /* ADC priority is higher: sample time and observation time must be taken
+     * under the same mask to avoid treating a newer IRQ sample as future. */
+    now_us = gl30_timebase_now_us();
+    const bool adc_required =
+        (g_power_stage >= GL30_POWER_WAIT_BUS && g_power_stage <= GL30_POWER_COMPLETE) ||
+        (g_power_stage == GL30_POWER_WAIT_LOGIC &&
+         now_us - g_power_stage_started_us >= GL30_STARTUP_ADC_TIMEOUT_US);
+    if (adc_required && !adc_sample_is_fresh(now_us)) {
+      latch_fault(GL30_FAULT_ADC_SYNC);
+    }
+    if (g_power_stage == GL30_POWER_COMPLETE &&
+        shared_driver_fault_asserted_locked()) {
+      latch_fault(GL30_FAULT_HARDWARE_BKIN);
+    }
+    if (primask == 0u) {
+      __enable_irq();
+    }
+  }
   faulted_before_tick = gl30_safety_fault_latched(&g_safety);
   gl30_safety_tick(&g_safety, now_us);
   if (!faulted_before_tick && gl30_safety_fault_latched(&g_safety)) {
@@ -908,6 +1592,7 @@ void gl30_app_tim7_irq(void) {
     return;
   }
   gl30_haptic_tick_2k(&g_foc, gl30_safety_torque_allowed(&g_safety));
+  g_haptic_measurement_us = now_us;
   if (!gl30_safety_torque_allowed(&g_safety) &&
       gl30_drv8316_outputs_enabled()) {
     hardware_safe_state();
@@ -917,6 +1602,7 @@ void gl30_app_tim7_irq(void) {
   if ((g_haptic_tick_divider %
        (GL30_HAPTIC_HZ / GL30_SLOW_TELEMETRY_HZ)) == 0u) {
     g_slow_telemetry_due = true;
+    g_haptic_state_due = true;
   }
   if ((g_haptic_tick_divider %
        (GL30_HAPTIC_HZ / GL30_MONITOR_HZ)) == 0u) {

@@ -26,3 +26,6 @@ firmware-stm32/cubemx/GL30_AMOLED_V7/*.ioc text eol=crlf
 *.step binary
 *.stp binary
 *.pdf binary
+
+# Preserve the native AD snapshot and its byte-based integrity manifest.
+hardware/pcb/stm32-foc-a-altium-r6/** -text

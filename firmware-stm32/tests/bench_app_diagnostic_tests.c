@@ -1648,7 +1648,8 @@ static void test_initialization_captures_reset_cause_and_starts_disarmed(void) {
         "Init does not restore an armed or calibrated state");
   CHECK(!TIM1->moe && bench_hw_fake_drv_off_state(), "Init parks bridge outputs off");
   CHECK_EQ_U32(g_self_left, BENCH_PWM_HZ, "Init requires a fresh algorithm self-test");
-  CHECK(strstr(trace_app_output(), "FW=20260907_HAPTIC25") != NULL, "Init reports the tested firmware identity");
+  CHECK(strstr(trace_app_output(), "FW=20260908_HAPTIC26_OFFLINE_UNQUALIFIED") != NULL,
+        "Init reports the tested firmware identity");
 }
 
 static void test_health_freshness_boundaries_across_microsecond_wrap(void) {

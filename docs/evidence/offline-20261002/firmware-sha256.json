@@ -1,0 +1,47 @@
+{
+  "esp32/gl30_haptic_control.bin": {
+    "source": "firmware-esp32/build-idf/gl30_haptic_control.bin",
+    "bytes": 1110288,
+    "sha256": "e030a1f0c9c8870b3c9541c043a0992b7b7990e70947f6e332173ba59f235c41"
+  },
+  "esp32/gl30_haptic_control.elf": {
+    "source": "firmware-esp32/build-idf/gl30_haptic_control.elf",
+    "bytes": 7360480,
+    "sha256": "438bcbcb861596924f03c7ddda903beafc9ea961e36782709f3131a84a644c82"
+  },
+  "esp32/gl30_haptic_control.map": {
+    "source": "firmware-esp32/build-idf/gl30_haptic_control.map",
+    "bytes": 3609464,
+    "sha256": "98107359b4f87e64178e58b34fa2caf1c1a4a38b0b6db930ab56e24b19ad2aad"
+  },
+  "esp32/bootloader.bin": {
+    "source": "firmware-esp32/build-idf/bootloader/bootloader.bin",
+    "bytes": 20896,
+    "sha256": "d0f88668bd41d75728b178fa9f2b61452fcf0b286da9380c662a14967cb40a56"
+  },
+  "esp32/partition-table.bin": {
+    "source": "firmware-esp32/build-idf/partition_table/partition-table.bin",
+    "bytes": 3072,
+    "sha256": "77534a67bc8a38ec085b2bdfd1a3c6ba1c1569a74c70ac0e34b43e9896dcbb08"
+  },
+  "stm32-cet6/GL30_AMOLED_V7.axf": {
+    "source": "firmware-stm32/cubemx/GL30_AMOLED_V7/MDK-ARM/GL30_AMOLED_V7/GL30_AMOLED_V7.axf",
+    "bytes": 411660,
+    "sha256": "d66c3ee9bc3e9b9b3a66bf2d6f3b543056addde8e3345b04004534408f4a06a9"
+  },
+  "stm32-cet6/GL30_AMOLED_V7.hex": {
+    "source": "firmware-stm32/cubemx/GL30_AMOLED_V7/MDK-ARM/GL30_AMOLED_V7/GL30_AMOLED_V7.hex",
+    "bytes": 142881,
+    "sha256": "82306512642833057a8c832e7b208b7763fd4c7f7db30d9c474f36692b5a4b4c"
+  },
+  "stm32-nucleo/NUCLEO_G474RE_FOC.axf": {
+    "source": "firmware-stm32/bench/NUCLEO_G474RE_FOC/MDK-ARM/NUCLEO_G474RE_FOC/NUCLEO_G474RE_FOC.axf",
+    "bytes": 292668,
+    "sha256": "5ce932725ceab8f801ee5d0e86269174262687542e311b53d685560314cea2ce"
+  },
+  "stm32-nucleo/NUCLEO_G474RE_FOC.hex": {
+    "source": "firmware-stm32/bench/NUCLEO_G474RE_FOC/MDK-ARM/NUCLEO_G474RE_FOC/NUCLEO_G474RE_FOC.hex",
+    "bytes": 169116,
+    "sha256": "29d43afa182fd1efb29a3f544b68a6a244f3684d63e9f3d11c0c733af4e3bce3"
+  }
+}

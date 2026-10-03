@@ -29,7 +29,8 @@ function hapticFrame(profileNonce: number, options: { timestampUs: bigint; seque
     userTorqueLimitNm: 0.03,
     activeSpeedLimitRadS: 1.2,
     modeFlags: 0x1,
-    textureId: 2
+    textureId: 2,
+    leaseGeneration: 0x1_0000_0001n
   });
   return decodeFrame(
     encodeFrame(options.version ?? FRAME_VERSION, 0x10, payload, {

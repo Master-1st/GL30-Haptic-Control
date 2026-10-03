@@ -1,0 +1,4814 @@
+{
+  "title": "GL30 A板 STM32+FOC 原理图输入",
+  "revision": "A-SCH-INPUT-20260914",
+  "components": [
+    {
+      "ref": "U1",
+      "name": "FOC主控",
+      "value": "STM32G474CET6",
+      "package": "LQFP48 7×7 mm，0.5 mm",
+      "mpn": "STM32G474CET6",
+      "pins": {
+        "1": "VBAT_3V3",
+        "2": "SYS_FAULT_N_MCU",
+        "3": "RSV_PC14",
+        "4": "RSV_PC15",
+        "5": "HSE_IN",
+        "6": "HSE_OUT_MCU",
+        "7": "NRST",
+        "8": "SOA_ADC",
+        "9": "SOB_ADC",
+        "10": "BRAKE_FORCE_MCU",
+        "11": "DRV_DRVOFF",
+        "12": "ENC_CS_MCU",
+        "13": "ENC_SCK_MCU",
+        "14": "ENC_MISO_MCU",
+        "15": "ENC_MOSI_MCU",
+        "16": "SOC_ADC",
+        "17": "VBUS_ADC",
+        "18": "MOTOR_TEMP_ADC",
+        "19": "GND",
+        "20": "3V3A",
+        "21": "3V3A",
+        "22": "STM_UART_TX",
+        "23": "GND",
+        "24": "3V3",
+        "25": "STM_UART_RX",
+        "26": "HARD_FAULT_N",
+        "27": "PWM_LA_MCU",
+        "28": "PWM_LB_MCU",
+        "29": "PWM_LC_MCU",
+        "30": "PWM_HA_MCU",
+        "31": "PWM_HB_MCU",
+        "32": "PWM_HC_MCU",
+        "33": "ADC_SAMPLE_TRIG",
+        "34": "DRV_NSLEEP_MCU",
+        "35": "GND",
+        "36": "3V3",
+        "37": "SWDIO",
+        "38": "SWCLK",
+        "39": "I2C_SCL",
+        "40": "DRV_SCK_MCU",
+        "41": "DRV_SDO",
+        "42": "DRV_SDI_MCU",
+        "43": "DRV_CS_MCU",
+        "44": "I2C_SDA",
+        "45": "BOOT0",
+        "46": "MOTOR_PWR_EN_MCU",
+        "47": "GND",
+        "48": "3V3"
+      },
+      "note": "必须选CET6；不是NUCLEO上的RET6",
+      "status": "已购方案／不加备用",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U2",
+      "name": "三相集成驱动",
+      "value": "DRV8316RRGFR",
+      "package": "RGF VQFN40 7×5 mm + EP",
+      "mpn": "DRV8316RRGFR",
+      "pins": {
+        "1": "NC",
+        "2": "GND",
+        "3": "BUCK_FB",
+        "4": "GND",
+        "5": "BUCK_SW",
+        "6": "DRV_CPL",
+        "7": "DRV_CPH",
+        "8": "DRV_CP",
+        "9": "MOTOR_BUS",
+        "10": "MOTOR_BUS",
+        "11": "MOTOR_BUS",
+        "12": "GND",
+        "13": "MOTOR_U",
+        "14": "MOTOR_U",
+        "15": "GND",
+        "16": "MOTOR_V",
+        "17": "MOTOR_V",
+        "18": "GND",
+        "19": "MOTOR_W",
+        "20": "MOTOR_W",
+        "21": "DRV_DRVOFF",
+        "22": "DRV_NFAULT_N",
+        "23": "DRV_NSLEEP",
+        "24": "NC",
+        "25": "DRV_AVDD",
+        "26": "GND",
+        "27": "DRV_INHA",
+        "28": "DRV_INLA",
+        "29": "DRV_INHB",
+        "30": "DRV_INLB",
+        "31": "DRV_INHC",
+        "32": "DRV_INLC",
+        "33": "DRV_SDO",
+        "34": "DRV_SDI",
+        "35": "DRV_SCK",
+        "36": "DRV_CS_N",
+        "37": "DRV_VREF",
+        "38": "SOC_RAW",
+        "39": "SOB_RAW",
+        "40": "SOA_RAW",
+        "41": "GND"
+      },
+      "note": "R版SPI；每个VM脚配2颗100n；裸露焊盘必须接地",
+      "status": "已购方案／不加备用",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U3",
+      "name": "四路比较器",
+      "value": "TLV1704AIPWR",
+      "package": "PW TSSOP14 5×4.4 mm",
+      "mpn": "TLV1704AIPWR",
+      "pins": {
+        "1": "HARD_FAULT_N",
+        "2": "HARD_FAULT_N",
+        "3": "MOTOR_BUS",
+        "4": "VLOW",
+        "5": "SOA_CMP",
+        "6": "SOA_CMP",
+        "7": "VHIGH",
+        "8": "VLOW",
+        "9": "SOB_CMP",
+        "10": "SOB_CMP",
+        "11": "VHIGH",
+        "12": "GND",
+        "13": "HARD_FAULT_N",
+        "14": "HARD_FAULT_N"
+      },
+      "note": "",
+      "status": "已购方案／不加备用",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U4",
+      "name": "四路比较器",
+      "value": "TLV1704AIPWR",
+      "package": "PW TSSOP14 5×4.4 mm",
+      "mpn": "TLV1704AIPWR",
+      "pins": {
+        "1": "HARD_FAULT_N",
+        "2": "HARD_FAULT_N",
+        "3": "MOTOR_BUS",
+        "4": "VLOW",
+        "5": "SOC_CMP",
+        "6": "SOC_CMP",
+        "7": "VHIGH",
+        "8": "VBUS_CMP",
+        "9": "VBUS_TRIP_IN",
+        "10": "GND",
+        "11": "DRV_AVDD",
+        "12": "GND",
+        "13": "NC",
+        "14": "HARD_FAULT_N"
+      },
+      "note": "仅U4通道4未用：+接AVDD，−接GND，输出NC；U3四路全用",
+      "status": "已购方案／不加备用",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U5",
+      "name": "本地3.3 V稳压",
+      "value": "TLV75533PDBVR",
+      "package": "DBV SOT-23-5",
+      "mpn": "TLV75533PDBVR",
+      "pins": {
+        "1": "5V_LOGIC",
+        "2": "GND",
+        "3": "5V_LOGIC",
+        "4": "NC",
+        "5": "3V3"
+      },
+      "note": "原B板B10不删除；本板3V3禁止与B/ESP的独立3V3并联",
+      "status": "A板新增／可核用旧B10备用",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U6",
+      "name": "DRV故障开漏缓冲",
+      "value": "SN74LVC1G07DBVR",
+      "package": "DBV SOT-23-5",
+      "mpn": "SN74LVC1G07DBVR",
+      "pins": {
+        "1": "NC",
+        "2": "DRV_NFAULT_N",
+        "3": "GND",
+        "4": "HARD_FAULT_N",
+        "5": "3V3"
+      },
+      "note": "防止比较器反拉DRV物理nFAULT",
+      "status": "本轮新增／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U7",
+      "name": "ESP故障开漏缓冲",
+      "value": "SN74LVC1G07DBVR",
+      "package": "DBV SOT-23-5",
+      "mpn": "SN74LVC1G07DBVR",
+      "pins": {
+        "1": "NC",
+        "2": "SYS_FAULT_N_MCU",
+        "3": "GND",
+        "4": "SYS_FAULT_N_ESP",
+        "5": "3V3_ESP"
+      },
+      "note": "由ESP域供电；输入100k下拉；STM失电时报告故障",
+      "status": "本轮新增／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U8",
+      "name": "UART双电源接口",
+      "value": "TXU0202DCUR",
+      "package": "DCU VSSOP8 2.3×2.0 mm",
+      "mpn": "TXU0202DCUR",
+      "pins": {
+        "1": "ESP_UART_TX",
+        "2": "GND",
+        "3": "3V3",
+        "4": "STM_UART_RX_PRE",
+        "5": "STM_UART_TX",
+        "6": "3V3",
+        "7": "3V3_ESP",
+        "8": "ESP_UART_RX_PRE"
+      },
+      "note": "一发一收固定方向；不是TXB0102；OE接3V3",
+      "status": "本轮新增／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "U9",
+      "name": "四路采样断电隔离",
+      "value": "TMUX1511PWR",
+      "package": "PW TSSOP14 5×4.4 mm",
+      "mpn": "TMUX1511PWR",
+      "pins": {
+        "1": "3V3",
+        "2": "SOA_FAN",
+        "3": "SOA_ISO",
+        "4": "3V3",
+        "5": "SOB_FAN",
+        "6": "SOB_ISO",
+        "7": "GND",
+        "8": "SOC_ISO",
+        "9": "SOC_FAN",
+        "10": "3V3",
+        "11": "VBUS_ISO",
+        "12": "VBUS_DIV11",
+        "13": "3V3",
+        "14": "3V3"
+      },
+      "note": "4路SEL均接3V3；断电保护信号≤3.6V；保持比较器支路直连",
+      "status": "本轮新增／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "芯片"
+    },
+    {
+      "ref": "R1",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "VBAT_3V3"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R2",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.125 W",
+      "package": "0805",
+      "mpn": "通用0Ω跳线 0.125 W",
+      "pins": {
+        "1": "3V3",
+        "2": "3V3A"
+      },
+      "note": "0805磁珠兼容焊盘；首装0Ω，不将模拟地割裂",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R3",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "3V3_AUX"
+      },
+      "note": "可拆以单独测B/C传感器电流",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R4",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "NRST"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R5",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "BOOT0",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R6",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "HSE_OUT_MCU",
+        "2": "HSE_OUT"
+      },
+      "note": "晶体驱动调试位置，首装0Ω",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R7",
+      "name": "电阻",
+      "value": "2.2k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 2.2k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "I2C_SCL"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R8",
+      "name": "电阻",
+      "value": "2.2k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 2.2k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "I2C_SDA"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R9",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "SYS_FAULT_N_MCU",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R10",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_DRVOFF"
+      },
+      "note": "不可改100k；PA3开漏",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R11",
+      "name": "电阻",
+      "value": "2.2k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 2.2k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_NSLEEP_MCU",
+        "2": "DRV_NSLEEP"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R12",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_NSLEEP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R13",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_NFAULT_N"
+      },
+      "note": "独立上拉；逻辑5V/3V3先于VM上电",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R14",
+      "name": "电阻",
+      "value": "22 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 22 1% 0.1 W",
+      "pins": {
+        "1": "DRV_SCK_MCU",
+        "2": "DRV_SCK"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R15",
+      "name": "电阻",
+      "value": "22 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 22 1% 0.1 W",
+      "pins": {
+        "1": "DRV_SDI_MCU",
+        "2": "DRV_SDI"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R16",
+      "name": "电阻",
+      "value": "22 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 22 1% 0.1 W",
+      "pins": {
+        "1": "DRV_CS_MCU",
+        "2": "DRV_CS_N"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R17",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_SDO"
+      },
+      "note": "TI要求SDO外部上拉；同时禁用UCPD下拉",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R18",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_CS_N"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R19",
+      "name": "电阻",
+      "value": "2.2k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 2.2k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "HARD_FAULT_N"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R20",
+      "name": "电阻",
+      "value": "47 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 47 1% 0.1 W",
+      "pins": {
+        "1": "PWM_HA_MCU",
+        "2": "DRV_INHA"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R21",
+      "name": "电阻",
+      "value": "47 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 47 1% 0.1 W",
+      "pins": {
+        "1": "PWM_LA_MCU",
+        "2": "DRV_INLA"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R22",
+      "name": "电阻",
+      "value": "47 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 47 1% 0.1 W",
+      "pins": {
+        "1": "PWM_HB_MCU",
+        "2": "DRV_INHB"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R23",
+      "name": "电阻",
+      "value": "47 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 47 1% 0.1 W",
+      "pins": {
+        "1": "PWM_LB_MCU",
+        "2": "DRV_INLB"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R24",
+      "name": "电阻",
+      "value": "47 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 47 1% 0.1 W",
+      "pins": {
+        "1": "PWM_HC_MCU",
+        "2": "DRV_INHC"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R25",
+      "name": "电阻",
+      "value": "47 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 47 1% 0.1 W",
+      "pins": {
+        "1": "PWM_LC_MCU",
+        "2": "DRV_INLC"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R26",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_INHA",
+        "2": "GND"
+      },
+      "note": "放驱动器侧",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R27",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_INLA",
+        "2": "GND"
+      },
+      "note": "放驱动器侧",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R28",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_INHB",
+        "2": "GND"
+      },
+      "note": "放驱动器侧",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R29",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_INLB",
+        "2": "GND"
+      },
+      "note": "放驱动器侧",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R42",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_INHC",
+        "2": "GND"
+      },
+      "note": "放驱动器侧",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R43",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "DRV_INLC",
+        "2": "GND"
+      },
+      "note": "放驱动器侧",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R30",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "ENC_CS_N"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R31",
+      "name": "电阻",
+      "value": "33 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 33 1% 0.1 W",
+      "pins": {
+        "1": "ENC_CS_MCU",
+        "2": "ENC_CS_N"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R32",
+      "name": "电阻",
+      "value": "33 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 33 1% 0.1 W",
+      "pins": {
+        "1": "ENC_SCK_MCU",
+        "2": "ENC_SCK"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R33",
+      "name": "电阻",
+      "value": "33 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 33 1% 0.1 W",
+      "pins": {
+        "1": "ENC_MOSI_MCU",
+        "2": "ENC_MOSI"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R34",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "ENC_MISO",
+        "2": "ENC_MISO_MCU"
+      },
+      "note": "MISO接收端限流；2.5MHz实测边沿，不当作源端终端",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R35",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "5V_LOGIC",
+        "2": "5V_ENC"
+      },
+      "note": "编码器电源支路可断开测流",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R36",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "SYS_FAULT_N_ESP"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R37",
+      "name": "电阻",
+      "value": "33 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 33 1% 0.1 W",
+      "pins": {
+        "1": "STM_UART_RX_PRE",
+        "2": "STM_UART_RX"
+      },
+      "note": "放U8输出端",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R38",
+      "name": "电阻",
+      "value": "33 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 33 1% 0.1 W",
+      "pins": {
+        "1": "ESP_UART_RX_PRE",
+        "2": "ESP_UART_RX"
+      },
+      "note": "放U8输出端，FFC到ESP RX",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R39",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "MOTOR_NTC"
+      },
+      "note": "NTC上拉；NTC25℃=10k",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R40",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "MOTOR_NTC",
+        "2": "MOTOR_TEMP_ADC"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R41",
+      "name": "电阻",
+      "value": "22 Ω；1%；0.5 W",
+      "package": "1206",
+      "mpn": "通用厚膜 22 1% 0.5 W",
+      "pins": {
+        "1": "BUCK_SW",
+        "2": "BUCK_FB"
+      },
+      "note": "内部Buck不用也保留；脉冲型≥0.5W，不能替成0603",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R44",
+      "name": "电阻",
+      "value": "100 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100 1% 0.1 W",
+      "pins": {
+        "1": "BRAKE_FORCE_MCU",
+        "2": "BRAKE_FORCE"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R45",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "BRAKE_FORCE",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R46",
+      "name": "电阻",
+      "value": "100 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100 1% 0.1 W",
+      "pins": {
+        "1": "MOTOR_PWR_EN_MCU",
+        "2": "MOTOR_PWR_EN"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R47",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "pins": {
+        "1": "MOTOR_PWR_EN",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R48",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "DRV_VREF"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R49",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "SOA_RAW",
+        "2": "SOA_FAN"
+      },
+      "note": "注入校验前拆开；禁止外部源顶入DRV输出",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R50",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "SOA_ISO",
+        "2": "SOA_ADC"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R51",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "SOA_FAN",
+        "2": "SOA_CMP"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R52",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "SOB_RAW",
+        "2": "SOB_FAN"
+      },
+      "note": "注入校验前拆开；禁止外部源顶入DRV输出",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R53",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "SOB_ISO",
+        "2": "SOB_ADC"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R54",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "SOB_FAN",
+        "2": "SOB_CMP"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R55",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "pins": {
+        "1": "SOC_RAW",
+        "2": "SOC_FAN"
+      },
+      "note": "注入校验前拆开；禁止外部源顶入DRV输出",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R56",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "SOC_ISO",
+        "2": "SOC_ADC"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R57",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "SOC_FAN",
+        "2": "SOC_CMP"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R58",
+      "name": "电阻",
+      "value": "100k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "RT0603BRD07100KL",
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "VLOW"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R59",
+      "name": "电阻",
+      "value": "21k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "PTFR0603B21K0N9",
+      "pins": {
+        "1": "VLOW",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R60",
+      "name": "电阻",
+      "value": "21k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "PTFR0603B21K0N9",
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "VHIGH"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R61",
+      "name": "电阻",
+      "value": "100k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "RT0603BRD07100KL",
+      "pins": {
+        "1": "VHIGH",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R62",
+      "name": "电阻",
+      "value": "100k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "RT0603BRD07100KL",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "VBUS_CMP"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R63",
+      "name": "电阻",
+      "value": "20k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "TNPW060320K0BEEA",
+      "pins": {
+        "1": "VBUS_CMP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R64",
+      "name": "电阻",
+      "value": "23.7k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "AT0603BRD0723K7L",
+      "pins": {
+        "1": "3V3A",
+        "2": "VBUS_TRIP"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R65",
+      "name": "电阻",
+      "value": "100k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "RT0603BRD07100KL",
+      "pins": {
+        "1": "VBUS_TRIP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R66",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "VBUS_TRIP",
+        "2": "VBUS_TRIP_IN"
+      },
+      "note": "VM断电时限制TLV输入钳位电流；原理图不可省略",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R67",
+      "name": "电阻",
+      "value": "100k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "RT0603BRD07100KL",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "VBUS_DIV_MID"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R68",
+      "name": "电阻",
+      "value": "100k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "RT0603BRD07100KL",
+      "pins": {
+        "1": "VBUS_DIV_MID",
+        "2": "VBUS_DIV11"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R69",
+      "name": "电阻",
+      "value": "20k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "TNPW060320K0BEEA",
+      "pins": {
+        "1": "VBUS_DIV11",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R70",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "pins": {
+        "1": "VBUS_ISO",
+        "2": "VBUS_ADC"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R71",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3",
+        "2": "STM_UART_RX"
+      },
+      "note": "U8掉电高阻时UART接收保持空闲高",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "R72",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "ESP_UART_RX"
+      },
+      "note": "STM掉电时ESP接收保持空闲高",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C1",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "VBAT_3V3",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C2",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "对应U1 VDD脚24",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C3",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "对应U1 VDD脚36",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C4",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "对应U1 VDD脚48",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C5",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      },
+      "note": "U1.21 VDDA",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C6",
+      "name": "电容",
+      "value": "1 µF / 25 V X5R",
+      "package": "0603",
+      "mpn": "CL10A105KA8NNNC",
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      },
+      "note": "U1.21 VDDA",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C7",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      },
+      "note": "U1.20 VREF+",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C8",
+      "name": "电容",
+      "value": "1 µF / 25 V X5R",
+      "package": "0603",
+      "mpn": "CL10A105KA8NNNC",
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      },
+      "note": "U1.20 VREF+",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C9",
+      "name": "电容",
+      "value": "4.7 µF / 10 V X7R",
+      "package": "0805",
+      "mpn": "通用 0805 4.7 µF 10 V X7R",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "MCU附近",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C10",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "NRST",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C11",
+      "name": "电容",
+      "value": "30 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "通用 0603 30 pF 50 V C0G",
+      "pins": {
+        "1": "HSE_IN",
+        "2": "GND"
+      },
+      "note": "X1 CL=18pF，按寄生3pF估算；起振后复核",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C12",
+      "name": "电容",
+      "value": "30 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "通用 0603 30 pF 50 V C0G",
+      "pins": {
+        "1": "HSE_OUT",
+        "2": "GND"
+      },
+      "note": "不可把晶体CL直接当作单颗负载电容值",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C13",
+      "name": "电容",
+      "value": "4.7 µF / 10 V X7R",
+      "package": "0805",
+      "mpn": "通用 0805 4.7 µF 10 V X7R",
+      "pins": {
+        "1": "5V_LOGIC",
+        "2": "GND"
+      },
+      "note": "U5输入，有效容量≥1µF",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C14",
+      "name": "电容",
+      "value": "4.7 µF / 10 V X7R",
+      "package": "0805",
+      "mpn": "通用 0805 4.7 µF 10 V X7R",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "U5输出，有效容量≥1µF",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C15",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "U6",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C16",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "GND"
+      },
+      "note": "U7",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C17",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "U8.3",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C18",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "GND"
+      },
+      "note": "U8.7",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C19",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      },
+      "note": "U9.14",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C20",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "DRV_NSLEEP",
+        "2": "GND"
+      },
+      "note": "PA12驱动；只作开关机，快速故障复位优先CLR_FLT",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C21",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "VM脚9的第1颗，就近",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C22",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "VM脚9的第2颗，就近",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C23",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "VM脚10的第1颗，就近",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C24",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "VM脚10的第2颗，就近",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C25",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "VM脚11的第1颗，就近",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C26",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "VM脚11的第2颗，就近",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C27",
+      "name": "电容",
+      "value": "10 µF / 50 V X7R",
+      "package": "1210",
+      "mpn": "GRM32ER71H106KA12L",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "陶瓷局部储能，核对直流偏压后有效容量",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C28",
+      "name": "电容",
+      "value": "39 µF / 35 V 聚合物 ±20%",
+      "package": "SMD φ8 × 6.9 mm / E7",
+      "mpn": "35SVPF39M",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "有极性，+接VM；2颗共78µF，不承担连续再生",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C29",
+      "name": "电容",
+      "value": "39 µF / 35 V 聚合物 ±20%",
+      "package": "SMD φ8 × 6.9 mm / E7",
+      "mpn": "35SVPF39M",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "有极性，+接VM；φ8×6.9mm需在R11内部校核",
+      "status": "新增规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C30",
+      "name": "电容",
+      "value": "47 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B473KB8NNNC",
+      "pins": {
+        "1": "DRV_CPH",
+        "2": "DRV_CPL"
+      },
+      "note": "飞跨电容；不是接地",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C31",
+      "name": "电容",
+      "value": "1 µF / 25 V X5R",
+      "package": "0603",
+      "mpn": "CL10A105KA8NNNC",
+      "pins": {
+        "1": "DRV_CP",
+        "2": "MOTOR_BUS"
+      },
+      "note": "充电泵电容；不是CP接地",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C32",
+      "name": "电容",
+      "value": "1 µF / 50 V X7R",
+      "package": "0805",
+      "mpn": "CL21B105KBFNNNE",
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "GND"
+      },
+      "note": "需在3.3V/全温下有效0.7–1.3µF；按实购曲线复核",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C33",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "DRV_VREF",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C34",
+      "name": "电容",
+      "value": "22 µF / 25 V X5R",
+      "package": "0805",
+      "mpn": "CL21A226MAQNNNE",
+      "pins": {
+        "1": "BUCK_FB",
+        "2": "GND"
+      },
+      "note": "内部Buck未使用仍装；5V_LOGIC不能接这里",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C35",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "U3供电",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C36",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "U4供电",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C37",
+      "name": "电容",
+      "value": "1 µF / 50 V X7R",
+      "package": "0805",
+      "mpn": "CL21B105KBFNNNE",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "比较器就近共用",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C38",
+      "name": "电容",
+      "value": "10 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CC0603KRX7R9BB103",
+      "pins": {
+        "1": "VLOW",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C39",
+      "name": "电容",
+      "value": "10 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CC0603KRX7R9BB103",
+      "pins": {
+        "1": "VHIGH",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C40",
+      "name": "电容",
+      "value": "10 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CC0603KRX7R9BB103",
+      "pins": {
+        "1": "VBUS_TRIP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C41",
+      "name": "电容",
+      "value": "33 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN330",
+      "pins": {
+        "1": "SOA_ADC",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C42",
+      "name": "电容",
+      "value": "100 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN101",
+      "pins": {
+        "1": "SOA_CMP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C43",
+      "name": "电容",
+      "value": "33 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN330",
+      "pins": {
+        "1": "SOB_ADC",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C44",
+      "name": "电容",
+      "value": "100 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN101",
+      "pins": {
+        "1": "SOB_CMP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C45",
+      "name": "电容",
+      "value": "33 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN330",
+      "pins": {
+        "1": "SOC_ADC",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C46",
+      "name": "电容",
+      "value": "100 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN101",
+      "pins": {
+        "1": "SOC_CMP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C47",
+      "name": "电容",
+      "value": "1 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B102KB8NNNC",
+      "pins": {
+        "1": "VBUS_CMP",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C48",
+      "name": "电容",
+      "value": "1 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B102KB8NNNC",
+      "pins": {
+        "1": "VBUS_DIV11",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C49",
+      "name": "电容",
+      "value": "1 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B102KB8NNNC",
+      "pins": {
+        "1": "VBUS_ADC",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C50",
+      "name": "电容",
+      "value": "10 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CC0603KRX7R9BB103",
+      "pins": {
+        "1": "MOTOR_TEMP_ADC",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C51",
+      "name": "电容",
+      "value": "1 µF / 25 V X5R",
+      "package": "0603",
+      "mpn": "CL10A105KA8NNNC",
+      "pins": {
+        "1": "5V_ENC",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C52",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "pins": {
+        "1": "5V_ENC",
+        "2": "GND"
+      },
+      "note": "",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C53",
+      "name": "电容",
+      "value": "39 µF / 35 V 聚合物 ±20%",
+      "package": "SMD φ8 × 6.9 mm / E7",
+      "mpn": "35SVPF39M",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "可选增容位置；若空间不足可不保留，不作为装机采购",
+      "status": "新增规格／核库存",
+      "fitted": 0,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "C54",
+      "name": "电容",
+      "value": "39 µF / 35 V 聚合物 ±20%",
+      "package": "SMD φ8 × 6.9 mm / E7",
+      "mpn": "35SVPF39M",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "可选增容位置；若空间不足可不保留，不作为装机采购",
+      "status": "新增规格／核库存",
+      "fitted": 0,
+      "spare": 0,
+      "category": "阻容"
+    },
+    {
+      "ref": "X1",
+      "name": "无源晶体",
+      "value": "24 MHz；CL18 pF",
+      "package": "3225 4焊盘",
+      "mpn": "ABM8-24.000MHZ-B2-T",
+      "pins": {
+        "1": "HSE_IN",
+        "2": "GND",
+        "3": "HSE_OUT",
+        "4": "GND"
+      },
+      "note": "1/3晶体，2/4外壳地；不可按倒角判1脚",
+      "status": "已购方案／核库存",
+      "fitted": 1,
+      "spare": 1,
+      "category": "时钟"
+    },
+    {
+      "ref": "D1",
+      "name": "母线瞬态TVS",
+      "value": "单向；VRWM18 V",
+      "package": "SMB / DO-214AA",
+      "mpn": "SMBJ18A",
+      "pins": {
+        "K": "MOTOR_BUS",
+        "A": "GND"
+      },
+      "note": "上游必须有限流/熔断；TVS只抑制尖峰，不能吸收连续反拖",
+      "status": "A板新增／核用旧规格",
+      "fitted": 1,
+      "spare": 0,
+      "category": "保护"
+    },
+    {
+      "ref": "SW1",
+      "name": "复位按键",
+      "value": "常开瞬时",
+      "package": "SMD 4.2×3.2×2.5 mm",
+      "mpn": "SKRPASE010",
+      "pins": {
+        "1": "NRST",
+        "2": "NRST",
+        "3": "GND",
+        "4": "GND"
+      },
+      "note": "原厂编号1/2内部常连→NRST，3/4内部常连→GND；不改外壳按钮",
+      "status": "新增板上调试按键／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "调试"
+    },
+    {
+      "ref": "JP1",
+      "name": "BOOT焊桥",
+      "value": "默认断开",
+      "package": "2焊盘焊桥",
+      "mpn": "PCB焊盘，无采购",
+      "pins": {
+        "1": "BOOT0",
+        "2": "3V3"
+      },
+      "note": "只在烧录/救援时短接",
+      "status": "PCB结构，无采购",
+      "fitted": 0,
+      "spare": 0,
+      "category": "调试"
+    },
+    {
+      "ref": "J1",
+      "name": "电机母线焊线口",
+      "value": "2大焊盘+线束应力释放",
+      "package": "2个焊线通孔；布局时按实线定孔径",
+      "mpn": "2大焊盘+线束应力释放",
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      },
+      "note": "通过短20–22AWG导线接XT30；上游B板保护与自动制动同接此母线",
+      "status": "PCB焊盘，无采购",
+      "fitted": 0,
+      "spare": 0,
+      "category": "接口"
+    },
+    {
+      "ref": "J2",
+      "name": "电机三相焊线口",
+      "value": "3大焊盘+线束应力释放",
+      "package": "3个焊线通孔；布局时按实线定孔径",
+      "mpn": "3大焊盘+线束应力释放",
+      "pins": {
+        "1": "MOTOR_U",
+        "2": "MOTOR_V",
+        "3": "MOTOR_W"
+      },
+      "note": "沿用电机原线；三相顺序在新电机标定中确认；不重复买接插件",
+      "status": "PCB焊盘，无采购",
+      "fitted": 0,
+      "spare": 0,
+      "category": "接口"
+    },
+    {
+      "ref": "J3",
+      "name": "AS5048A编码器焊线口",
+      "value": "6标号焊盘；不假定原厂插头脚号",
+      "package": "6焊盘低电流焊线区",
+      "mpn": "6标号焊盘；不假定原厂插头脚号",
+      "pins": {
+        "1": "GND",
+        "2": "5V_ENC",
+        "3": "ENC_MISO",
+        "4": "ENC_MOSI",
+        "5": "ENC_SCK",
+        "6": "ENC_CS_N"
+      },
+      "note": "编号为本板定义；颜色不能代表未知插头从左到右位置",
+      "status": "PCB焊盘，无采购",
+      "fitted": 0,
+      "spare": 0,
+      "category": "接口"
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "value": "2×5P 1.27mm Cortex keyed",
+      "package": "THT 2×5，1.27mm；实购脚距/键位待核",
+      "mpn": "2×5P 1.27mm Cortex keyed",
+      "pins": {
+        "1": "3V3",
+        "2": "SWDIO",
+        "3": "GND",
+        "4": "SWCLK",
+        "5": "GND",
+        "6": "NC",
+        "7": "NC",
+        "8": "NC",
+        "9": "GND",
+        "10": "NRST"
+      },
+      "note": "首板只需SWDIO/SWCLK/NRST/GND/VTREF；连接器封装须实物核对",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "接口"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "value": "FH12-10S-0.5SH(55)",
+      "package": "10P 0.5mm SMT 下接触",
+      "mpn": "FH12-10S-0.5SH(55)",
+      "pins": {
+        "1": "5V_LOGIC",
+        "2": "GND",
+        "3": "I2C_SCL",
+        "4": "I2C_SDA",
+        "5": "GND",
+        "6": "BRAKE_FORCE",
+        "7": "HARD_FAULT_N",
+        "8": "MOTOR_PWR_EN",
+        "9": "3V3_AUX",
+        "10": "GND"
+      },
+      "note": "B板的充电/安全常开域独立供电；VM及主电流另走J1",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "接口"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "value": "FH12-10S-0.5SH(55)",
+      "package": "10P 0.5mm SMT 下接触",
+      "mpn": "FH12-10S-0.5SH(55)",
+      "pins": {
+        "1": "GND",
+        "2": "ESP_UART_RX",
+        "3": "ESP_UART_TX",
+        "4": "GND",
+        "5": "SYS_FAULT_N_ESP",
+        "6": "I2C_SCL",
+        "7": "I2C_SDA",
+        "8": "3V3_AUX",
+        "9": "3V3_ESP",
+        "10": "GND"
+      },
+      "note": "必须十线逐根导通核对；不是直接插屏幕12Pin；ESP自有5V/VSYS电源不经过此口",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "接口"
+    },
+    {
+      "ref": "J7",
+      "name": "电机温度探头",
+      "value": "JST B2B-PH-K-S(LF)(SN)",
+      "package": "PH 2.0mm 2P 直插",
+      "mpn": "JST B2B-PH-K-S(LF)(SN)",
+      "pins": {
+        "1": "MOTOR_NTC",
+        "2": "GND"
+      },
+      "note": "本版采用10k/B3950无源NTC；必须与电池NTC分开",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "接口"
+    },
+    {
+      "ref": "CAB1",
+      "name": "A-B排线",
+      "value": "10P/0.5mm/100mm/同面，补强0.30mm",
+      "package": "板外配套",
+      "mpn": "通用FFC A型",
+      "pins": {},
+      "note": "针1到针1按成品装配导通确认",
+      "status": "沿用已购方案／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "板外配套"
+    },
+    {
+      "ref": "CAB2",
+      "name": "A-C排线",
+      "value": "10P/0.5mm/100mm/同面，补强0.30mm",
+      "package": "板外配套",
+      "mpn": "通用FFC A型",
+      "pins": {},
+      "note": "最终长度以R11内部走线复核",
+      "status": "沿用已购方案／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "板外配套"
+    },
+    {
+      "ref": "CAB3",
+      "name": "SWD排线/适配器",
+      "value": "匹配1.27mm 10P与现有调试器",
+      "package": "板外配套",
+      "mpn": "1.27mm Cortex调试排线",
+      "pins": {},
+      "note": "已有适配器则不用重复购买",
+      "status": "沿用已购方案／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "板外配套"
+    },
+    {
+      "ref": "CAB4",
+      "name": "母线可拆线束",
+      "value": "XT30公母一对；20–22AWG短线",
+      "package": "板外配套",
+      "mpn": "AMASS XT30U-M + XT30U-F",
+      "pins": {},
+      "note": "一对，不是两个板载座；与现有电源口性别匹配",
+      "status": "沿用已购方案／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "板外配套"
+    },
+    {
+      "ref": "CAB5",
+      "name": "温度探头连接器壳",
+      "value": "PH 2P胶壳",
+      "package": "板外配套",
+      "mpn": "JST PHR-2",
+      "pins": {},
+      "note": "配J7",
+      "status": "沿用规格／核库存",
+      "fitted": 1,
+      "spare": 0,
+      "category": "板外配套"
+    },
+    {
+      "ref": "CAB6",
+      "name": "温度探头压接端子",
+      "value": "PH母端子",
+      "package": "板外配套",
+      "mpn": "JST SPH-002T-P0.5S",
+      "pins": {},
+      "note": "按实线径核对，建议2只便宜备用",
+      "status": "沿用规格／核库存",
+      "fitted": 2,
+      "spare": 2,
+      "category": "板外配套"
+    },
+    {
+      "ref": "TH1",
+      "name": "电机温度探头",
+      "value": "10kΩ@25℃；B3950；绝缘双引线",
+      "package": "板外配套",
+      "mpn": "通用10k B3950环氧封装NTC",
+      "pins": {},
+      "note": "新选测温形式，不是已确认在电机内部；贴定子绝缘固定并标定",
+      "status": "新增／不等同旧TMP36初值",
+      "fitted": 1,
+      "spare": 0,
+      "category": "板外配套"
+    },
+    {
+      "ref": "TP1…TP66",
+      "name": "测试焊盘",
+      "value": "约φ0.8–1.0mm信号焊盘；GND加大",
+      "package": "PCB裸露焊盘，无立式针",
+      "mpn": "PCB结构，无采购",
+      "pins": {},
+      "note": "4个GND焊盘靠近不同测量区；高频CP/SW只留小焊盘不拉长线",
+      "status": "PCB结构，无采购",
+      "fitted": 0,
+      "spare": 0,
+      "category": "调试"
+    }
+  ],
+  "bom": [
+    {
+      "category": "芯片",
+      "name": "FOC主控",
+      "value": "STM32G474CET6",
+      "package": "LQFP48 7×7 mm，0.5 mm",
+      "mpn": "STM32G474CET6",
+      "status": "已购方案／不加备用",
+      "refs": [
+        "U1"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "必须选CET6；不是NUCLEO上的RET6"
+      ]
+    },
+    {
+      "category": "芯片",
+      "name": "三相集成驱动",
+      "value": "DRV8316RRGFR",
+      "package": "RGF VQFN40 7×5 mm + EP",
+      "mpn": "DRV8316RRGFR",
+      "status": "已购方案／不加备用",
+      "refs": [
+        "U2"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "R版SPI；每个VM脚配2颗100n；裸露焊盘必须接地"
+      ]
+    },
+    {
+      "category": "芯片",
+      "name": "四路比较器",
+      "value": "TLV1704AIPWR",
+      "package": "PW TSSOP14 5×4.4 mm",
+      "mpn": "TLV1704AIPWR",
+      "status": "已购方案／不加备用",
+      "refs": [
+        "U3",
+        "U4"
+      ],
+      "qty": 2,
+      "spare": 0,
+      "notes": [
+        "仅U4通道4未用：+接AVDD，−接GND，输出NC；U3四路全用"
+      ]
+    },
+    {
+      "category": "芯片",
+      "name": "本地3.3 V稳压",
+      "value": "TLV75533PDBVR",
+      "package": "DBV SOT-23-5",
+      "mpn": "TLV75533PDBVR",
+      "status": "A板新增／可核用旧B10备用",
+      "refs": [
+        "U5"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "原B板B10不删除；本板3V3禁止与B/ESP的独立3V3并联"
+      ]
+    },
+    {
+      "category": "芯片",
+      "name": "DRV故障开漏缓冲",
+      "value": "SN74LVC1G07DBVR",
+      "package": "DBV SOT-23-5",
+      "mpn": "SN74LVC1G07DBVR",
+      "status": "本轮新增／核库存",
+      "refs": [
+        "U6"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "防止比较器反拉DRV物理nFAULT"
+      ]
+    },
+    {
+      "category": "芯片",
+      "name": "ESP故障开漏缓冲",
+      "value": "SN74LVC1G07DBVR",
+      "package": "DBV SOT-23-5",
+      "mpn": "SN74LVC1G07DBVR",
+      "status": "本轮新增／核库存",
+      "refs": [
+        "U7"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "由ESP域供电；输入100k下拉；STM失电时报告故障"
+      ]
+    },
+    {
+      "category": "芯片",
+      "name": "UART双电源接口",
+      "value": "TXU0202DCUR",
+      "package": "DCU VSSOP8 2.3×2.0 mm",
+      "mpn": "TXU0202DCUR",
+      "status": "本轮新增／核库存",
+      "refs": [
+        "U8"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "一发一收固定方向；不是TXB0102；OE接3V3"
+      ]
+    },
+    {
+      "category": "芯片",
+      "name": "四路采样断电隔离",
+      "value": "TMUX1511PWR",
+      "package": "PW TSSOP14 5×4.4 mm",
+      "mpn": "TMUX1511PWR",
+      "status": "本轮新增／核库存",
+      "refs": [
+        "U9"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "4路SEL均接3V3；断电保护信号≤3.6V；保持比较器支路直连"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.1 W",
+      "package": "0603",
+      "mpn": "通用0Ω跳线 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R1",
+        "R3",
+        "R6",
+        "R35",
+        "R48",
+        "R49",
+        "R52",
+        "R55"
+      ],
+      "qty": 8,
+      "spare": 5,
+      "notes": [
+        "可拆以单独测B/C传感器电流",
+        "晶体驱动调试位置，首装0Ω",
+        "编码器电源支路可断开测流",
+        "注入校验前拆开；禁止外部源顶入DRV输出"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "0 Ω跳线；0.125 W",
+      "package": "0805",
+      "mpn": "通用0Ω跳线 0.125 W",
+      "status": "新增规格／核库存",
+      "refs": [
+        "R2"
+      ],
+      "qty": 1,
+      "spare": 5,
+      "notes": [
+        "0805磁珠兼容焊盘；首装0Ω，不将模拟地割裂"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "10k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 10k 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R4",
+        "R10",
+        "R13",
+        "R18",
+        "R30",
+        "R36",
+        "R39",
+        "R66",
+        "R71",
+        "R72"
+      ],
+      "qty": 10,
+      "spare": 5,
+      "notes": [
+        "不可改100k；PA3开漏",
+        "独立上拉；逻辑5V/3V3先于VM上电",
+        "NTC上拉；NTC25℃=10k",
+        "VM断电时限制TLV输入钳位电流；原理图不可省略",
+        "U8掉电高阻时UART接收保持空闲高",
+        "STM掉电时ESP接收保持空闲高"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "100k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100k 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R5",
+        "R9",
+        "R12",
+        "R26",
+        "R27",
+        "R28",
+        "R29",
+        "R42",
+        "R43",
+        "R45",
+        "R47"
+      ],
+      "qty": 11,
+      "spare": 5,
+      "notes": [
+        "放驱动器侧"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "2.2k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 2.2k 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R7",
+        "R8",
+        "R11",
+        "R19"
+      ],
+      "qty": 4,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "22 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 22 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R14",
+        "R15",
+        "R16"
+      ],
+      "qty": 3,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "1k Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 1k 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R17",
+        "R34",
+        "R40",
+        "R50",
+        "R51",
+        "R53",
+        "R54",
+        "R56",
+        "R57",
+        "R70"
+      ],
+      "qty": 10,
+      "spare": 5,
+      "notes": [
+        "TI要求SDO外部上拉；同时禁用UCPD下拉",
+        "MISO接收端限流；2.5MHz实测边沿，不当作源端终端"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "47 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 47 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "R24",
+        "R25"
+      ],
+      "qty": 6,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "33 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 33 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R31",
+        "R32",
+        "R33",
+        "R37",
+        "R38"
+      ],
+      "qty": 5,
+      "spare": 5,
+      "notes": [
+        "放U8输出端",
+        "放U8输出端，FFC到ESP RX"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "22 Ω；1%；0.5 W",
+      "package": "1206",
+      "mpn": "通用厚膜 22 1% 0.5 W",
+      "status": "新增规格／核库存",
+      "refs": [
+        "R41"
+      ],
+      "qty": 1,
+      "spare": 5,
+      "notes": [
+        "内部Buck不用也保留；脉冲型≥0.5W，不能替成0603"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "100 Ω；1%；0.1 W",
+      "package": "0603",
+      "mpn": "通用厚膜 100 1% 0.1 W",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R44",
+        "R46"
+      ],
+      "qty": 2,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "100k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "RT0603BRD07100KL",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R58",
+        "R61",
+        "R62",
+        "R65",
+        "R67",
+        "R68"
+      ],
+      "qty": 6,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "21k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "PTFR0603B21K0N9",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R59",
+        "R60"
+      ],
+      "qty": 2,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "20k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "TNPW060320K0BEEA",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R63",
+        "R69"
+      ],
+      "qty": 2,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电阻",
+      "value": "23.7k Ω；0.1%；0.1 W",
+      "package": "0603",
+      "mpn": "AT0603BRD0723K7L",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "R64"
+      ],
+      "qty": 1,
+      "spare": 5,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "100 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B104KB8NNNC",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C7",
+        "C10",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24",
+        "C25",
+        "C26",
+        "C33",
+        "C35",
+        "C36",
+        "C52"
+      ],
+      "qty": 23,
+      "spare": 3,
+      "notes": [
+        "对应U1 VDD脚24",
+        "对应U1 VDD脚36",
+        "对应U1 VDD脚48",
+        "U1.21 VDDA",
+        "U1.20 VREF+",
+        "U6",
+        "U7",
+        "U8.3",
+        "U8.7",
+        "U9.14",
+        "PA12驱动；只作开关机，快速故障复位优先CLR_FLT",
+        "VM脚9的第1颗，就近",
+        "VM脚9的第2颗，就近",
+        "VM脚10的第1颗，就近",
+        "VM脚10的第2颗，就近",
+        "VM脚11的第1颗，就近",
+        "VM脚11的第2颗，就近",
+        "U3供电",
+        "U4供电"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "1 µF / 25 V X5R",
+      "package": "0603",
+      "mpn": "CL10A105KA8NNNC",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C6",
+        "C8",
+        "C31",
+        "C51"
+      ],
+      "qty": 4,
+      "spare": 3,
+      "notes": [
+        "U1.21 VDDA",
+        "U1.20 VREF+",
+        "充电泵电容；不是CP接地"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "4.7 µF / 10 V X7R",
+      "package": "0805",
+      "mpn": "通用 0805 4.7 µF 10 V X7R",
+      "status": "新增规格／核库存",
+      "refs": [
+        "C9",
+        "C13",
+        "C14"
+      ],
+      "qty": 3,
+      "spare": 3,
+      "notes": [
+        "MCU附近",
+        "U5输入，有效容量≥1µF",
+        "U5输出，有效容量≥1µF"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "30 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "通用 0603 30 pF 50 V C0G",
+      "status": "新增规格／核库存",
+      "refs": [
+        "C11",
+        "C12"
+      ],
+      "qty": 2,
+      "spare": 3,
+      "notes": [
+        "X1 CL=18pF，按寄生3pF估算；起振后复核",
+        "不可把晶体CL直接当作单颗负载电容值"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "10 µF / 50 V X7R",
+      "package": "1210",
+      "mpn": "GRM32ER71H106KA12L",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C27"
+      ],
+      "qty": 1,
+      "spare": 3,
+      "notes": [
+        "陶瓷局部储能，核对直流偏压后有效容量"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "39 µF / 35 V 聚合物 ±20%",
+      "package": "SMD φ8 × 6.9 mm / E7",
+      "mpn": "35SVPF39M",
+      "status": "新增规格／核库存",
+      "refs": [
+        "C28",
+        "C29"
+      ],
+      "qty": 2,
+      "spare": 0,
+      "notes": [
+        "有极性，+接VM；2颗共78µF，不承担连续再生",
+        "有极性，+接VM；φ8×6.9mm需在R11内部校核"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "47 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B473KB8NNNC",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C30"
+      ],
+      "qty": 1,
+      "spare": 3,
+      "notes": [
+        "飞跨电容；不是接地"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "1 µF / 50 V X7R",
+      "package": "0805",
+      "mpn": "CL21B105KBFNNNE",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C32",
+        "C37"
+      ],
+      "qty": 2,
+      "spare": 3,
+      "notes": [
+        "需在3.3V/全温下有效0.7–1.3µF；按实购曲线复核",
+        "比较器就近共用"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "22 µF / 25 V X5R",
+      "package": "0805",
+      "mpn": "CL21A226MAQNNNE",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C34"
+      ],
+      "qty": 1,
+      "spare": 3,
+      "notes": [
+        "内部Buck未使用仍装；5V_LOGIC不能接这里"
+      ]
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "10 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CC0603KRX7R9BB103",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C38",
+        "C39",
+        "C40",
+        "C50"
+      ],
+      "qty": 4,
+      "spare": 3,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "33 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN330",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C41",
+        "C43",
+        "C45"
+      ],
+      "qty": 3,
+      "spare": 3,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "100 pF / 50 V C0G ±5%",
+      "package": "0603",
+      "mpn": "CC0603JRNPO9BN101",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C42",
+        "C44",
+        "C46"
+      ],
+      "qty": 3,
+      "spare": 3,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "1 nF / 50 V X7R",
+      "package": "0603",
+      "mpn": "CL10B102KB8NNNC",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "C47",
+        "C48",
+        "C49"
+      ],
+      "qty": 3,
+      "spare": 3,
+      "notes": []
+    },
+    {
+      "category": "阻容",
+      "name": "电容",
+      "value": "39 µF / 35 V 聚合物 ±20%",
+      "package": "SMD φ8 × 6.9 mm / E7",
+      "mpn": "35SVPF39M",
+      "status": "新增规格／核库存",
+      "refs": [
+        "C53",
+        "C54"
+      ],
+      "qty": 0,
+      "spare": 0,
+      "notes": [
+        "可选增容位置；若空间不足可不保留，不作为装机采购"
+      ]
+    },
+    {
+      "category": "时钟",
+      "name": "无源晶体",
+      "value": "24 MHz；CL18 pF",
+      "package": "3225 4焊盘",
+      "mpn": "ABM8-24.000MHZ-B2-T",
+      "status": "已购方案／核库存",
+      "refs": [
+        "X1"
+      ],
+      "qty": 1,
+      "spare": 1,
+      "notes": [
+        "1/3晶体，2/4外壳地；不可按倒角判1脚"
+      ]
+    },
+    {
+      "category": "保护",
+      "name": "母线瞬态TVS",
+      "value": "单向；VRWM18 V",
+      "package": "SMB / DO-214AA",
+      "mpn": "SMBJ18A",
+      "status": "A板新增／核用旧规格",
+      "refs": [
+        "D1"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "上游必须有限流/熔断；TVS只抑制尖峰，不能吸收连续反拖"
+      ]
+    },
+    {
+      "category": "调试",
+      "name": "复位按键",
+      "value": "常开瞬时",
+      "package": "SMD 4.2×3.2×2.5 mm",
+      "mpn": "SKRPASE010",
+      "status": "新增板上调试按键／核库存",
+      "refs": [
+        "SW1"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "原厂编号1/2内部常连→NRST，3/4内部常连→GND；不改外壳按钮"
+      ]
+    },
+    {
+      "category": "调试",
+      "name": "BOOT焊桥",
+      "value": "默认断开",
+      "package": "2焊盘焊桥",
+      "mpn": "PCB焊盘，无采购",
+      "status": "PCB结构，无采购",
+      "refs": [
+        "JP1"
+      ],
+      "qty": 0,
+      "spare": 0,
+      "notes": [
+        "只在烧录/救援时短接"
+      ]
+    },
+    {
+      "category": "接口",
+      "name": "电机母线焊线口",
+      "value": "2大焊盘+线束应力释放",
+      "package": "2个焊线通孔；布局时按实线定孔径",
+      "mpn": "2大焊盘+线束应力释放",
+      "status": "PCB焊盘，无采购",
+      "refs": [
+        "J1"
+      ],
+      "qty": 0,
+      "spare": 0,
+      "notes": [
+        "通过短20–22AWG导线接XT30；上游B板保护与自动制动同接此母线"
+      ]
+    },
+    {
+      "category": "接口",
+      "name": "电机三相焊线口",
+      "value": "3大焊盘+线束应力释放",
+      "package": "3个焊线通孔；布局时按实线定孔径",
+      "mpn": "3大焊盘+线束应力释放",
+      "status": "PCB焊盘，无采购",
+      "refs": [
+        "J2"
+      ],
+      "qty": 0,
+      "spare": 0,
+      "notes": [
+        "沿用电机原线；三相顺序在新电机标定中确认；不重复买接插件"
+      ]
+    },
+    {
+      "category": "接口",
+      "name": "AS5048A编码器焊线口",
+      "value": "6标号焊盘；不假定原厂插头脚号",
+      "package": "6焊盘低电流焊线区",
+      "mpn": "6标号焊盘；不假定原厂插头脚号",
+      "status": "PCB焊盘，无采购",
+      "refs": [
+        "J3"
+      ],
+      "qty": 0,
+      "spare": 0,
+      "notes": [
+        "编号为本板定义；颜色不能代表未知插头从左到右位置"
+      ]
+    },
+    {
+      "category": "接口",
+      "name": "SWD调试口",
+      "value": "2×5P 1.27mm Cortex keyed",
+      "package": "THT 2×5，1.27mm；实购脚距/键位待核",
+      "mpn": "2×5P 1.27mm Cortex keyed",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "J4"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "首板只需SWDIO/SWCLK/NRST/GND/VTREF；连接器封装须实物核对"
+      ]
+    },
+    {
+      "category": "接口",
+      "name": "A↔B 电源板FFC",
+      "value": "FH12-10S-0.5SH(55)",
+      "package": "10P 0.5mm SMT 下接触",
+      "mpn": "FH12-10S-0.5SH(55)",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "J5"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "B板的充电/安全常开域独立供电；VM及主电流另走J1"
+      ]
+    },
+    {
+      "category": "接口",
+      "name": "A↔C 屏幕与传感器FFC",
+      "value": "FH12-10S-0.5SH(55)",
+      "package": "10P 0.5mm SMT 下接触",
+      "mpn": "FH12-10S-0.5SH(55)",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "J6"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "必须十线逐根导通核对；不是直接插屏幕12Pin；ESP自有5V/VSYS电源不经过此口"
+      ]
+    },
+    {
+      "category": "接口",
+      "name": "电机温度探头",
+      "value": "JST B2B-PH-K-S(LF)(SN)",
+      "package": "PH 2.0mm 2P 直插",
+      "mpn": "JST B2B-PH-K-S(LF)(SN)",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "J7"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "本版采用10k/B3950无源NTC；必须与电池NTC分开"
+      ]
+    },
+    {
+      "category": "板外配套",
+      "name": "A-B排线",
+      "value": "10P/0.5mm/100mm/同面，补强0.30mm",
+      "package": "板外配套",
+      "mpn": "通用FFC A型",
+      "status": "沿用已购方案／核库存",
+      "refs": [
+        "CAB1"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "针1到针1按成品装配导通确认"
+      ]
+    },
+    {
+      "category": "板外配套",
+      "name": "A-C排线",
+      "value": "10P/0.5mm/100mm/同面，补强0.30mm",
+      "package": "板外配套",
+      "mpn": "通用FFC A型",
+      "status": "沿用已购方案／核库存",
+      "refs": [
+        "CAB2"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "最终长度以R11内部走线复核"
+      ]
+    },
+    {
+      "category": "板外配套",
+      "name": "SWD排线/适配器",
+      "value": "匹配1.27mm 10P与现有调试器",
+      "package": "板外配套",
+      "mpn": "1.27mm Cortex调试排线",
+      "status": "沿用已购方案／核库存",
+      "refs": [
+        "CAB3"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "已有适配器则不用重复购买"
+      ]
+    },
+    {
+      "category": "板外配套",
+      "name": "母线可拆线束",
+      "value": "XT30公母一对；20–22AWG短线",
+      "package": "板外配套",
+      "mpn": "AMASS XT30U-M + XT30U-F",
+      "status": "沿用已购方案／核库存",
+      "refs": [
+        "CAB4"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "一对，不是两个板载座；与现有电源口性别匹配"
+      ]
+    },
+    {
+      "category": "板外配套",
+      "name": "温度探头连接器壳",
+      "value": "PH 2P胶壳",
+      "package": "板外配套",
+      "mpn": "JST PHR-2",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "CAB5"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "配J7"
+      ]
+    },
+    {
+      "category": "板外配套",
+      "name": "温度探头压接端子",
+      "value": "PH母端子",
+      "package": "板外配套",
+      "mpn": "JST SPH-002T-P0.5S",
+      "status": "沿用规格／核库存",
+      "refs": [
+        "CAB6"
+      ],
+      "qty": 2,
+      "spare": 2,
+      "notes": [
+        "按实线径核对，建议2只便宜备用"
+      ]
+    },
+    {
+      "category": "板外配套",
+      "name": "电机温度探头",
+      "value": "10kΩ@25℃；B3950；绝缘双引线",
+      "package": "板外配套",
+      "mpn": "通用10k B3950环氧封装NTC",
+      "status": "新增／不等同旧TMP36初值",
+      "refs": [
+        "TH1"
+      ],
+      "qty": 1,
+      "spare": 0,
+      "notes": [
+        "新选测温形式，不是已确认在电机内部；贴定子绝缘固定并标定"
+      ]
+    },
+    {
+      "category": "调试",
+      "name": "测试焊盘",
+      "value": "约φ0.8–1.0mm信号焊盘；GND加大",
+      "package": "PCB裸露焊盘，无立式针",
+      "mpn": "PCB结构，无采购",
+      "status": "PCB结构，无采购",
+      "refs": [
+        "TP1…TP66"
+      ],
+      "qty": 0,
+      "spare": 0,
+      "notes": [
+        "4个GND焊盘靠近不同测量区；高频CP/SW只留小焊盘不拉长线"
+      ]
+    }
+  ],
+  "mcu": [
+    [
+      1,
+      "VBAT",
+      "电源",
+      "VBAT_3V3",
+      "R1接3V3；C1去耦"
+    ],
+    [
+      2,
+      "PC13",
+      "GPIO 慢速推挽",
+      "SYS_FAULT_N_MCU",
+      "低=故障；R9默认下拉；只驱动U7逻辑输入，不带LED"
+    ],
+    [
+      3,
+      "PC14",
+      "输入/模拟",
+      "RSV_PC14",
+      "仅预留小测试焊盘；不用LSE"
+    ],
+    [
+      4,
+      "PC15",
+      "输入/模拟",
+      "RSV_PC15",
+      "仅预留小测试焊盘；不用LSE"
+    ],
+    [
+      5,
+      "PF0",
+      "HSE",
+      "HSE_IN",
+      "24 MHz晶体X1.1"
+    ],
+    [
+      6,
+      "PF1",
+      "HSE",
+      "HSE_OUT_MCU",
+      "经R6到X1.3"
+    ],
+    [
+      7,
+      "NRST",
+      "复位",
+      "NRST",
+      "R4上拉、C10、SW1、J4.10；保持复位功能"
+    ],
+    [
+      8,
+      "PA0",
+      "ADC1_IN1",
+      "SOA_ADC",
+      "U9隔离后1k/33p"
+    ],
+    [
+      9,
+      "PA1",
+      "ADC2_IN2",
+      "SOB_ADC",
+      "U9隔离后1k/33p"
+    ],
+    [
+      10,
+      "PA2",
+      "GPIO 推挽",
+      "BRAKE_FORCE_MCU",
+      "经R44到B板；只强制开启制动"
+    ],
+    [
+      11,
+      "PA3",
+      "GPIO 开漏",
+      "DRV_DRVOFF",
+      "R10上拉；释放=关桥，拉低=允许"
+    ],
+    [
+      12,
+      "PA4",
+      "GPIO 推挽",
+      "ENC_CS_MCU",
+      "经R31；R30上拉；片选由GPIO控制"
+    ],
+    [
+      13,
+      "PA5",
+      "AF5 SPI1_SCK",
+      "ENC_SCK_MCU",
+      "经R32到蓝线"
+    ],
+    [
+      14,
+      "PA6",
+      "AF5 SPI1_MISO",
+      "ENC_MISO_MCU",
+      "绿线经R34"
+    ],
+    [
+      15,
+      "PA7",
+      "AF5 SPI1_MOSI",
+      "ENC_MOSI_MCU",
+      "经R33到黄线"
+    ],
+    [
+      16,
+      "PB0",
+      "ADC3_IN12",
+      "SOC_ADC",
+      "U9隔离后1k/33p"
+    ],
+    [
+      17,
+      "PB1",
+      "ADC1_IN12",
+      "VBUS_ADC",
+      "独立200k/20k分压，换算倍率11"
+    ],
+    [
+      18,
+      "PB2",
+      "ADC2_IN12",
+      "MOTOR_TEMP_ADC",
+      "10k NTC探头；不是TMP36换算"
+    ],
+    [
+      19,
+      "VSSA",
+      "电源",
+      "GND",
+      "统一GND，模拟回流就近"
+    ],
+    [
+      20,
+      "VREF+",
+      "电源",
+      "3V3A",
+      "C7/C8；关闭VREFBUF输出"
+    ],
+    [
+      21,
+      "VDDA",
+      "电源",
+      "3V3A",
+      "C5/C6"
+    ],
+    [
+      22,
+      "PB10",
+      "AF7 USART3_TX",
+      "STM_UART_TX",
+      "U8 A1输入，向ESP发送"
+    ],
+    [
+      23,
+      "VSS",
+      "电源",
+      "GND",
+      "地"
+    ],
+    [
+      24,
+      "VDD",
+      "电源",
+      "3V3",
+      "C2；MCU共用C9"
+    ],
+    [
+      25,
+      "PB11",
+      "AF7 USART3_RX",
+      "STM_UART_RX",
+      "U8 A2Y输出"
+    ],
+    [
+      26,
+      "PB12",
+      "AF6 TIM1_BKIN",
+      "HARD_FAULT_N",
+      "低有效；滤波0；AOE=0"
+    ],
+    [
+      27,
+      "PB13",
+      "AF6 TIM1_CH1N",
+      "PWM_LA_MCU",
+      "R21=47Ω，驱动端R27=100k下拉"
+    ],
+    [
+      28,
+      "PB14",
+      "AF6 TIM1_CH2N",
+      "PWM_LB_MCU",
+      "R23=47Ω，驱动端R29=100k下拉"
+    ],
+    [
+      29,
+      "PB15",
+      "AF4 TIM1_CH3N",
+      "PWM_LC_MCU",
+      "R25=47Ω，驱动端R43=100k下拉"
+    ],
+    [
+      30,
+      "PA8",
+      "AF6 TIM1_CH1",
+      "PWM_HA_MCU",
+      "R20=47Ω，驱动端R26=100k下拉"
+    ],
+    [
+      31,
+      "PA9",
+      "AF6 TIM1_CH2",
+      "PWM_HB_MCU",
+      "R22=47Ω，驱动端R28=100k下拉；禁用UCPD下拉"
+    ],
+    [
+      32,
+      "PA10",
+      "AF6 TIM1_CH3",
+      "PWM_HC_MCU",
+      "R24=47Ω，驱动端R42=100k下拉；禁用UCPD下拉"
+    ],
+    [
+      33,
+      "PA11",
+      "AF11 TIM1_CH4",
+      "ADC_SAMPLE_TRIG",
+      "小测试焊盘；不是USB D−"
+    ],
+    [
+      34,
+      "PA12",
+      "GPIO 推挽",
+      "DRV_NSLEEP_MCU",
+      "本版正式使用；R11+R12/C20；默认睡眠"
+    ],
+    [
+      35,
+      "VSS",
+      "电源",
+      "GND",
+      "地"
+    ],
+    [
+      36,
+      "VDD",
+      "电源",
+      "3V3",
+      "C3"
+    ],
+    [
+      37,
+      "PA13",
+      "SWD",
+      "SWDIO",
+      "J4.2"
+    ],
+    [
+      38,
+      "PA14",
+      "SWD",
+      "SWCLK",
+      "J4.4"
+    ],
+    [
+      39,
+      "PA15",
+      "AF4 I2C1_SCL",
+      "I2C_SCL",
+      "2.2k上拉3V3；与B/C低速器件相连"
+    ],
+    [
+      40,
+      "PB3",
+      "AF6 SPI3_SCK",
+      "DRV_SCK_MCU",
+      "R14=22Ω；不再用SWO/JTAG"
+    ],
+    [
+      41,
+      "PB4",
+      "AF6 SPI3_MISO",
+      "DRV_SDO",
+      "R17=1k上拉；禁用UCPD死电池下拉"
+    ],
+    [
+      42,
+      "PB5",
+      "AF6 SPI3_MOSI",
+      "DRV_SDI_MCU",
+      "R15=22Ω"
+    ],
+    [
+      43,
+      "PB6",
+      "GPIO 推挽",
+      "DRV_CS_MCU",
+      "R16=22Ω；R18=10k上拉；禁用UCPD下拉"
+    ],
+    [
+      44,
+      "PB7",
+      "AF4 I2C1_SDA",
+      "I2C_SDA",
+      "2.2k上拉3V3"
+    ],
+    [
+      45,
+      "PB8",
+      "BOOT0/GPIO输入",
+      "BOOT0",
+      "100k下拉；JP1焊桥临时接3V3"
+    ],
+    [
+      46,
+      "PB9",
+      "GPIO 推挽",
+      "MOTOR_PWR_EN_MCU",
+      "本版控制B板电机母线使能；R46/R47默认关"
+    ],
+    [
+      47,
+      "VSS",
+      "电源",
+      "GND",
+      "地"
+    ],
+    [
+      48,
+      "VDD",
+      "电源",
+      "3V3",
+      "C4"
+    ]
+  ],
+  "drv_names": {
+    "1": "NC",
+    "2": "AGND",
+    "3": "FB_BK",
+    "4": "GND_BK",
+    "5": "SW_BK",
+    "6": "CPL",
+    "7": "CPH",
+    "8": "CP",
+    "9": "VM",
+    "10": "VM",
+    "11": "VM",
+    "12": "PGND",
+    "13": "OUTA",
+    "14": "OUTA",
+    "15": "PGND",
+    "16": "OUTB",
+    "17": "OUTB",
+    "18": "PGND",
+    "19": "OUTC",
+    "20": "OUTC",
+    "21": "DRVOFF",
+    "22": "nFAULT",
+    "23": "nSLEEP",
+    "24": "NC",
+    "25": "AVDD",
+    "26": "AGND",
+    "27": "INHA",
+    "28": "INLA",
+    "29": "INHB",
+    "30": "INLB",
+    "31": "INHC",
+    "32": "INLC",
+    "33": "SDO",
+    "34": "SDI",
+    "35": "SCLK",
+    "36": "nSCS",
+    "37": "VREF",
+    "38": "SOC",
+    "39": "SOB",
+    "40": "SOA",
+    "41": "EP/AGND"
+  },
+  "icpins": {
+    "U1": {
+      "1": "VBAT_3V3",
+      "2": "SYS_FAULT_N_MCU",
+      "3": "RSV_PC14",
+      "4": "RSV_PC15",
+      "5": "HSE_IN",
+      "6": "HSE_OUT_MCU",
+      "7": "NRST",
+      "8": "SOA_ADC",
+      "9": "SOB_ADC",
+      "10": "BRAKE_FORCE_MCU",
+      "11": "DRV_DRVOFF",
+      "12": "ENC_CS_MCU",
+      "13": "ENC_SCK_MCU",
+      "14": "ENC_MISO_MCU",
+      "15": "ENC_MOSI_MCU",
+      "16": "SOC_ADC",
+      "17": "VBUS_ADC",
+      "18": "MOTOR_TEMP_ADC",
+      "19": "GND",
+      "20": "3V3A",
+      "21": "3V3A",
+      "22": "STM_UART_TX",
+      "23": "GND",
+      "24": "3V3",
+      "25": "STM_UART_RX",
+      "26": "HARD_FAULT_N",
+      "27": "PWM_LA_MCU",
+      "28": "PWM_LB_MCU",
+      "29": "PWM_LC_MCU",
+      "30": "PWM_HA_MCU",
+      "31": "PWM_HB_MCU",
+      "32": "PWM_HC_MCU",
+      "33": "ADC_SAMPLE_TRIG",
+      "34": "DRV_NSLEEP_MCU",
+      "35": "GND",
+      "36": "3V3",
+      "37": "SWDIO",
+      "38": "SWCLK",
+      "39": "I2C_SCL",
+      "40": "DRV_SCK_MCU",
+      "41": "DRV_SDO",
+      "42": "DRV_SDI_MCU",
+      "43": "DRV_CS_MCU",
+      "44": "I2C_SDA",
+      "45": "BOOT0",
+      "46": "MOTOR_PWR_EN_MCU",
+      "47": "GND",
+      "48": "3V3"
+    },
+    "U2": {
+      "1": "NC",
+      "2": "GND",
+      "3": "BUCK_FB",
+      "4": "GND",
+      "5": "BUCK_SW",
+      "6": "DRV_CPL",
+      "7": "DRV_CPH",
+      "8": "DRV_CP",
+      "9": "MOTOR_BUS",
+      "10": "MOTOR_BUS",
+      "11": "MOTOR_BUS",
+      "12": "GND",
+      "13": "MOTOR_U",
+      "14": "MOTOR_U",
+      "15": "GND",
+      "16": "MOTOR_V",
+      "17": "MOTOR_V",
+      "18": "GND",
+      "19": "MOTOR_W",
+      "20": "MOTOR_W",
+      "21": "DRV_DRVOFF",
+      "22": "DRV_NFAULT_N",
+      "23": "DRV_NSLEEP",
+      "24": "NC",
+      "25": "DRV_AVDD",
+      "26": "GND",
+      "27": "DRV_INHA",
+      "28": "DRV_INLA",
+      "29": "DRV_INHB",
+      "30": "DRV_INLB",
+      "31": "DRV_INHC",
+      "32": "DRV_INLC",
+      "33": "DRV_SDO",
+      "34": "DRV_SDI",
+      "35": "DRV_SCK",
+      "36": "DRV_CS_N",
+      "37": "DRV_VREF",
+      "38": "SOC_RAW",
+      "39": "SOB_RAW",
+      "40": "SOA_RAW",
+      "41": "GND"
+    },
+    "U3": {
+      "1": "HARD_FAULT_N",
+      "2": "HARD_FAULT_N",
+      "3": "MOTOR_BUS",
+      "4": "VLOW",
+      "5": "SOA_CMP",
+      "6": "SOA_CMP",
+      "7": "VHIGH",
+      "8": "VLOW",
+      "9": "SOB_CMP",
+      "10": "SOB_CMP",
+      "11": "VHIGH",
+      "12": "GND",
+      "13": "HARD_FAULT_N",
+      "14": "HARD_FAULT_N"
+    },
+    "U4": {
+      "1": "HARD_FAULT_N",
+      "2": "HARD_FAULT_N",
+      "3": "MOTOR_BUS",
+      "4": "VLOW",
+      "5": "SOC_CMP",
+      "6": "SOC_CMP",
+      "7": "VHIGH",
+      "8": "VBUS_CMP",
+      "9": "VBUS_TRIP_IN",
+      "10": "GND",
+      "11": "DRV_AVDD",
+      "12": "GND",
+      "13": "NC",
+      "14": "HARD_FAULT_N"
+    },
+    "U5": {
+      "1": "5V_LOGIC",
+      "2": "GND",
+      "3": "5V_LOGIC",
+      "4": "NC",
+      "5": "3V3"
+    },
+    "U6": {
+      "1": "NC",
+      "2": "DRV_NFAULT_N",
+      "3": "GND",
+      "4": "HARD_FAULT_N",
+      "5": "3V3"
+    },
+    "U7": {
+      "1": "NC",
+      "2": "SYS_FAULT_N_MCU",
+      "3": "GND",
+      "4": "SYS_FAULT_N_ESP",
+      "5": "3V3_ESP"
+    },
+    "U8": {
+      "1": "ESP_UART_TX",
+      "2": "GND",
+      "3": "3V3",
+      "4": "STM_UART_RX_PRE",
+      "5": "STM_UART_TX",
+      "6": "3V3",
+      "7": "3V3_ESP",
+      "8": "ESP_UART_RX_PRE"
+    },
+    "U9": {
+      "1": "3V3",
+      "2": "SOA_FAN",
+      "3": "SOA_ISO",
+      "4": "3V3",
+      "5": "SOB_FAN",
+      "6": "SOB_ISO",
+      "7": "GND",
+      "8": "SOC_ISO",
+      "9": "SOC_FAN",
+      "10": "3V3",
+      "11": "VBUS_ISO",
+      "12": "VBUS_DIV11",
+      "13": "3V3",
+      "14": "3V3"
+    }
+  },
+  "ports": [
+    {
+      "ref": "J1",
+      "name": "电机母线焊线口",
+      "pin": 1,
+      "net": "MOTOR_BUS",
+      "direction": "输入/再生回流",
+      "note": "受保护的9–12.6V；不得接5V"
+    },
+    {
+      "ref": "J1",
+      "name": "电机母线焊线口",
+      "pin": 2,
+      "net": "GND",
+      "direction": "地",
+      "note": "电机电流回流"
+    },
+    {
+      "ref": "J2",
+      "name": "电机三相焊线口",
+      "pin": 1,
+      "net": "MOTOR_U",
+      "direction": "输出",
+      "note": "U2.13/14"
+    },
+    {
+      "ref": "J2",
+      "name": "电机三相焊线口",
+      "pin": 2,
+      "net": "MOTOR_V",
+      "direction": "输出",
+      "note": "U2.16/17"
+    },
+    {
+      "ref": "J2",
+      "name": "电机三相焊线口",
+      "pin": 3,
+      "net": "MOTOR_W",
+      "direction": "输出",
+      "note": "U2.19/20"
+    },
+    {
+      "ref": "J3",
+      "name": "AS5048A编码器焊线口",
+      "pin": 1,
+      "net": "GND",
+      "direction": "地",
+      "note": "黑线"
+    },
+    {
+      "ref": "J3",
+      "name": "AS5048A编码器焊线口",
+      "pin": 2,
+      "net": "5V_ENC",
+      "direction": "输出5V",
+      "note": "红线"
+    },
+    {
+      "ref": "J3",
+      "name": "AS5048A编码器焊线口",
+      "pin": 3,
+      "net": "ENC_MISO",
+      "direction": "输入3.3V逻辑",
+      "note": "绿线"
+    },
+    {
+      "ref": "J3",
+      "name": "AS5048A编码器焊线口",
+      "pin": 4,
+      "net": "ENC_MOSI",
+      "direction": "输出3.3V逻辑",
+      "note": "黄线"
+    },
+    {
+      "ref": "J3",
+      "name": "AS5048A编码器焊线口",
+      "pin": 5,
+      "net": "ENC_SCK",
+      "direction": "输出3.3V逻辑",
+      "note": "蓝线"
+    },
+    {
+      "ref": "J3",
+      "name": "AS5048A编码器焊线口",
+      "pin": 6,
+      "net": "ENC_CS_N",
+      "direction": "输出3.3V逻辑",
+      "note": "白线"
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 1,
+      "net": "3V3",
+      "direction": "电压参考输出",
+      "note": "VTREF；调试器只检测，不向本板供电"
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 2,
+      "net": "SWDIO",
+      "direction": "双向",
+      "note": "PA13"
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 3,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 4,
+      "net": "SWCLK",
+      "direction": "输入",
+      "note": "PA14"
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 5,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 6,
+      "net": "NC",
+      "direction": "未接",
+      "note": "SWO不可用，PB3已作DRV SPI时钟"
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 7,
+      "net": "NC",
+      "direction": "键位",
+      "note": ""
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 8,
+      "net": "NC",
+      "direction": "未接",
+      "note": ""
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 9,
+      "net": "GND",
+      "direction": "地检测",
+      "note": ""
+    },
+    {
+      "ref": "J4",
+      "name": "SWD调试口",
+      "pin": 10,
+      "net": "NRST",
+      "direction": "双向复位",
+      "note": "保持U1.7为NRST"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 1,
+      "net": "5V_LOGIC",
+      "direction": "B→A",
+      "note": "5.0V±5%，首版连续预算≤250mA"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 2,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 3,
+      "net": "I2C_SCL",
+      "direction": "开漏时钟",
+      "note": "PA15；A提供上拉"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 4,
+      "net": "I2C_SDA",
+      "direction": "开漏数据",
+      "note": "PB7；A提供上拉"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 5,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 6,
+      "net": "BRAKE_FORCE",
+      "direction": "A→B",
+      "note": "高=强制制动，低不能禁止自动制动"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 7,
+      "net": "HARD_FAULT_N",
+      "direction": "B→A 开漏",
+      "note": "B只允许无源触点/断电高阻开漏；健康释放"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 8,
+      "net": "MOTOR_PWR_EN",
+      "direction": "A→B",
+      "note": "高使能母线；低/断线/STM复位必须关闭"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 9,
+      "net": "3V3_AUX",
+      "direction": "A→B输出",
+      "note": "只给INA228等接口侧小负载，B/C合计≤30mA"
+    },
+    {
+      "ref": "J5",
+      "name": "A↔B 电源板FFC",
+      "pin": 10,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 1,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 2,
+      "net": "ESP_UART_RX",
+      "direction": "A→ESP",
+      "note": "U8输出；C转到屏J1.12/U0RXD"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 3,
+      "net": "ESP_UART_TX",
+      "direction": "ESP→A",
+      "note": "C来自屏J1.11/U0TXD"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 4,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 5,
+      "net": "SYS_FAULT_N_ESP",
+      "direction": "开漏A→ESP",
+      "note": "C转到屏J1.5/GP1，低故障"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 6,
+      "net": "I2C_SCL",
+      "direction": "开漏时钟",
+      "note": "只接A供电的VEML等；不并到屏幕自有I2C"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 7,
+      "net": "I2C_SDA",
+      "direction": "开漏数据",
+      "note": "同上"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 8,
+      "net": "3V3_AUX",
+      "direction": "A→C输出",
+      "note": "与J5.9同一限流预算，不供屏幕或LED"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 9,
+      "net": "3V3_ESP",
+      "direction": "ESP→A参考电源",
+      "note": "C来自屏J1.3，只供U7和U8B端"
+    },
+    {
+      "ref": "J6",
+      "name": "A↔C 屏幕与传感器FFC",
+      "pin": 10,
+      "net": "GND",
+      "direction": "地",
+      "note": ""
+    },
+    {
+      "ref": "J7",
+      "name": "电机温度探头",
+      "pin": 1,
+      "net": "MOTOR_NTC",
+      "direction": "模拟输入",
+      "note": "10k上拉；探头一端"
+    },
+    {
+      "ref": "J7",
+      "name": "电机温度探头",
+      "pin": 2,
+      "net": "GND",
+      "direction": "地",
+      "note": "探头另一端"
+    }
+  ],
+  "testpoints": [
+    {
+      "ref": "TP1",
+      "net": "GND"
+    },
+    {
+      "ref": "TP2",
+      "net": "GND"
+    },
+    {
+      "ref": "TP3",
+      "net": "GND"
+    },
+    {
+      "ref": "TP4",
+      "net": "GND"
+    },
+    {
+      "ref": "TP5",
+      "net": "5V_LOGIC"
+    },
+    {
+      "ref": "TP6",
+      "net": "5V_ENC"
+    },
+    {
+      "ref": "TP7",
+      "net": "3V3"
+    },
+    {
+      "ref": "TP8",
+      "net": "3V3A"
+    },
+    {
+      "ref": "TP9",
+      "net": "3V3_ESP"
+    },
+    {
+      "ref": "TP10",
+      "net": "3V3_AUX"
+    },
+    {
+      "ref": "TP11",
+      "net": "MOTOR_BUS"
+    },
+    {
+      "ref": "TP12",
+      "net": "DRV_AVDD"
+    },
+    {
+      "ref": "TP13",
+      "net": "DRV_VREF"
+    },
+    {
+      "ref": "TP14",
+      "net": "BUCK_FB"
+    },
+    {
+      "ref": "TP15",
+      "net": "DRV_DRVOFF"
+    },
+    {
+      "ref": "TP16",
+      "net": "DRV_NSLEEP"
+    },
+    {
+      "ref": "TP17",
+      "net": "DRV_NFAULT_N"
+    },
+    {
+      "ref": "TP18",
+      "net": "HARD_FAULT_N"
+    },
+    {
+      "ref": "TP19",
+      "net": "VLOW"
+    },
+    {
+      "ref": "TP20",
+      "net": "VHIGH"
+    },
+    {
+      "ref": "TP21",
+      "net": "VBUS_CMP"
+    },
+    {
+      "ref": "TP22",
+      "net": "VBUS_TRIP"
+    },
+    {
+      "ref": "TP23",
+      "net": "VBUS_DIV11"
+    },
+    {
+      "ref": "TP24",
+      "net": "VBUS_ADC"
+    },
+    {
+      "ref": "TP25",
+      "net": "MOTOR_TEMP_ADC"
+    },
+    {
+      "ref": "TP26",
+      "net": "ADC_SAMPLE_TRIG"
+    },
+    {
+      "ref": "TP27",
+      "net": "DRV_SCK"
+    },
+    {
+      "ref": "TP28",
+      "net": "DRV_SDI"
+    },
+    {
+      "ref": "TP29",
+      "net": "DRV_SDO"
+    },
+    {
+      "ref": "TP30",
+      "net": "DRV_CS_N"
+    },
+    {
+      "ref": "TP31",
+      "net": "ENC_CS_N"
+    },
+    {
+      "ref": "TP32",
+      "net": "ENC_SCK"
+    },
+    {
+      "ref": "TP33",
+      "net": "ENC_MISO"
+    },
+    {
+      "ref": "TP34",
+      "net": "ENC_MOSI"
+    },
+    {
+      "ref": "TP35",
+      "net": "I2C_SCL"
+    },
+    {
+      "ref": "TP36",
+      "net": "I2C_SDA"
+    },
+    {
+      "ref": "TP37",
+      "net": "STM_UART_TX"
+    },
+    {
+      "ref": "TP38",
+      "net": "STM_UART_RX"
+    },
+    {
+      "ref": "TP39",
+      "net": "ESP_UART_RX"
+    },
+    {
+      "ref": "TP40",
+      "net": "ESP_UART_TX"
+    },
+    {
+      "ref": "TP41",
+      "net": "SYS_FAULT_N_MCU"
+    },
+    {
+      "ref": "TP42",
+      "net": "SYS_FAULT_N_ESP"
+    },
+    {
+      "ref": "TP43",
+      "net": "BRAKE_FORCE"
+    },
+    {
+      "ref": "TP44",
+      "net": "MOTOR_PWR_EN"
+    },
+    {
+      "ref": "TP45",
+      "net": "NRST"
+    },
+    {
+      "ref": "TP46",
+      "net": "BOOT0"
+    },
+    {
+      "ref": "TP47",
+      "net": "RSV_PC14"
+    },
+    {
+      "ref": "TP48",
+      "net": "RSV_PC15"
+    },
+    {
+      "ref": "TP49",
+      "net": "DRV_INHA"
+    },
+    {
+      "ref": "TP50",
+      "net": "DRV_INLA"
+    },
+    {
+      "ref": "TP51",
+      "net": "DRV_INHB"
+    },
+    {
+      "ref": "TP52",
+      "net": "DRV_INLB"
+    },
+    {
+      "ref": "TP53",
+      "net": "DRV_INHC"
+    },
+    {
+      "ref": "TP54",
+      "net": "DRV_INLC"
+    },
+    {
+      "ref": "TP55",
+      "net": "SOA_RAW"
+    },
+    {
+      "ref": "TP56",
+      "net": "SOA_FAN"
+    },
+    {
+      "ref": "TP57",
+      "net": "SOA_ADC"
+    },
+    {
+      "ref": "TP58",
+      "net": "SOA_CMP"
+    },
+    {
+      "ref": "TP59",
+      "net": "SOB_RAW"
+    },
+    {
+      "ref": "TP60",
+      "net": "SOB_FAN"
+    },
+    {
+      "ref": "TP61",
+      "net": "SOB_ADC"
+    },
+    {
+      "ref": "TP62",
+      "net": "SOB_CMP"
+    },
+    {
+      "ref": "TP63",
+      "net": "SOC_RAW"
+    },
+    {
+      "ref": "TP64",
+      "net": "SOC_FAN"
+    },
+    {
+      "ref": "TP65",
+      "net": "SOC_ADC"
+    },
+    {
+      "ref": "TP66",
+      "net": "SOC_CMP"
+    }
+  ],
+  "calculations": {
+    "vlow": 0.5727272727272728,
+    "vhigh": 2.727272727272727,
+    "current_trip_nominal_A": 1.7954545454545454,
+    "vbus_trip_nominal_V": 16.006467259498788,
+    "vbus_adc_ratio": 11,
+    "vbus_adc_at_29_2V": 2.6545454545454543,
+    "bulk_uF": 78,
+    "ldo_loss_at_150mA_W": 0.255
+  },
+  "sources": {
+    "STM32": "https://www.st.com/resource/en/datasheet/stm32g474ce.pdf",
+    "DRV8316": "https://www.ti.com/lit/ds/symlink/drv8316.pdf",
+    "TLV1704": "https://www.ti.com/lit/ds/symlink/tlv1704.pdf",
+    "LDO": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+    "开漏缓冲": "https://www.ti.com/lit/ds/symlink/sn74lvc1g07.pdf",
+    "UART": "https://www.ti.com/lit/ds/symlink/txu0202.pdf",
+    "采样隔离": "https://www.ti.com/lit/ds/symlink/tmux1511.pdf",
+    "晶体": "https://abracon.com/parametric/crystals/ABM8-24.000MHZ-B2-T",
+    "晶体封装": "https://abracon.com/Resonators/abm8.pdf",
+    "AS5048A": "https://www.infineon.com/assets/row/public/documents/24/49/infineon-as5048a-as5048b-datasheet-en.pdf",
+    "Waveshare": "https://files.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.32/ESP32-S3-Touch-AMOLED-1.32-schematic.pdf",
+    "母线电容": "https://industrial.panasonic.com/cdbs/www-data/pdf/AAB8000/AAB8000COL88.pdf",
+    "复位按钮": "https://tech.alpsalpine.com/e/products/detail/SKRPASE010/"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "status": "PASS_R6_J4_LOCAL_CHANGE",
+  "revision": "A-SCH-AD-R6-USER-LIB-NO-TP",
+  "user_decision": "5P 2.54 mm generic connector",
+  "pin_to_net": {
+    "1": "3V3",
+    "2": "SWDIO",
+    "3": "GND",
+    "4": "SWCLK",
+    "5": "NRST"
+  },
+  "pin_1_role": "VTREF only, target 3V3 voltage sense; not supply input",
+  "bom_override": {
+    "J4": {
+      "Value": "通用单排排针 1×5P 2.54mm 直插",
+      "MPN": "通用单排排针 1×5P 2.54mm 直插",
+      "Package": "THT 1×5，2.54mm；直插排针，0.64mm 方针",
+      "Fitted": "1"
+    }
+  },
+  "original_user_library": "G:\\dontdel\\AD_Lib\\STM32F407_Ctrl.PcbLib",
+  "original_user_library_sha256": "119466c97c2668fdb93a89106d4df1f744e272984bad40ddb7ff6e121ec3c492",
+  "original_user_library_unchanged": true,
+  "previous_delivery_unchanged": true,
+  "unrelated_native_objects_unchanged": 598,
+  "footprint": "GL30_HDR_1X05_P254_D102",
+  "derived_library_sha256": "55d58940d51b3e7eac39fa22ddf2b05363e664f2c931d0b5cecacc448274a97c",
+  "pitch_mm": 2.54,
+  "plated_hole_mm": 1.02,
+  "pad_mm": 1.7,
+  "pad_count": 5,
+  "pad_numbers_positions_shapes_and_3d_unchanged": true,
+  "source": "https://suddendocs.samtec.com/catalog_english/tsw_th.pdf",
+  "boundary": "Native saved-file edit and pad checks; actual Altium connection verification follows."
+}

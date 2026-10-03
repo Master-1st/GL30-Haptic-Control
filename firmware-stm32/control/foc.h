@@ -53,6 +53,15 @@ typedef struct {
   float haptic_torque_nm;
   float command_torque_limit_nm;
 
+  /* 2 kHz haptic behaviour state; not part of the 72-byte wire command. */
+  int32_t detent_position;
+  float detent_center_rad;
+  float detent_fraction; /* Captured with detent_position by the 2 kHz task. */
+  bool detent_initialized;
+  bool haptic_transition_pending;
+  uint16_t haptic_transition_ticks;
+  float haptic_transition_from_nm;
+
   gl30_haptic_command_t active_command;
   uint32_t last_command_nonce;
   uint32_t rejected_commands;

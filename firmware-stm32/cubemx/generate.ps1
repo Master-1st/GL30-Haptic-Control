@@ -86,7 +86,8 @@ function Assert-NoCubeMxProcess([string]$phase) {
 function Assert-CubeMxLog([string]$path, [string]$phase) {
   $content = Get-Content -LiteralPath $path -Raw
   $knownOptionalMessages = @(
-    '\(OptionalMessage_ERROR\) Pin34 \(VP_RIF_VS_RIF1\) cannot be retrieved for this MCU',
+    # CubeMX appends this unsupported virtual pin after the configured pins.
+    '\(OptionalMessage_ERROR\) Pin[0-9]+ \(VP_RIF_VS_RIF1\) cannot be retrieved for this MCU',
     '\(OptionalMessage_ERROR\) IP \(ADC[123]\) : Parameter \(CommonPathInternal\) has invalid value \(null\|null\|null\|null\)',
     '\(OptionalMessage_ERROR\) IP \(RCC\) : Invalid parameter \(FamilyName\)',
     '\(OptionalMessage_ERROR\) IP \(RCC\) : Parameter \(RNGFreq_Value\) has invalid value \(160000000\)',

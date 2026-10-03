@@ -1,0 +1,43 @@
+{
+  "kind": "native_schematic_public_subset",
+  "original_local_package_unchanged": true,
+  "omitted_libraries": [
+    "User_LCSC.PcbLib",
+    "User_SamacSys.PcbLib",
+    "User_STM32F407_Ctrl.PcbLib",
+    "GL30_Adjusted_User.PcbLib",
+    "GL30_J4_Header.PcbLib"
+  ],
+  "project_document_list_modified_for_public_subset": true,
+  "native_sheets_changed": false,
+  "files": {
+    "A01_POWER_MCU.SchDoc": "e4faf693b8ae4cea9d3825683390eb0700a00c6806846c4436781b25ac38d10c",
+    "A02_DRV8316.SchDoc": "61d7d3f8d2d924613ec7b2302bfc07508c0d1b5a08386453bf38db2870167b4d",
+    "A03_CURRENT_ADC.SchDoc": "672afb5a6624ead43be586f5fd6b5f265e2acfff4c3ec3d507ef0c4adf89290d",
+    "A04_HARD_PROTECT.SchDoc": "ab2c03dec520e4abdfd16f483720948203d8a9a66df8165cdfd36295049e35a7",
+    "A05_ENCODER_NTC.SchDoc": "43950b1e9408f1da58c49895de5bd6ea842c4a98e5b798aef40e921189ba904f",
+    "A06_LINKS_POWER.SchDoc": "d067875d6be3b1d8e282baa51f2c4d37a7ea5c6ca8a7d877fea42213df71e5f0",
+    "A07_BUS_CONTROL.SchDoc": "cc67cb343a65e3c2ebf3a6fe0d4399bc1210b57523cfc72a2401628b6825eda0",
+    "BOM_no_testpoints.csv": "9efbc723d96e9f4e8415d7157f2ef5a14284b143d7f05127d79e92c8f848411b",
+    "generation_manifest.json": "b2cd56f6e0fdfa9dd25de657e17d702cde29559acc00fee3ff995e19135cf91b",
+    "GL30_A_STM32_FOC_NO_TP.PrjPcb": "5333a4ecdfc8fdeafeca65f6a7dbeda4ddeabc74f481295fbdf4d5ac067d0ac4",
+    "KICAD_LIBRARY_LICENSE.md": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+    "link_user_footprints.py": "b095d64b7c54b99257e02ccf3750dbcd410383524bddc9bb7e7ad8bfc01470e3",
+    "local-original-delivery-manifest.json": "ff4505ce1e19fcc7be73b8a322bd14ddc136576fe07599ae10df11185a4bbae2",
+    "README_CN.md": "de48f05a5c98a17f7f670ad24b213b56f85c1d00e647bd5a24e2c05a780dec9b",
+    "THIRD_PARTY.md": "96f3bb901463aff02ffad3fc0bc27e597c0b9dbd7640d11ce6652a329688b017",
+    "user_footprint_mapping.json": "6258a52ecd66c91fa14420595d39b294ee6a82f9823d4e07222f956fcb10008c",
+    "USER_LIBRARY_CN.md": "2595ca3977439eef6ceb8ef111f30dddad94b462860a9048e1f90fbb75d26ff0",
+    "verify_ad_receipt.py": "d15e27b206220ab25d72ecb2f7d9b7346577872988ad72bff928e8303ef4e8fd",
+    "verify_native.py": "877def2c1a8ef842a52d1b2986a49957f167f339beb3bc9f427d280b1b7cc086",
+    "verification/added_library_review_r5.json": "eb47c16d17b387c9ed2f12cb8b2400cef3f8d48def02d53c13713a4b42c970c2",
+    "verification/ad_acceptance.json": "fd1cf284cf6cd634f79945a9476983eff24ab637eda6e3eb473a564def4a837b",
+    "verification/ad_native_receipt.txt": "3baddad00f0cb087cba246862ef7fab0deee839899f3b232110b3a04698b2059",
+    "verification/connectivity.json": "d79321b61f4a32f15b8e503e5d8ab0123c8e83d6c1bcf56a750c04a9d0d7d587",
+    "verification/delivery_integrity.json": "10f33e72f53396010fa6794b48086aeb2ace2a20bc9e00e6857751e1af27c6a4",
+    "verification/j4_change_r6.json": "f4e1cac97bc31f2e0598d7b8e9ebc92f32accc672468a8b780258b2ce7fceae9",
+    "verification/J4_R6.png": "3fcc9e7b30544e38f3d67a3b7d85da0c92dc4eb9e79dc869ad8b88a668db46ce",
+    "verification/j7_derivative_check.json": "2508dfd71bf70851b4e387eb883ff4be1c61b395c3397491857c17db1e8dccef",
+    "verification/user_library_link_check.json": "5a0d35a5c6d7d9096ae15387f9d62a281c1cd22766f3aff00586d19b8644b1d7"
+  }
+}

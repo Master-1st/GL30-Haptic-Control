@@ -1,0 +1,55 @@
+$ pnpm vectors && pnpm check && pnpm test && pnpm e2e
+$ tsx scripts/generate-golden-vectors.ts
+Generated deterministic protocol vectors: G:\Agent\GL30-Haptic-Control\tmp\github-sync-20261003\protocol\generated\v1.json
+$ pnpm -r run typecheck
+Scope: 4 of 5 workspace projects
+protocol/reference-ts typecheck$ tsc --noEmit
+pc-companion/profiles typecheck$ tsc --noEmit
+pc-companion/profiles typecheck: Done
+protocol/reference-ts typecheck: Done
+pc-companion/core typecheck$ tsc --noEmit
+pc-companion/core typecheck: Done
+pc-companion/device-simulator typecheck$ tsc --noEmit
+pc-companion/device-simulator typecheck: Done
+$ tsx --test tests/**/*.test.ts
+✔ unknown version/type does not execute command or refresh state and counters are not inflated (1.4515ms)
+✔ received timestamp is ignored for timeout; timeout uses receive time and can recover from COMM_LOST (0.2579ms)
+✔ virtual time transitions at 10ms/WARN, 20ms/SAFE_ZERO_REQUESTED, 100ms/COMM_LOST (0.1562ms)
+✔ SafetySupervisor counts unknown version/type once (0.078ms)
+✔ load and verify golden vectors determinism constraints (2.3386ms)
+✔ stream parser reports bad CRC (1.1306ms)
+✔ stream parser reports known-type fixed payload mismatch (0.1895ms)
+✔ stream parser survives random chunks and cross-chunk 0x5a 0xa5 resync (0.2334ms)
+✔ example profiles are valid (2.0168ms)
+✔ invalid profile with extra property and semantic rule violations is rejected (0.2492ms)
+✔ applied haptic state carries a 64-bit lease generation (1.3783ms)
+✔ CRC32C known vector (0.0715ms)
+✔ protocol v1 frame layout and offsets are fixed and deterministic (0.2059ms)
+✔ payload sizes and logicalPosition int32 (0.401ms)
+✔ control lease carries 64-bit generations in a strict 24-byte payload (0.1855ms)
+✔ control lease rejects malformed action-specific shapes and generations (0.1428ms)
+✔ haptic state rejects unknown status bits and simultaneous released/waiting (0.1484ms)
+✔ bad fixed payload length is rejected by codec (0.2157ms)
+✔ same frame bytes decode deterministically (0.11ms)
+✔ TimeSyncEstimator removes remote processing time from RTT and computes signed offset (0.4658ms)
+✔ TimeSyncEstimator rejects invalid time ordering and negative RTT (0.1541ms)
+✔ TimeSyncEstimator keeps precision for > 2^53 bigint inputs after smoothing (0.079ms)
+✔ trace buffer stores 4096x6 int16 samples and downsample produces 205 bins (2.7238ms)
+✔ trace buffer preserves oldest-to-newest ordering after overwrite and downsample (1.6194ms)
+✔ replaying same input trace writes and downsample deterministically (2.7754ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1243.9175
+$ tsx scripts/e2e-no-hardware.ts
+=== GL30 V7 e2e-no-hardware（SIM_ONLY）===
+Profile: 2/2 valid
+Transport: 5 parsed, 1 CRC/length errors
+Command: 3 applied, 2 dropped
+Safety: COMM_LOST, allowTorque=false 4036 samples
+Trace: 4096x6 int16 -> 205 bins
+Artifacts: G:\Agent\GL30-Haptic-Control\tmp\github-sync-20261003\artifacts\sim

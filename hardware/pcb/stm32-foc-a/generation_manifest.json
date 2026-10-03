@@ -1,0 +1,2339 @@
+{
+  "source": "G:\\Agent\\GL30-Haptic-Control\\hardware\\pcb\\stm32-foc-a\\design_input.json",
+  "source_sha256": "47971d4327a7ca75a65927cff7f4de26f0e41f4914e8ea3365c9d389731aae67",
+  "schematic_components": 212,
+  "placed": {
+    "U1": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBAT_3V3",
+        "24": "3V3",
+        "36": "3V3",
+        "48": "3V3",
+        "21": "3V3A",
+        "20": "3V3A",
+        "19": "GND",
+        "23": "GND",
+        "35": "GND",
+        "47": "GND",
+        "5": "HSE_IN",
+        "6": "HSE_OUT_MCU",
+        "7": "NRST",
+        "45": "BOOT0",
+        "37": "SWDIO",
+        "38": "SWCLK",
+        "3": "RSV_PC14",
+        "4": "RSV_PC15",
+        "8": "SOA_ADC",
+        "9": "SOB_ADC",
+        "16": "SOC_ADC",
+        "17": "VBUS_ADC",
+        "18": "MOTOR_TEMP_ADC",
+        "30": "PWM_HA_MCU",
+        "27": "PWM_LA_MCU",
+        "31": "PWM_HB_MCU",
+        "28": "PWM_LB_MCU",
+        "32": "PWM_HC_MCU",
+        "29": "PWM_LC_MCU",
+        "33": "ADC_SAMPLE_TRIG",
+        "11": "DRV_DRVOFF",
+        "34": "DRV_NSLEEP_MCU",
+        "26": "HARD_FAULT_N",
+        "10": "BRAKE_FORCE_MCU",
+        "46": "MOTOR_PWR_EN_MCU",
+        "12": "ENC_CS_MCU",
+        "13": "ENC_SCK_MCU",
+        "14": "ENC_MISO_MCU",
+        "15": "ENC_MOSI_MCU",
+        "22": "STM_UART_TX",
+        "25": "STM_UART_RX",
+        "39": "I2C_SCL",
+        "44": "I2C_SDA",
+        "40": "DRV_SCK_MCU",
+        "41": "DRV_SDO",
+        "42": "DRV_SDI_MCU",
+        "43": "DRV_CS_MCU",
+        "2": "SYS_FAULT_N_MCU"
+      }
+    },
+    "U5": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_LOGIC",
+        "3": "5V_LOGIC",
+        "2": "GND",
+        "5": "3V3",
+        "4": "NC"
+      }
+    },
+    "C13": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_LOGIC",
+        "2": "GND"
+      }
+    },
+    "C14": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "R1": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "VBAT_3V3"
+      }
+    },
+    "R2": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "3V3A"
+      }
+    },
+    "R3": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "3V3_AUX"
+      }
+    },
+    "X1": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "HSE_IN",
+        "2": "GND",
+        "3": "HSE_OUT",
+        "4": "GND"
+      }
+    },
+    "R6": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "HSE_OUT_MCU",
+        "2": "HSE_OUT"
+      }
+    },
+    "C11": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "HSE_IN",
+        "2": "GND"
+      }
+    },
+    "C12": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "HSE_OUT",
+        "2": "GND"
+      }
+    },
+    "R4": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "NRST"
+      }
+    },
+    "R5": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BOOT0",
+        "2": "GND"
+      }
+    },
+    "JP1": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BOOT0",
+        "2": "3V3"
+      }
+    },
+    "C10": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "NRST",
+        "2": "GND"
+      }
+    },
+    "C1": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBAT_3V3",
+        "2": "GND"
+      }
+    },
+    "C2": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "C3": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "C4": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "C5": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      }
+    },
+    "C6": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      }
+    },
+    "C7": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      }
+    },
+    "C8": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3A",
+        "2": "GND"
+      }
+    },
+    "C9": {
+      "sheet": "A01_POWER_MCU",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "U2": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "21": "DRV_DRVOFF",
+        "23": "DRV_NSLEEP",
+        "27": "DRV_INHA",
+        "28": "DRV_INLA",
+        "29": "DRV_INHB",
+        "30": "DRV_INLB",
+        "31": "DRV_INHC",
+        "32": "DRV_INLC",
+        "34": "DRV_SDI",
+        "35": "DRV_SCK",
+        "36": "DRV_CS_N",
+        "37": "DRV_VREF",
+        "1": "NC",
+        "24": "NC",
+        "9": "MOTOR_BUS",
+        "10": "MOTOR_BUS",
+        "11": "MOTOR_BUS",
+        "13": "MOTOR_U",
+        "14": "MOTOR_U",
+        "16": "MOTOR_V",
+        "17": "MOTOR_V",
+        "19": "MOTOR_W",
+        "20": "MOTOR_W",
+        "40": "SOA_RAW",
+        "39": "SOB_RAW",
+        "38": "SOC_RAW",
+        "33": "DRV_SDO",
+        "22": "DRV_NFAULT_N",
+        "25": "DRV_AVDD",
+        "8": "DRV_CP",
+        "7": "DRV_CPH",
+        "6": "DRV_CPL",
+        "5": "BUCK_SW",
+        "3": "BUCK_FB",
+        "2": "GND",
+        "4": "GND",
+        "12": "GND",
+        "15": "GND",
+        "18": "GND",
+        "26": "GND",
+        "41": "GND"
+      }
+    },
+    "R20": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "PWM_HA_MCU",
+        "2": "DRV_INHA"
+      }
+    },
+    "R26": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INHA",
+        "2": "GND"
+      }
+    },
+    "R21": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "PWM_LA_MCU",
+        "2": "DRV_INLA"
+      }
+    },
+    "R27": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INLA",
+        "2": "GND"
+      }
+    },
+    "R22": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "PWM_HB_MCU",
+        "2": "DRV_INHB"
+      }
+    },
+    "R28": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INHB",
+        "2": "GND"
+      }
+    },
+    "R23": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "PWM_LB_MCU",
+        "2": "DRV_INLB"
+      }
+    },
+    "R29": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INLB",
+        "2": "GND"
+      }
+    },
+    "R24": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "PWM_HC_MCU",
+        "2": "DRV_INHC"
+      }
+    },
+    "R42": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INHC",
+        "2": "GND"
+      }
+    },
+    "R25": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "PWM_LC_MCU",
+        "2": "DRV_INLC"
+      }
+    },
+    "R43": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INLC",
+        "2": "GND"
+      }
+    },
+    "C30": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_CPH",
+        "2": "DRV_CPL"
+      }
+    },
+    "C31": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_CP",
+        "2": "MOTOR_BUS"
+      }
+    },
+    "C32": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "GND"
+      }
+    },
+    "C33": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_VREF",
+        "2": "GND"
+      }
+    },
+    "R41": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BUCK_SW",
+        "2": "BUCK_FB"
+      }
+    },
+    "C34": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BUCK_FB",
+        "2": "GND"
+      }
+    },
+    "R48": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "DRV_VREF"
+      }
+    },
+    "C21": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C22": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C23": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C24": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C25": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C26": {
+      "sheet": "A02_DRV8316",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "U9": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "2": "SOA_FAN",
+        "5": "SOB_FAN",
+        "9": "SOC_FAN",
+        "12": "VBUS_DIV11",
+        "1": "3V3",
+        "4": "3V3",
+        "10": "3V3",
+        "13": "3V3",
+        "3": "SOA_ISO",
+        "6": "SOB_ISO",
+        "8": "SOC_ISO",
+        "11": "VBUS_ISO",
+        "14": "3V3",
+        "7": "GND"
+      }
+    },
+    "C19": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "R49": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_RAW",
+        "2": "SOA_FAN"
+      }
+    },
+    "R51": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_FAN",
+        "2": "SOA_CMP"
+      }
+    },
+    "C42": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_CMP",
+        "2": "GND"
+      }
+    },
+    "R50": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_ISO",
+        "2": "SOA_ADC"
+      }
+    },
+    "C41": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_ADC",
+        "2": "GND"
+      }
+    },
+    "R52": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_RAW",
+        "2": "SOB_FAN"
+      }
+    },
+    "R54": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_FAN",
+        "2": "SOB_CMP"
+      }
+    },
+    "C44": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_CMP",
+        "2": "GND"
+      }
+    },
+    "R53": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_ISO",
+        "2": "SOB_ADC"
+      }
+    },
+    "C43": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_ADC",
+        "2": "GND"
+      }
+    },
+    "R55": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_RAW",
+        "2": "SOC_FAN"
+      }
+    },
+    "R57": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_FAN",
+        "2": "SOC_CMP"
+      }
+    },
+    "C46": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_CMP",
+        "2": "GND"
+      }
+    },
+    "R56": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_ISO",
+        "2": "SOC_ADC"
+      }
+    },
+    "C45": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_ADC",
+        "2": "GND"
+      }
+    },
+    "R67": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "VBUS_DIV_MID"
+      }
+    },
+    "R68": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_DIV_MID",
+        "2": "VBUS_DIV11"
+      }
+    },
+    "R69": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_DIV11",
+        "2": "GND"
+      }
+    },
+    "C48": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_DIV11",
+        "2": "GND"
+      }
+    },
+    "R70": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_ISO",
+        "2": "VBUS_ADC"
+      }
+    },
+    "C49": {
+      "sheet": "A03_CURRENT_ADC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_ADC",
+        "2": "GND"
+      }
+    },
+    "U3": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pins": {
+        "5": "SOA_CMP",
+        "4": "VLOW",
+        "2": "HARD_FAULT_N",
+        "7": "VHIGH",
+        "6": "SOA_CMP",
+        "1": "HARD_FAULT_N",
+        "9": "SOB_CMP",
+        "8": "VLOW",
+        "14": "HARD_FAULT_N",
+        "11": "VHIGH",
+        "10": "SOB_CMP",
+        "13": "HARD_FAULT_N",
+        "3": "MOTOR_BUS",
+        "12": "GND"
+      }
+    },
+    "U4": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pins": {
+        "5": "SOC_CMP",
+        "4": "VLOW",
+        "2": "HARD_FAULT_N",
+        "7": "VHIGH",
+        "6": "SOC_CMP",
+        "1": "HARD_FAULT_N",
+        "9": "VBUS_TRIP_IN",
+        "8": "VBUS_CMP",
+        "14": "HARD_FAULT_N",
+        "11": "DRV_AVDD",
+        "10": "GND",
+        "13": "NC",
+        "3": "MOTOR_BUS",
+        "12": "GND"
+      }
+    },
+    "C35": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C36": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C37": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "R58": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "VLOW"
+      }
+    },
+    "R59": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VLOW",
+        "2": "GND"
+      }
+    },
+    "C38": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VLOW",
+        "2": "GND"
+      }
+    },
+    "R60": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_AVDD",
+        "2": "VHIGH"
+      }
+    },
+    "R61": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VHIGH",
+        "2": "GND"
+      }
+    },
+    "C39": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VHIGH",
+        "2": "GND"
+      }
+    },
+    "R62": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "VBUS_CMP"
+      }
+    },
+    "R63": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_CMP",
+        "2": "GND"
+      }
+    },
+    "C47": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_CMP",
+        "2": "GND"
+      }
+    },
+    "R64": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3A",
+        "2": "VBUS_TRIP"
+      }
+    },
+    "R65": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_TRIP",
+        "2": "GND"
+      }
+    },
+    "C40": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_TRIP",
+        "2": "GND"
+      }
+    },
+    "R66": {
+      "sheet": "A04_HARD_PROTECT",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_TRIP",
+        "2": "VBUS_TRIP_IN"
+      }
+    },
+    "J3": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "GND",
+        "2": "5V_ENC",
+        "3": "ENC_MISO",
+        "4": "ENC_MOSI",
+        "5": "ENC_SCK",
+        "6": "ENC_CS_N"
+      }
+    },
+    "R31": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_CS_MCU",
+        "2": "ENC_CS_N"
+      }
+    },
+    "R32": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_SCK_MCU",
+        "2": "ENC_SCK"
+      }
+    },
+    "R33": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_MOSI_MCU",
+        "2": "ENC_MOSI"
+      }
+    },
+    "R34": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_MISO",
+        "2": "ENC_MISO_MCU"
+      }
+    },
+    "R30": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "ENC_CS_N"
+      }
+    },
+    "R35": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_LOGIC",
+        "2": "5V_ENC"
+      }
+    },
+    "C51": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_ENC",
+        "2": "GND"
+      }
+    },
+    "C52": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_ENC",
+        "2": "GND"
+      }
+    },
+    "J7": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_NTC",
+        "2": "GND"
+      }
+    },
+    "R39": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "MOTOR_NTC"
+      }
+    },
+    "R40": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_NTC",
+        "2": "MOTOR_TEMP_ADC"
+      }
+    },
+    "C50": {
+      "sheet": "A05_ENCODER_NTC",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_TEMP_ADC",
+        "2": "GND"
+      }
+    },
+    "J5": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_LOGIC",
+        "2": "GND",
+        "3": "I2C_SCL",
+        "4": "I2C_SDA",
+        "5": "GND",
+        "6": "BRAKE_FORCE",
+        "7": "HARD_FAULT_N",
+        "8": "MOTOR_PWR_EN",
+        "9": "3V3_AUX",
+        "10": "GND"
+      }
+    },
+    "J6": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "GND",
+        "2": "ESP_UART_RX",
+        "3": "ESP_UART_TX",
+        "4": "GND",
+        "5": "SYS_FAULT_N_ESP",
+        "6": "I2C_SCL",
+        "7": "I2C_SDA",
+        "8": "3V3_AUX",
+        "9": "3V3_ESP",
+        "10": "GND"
+      }
+    },
+    "J4": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "SWDIO",
+        "3": "GND",
+        "4": "SWCLK",
+        "5": "GND",
+        "6": "NC",
+        "7": "NC",
+        "8": "NC",
+        "9": "GND",
+        "10": "NRST"
+      }
+    },
+    "SW1": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "NRST",
+        "2": "NRST",
+        "3": "GND",
+        "4": "GND"
+      }
+    },
+    "U8": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "5": "STM_UART_TX",
+        "4": "STM_UART_RX_PRE",
+        "3": "3V3",
+        "6": "3V3",
+        "2": "GND",
+        "8": "ESP_UART_RX_PRE",
+        "1": "ESP_UART_TX",
+        "7": "3V3_ESP"
+      }
+    },
+    "R37": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "STM_UART_RX_PRE",
+        "2": "STM_UART_RX"
+      }
+    },
+    "R38": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ESP_UART_RX_PRE",
+        "2": "ESP_UART_RX"
+      }
+    },
+    "R71": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "STM_UART_RX"
+      }
+    },
+    "R72": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "ESP_UART_RX"
+      }
+    },
+    "R7": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "I2C_SCL"
+      }
+    },
+    "R8": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "I2C_SDA"
+      }
+    },
+    "U6": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "2": "DRV_NFAULT_N",
+        "5": "3V3",
+        "3": "GND",
+        "1": "NC",
+        "4": "HARD_FAULT_N"
+      }
+    },
+    "U7": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "2": "SYS_FAULT_N_MCU",
+        "5": "3V3_ESP",
+        "3": "GND",
+        "1": "NC",
+        "4": "SYS_FAULT_N_ESP"
+      }
+    },
+    "R13": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_NFAULT_N"
+      }
+    },
+    "R19": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "HARD_FAULT_N"
+      }
+    },
+    "R9": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SYS_FAULT_N_MCU",
+        "2": "GND"
+      }
+    },
+    "R36": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "SYS_FAULT_N_ESP"
+      }
+    },
+    "C15": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "C16": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "GND"
+      }
+    },
+    "C17": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "GND"
+      }
+    },
+    "C18": {
+      "sheet": "A06_LINKS_POWER",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3_ESP",
+        "2": "GND"
+      }
+    },
+    "J1": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "J2": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_U",
+        "2": "MOTOR_V",
+        "3": "MOTOR_W"
+      }
+    },
+    "D1": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C27": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C28": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C29": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C53": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "C54": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS",
+        "2": "GND"
+      }
+    },
+    "R10": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_DRVOFF"
+      }
+    },
+    "R11": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_NSLEEP_MCU",
+        "2": "DRV_NSLEEP"
+      }
+    },
+    "R12": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_NSLEEP",
+        "2": "GND"
+      }
+    },
+    "R44": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BRAKE_FORCE_MCU",
+        "2": "BRAKE_FORCE"
+      }
+    },
+    "R45": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BRAKE_FORCE",
+        "2": "GND"
+      }
+    },
+    "R46": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_PWR_EN_MCU",
+        "2": "MOTOR_PWR_EN"
+      }
+    },
+    "R47": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_PWR_EN",
+        "2": "GND"
+      }
+    },
+    "C20": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_NSLEEP",
+        "2": "GND"
+      }
+    },
+    "R14": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_SCK_MCU",
+        "2": "DRV_SCK"
+      }
+    },
+    "R15": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_SDI_MCU",
+        "2": "DRV_SDI"
+      }
+    },
+    "R16": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_CS_MCU",
+        "2": "DRV_CS_N"
+      }
+    },
+    "R17": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_SDO"
+      }
+    },
+    "R18": {
+      "sheet": "A07_BUS_CONTROL",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3",
+        "2": "DRV_CS_N"
+      }
+    },
+    "TP1": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "GND"
+      }
+    },
+    "TP2": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "GND"
+      }
+    },
+    "TP3": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "GND"
+      }
+    },
+    "TP4": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "GND"
+      }
+    },
+    "TP5": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_LOGIC"
+      }
+    },
+    "TP6": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "5V_ENC"
+      }
+    },
+    "TP7": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3"
+      }
+    },
+    "TP8": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3A"
+      }
+    },
+    "TP9": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3_ESP"
+      }
+    },
+    "TP10": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "3V3_AUX"
+      }
+    },
+    "TP11": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_BUS"
+      }
+    },
+    "TP12": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_AVDD"
+      }
+    },
+    "TP13": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_VREF"
+      }
+    },
+    "TP14": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BUCK_FB"
+      }
+    },
+    "TP15": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_DRVOFF"
+      }
+    },
+    "TP16": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_NSLEEP"
+      }
+    },
+    "TP17": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_NFAULT_N"
+      }
+    },
+    "TP18": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "HARD_FAULT_N"
+      }
+    },
+    "TP19": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VLOW"
+      }
+    },
+    "TP20": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VHIGH"
+      }
+    },
+    "TP21": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_CMP"
+      }
+    },
+    "TP22": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_TRIP"
+      }
+    },
+    "TP23": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_DIV11"
+      }
+    },
+    "TP24": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "VBUS_ADC"
+      }
+    },
+    "TP25": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_TEMP_ADC"
+      }
+    },
+    "TP26": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ADC_SAMPLE_TRIG"
+      }
+    },
+    "TP27": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_SCK"
+      }
+    },
+    "TP28": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_SDI"
+      }
+    },
+    "TP29": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_SDO"
+      }
+    },
+    "TP30": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_CS_N"
+      }
+    },
+    "TP31": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_CS_N"
+      }
+    },
+    "TP32": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_SCK"
+      }
+    },
+    "TP33": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_MISO"
+      }
+    },
+    "TP34": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ENC_MOSI"
+      }
+    },
+    "TP35": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "I2C_SCL"
+      }
+    },
+    "TP36": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "I2C_SDA"
+      }
+    },
+    "TP37": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "STM_UART_TX"
+      }
+    },
+    "TP38": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "STM_UART_RX"
+      }
+    },
+    "TP39": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ESP_UART_RX"
+      }
+    },
+    "TP40": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "ESP_UART_TX"
+      }
+    },
+    "TP41": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SYS_FAULT_N_MCU"
+      }
+    },
+    "TP42": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SYS_FAULT_N_ESP"
+      }
+    },
+    "TP43": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BRAKE_FORCE"
+      }
+    },
+    "TP44": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "MOTOR_PWR_EN"
+      }
+    },
+    "TP45": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "NRST"
+      }
+    },
+    "TP46": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "BOOT0"
+      }
+    },
+    "TP47": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "RSV_PC14"
+      }
+    },
+    "TP48": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "RSV_PC15"
+      }
+    },
+    "TP49": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INHA"
+      }
+    },
+    "TP50": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INLA"
+      }
+    },
+    "TP51": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INHB"
+      }
+    },
+    "TP52": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INLB"
+      }
+    },
+    "TP53": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INHC"
+      }
+    },
+    "TP54": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "DRV_INLC"
+      }
+    },
+    "TP55": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_RAW"
+      }
+    },
+    "TP56": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_FAN"
+      }
+    },
+    "TP57": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_ADC"
+      }
+    },
+    "TP58": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOA_CMP"
+      }
+    },
+    "TP59": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_RAW"
+      }
+    },
+    "TP60": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_FAN"
+      }
+    },
+    "TP61": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_ADC"
+      }
+    },
+    "TP62": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOB_CMP"
+      }
+    },
+    "TP63": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_RAW"
+      }
+    },
+    "TP64": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_FAN"
+      }
+    },
+    "TP65": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_ADC"
+      }
+    },
+    "TP66": {
+      "sheet": "A08_TESTPOINTS",
+      "units": [
+        1
+      ],
+      "pins": {
+        "1": "SOC_CMP"
+      }
+    }
+  },
+  "source_to_kicad_pin_mapping": {
+    "D1": {
+      "K": "1",
+      "A": "2"
+    }
+  },
+  "footprints": {
+    "Package_QFP:LQFP-48_7x7mm_P0.5mm": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Package_QFP.pretty\\LQFP-48_7x7mm_P0.5mm.kicad_mod",
+      "sha256": "45081ea5c4d19be9769235d5791edc54fc2336b9c31622722b4313e61d975027",
+      "local": "LQFP-48_7x7mm_P0.5mm.kicad_mod"
+    },
+    "Package_SO:TSSOP-14_4.4x5mm_P0.65mm": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Package_SO.pretty\\TSSOP-14_4.4x5mm_P0.65mm.kicad_mod",
+      "sha256": "8da4c0cda07ca9aadbeb33cd860d9bc90a2b382263b25be3609543a6da4a7258",
+      "local": "TSSOP-14_4.4x5mm_P0.65mm.kicad_mod"
+    },
+    "Package_TO_SOT_SMD:SOT-23-5": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Package_TO_SOT_SMD.pretty\\SOT-23-5.kicad_mod",
+      "sha256": "684a94089f59798a46492dac8dd0242edfa4d915e76a210abdca369e4faa4f9b",
+      "local": "SOT-23-5.kicad_mod"
+    },
+    "Package_SO:VSSOP-8_2.3x2mm_P0.5mm": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Package_SO.pretty\\VSSOP-8_2.3x2mm_P0.5mm.kicad_mod",
+      "sha256": "86c45430902f81c684c44234069616fc5b91e77178e928437c9a103bd4bcaf35",
+      "local": "VSSOP-8_2.3x2mm_P0.5mm.kicad_mod"
+    },
+    "Resistor_SMD:R_0603_1608Metric": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Resistor_SMD.pretty\\R_0603_1608Metric.kicad_mod",
+      "sha256": "03fc7902b2661df01b4d828fdb6eab9eddf974e7130ed2b98892607387a50c4b",
+      "local": "R_0603_1608Metric.kicad_mod"
+    },
+    "Resistor_SMD:R_0805_2012Metric": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Resistor_SMD.pretty\\R_0805_2012Metric.kicad_mod",
+      "sha256": "949bbbe025b509557866ddd9fcb0403244571f3ceb4f954c9766ee622d18421c",
+      "local": "R_0805_2012Metric.kicad_mod"
+    },
+    "Resistor_SMD:R_1206_3216Metric": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Resistor_SMD.pretty\\R_1206_3216Metric.kicad_mod",
+      "sha256": "f45a0f7c60b15463e1126a75a9ff484349ecd1861de62f1cbff41574e03b7643",
+      "local": "R_1206_3216Metric.kicad_mod"
+    },
+    "Capacitor_SMD:C_0603_1608Metric": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Capacitor_SMD.pretty\\C_0603_1608Metric.kicad_mod",
+      "sha256": "d45eebd5cb9faace255d4ec95a0f9484efde898359507b02e2ba9bbb3ef6d857",
+      "local": "C_0603_1608Metric.kicad_mod"
+    },
+    "Capacitor_SMD:C_0805_2012Metric": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Capacitor_SMD.pretty\\C_0805_2012Metric.kicad_mod",
+      "sha256": "e890bdf55fa18fc6df6878eb1b5251a991e1b93985509175eb269d3d002880b4",
+      "local": "C_0805_2012Metric.kicad_mod"
+    },
+    "Capacitor_SMD:C_1210_3225Metric": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Capacitor_SMD.pretty\\C_1210_3225Metric.kicad_mod",
+      "sha256": "c0c3dbbbe623e957a8ee6c0a36f432e06b10ff8bd79fc785bd13dea723a1f20c",
+      "local": "C_1210_3225Metric.kicad_mod"
+    },
+    "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Crystal.pretty\\Crystal_SMD_3225-4Pin_3.2x2.5mm.kicad_mod",
+      "sha256": "0efc1a86f641a5e4d27a4483811386c23ddfa5b416c628f65cef963ef7edbb62",
+      "local": "Crystal_SMD_3225-4Pin_3.2x2.5mm.kicad_mod"
+    },
+    "Diode_SMD:D_SMB": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Diode_SMD.pretty\\D_SMB.kicad_mod",
+      "sha256": "9c05e7c89fdbe091e34239523a372eea056ffe3ad12d5526f5b49eaa25428579",
+      "local": "D_SMB.kicad_mod"
+    },
+    "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Jumper.pretty\\SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm.kicad_mod",
+      "sha256": "2c57d7a1d9531e235440b9895e19c55ce210475b3020a4ab4e85bc49e47a5012",
+      "local": "SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm.kicad_mod"
+    },
+    "Connector_FFC-FPC:Hirose_FH12-10S-0.5SH_1x10-1MP_P0.50mm_Horizontal": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Connector_FFC-FPC.pretty\\Hirose_FH12-10S-0.5SH_1x10-1MP_P0.50mm_Horizontal.kicad_mod",
+      "sha256": "4bde6dd07965dcffa450ca650c7cbc790aea643f9f2ae56f4668fc69e719ce85",
+      "local": "Hirose_FH12-10S-0.5SH_1x10-1MP_P0.50mm_Horizontal.kicad_mod"
+    },
+    "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\Connector_JST.pretty\\JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical.kicad_mod",
+      "sha256": "d9ba86aaa376bf3218cc43ad10c0c4c59de8e812cbeabb3aeaa501082eb459cd",
+      "local": "JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical.kicad_mod"
+    },
+    "TestPoint:TestPoint_Pad_D1.0mm": {
+      "source": "G:\\Agent\\tmp\\kicad-10.0.6\\runtime\\share\\kicad\\footprints\\TestPoint.pretty\\TestPoint_Pad_D1.0mm.kicad_mod",
+      "sha256": "eb7c629059d07f6b09617273ed038a415763363e2db41669c0d65af6d34c05eb",
+      "local": "TestPoint_Pad_D1.0mm.kicad_mod"
+    }
+  },
+  "unassigned_footprints": [
+    "U2",
+    "C28",
+    "C29",
+    "C53",
+    "C54",
+    "SW1",
+    "J1",
+    "J2",
+    "J3",
+    "J4"
+  ],
+  "status": "GENERATED_NOT_YET_ERC_CHECKED"
+}

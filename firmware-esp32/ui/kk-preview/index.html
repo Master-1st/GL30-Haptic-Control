@@ -1,0 +1,18 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GL30 · KK 屏幕预览</title><link rel="stylesheet" href="style.css">
+<body><header><a class="brand" href="/">GL30 <span>HAPTIC CONTROL</span></a><div class="live"><i></i> 固件同源预览</div></header>
+<main><section class="stage" aria-label="旋钮预览"><div class="device">
+<div class="plate"></div><div class="knob"><canvas id="light" width="620" height="620" aria-hidden="true"></canvas>
+<div class="rim"></div><canvas id="screen" width="466" height="466" tabindex="0" role="button" aria-label="旋钮屏幕：单击确认、双击返回，滚轮旋转"></canvas></div>
+<button class="side timer" data-shortcut="0" aria-label="计时器侧键">◷</button>
+<button class="side volume" data-shortcut="1" aria-label="音量侧键">♪</button>
+<button class="side plus" data-rotate="1" aria-label="顺时针一格">＋</button>
+<button class="side minus" data-rotate="-1" aria-label="逆时针一格">−</button>
+<button class="power" data-shortcut="3" aria-label="屏幕开关">⏻</button>
+</div><p class="under">ROTATE TO SET · PRESS TO FOCUS</p></section>
+<aside><span class="eyebrow">466 × 466 AMOLED</span><h1>转动，<br>进入此刻。</h1><p class="intro">山间表盘、环形菜单，<br>把时间握在手里。</p>
+<div class="control"><button id="left" data-rotate="-1" aria-label="向左旋转">↶</button><button id="press">按下旋钮</button><button data-rotate="1" aria-label="向右旋转">↷</button></div>
+<p class="hint">单击确定 · 双击后退<br>滚轮 / 拖动旋转 · 长按进入功能设置</p>
+<div class="readout"><span id="pageName">正在连接</span><strong id="value">—</strong><small id="feedback">加载 C 固件画面</small></div>
+<details><summary>演示工具与验证边界</summary><p>屏幕来自 KK_OLED + KK_UI 的 C 渲染器。外围灯带与旋转指针为模型预览，电机、实体灯光和声音尚未接入。</p><p>天气为示例；时钟由电脑按北京时间提供。闹钟和手感页保留待接入状态。</p><div class="tools"><button data-shortcut="2">重置当前计时</button><button id="advance">快进 60 秒</button><button id="restart">重置演示</button></div><output id="technical"></output></details>
+</aside></main><footer><span>KK_OLED × KK_UI</span><span>GL30 ROUND UI</span><span id="connection">连接中</span></footer><script src="preview.js"></script></body></html>

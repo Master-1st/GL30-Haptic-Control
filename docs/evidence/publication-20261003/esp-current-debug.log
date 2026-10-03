@@ -1,0 +1,47 @@
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-current-debug
+Consolidate compiler generated dependencies of target gl30_wire
+Consolidate compiler generated dependencies of target gl30_board_dma_tests
+[  3%] Built target gl30_wire
+[  7%] Built target gl30_board_dma_tests
+Consolidate compiler generated dependencies of target gl30_model
+[ 16%] Built target gl30_model
+Consolidate compiler generated dependencies of target gl30_model_tests
+[ 19%] Built target gl30_model_tests
+Consolidate compiler generated dependencies of target gl30_preferences_tests
+[ 23%] Built target gl30_preferences_tests
+Consolidate compiler generated dependencies of target gl30_motor_menu_tests
+Consolidate compiler generated dependencies of target gl30_preview
+[ 35%] Built target gl30_motor_menu_tests
+Consolidate compiler generated dependencies of target gl30_motor_stop_tests
+[ 75%] Built target gl30_preview
+[ 83%] Built target gl30_motor_stop_tests
+Consolidate compiler generated dependencies of target gl30_settings_store_tests
+Consolidate compiler generated dependencies of target gl30_render_tests
+[ 87%] Built target gl30_settings_store_tests
+[ 91%] Built target gl30_render_tests
+Consolidate compiler generated dependencies of target gl30_input_stop_tests
+[100%] Built target gl30_input_stop_tests
+Internal ctest changing into directory: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-current-debug
+Test project /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-current-debug
+    Start 1: model_and_gestures
+1/8 Test #1: model_and_gestures .........................   Passed    0.00 sec
+    Start 2: preferences_record_and_runtime_isolation
+2/8 Test #2: preferences_record_and_runtime_isolation ...   Passed    0.00 sec
+    Start 3: rgb565_and_ui
+3/8 Test #3: rgb565_and_ui ..............................   Passed    0.38 sec
+    Start 4: motor_menu_protocol_and_state
+4/8 Test #4: motor_menu_protocol_and_state ..............   Passed    0.01 sec
+    Start 5: board_dma_failure_ownership
+5/8 Test #5: board_dma_failure_ownership ................   Passed    0.00 sec
+    Start 6: input_stop_without_ui_queue
+6/8 Test #6: input_stop_without_ui_queue ................   Passed    0.01 sec
+    Start 7: motor_stop_generation_and_owner
+7/8 Test #7: motor_stop_generation_and_owner ............   Passed    0.00 sec
+    Start 8: settings_store_reservations_and_failures
+8/8 Test #8: settings_store_reservations_and_failures ...   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Total Test time (real) =   0.47 sec

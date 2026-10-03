@@ -1,0 +1,16 @@
+idf_component_register(
+    SRCS
+        "graphics/kk_oled.c"
+        "graphics/kk_oled_draw.c"
+        "graphics/kk_oled_font.c"
+        "graphics/kk_oled_bitmap.c"
+    INCLUDE_DIRS
+        "include"
+        "graphics"
+        "driver"
+    REQUIRES
+        esp_common
+    PRIV_REQUIRES
+        esp_timer
+        freertos
+)

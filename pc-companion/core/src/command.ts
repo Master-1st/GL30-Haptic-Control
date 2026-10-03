@@ -77,7 +77,8 @@ export function clampHapticCommand(input: HapticCommand): HapticCommandApplied {
     userTorqueLimitNm: results.userTorqueLimitNm.value,
     activeSpeedLimitRadS: results.activeSpeedLimitRadS.value,
     modeFlags: results.modeFlags.value,
-    textureId: results.textureId.value
+    textureId: results.textureId.value,
+    leaseGeneration: input.leaseGeneration
   };
   return { original: input, clamped: out, warnings, valid };
 }

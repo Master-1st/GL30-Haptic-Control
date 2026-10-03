@@ -1,0 +1,31 @@
+{
+  "status": "PASS_DELIVERY_SCOPE_AND_LINKS",
+  "source_schematic_refs": 212,
+  "removed_testpoints": 66,
+  "remaining_refs": 146,
+  "source_bom_refs": 146,
+  "original_bom_already_excluded_testpoints": true,
+  "other_145_refs_mpn_value_package_fitted_unchanged": true,
+  "authorized_j4_bom_changes": [
+    {
+      "reference": "J4",
+      "field": "Value",
+      "from": "2×5P 1.27mm Cortex keyed",
+      "to": "通用单排排针 1×5P 2.54mm 直插"
+    },
+    {
+      "reference": "J4",
+      "field": "MPN",
+      "from": "2×5P 1.27mm Cortex keyed",
+      "to": "通用单排排针 1×5P 2.54mm 直插"
+    },
+    {
+      "reference": "J4",
+      "field": "Package",
+      "from": "THT 2×5，1.27mm；实购脚距/键位待核",
+      "to": "THT 1×5，2.54mm；直插排针，0.64mm 方针"
+    }
+  ],
+  "new_entry_links_checked": 10,
+  "bad_links": []
+}

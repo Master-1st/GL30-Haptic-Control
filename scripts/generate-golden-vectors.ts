@@ -6,6 +6,8 @@ import {
   decodeFrame,
   encodeFrame,
   encodeHapticCommand,
+  encodeHapticState,
+  encodeControlLease,
   encodeMotorStateFast,
   encodeMotorStateSlow
 } from "@gl30/protocol";
@@ -69,7 +71,28 @@ const hapticPayload = encodeHapticCommand({
   userTorqueLimitNm: 0.04,
   activeSpeedLimitRadS: 1.5,
   modeFlags: 0x80000000,
-  textureId: 4
+  textureId: 4,
+  leaseGeneration: 0x1_0000_0001n
+});
+
+const hapticStatePayload = encodeHapticState({
+  profileId: 7,
+  commandNonce: 12,
+  modeFlags: 0,
+  logicalPosition: -13,
+  subPosition: 0.375,
+  detentWidthRad: 0,
+  motorState: 6,
+  faultBits: 0,
+  status: 0x08,
+  leaseGeneration: 0x2_0000_0003n
+});
+
+const controlLeasePayload = encodeControlLease({
+  action: 1,
+  zeroNonce: 0x12345678,
+  currentGeneration: 0x1_0000_0001n,
+  nextGeneration: 0x2_0000_0002n
 });
 
 const slowPayload = encodeMotorStateSlow({
@@ -108,7 +131,9 @@ const output = {
   vectors: [
     vector("motor-state-fast", 0x01, motorPayload, 0x11223344, 0x1_0000_0001n, 0x55aa),
     vector("motor-state-slow", 0x02, slowPayload, 0x11223345, 0x1_0000_0002n, 0x0000),
-    vector("haptic-command", 0x10, hapticPayload, 0x89abcdef, 0x1_0000_0003n, 0x0003)
+    vector("haptic-command", 0x10, hapticPayload, 0x89abcdef, 0x1_0000_0003n, 0x0003),
+    vector("haptic-state", 0x06, hapticStatePayload, 0x89abcdf0, 0x1_0000_0004n, 0x0000),
+    vector("control-lease-acquire", 0x15, controlLeasePayload, 0x89abcdf1, 0x1_0000_0005n, 0x0000)
   ]
 };
 

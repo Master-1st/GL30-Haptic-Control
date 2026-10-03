@@ -1,0 +1,354 @@
+{
+  "status": "PASS_ALTIUM_COMPILED_CONNECTIVITY",
+  "tool": "Altium Designer 26.10.1.5, Workspace Manager DM_Compile",
+  "receipt_sha256": "3baddad00f0cb087cba246862ef7fab0deee839899f3b232110b3a04698b2059",
+  "compile_return": "0",
+  "component_references": 146,
+  "physical_pins": 456,
+  "connected_pins": 447,
+  "explicit_nc_pins": 9,
+  "named_nets": 98,
+  "testpoints": 0,
+  "sheets": {
+    "A01_POWER_MCU.SchDoc": 24,
+    "A02_DRV8316.SchDoc": 26,
+    "A03_CURRENT_ADC.SchDoc": 23,
+    "A04_HARD_PROTECT.SchDoc": 18,
+    "A05_ENCODER_NTC.SchDoc": 13,
+    "A06_LINKS_POWER.SchDoc": 21,
+    "A07_BUS_CONTROL.SchDoc": 21
+  },
+  "linked_footprints": {
+    "C1": "C0603_M",
+    "C2": "C0603_M",
+    "C3": "C0603_M",
+    "C4": "C0603_M",
+    "C5": "C0603_M",
+    "C6": "C0603_M",
+    "C7": "C0603_M",
+    "C8": "C0603_M",
+    "C9": "C0805_M",
+    "C10": "C0603_M",
+    "C11": "C0603_M",
+    "C12": "C0603_M",
+    "C13": "C0805_M",
+    "C14": "C0805_M",
+    "R1": "R0603_M",
+    "R2": "R0805_M",
+    "R3": "R0603_M",
+    "R4": "R0603_M",
+    "R5": "R0603_M",
+    "R6": "R0603_M",
+    "U1": "QFP50P900X900X160-48N",
+    "U5": "SOT95P280X145-5N",
+    "X1": "XTAL-3225-4P",
+    "C21": "C0603_M",
+    "C22": "C0603_M",
+    "C23": "C0603_M",
+    "C24": "C0603_M",
+    "C25": "C0603_M",
+    "C26": "C0603_M",
+    "C30": "C0603_M",
+    "C31": "C0603_M",
+    "C32": "C0805_M",
+    "C33": "C0603_M",
+    "C34": "C0805_M",
+    "R20": "R0603_M",
+    "R21": "R0603_M",
+    "R22": "R0603_M",
+    "R23": "R0603_M",
+    "R24": "R0603_M",
+    "R25": "R0603_M",
+    "R26": "R0603_M",
+    "R27": "R0603_M",
+    "R28": "R0603_M",
+    "R29": "R0603_M",
+    "R41": "RESC3116X65N",
+    "R42": "R0603_M",
+    "R43": "R0603_M",
+    "R48": "R0603_M",
+    "U2": "C5218861_VQFN-40_5x7",
+    "C19": "C0603_M",
+    "C41": "C0603_M",
+    "C42": "C0603_M",
+    "C43": "C0603_M",
+    "C44": "C0603_M",
+    "C45": "C0603_M",
+    "C46": "C0603_M",
+    "C48": "C0603_M",
+    "C49": "C0603_M",
+    "R49": "R0603_M",
+    "R50": "R0603_M",
+    "R51": "R0603_M",
+    "R52": "R0603_M",
+    "R53": "R0603_M",
+    "R54": "R0603_M",
+    "R55": "R0603_M",
+    "R56": "R0603_M",
+    "R57": "R0603_M",
+    "R67": "R0603_M",
+    "R68": "R0603_M",
+    "R69": "R0603_M",
+    "R70": "R0603_M",
+    "U9": "SOP65P640X120-14N",
+    "C35": "C0603_M",
+    "C36": "C0603_M",
+    "C37": "C0805_M",
+    "C38": "C0603_M",
+    "C39": "C0603_M",
+    "C40": "C0603_M",
+    "C47": "C0603_M",
+    "R58": "R0603_M",
+    "R59": "R0603_M",
+    "R60": "R0603_M",
+    "R61": "R0603_M",
+    "R62": "R0603_M",
+    "R63": "R0603_M",
+    "R64": "R0603_M",
+    "R65": "R0603_M",
+    "R66": "R0603_M",
+    "U3": "C181596_TSSOP-14",
+    "U4": "C181596_TSSOP-14",
+    "C50": "C0603_M",
+    "C51": "C0603_M",
+    "C52": "C0603_M",
+    "J7": "GL30_B2B_PH_K_S_FR4_D085",
+    "R30": "R0603_M",
+    "R31": "R0603_M",
+    "R32": "R0603_M",
+    "R33": "R0603_M",
+    "R34": "R0603_M",
+    "R35": "R0603_M",
+    "R39": "R0603_M",
+    "R40": "R0603_M",
+    "C15": "C0603_M",
+    "C16": "C0603_M",
+    "C17": "C0603_M",
+    "C18": "C0603_M",
+    "J4": "GL30_HDR_1X05_P254_D102",
+    "J5": "FH1210S05SH55",
+    "J6": "FH1210S05SH55",
+    "R7": "R0603_M",
+    "R8": "R0603_M",
+    "R9": "R0603_M",
+    "R13": "R0603_M",
+    "R19": "R0603_M",
+    "R36": "R0603_M",
+    "R37": "R0603_M",
+    "R38": "R0603_M",
+    "R71": "R0603_M",
+    "R72": "R0603_M",
+    "SW1": "SKRPASE010",
+    "U6": "SOT95P280X145-5N",
+    "U7": "SOT95P280X145-5N",
+    "U8": "SOP50P310X90-8N",
+    "C20": "C0603_M",
+    "C27": "CAPC3225X270N",
+    "C28": "16SVF270M",
+    "C29": "16SVF270M",
+    "C53": "16SVF270M",
+    "C54": "16SVF270M",
+    "D1": "C151256_DO-214AA",
+    "R10": "R0603_M",
+    "R11": "R0603_M",
+    "R12": "R0603_M",
+    "R14": "R0603_M",
+    "R15": "R0603_M",
+    "R16": "R0603_M",
+    "R17": "R0603_M",
+    "R18": "R0603_M",
+    "R44": "R0603_M",
+    "R45": "R0603_M",
+    "R46": "R0603_M",
+    "R47": "R0603_M"
+  },
+  "erc_errors": 0,
+  "erc_warnings": 34,
+  "erc_rules": {
+    "Missing component models": 4,
+    "Nets with no driving source": 30
+  },
+  "violations": [
+    {
+      "level": 1,
+      "rule": "Missing component models",
+      "detail": "Footprint of component Component J1 MOTOR DC INPUT cannot be found"
+    },
+    {
+      "level": 1,
+      "rule": "Missing component models",
+      "detail": "Footprint of component Component J2 MOTOR UVW cannot be found"
+    },
+    {
+      "level": 1,
+      "rule": "Missing component models",
+      "detail": "Footprint of component Component J3 AS5048A 6-WIRE cannot be found"
+    },
+    {
+      "level": 1,
+      "rule": "Missing component models",
+      "detail": "Footprint of component Component JP1 BOOT0 / OPEN cannot be found"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net BOOT0 has no driving source (Pin JP1-1, Pin R5-1, Pin U1-45)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net BUCK_FB has no driving source (Pin C34-1, Pin R41-2, Pin U2-3)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_CS_N has no driving source (Pin R16-2, Pin R18-2, Pin U2-36)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_INHA has no driving source (Pin R20-2, Pin R26-1, Pin U2-27)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_INHB has no driving source (Pin R22-2, Pin R28-1, Pin U2-29)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_INHC has no driving source (Pin R24-2, Pin R42-1, Pin U2-31)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_INLA has no driving source (Pin R21-2, Pin R27-1, Pin U2-28)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_INLB has no driving source (Pin R23-2, Pin R29-1, Pin U2-30)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_INLC has no driving source (Pin R25-2, Pin R43-1, Pin U2-32)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_NSLEEP has no driving source (Pin C20-1, Pin R11-2, Pin R12-1, Pin U2-23)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_SCK has no driving source (Pin R14-2, Pin U2-35)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_SDI has no driving source (Pin R15-2, Pin U2-34)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net DRV_VREF has no driving source (Pin C33-1, Pin R48-2, Pin U2-37)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net ENC_MISO_MCU has no driving source (Pin R34-2, Pin U1-14)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net ESP_UART_TX has no driving source (Pin J6-3, Pin U8-1)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net HSE_IN has no driving source (Pin C11-1, Pin U1-5, Pin X1-1)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net MOTOR_TEMP_ADC has no driving source (Pin C50-1, Pin R40-2, Pin U1-18)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net SOA_ADC has no driving source (Pin C41-1, Pin R50-2, Pin U1-8)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net SOA_CMP has no driving source (Pin C42-1, Pin R51-2, Pin U3-5, Pin U3-6)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net SOB_ADC has no driving source (Pin C43-1, Pin R53-2, Pin U1-9)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net SOB_CMP has no driving source (Pin C44-1, Pin R54-2, Pin U3-9, Pin U3-10)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net SOC_ADC has no driving source (Pin C45-1, Pin R56-2, Pin U1-16)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net SOC_CMP has no driving source (Pin C46-1, Pin R57-2, Pin U4-5, Pin U4-6)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net STM_UART_RX has no driving source (Pin R37-2, Pin R71-2, Pin U1-25)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net SWCLK has no driving source (Pin J4-4, Pin U1-38)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net VBUS_ADC has no driving source (Pin C49-1, Pin R70-2, Pin U1-17)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net VBUS_CMP has no driving source (Pin C47-1, Pin R62-2, Pin R63-1, Pin U4-8)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net VBUS_TRIP_IN has no driving source (Pin R66-2, Pin U4-9)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net VHIGH has no driving source (Pin C39-1, Pin R60-2, Pin R61-1, Pin U3-7, Pin U3-11, Pin U4-7)"
+    },
+    {
+      "level": 1,
+      "rule": "Nets with no driving source",
+      "detail": "Net VLOW has no driving source (Pin C38-1, Pin R58-2, Pin R59-1, Pin U3-4, Pin U3-8, Pin U4-4)"
+    }
+  ],
+  "errors": [],
+  "files_sha256": {
+    "A01_POWER_MCU.SchDoc": "e65b68d0b2d6828ec6d73ef566bc667ed0d79f04c6d33e48edada618e2f4dfe7",
+    "A02_DRV8316.SchDoc": "1c768673d40b707a2ec40187a62167099a4d3cf40998d4db7cdb487384043975",
+    "A03_CURRENT_ADC.SchDoc": "7ca003d66858fd55b4231a2ac2a0781e066029d02b7d78b890211131f82c0ddb",
+    "A04_HARD_PROTECT.SchDoc": "def268a730041e85742730a88b0b42217a9b989bfcdbbbd69957e8f410e9b3ac",
+    "A05_ENCODER_NTC.SchDoc": "9694233f749dbef8cdc59f5abd9be1b65096bf0ffb10bc709244e6ecd511c8bd",
+    "A06_LINKS_POWER.SchDoc": "e469de64726f04f95ebb5f077e628b741681bd0127cb478abd5fb111da52cec1",
+    "A07_BUS_CONTROL.SchDoc": "873cbd85b5e159b85aa885ccd4b8fa41e505260fd34397613d04e48477f24a71"
+  },
+  "boundary": "Native application connectivity/compile evidence. Warnings retained; not PCB or physical acceptance."
+}

@@ -10,6 +10,14 @@ import {
   decodeMotorStateSlow,
   MOTOR_STATE_SLOW_PAYLOAD_LEN,
   encodeHapticCommand,
+  decodeHapticCommand,
+  encodeHapticState,
+  decodeHapticState,
+  encodeControlLease,
+  decodeControlLease,
+  CONTROL_LEASE_ACQUIRE,
+  CONTROL_LEASE_PAYLOAD_LEN,
+  HAPTIC_STATE_PAYLOAD_LEN,
   FRAME_SYNC,
   FRAME_VERSION,
   MOTOR_STATE_FAST_PAYLOAD_LEN,
@@ -17,6 +25,23 @@ import {
 } from "@gl30/protocol";
 
 const textEncoder = new TextEncoder();
+
+test("applied haptic state carries a 64-bit lease generation", () => {
+  const state = { profileId: 0x4d454e55, commandNonce: 0xffffffff, modeFlags: 1,
+    logicalPosition: -13, subPosition: -0.375, detentWidthRad: 0.5,
+    motorState: 7, faultBits: 0, status: 3, leaseGeneration: 0x1_0000_0001n };
+  const bytes = encodeHapticState(state);
+  assert.equal(bytes.length, HAPTIC_STATE_PAYLOAD_LEN);
+  assert.equal(Buffer.from(bytes).toString("hex"),
+    "554e454dffffffff01000000f3ffffff0000c0be0000003f0700000000000000030000000100000001000000");
+  assert.deepEqual(decodeHapticState(bytes), state);
+  const frame = encodeFrame(FRAME_VERSION, 0x06, bytes, { sequence: 9, timestampUs: 123456n });
+  assert.equal(frame.length, 68);
+  assert.deepEqual(decodeHapticState(decodeFrame(frame).payload), state);
+  assert.throws(() => decodeHapticState(bytes.subarray(0, 36)), /invalid length/);
+  assert.throws(() => encodeFrame(FRAME_VERSION, 0x06, bytes.subarray(0, 36),
+    { timestampUs: 1n }), /payload length mismatch/);
+});
 
 function makeMotorState(override?: Partial<{ logicalPosition: number }>) {
   return {
@@ -59,7 +84,8 @@ function makeHapticCommand() {
     userTorqueLimitNm: 0.04,
     activeSpeedLimitRadS: 1.5,
     modeFlags: 0x80000000,
-    textureId: 4
+    textureId: 4,
+    leaseGeneration: 0x1_0000_0002n
   };
 }
 
@@ -148,15 +174,20 @@ test("protocol v1 frame layout and offsets are fixed and deterministic", () => {
 
 test("payload sizes and logicalPosition int32", () => {
   assert.equal(MOTOR_STATE_FAST_PAYLOAD_LEN, 68);
-  assert.equal(HAPTIC_COMMAND_PAYLOAD_LEN, 64);
+  assert.equal(HAPTIC_COMMAND_PAYLOAD_LEN, 72);
   assert.equal(MOTOR_STATE_SLOW_PAYLOAD_LEN, 64);
 
   const hapticPayload = encodeHapticCommand(makeHapticCommand());
+  assert.equal(hapticPayload.length, 72);
+  const decodedCommand = decodeHapticCommand(hapticPayload);
+  assert.equal(decodedCommand.leaseGeneration, 0x1_0000_0002n);
+  assert.deepEqual(encodeHapticCommand(decodedCommand), hapticPayload);
   const hapticFrame = encodeFrame(FRAME_VERSION, 0x10, hapticPayload, {
     timestampUs: 0x1_0000_0000n + 7n
   });
   assert.equal(hapticFrame.length, 24 + HAPTIC_COMMAND_PAYLOAD_LEN);
-  assert.equal(hapticFrame.length, 88);
+  assert.equal(hapticFrame.length, 96);
+  assert.throws(() => decodeHapticCommand(hapticPayload.subarray(0, 64)), /invalid length/);
 
   const decoded = decodeMotorStateFast(encodeMotorStateFast(makeMotorState({ logicalPosition: -2147483648 })));
   assert.equal(decoded.logicalPosition, -2147483648);
@@ -166,6 +197,57 @@ test("payload sizes and logicalPosition int32", () => {
   const decodedSlow = decodeMotorStateSlow(slowPayload);
   const regenSlowPayload = encodeMotorStateSlow(decodedSlow);
   assert.deepStrictEqual(regenSlowPayload, slowPayload);
+});
+
+test("control lease carries 64-bit generations in a strict 24-byte payload", () => {
+  const request = {
+    action: CONTROL_LEASE_ACQUIRE,
+    zeroNonce: 0x12345678,
+    currentGeneration: 0x1_0000_0001n,
+    nextGeneration: 0x2_0000_0002n
+  };
+  const payload = encodeControlLease(request);
+  assert.equal(payload.length, CONTROL_LEASE_PAYLOAD_LEN);
+  assert.equal(Buffer.from(payload).toString("hex"),
+    "010000007856341201000000010000000200000002000000");
+  assert.deepEqual(decodeControlLease(payload), request);
+  assert.throws(() => decodeControlLease(payload.subarray(0, 16)), /invalid length/);
+  assert.throws(() => encodeFrame(FRAME_VERSION, 0x15, payload.subarray(0, 16),
+    { timestampUs: 5n }), /payload length mismatch/);
+});
+
+test("control lease rejects malformed action-specific shapes and generations", () => {
+  const base = {
+    action: CONTROL_LEASE_ACQUIRE,
+    zeroNonce: 1,
+    currentGeneration: 0n,
+    nextGeneration: 2n
+  };
+  assert.throws(() => encodeControlLease({ ...base, action: 9 as 0 | 1 | 2 }),
+    /action is unknown/);
+  assert.throws(() => encodeControlLease({ ...base, zeroNonce: 0 }), /ACQUIRE fields/);
+  assert.throws(() => encodeControlLease({ ...base, currentGeneration: 2n }), /ACQUIRE fields/);
+  assert.throws(() => encodeControlLease({ ...base, nextGeneration: 0n }), /ACQUIRE fields/);
+  assert.throws(() => encodeControlLease({
+    action: 0, zeroNonce: 1, currentGeneration: 1n, nextGeneration: 2n
+  }), /RELEASE fields/);
+  assert.throws(() => encodeControlLease({
+    action: 2, zeroNonce: 1, currentGeneration: 0n, nextGeneration: 0n
+  }), /QUERY fields/);
+  assert.throws(() => encodeControlLease({ ...base, currentGeneration: -1n }), /unsigned 64-bit/);
+});
+
+test("haptic state rejects unknown status bits and simultaneous released/waiting", () => {
+  const state = { profileId: 0, commandNonce: 1, modeFlags: 0, logicalPosition: 0,
+    subPosition: 0, detentWidthRad: 0, motorState: 6, faultBits: 0,
+    status: 0, leaseGeneration: 0x1_0000_0001n };
+  assert.throws(() => encodeHapticState({ ...state, status: 0x10 }), /status/);
+  assert.throws(() => encodeHapticState({ ...state, status: 0x0c }), /status/);
+  for (const invalidStatus of [0x10, 0x0c]) {
+    const malformed = encodeHapticState(state);
+    new DataView(malformed.buffer).setUint32(32, invalidStatus, true);
+    assert.throws(() => decodeHapticState(malformed), /status/);
+  }
 });
 
 test("bad fixed payload length is rejected by codec", () => {

@@ -1,5 +1,7 @@
 # NUCLEO-G474RE + TI DRV8316REVM：受限 FOC / 触觉台架联调
 
+> 2026-09-08 新开发源码已进入 `HAPTIC26_OFFLINE_UNQUALIFIED`，仅离线构建/测试，未烧录。下文 H25 是冻结实机基线，不是本轮新代码验收；见 [H26 开发记录](../../../docs/haptic26-ui-offline-20260908-cn.md)。
+
 这是 NUCLEO-G474RE + TI DRV8316REVM 台架工程，不是产品 CET6 固件；继续使用 CubeMX 生成的 LL/Keil ARMCLANG 6.21 工程。**当前烧录版本为 `FW=20260907_HAPTIC25`，阶段为 `BOUNDED_BENCH_SMOKE_PASS`，不是全功能或整机通过。** H25 实测在 2026-09-08 UTC（纽约 9 月 7 日晚），版本目录沿用 `20260907`。
 
 H25 的 60136 字节镜像整区读回、host / sanitizer / Release-LTO 各 7/7、TypeScript 21/21 与 SIM_ONLY E2E、60.264 秒无 PWM 准备态、三次 ALIGN、±10/25/50/100 mA 各 20 ms、八类 HAPTIC 各 250 ms，以及 58 项关断命令回归通过。21 组冻结 RAM / CSV 独立审计一致；时序、ADC、编码器与 UART 未新增错误。这里的“触觉通过”仅是命令/控制链短时 smoke，不是手感、跟踪精度或力矩验收。

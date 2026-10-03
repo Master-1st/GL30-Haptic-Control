@@ -63,18 +63,20 @@ uint64_t gl30_timebase_now_us(void) {
   const uint32_t primask = __get_PRIMASK();
   __disable_irq();
 
-  uint64_t us = (uint64_t)g_timebase_hi_us << 32u;
-  us |= (uint64_t)LL_TIM_GetCounter(TIM2);
-
+  uint32_t hi = g_timebase_hi_us;
+  uint32_t low = LL_TIM_GetCounter(TIM2);
   if (LL_TIM_IsActiveFlag_UPDATE(TIM2) != 0u) {
-    us += 1uLL << 32u;
+    /* CNT can wrap after the first read even with CPU IRQs masked. Once
+     * UIF is seen, re-read the low word from the new timer epoch. */
+    low = LL_TIM_GetCounter(TIM2);
+    ++hi;
   }
 
   if (primask == 0u) {
     __enable_irq();
   }
 
-  return us;
+  return ((uint64_t)hi << 32u) | low;
 }
 
 void gl30_timebase_delay_us(uint32_t delay_us) {
@@ -89,7 +91,17 @@ void gl30_timebase_advance_us(uint32_t delta_us) {
 }
 
 void gl30_timebase_on_tim2_overflow(void) {
-  ++g_timebase_hi_us;
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  /* Higher-priority readers must not observe cleared UIF with the old high
+   * word. This function owns both operations; callers must not clear UIF. */
+  if (LL_TIM_IsActiveFlag_UPDATE(TIM2) != 0u) {
+    LL_TIM_ClearFlag_UPDATE(TIM2);
+    ++g_timebase_hi_us;
+  }
+  if (primask == 0u) {
+    __enable_irq();
+  }
 }
 
 #endif

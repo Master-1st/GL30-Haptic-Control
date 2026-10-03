@@ -14,9 +14,26 @@
     "knob_inner_diameter_mm": 40.0,
     "fixed_bezel_outer_diameter_mm": 39.0,
     "fixed_bezel_aperture_diameter_mm": 33.8,
-    "ring_front_normal_mm": 12.5,
+    "ring_front_normal_mm": 13.2,
     "ring_bearing_start_normal_mm": 0.8,
     "deck_aperture_diameter_mm": 52.6,
+    "ring_knurl_count": 64,
+    "ring_knurl_groove_width_mm": 0.55,
+    "ring_knurl_depth_mm": 0.2,
+    "ring_knurl_angle_deg": 45.0,
+    "ring_knurl_axial_land_mm": 0.8,
+    "ring_waist_radius_mm": 25.0,
+    "ring_waist_normal_mm": 10.4,
+    "ring_crown_radius_mm": 25.5,
+    "ring_crown_normal_mm": 12.0,
+    "ring_top_radius_mm": 24.9,
+    "ring_lower_edge_inset_mm": 0.2,
+    "ring_transition_width_mm": 1.2,
+    "ring_transition_recess_mm": 0.2,
+    "ring_transition_blend_mm": 0.3,
+    "ring_marker_length_mm": 2.8,
+    "ring_marker_width_mm": 1.0,
+    "ring_marker_depth_mm": 0.1,
     "bearing_name": "NSK 6808 dimensional envelope; bearing not BOM-frozen",
     "bearing_inner_diameter_mm": 40.0,
     "bearing_outer_diameter_mm": 52.0,
@@ -28,16 +45,26 @@
     "fixed_spider_thickness_mm": 0.6,
     "display_origin_normal_mm": 2.3,
     "bezel_start_normal_mm": 12.2,
-    "bezel_thickness_mm": 1.0,
+    "bezel_thickness_mm": 0.5,
+    "display_cover_thickness_mm": 0.5,
     "support_tube_outer_diameter_mm": 5.0,
     "support_tube_inner_diameter_mm": 3.2,
     "support_tube_back_normal_mm": -30.0,
     "gl30_output_face_local_x_mm": 4.5,
-    "side_button_diameter_mm": 6.0,
-    "side_button_protrusion_mm": 1.2,
-    "side_button_front_y_mm": -13.0,
-    "side_button_rear_y_mm": 7.0,
-    "side_button_z_mm": 28.0,
+    "side_button_length_mm": 11.0,
+    "side_button_height_mm": 4.0,
+    "side_button_face_recess_mm": 0.3,
+    "side_button_clearance_mm": 0.2,
+    "side_button_body_depth_mm": 2.7,
+    "side_button_flange_margin_mm": 0.7,
+    "side_button_flange_thickness_mm": 0.6,
+    "side_button_front_y_mm": 20.0,
+    "side_button_rear_y_mm": 35.0,
+    "side_button_z_mm": 43.0,
+    "side_button_pocket_length_mm": 33.0,
+    "side_button_pocket_height_mm": 6.6,
+    "side_button_pocket_depth_mm": 0.6,
+    "side_button_clearance_check_travel_mm": 0.4,
     "power_button_diameter_mm": 7.0,
     "power_button_protrusion_mm": 0.8,
     "power_button_recess_diameter_mm": 9.0,
@@ -74,6 +101,26 @@
     "knob_center_from_front_mm": "ASSUMED",
     "knob_outer_diameter_mm": "ENGINEERING_DEFAULT_RANGE_MAX",
     "knob_inner_diameter_mm": "ASSUMED",
+    "ring_knurl_count": "ENGINEERING_DEFAULT_USER_SELECTED_BENTLEY_REFERENCE",
+    "ring_knurl_groove_width_mm": "ENGINEERING_DEFAULT_CMF_SAMPLE_NOT_MACHINING_RELEASE",
+    "ring_knurl_depth_mm": "ENGINEERING_DEFAULT_TOTAL_DEPTH_LIMITED_BY_EXISTING_SLEEVE_WALL",
+    "ring_knurl_angle_deg": "ENGINEERING_DEFAULT_CROSSED_SHALLOW_GRIP_NOT_MACHINING_RELEASE",
+    "ring_knurl_axial_land_mm": "ENGINEERING_DEFAULT_SMOOTH_CONTACT_EDGES",
+    "ring_waist_radius_mm": "USER_REQUESTED_SCULPTED_SIDE_PROFILE_ABOVE_BEARING",
+    "ring_waist_normal_mm": "ENGINEERING_DEFAULT_INTERNAL_STACK_UNCHANGED",
+    "ring_crown_radius_mm": "ENGINEERING_DEFAULT_SUBTLE_ROLLED_UPPER_SHOULDER",
+    "ring_crown_normal_mm": "ENGINEERING_DEFAULT_INTERNAL_STACK_UNCHANGED",
+    "ring_top_radius_mm": "ENGINEERING_DEFAULT_NARROWER_FLAT_BLACK_TOP",
+    "ring_lower_edge_inset_mm": "ENGINEERING_DEFAULT_SMOOTH_EDGE_WITH_ROOT_WALL_PRESERVED",
+    "ring_transition_width_mm": "USER_REQUESTED_TRANSITION_RING_INTEGRAL_WITH_ROTATING_CAP",
+    "ring_transition_recess_mm": "ENGINEERING_DEFAULT_SHALLOW_BLACK_TRANSITION_SHOULDER",
+    "ring_transition_blend_mm": "ENGINEERING_DEFAULT_NO_OVERHANG_ACROSS_MOVING_GAP",
+    "ring_marker_length_mm": "ENGINEERING_DEFAULT_BLUE_FILLED_INDEX_MARK",
+    "ring_marker_width_mm": "ENGINEERING_DEFAULT_BLUE_FILLED_INDEX_MARK",
+    "ring_marker_depth_mm": "ASSUMED_PAINT_FILL_SAMPLE_NOT_MACHINING_RELEASE",
+    "ring_front_normal_mm": "ENGINEERING_DEFAULT_FLUSH_WITH_FIXED_BLACK_COVER",
+    "bezel_thickness_mm": "ASSUMED_FIXED_COVER_BACKING_NOT_PRODUCTION_RELEASE",
+    "display_cover_thickness_mm": "ASSUMED_DEAD_FRONT_OPTICAL_SAMPLE_REQUIRED",
     "fixed_bezel_outer_diameter_mm": "ASSUMED",
     "bearing_name": "ASSUMED_PENDING_LOAD_DATA",
     "bearing_inner_diameter_mm": "STANDARD_ENVELOPE_ASSUMED",
@@ -82,7 +129,20 @@
     "motor_output_face_normal_mm": "ASSUMED_PENDING_FACE_ROLE",
     "display_origin_normal_mm": "ASSUMED_FROM_OFFICIAL_STEP_ENVELOPE",
     "support_tube_outer_diameter_mm": "ASSUMED_PENDING_BORE_PERMISSION",
-    "side_button_diameter_mm": "ENGINEERING_DEFAULT_RETAIN_FOUR_KEYS",
+    "side_button_length_mm": "USER_REQUESTED_DISCREET_SIDE_REAR_KEYS",
+    "side_button_height_mm": "ENGINEERING_DEFAULT_FINGER_REACH_REQUIRES_MOCKUP",
+    "side_button_face_recess_mm": "ENGINEERING_DEFAULT_BELOW_WALL_ABOVE_RECESSED_POCKET",
+    "side_button_clearance_mm": "PROTOTYPE_GUIDE_GAP_FINISHED_DIMENSIONS",
+    "side_button_body_depth_mm": "ENGINEERING_DEFAULT_FLANGE_AT_INNER_WALL",
+    "side_button_flange_margin_mm": "PROTOTYPE_OUTWARD_RETENTION_ONLY",
+    "side_button_flange_thickness_mm": "PROTOTYPE_OUTWARD_RETENTION_ONLY",
+    "side_button_front_y_mm": "ENGINEERING_DEFAULT_SIDE_REAR_ZONE",
+    "side_button_rear_y_mm": "ENGINEERING_DEFAULT_SIDE_REAR_ZONE",
+    "side_button_z_mm": "ENGINEERING_DEFAULT_ABOVE_BATTERY_AND_ELECTRONICS_KEEP_OUTS",
+    "side_button_pocket_length_mm": "ENGINEERING_DEFAULT_LOW_VISIBILITY_RECESSED_KEY_BAND",
+    "side_button_pocket_height_mm": "ENGINEERING_DEFAULT_LOW_VISIBILITY_RECESSED_KEY_BAND",
+    "side_button_pocket_depth_mm": "ENGINEERING_DEFAULT_LOW_VISIBILITY_RECESSED_KEY_BAND",
+    "side_button_clearance_check_travel_mm": "CAD_CLEARANCE_TEST_ONLY_NOT_SWITCH_WORKING_TRAVEL",
     "power_button_diameter_mm": "ENGINEERING_DEFAULT_RECESSED_QON",
     "front_light_strip_width_mm": "ENGINEERING_DEFAULT_RETAIN_FRONT_LIGHT_STRIP",
     "front_light_strip_height_mm": "ENGINEERING_DEFAULT_RETAIN_FRONT_LIGHT_STRIP",
@@ -95,6 +155,45 @@
     "electronics_keepout_height_mm": "ENGINEERING_KEEP_OUT_NOT_PCB_FROZEN",
     "electronics_keepout_center_y_mm": "ENGINEERING_KEEP_OUT_NOT_PCB_FROZEN"
   },
+  "side_key_geometry": {
+    "measurements": {
+      "button_left_1": {
+        "single_valid_solid": true,
+        "face_recess_mm": 0.29999999999999716,
+        "housing_intersection_mm3": 0.0,
+        "inward_clearance_only_mm": 0.4,
+        "inward_clearance_housing_intersection_mm3": 0.0,
+        "internal_keepout_intersection_mm3": 0.0
+      },
+      "button_left_2": {
+        "single_valid_solid": true,
+        "face_recess_mm": 0.29999999999999716,
+        "housing_intersection_mm3": 0.0,
+        "inward_clearance_only_mm": 0.4,
+        "inward_clearance_housing_intersection_mm3": 0.0,
+        "internal_keepout_intersection_mm3": 0.0
+      },
+      "button_right_1": {
+        "single_valid_solid": true,
+        "face_recess_mm": 0.29999999999999716,
+        "housing_intersection_mm3": 0.0,
+        "inward_clearance_only_mm": 0.4,
+        "inward_clearance_housing_intersection_mm3": 0.0,
+        "internal_keepout_intersection_mm3": 0.0
+      },
+      "button_right_2": {
+        "single_valid_solid": true,
+        "face_recess_mm": 0.29999999999999716,
+        "housing_intersection_mm3": 0.0,
+        "inward_clearance_only_mm": 0.4,
+        "inward_clearance_housing_intersection_mm3": 0.0,
+        "internal_keepout_intersection_mm3": 0.0
+      }
+    },
+    "electrical_switch_return_and_working_travel_verified": false,
+    "markings": "render-only diameter 0.60 mm single/double grey dots; not extra STEP solids",
+    "construction": "same-color capsule key with internal retaining flange in a real recessed pocket and through-wall guide; outward retention only"
+  },
   "derived": {
     "active_deck_run_mm": 65.60972293053747,
     "rear_platform_run_mm": 30.390277069462527,
@@ -102,8 +201,38 @@
     "knob_center_y_mm": -9.0,
     "knob_center_z_mm": 39.02157095406859,
     "moving_radial_gap_mm": 0.5,
+    "ring_knurl_root_wall_mm": 0.7,
+    "ring_knurl_circumferential_pitch_mm": 2.650718801466388,
+    "knurl_protected_core_missing_volume_mm3": {
+      "ring_sleeve": 0.0
+    },
+    "grip_band_normal_extent_mm": [
+      1.6,
+      7.0
+    ],
+    "sculpted_side_profile_sample_passes": {
+      "waist": 16,
+      "crown": 16,
+      "top": 16
+    },
+    "ring_axial_envelope_overrun_volume_mm3": {
+      "ring_sleeve": 0.0,
+      "ring_cap": 0.0
+    },
+    "ring_axial_check_plane_normal_mm": 7.8,
+    "ring_axial_check_tolerance_mm": 1e-06,
+    "ring_cap_bottom_conservative_bbox_normal_mm": 7.799999900000001,
+    "ring_sleeve_top_conservative_bbox_normal_mm": 7.800000100000002,
+    "transition_shoulder_inner_radius_mm": 20.0,
+    "transition_shoulder_outer_radius_mm": 21.2,
+    "transition_shoulder_front_normal_mm": 13.0,
+    "fixed_cover_to_ring_distance_mm": 0.49999999999999717,
+    "fixed_cover_to_official_display_axial_gap_mm": 0.40000226722665744,
+    "fixed_cover_front_normal_mm": 13.200000000000003,
+    "cover_to_ring_top_step_mm": -9.999999406318238e-08,
     "ring_rear_margin_mm": 2.342283680459964,
     "official_display_max_radius_mm": 19.312451623963163,
+    "official_display_front_normal_mm": 12.299997732773345,
     "screen_to_ring_radial_clearance_mm": 0.6875483760368368,
     "official_gl30_max_radius_mm": 17.250000000002856,
     "motor_to_inner_floor_clearance_mm": 2.1644297795261123,
@@ -174,15 +303,15 @@
       "zlen": 24.488675348731128
     },
     "ring_cap": {
-      "xmin": -27.0,
-      "xmax": 27.0,
-      "ymin": -38.74707858494098,
-      "ymax": 11.848144305122705,
-      "zmin": 34.19614355189701,
-      "zmax": 62.092517496113274,
-      "xlen": 54.0,
-      "ylen": 50.59522289006368,
-      "zlen": 27.896373944216265
+      "xmin": -27.0000001,
+      "xmax": 27.0000001,
+      "ymin": -37.38992991468718,
+      "ymax": 11.848144405122705,
+      "zmin": 34.19614345189701,
+      "zmax": 61.830406074122024,
+      "xlen": 54.0000002,
+      "ylen": 49.23807431980988,
+      "zlen": 27.634262622225016
     },
     "battery_keepout": {
       "xmin": -42.0,
@@ -207,6 +336,181 @@
       "zlen": 8.0
     }
   },
+  "appearance": {
+    "basis": "user selected Bentley-inspired black dial; sculpted waist and rolled crown replace straight-cylinder side profile; lower diamond grip band",
+    "reference_url": "https://www.bentleymotors.com/en/models/technology.html",
+    "selected_preview": "black ring / blue index mark / matte light silver housing",
+    "selection_status": "user specified black ring and blue marker; physical finishes pending samples",
+    "ring_side_profile": "three tangent-continuous Bezier-revolved shoulders above bearing: waist R25, crown R25.5, top R24.9, maximum R27; smooth black finish without silver accent",
+    "transition_ring": "1.20 mm radial shoulder cut OUTWARD from existing bore into rotating cap; 0.20 mm recess and 0.30 mm outer slope; not a separate insert and not a bridge across the moving gap",
+    "index_mark": "one flush blue paint-filled slot on rotating ring at model +Y; no LED; not calibrated zero",
+    "fixed_display_cover": {
+      "geometry": "one fixed full-face circular cover, separate from rotating ring",
+      "diameter_mm": 39.0,
+      "thickness_mm": 0.5,
+      "preview_state": "screen off; opaque black CAD shading is not an optical simulation",
+      "optical_concept": "dark transmissive window with matched black border masking below the cover",
+      "pending_samples": [
+        "off-state black level, reflectance, gloss and oblique-view boundary",
+        "on-state brightness, color shift, viewing angle and touch sensitivity",
+        "cover material, coating, transmittance, adhesive and support strength"
+      ],
+      "physical_dead_front_verified": false
+    },
+    "additional_top_led_hardware": false,
+    "colors_rgba": {
+      "bottom_cover": [
+        0.76,
+        0.79,
+        0.83,
+        1.0
+      ],
+      "housing": [
+        0.76,
+        0.79,
+        0.83,
+        1.0
+      ],
+      "bearing_envelope": [
+        0.68,
+        0.72,
+        0.76,
+        1.0
+      ],
+      "ring_sleeve": [
+        0.065,
+        0.067,
+        0.07,
+        1.0
+      ],
+      "ring_cap": [
+        0.065,
+        0.067,
+        0.07,
+        1.0
+      ],
+      "ring_index_mark": [
+        0.035,
+        0.5,
+        0.95,
+        1.0
+      ],
+      "torque_carrier": [
+        0.9,
+        0.48,
+        0.1,
+        1.0
+      ],
+      "fixed_spider": [
+        0.18,
+        0.52,
+        0.72,
+        1.0
+      ],
+      "support_tube": [
+        0.6,
+        0.64,
+        0.68,
+        1.0
+      ],
+      "fixed_bezel": [
+        0.065,
+        0.067,
+        0.07,
+        1.0
+      ],
+      "display_glass": [
+        0.065,
+        0.067,
+        0.07,
+        1.0
+      ],
+      "speaker_grille": [
+        0.05,
+        0.05,
+        0.06,
+        1.0
+      ],
+      "microphone": [
+        0.03,
+        0.03,
+        0.03,
+        1.0
+      ],
+      "status_led": [
+        0.1,
+        0.75,
+        0.9,
+        1.0
+      ],
+      "front_light_strip": [
+        0.08,
+        0.78,
+        0.96,
+        0.92
+      ],
+      "usb_c": [
+        0.35,
+        0.37,
+        0.4,
+        1.0
+      ],
+      "button": [
+        0.76,
+        0.79,
+        0.83,
+        1.0
+      ],
+      "power_button": [
+        0.15,
+        0.16,
+        0.18,
+        1.0
+      ],
+      "service_pinhole": [
+        0.03,
+        0.03,
+        0.03,
+        1.0
+      ],
+      "battery_keepout": [
+        0.12,
+        0.44,
+        0.22,
+        0.62
+      ],
+      "electronics_keepout": [
+        0.15,
+        0.34,
+        0.68,
+        0.58
+      ],
+      "foot": [
+        0.04,
+        0.04,
+        0.04,
+        1.0
+      ],
+      "motor_official": [
+        0.82,
+        0.48,
+        0.12,
+        1.0
+      ],
+      "display_official": [
+        0.1,
+        0.34,
+        0.22,
+        1.0
+      ]
+    },
+    "crossed_knurl_verified_by_solid_point_samples": {
+      "ring_sleeve": 256
+    },
+    "wall_note": "0.70 mm nominal groove-root sleeve wall is geometry only, not strength or machining approval",
+    "powered_on_preview": "render-only VOLUME 48 illustration; not hardware solids and not firmware/UI validation"
+  },
+  "existing_multi_solid_concept_parts": {},
   "battery_candidate": {
     "architecture": "3S pack -> BQ25798 SYS -> external bidirectional isolation -> MOTOR_BUS; independent brake required",
     "mechanical_reference_only": "published 3S 800 mAh pack 80 x 20 x 16 mm",
@@ -224,6 +528,12 @@
     ]
   },
   "checks": {
+    "torque_carrier_single_connected_solid": true,
+    "fixed_spider_single_connected_solid": true,
+    "bottom_cover_single_valid_solid": true,
+    "bottom_cover_does_not_intersect_housing": true,
+    "bottom_cover_does_not_intersect_battery": true,
+    "housing_bosses_clear_battery": true,
     "official_gl30_axis_length_28p2": true,
     "official_gl30_radial_diameter_34p5": true,
     "official_display_thickness_11p3": true,
@@ -231,6 +541,27 @@
     "rear_platform_exists": true,
     "ring_rear_margin_at_least_2mm": true,
     "moving_gap_at_least_0p5mm": true,
+    "modified_appearance_parts_are_single_valid_solids": true,
+    "crossed_knurl_valleys_and_flat_lands_present_in_sleeve_grip_band": true,
+    "knurl_root_wall_at_least_0p65mm": true,
+    "crossed_cuts_total_depth_does_not_exceed_0p20mm": true,
+    "sculpted_waist_crown_and_top_present_around_full_circumference": true,
+    "sculpted_ring_stays_within_original_maximum_diameter": true,
+    "integral_transition_shoulder_present_around_full_circumference": true,
+    "transition_ring_does_not_intrude_into_original_bore": true,
+    "ring_does_not_intersect_bearing_envelope": true,
+    "ring_parts_remain_in_disjoint_design_axial_envelopes": true,
+    "black_inner_transition_two_slopes_present": true,
+    "ring_and_housing_are_different_colors": true,
+    "rotating_ring_and_fixed_cover_share_black_color": true,
+    "index_mark_is_blue": true,
+    "index_mark_dimensions_and_top_are_correct": true,
+    "index_mark_contacts_ring_without_volume_overlap": true,
+    "fixed_cover_spans_entire_fixed_face": true,
+    "fixed_cover_and_ring_top_are_flush": true,
+    "fixed_cover_to_rotating_ring_gap_at_least_0p5mm": true,
+    "fixed_cover_to_official_display_axial_gap_at_least_0p3mm": true,
+    "fixed_cover_contacts_backing_without_volume_overlap": true,
     "screen_to_ring_clearance_at_least_0p5mm": true,
     "motor_to_inner_floor_clearance_at_least_0p5mm": true,
     "battery_keepout_inside_rear_bay": true,
@@ -238,13 +569,21 @@
     "battery_to_motor_no_intersection": true,
     "battery_to_center_support_no_intersection": true,
     "four_user_keys_are_side_mounted": true,
+    "side_keys_are_four_single_valid_solids": true,
+    "side_keys_are_recessed_and_match_housing_color": true,
+    "side_keys_clear_housing_at_rest": true,
+    "side_keys_clear_inward_test_envelope_not_working_stroke": true,
     "single_rear_power_key_present": true,
     "rear_power_key_is_recessed": true,
     "single_rear_usb_c_present": true,
     "rear_usb_c_is_above_battery_keepout": true,
     "front_bottom_light_strip_present": true,
     "front_light_strip_is_recessed": true,
-    "front_light_strip_clear_of_floor_and_deck": true
+    "front_light_strip_clear_of_floor_and_deck": true,
+    "motor_official_solid_export_is_valid": true,
+    "motor_official_solid_export_preserves_envelope": true,
+    "display_official_solid_export_is_valid": true,
+    "display_official_solid_export_preserves_envelope": true
   },
   "all_checks_pass": true,
   "vendor_holds": [
@@ -254,5 +593,21 @@
     "allowed radial/axial load and bearing selection",
     "battery pack, protector/BMS, NTC and production certifications",
     "power-PCB, logic-PCB, speaker and fastener production geometry"
-  ]
+  ],
+  "vendor_step_exports": {
+    "motor_official": {
+      "retained_solid_count": 7,
+      "excluded_non_solid_face_count": 0,
+      "max_bounding_box_difference_mm": 0.0,
+      "export_shape_valid": true,
+      "source_file_unchanged": true
+    },
+    "display_official": {
+      "retained_solid_count": 403,
+      "excluded_non_solid_face_count": 266,
+      "max_bounding_box_difference_mm": 0.0,
+      "export_shape_valid": true,
+      "source_file_unchanged": true
+    }
+  }
 }

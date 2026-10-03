@@ -12,11 +12,26 @@
 #define GL30_V6_FRAME_PAYLOAD_MOTOR_STATE_FAST 0x01u
 #define GL30_V6_FRAME_PAYLOAD_MOTOR_STATE_SLOW 0x02u
 #define GL30_V6_FRAME_PAYLOAD_TRACE_CHUNK 0x05u
+#define GL30_V6_FRAME_PAYLOAD_HAPTIC_STATE 0x06u
 #define GL30_V6_FRAME_PAYLOAD_HAPTIC_COMMAND 0x10u
+#define GL30_V6_FRAME_PAYLOAD_CONTROL_LEASE 0x15u
 
 #define GL30_MOTOR_STATE_FAST_LEN 68u
 #define GL30_MOTOR_STATE_SLOW_LEN 64u
-#define GL30_HAPTIC_COMMAND_LEN 64u
+#define GL30_HAPTIC_STATE_LEN 44u
+#define GL30_HAPTIC_COMMAND_LEN 72u
+#define GL30_CONTROL_LEASE_LEN 24u
+
+enum {
+  GL30_HAPTIC_STATE_ENCODER_VALID = 1u << 0,
+  GL30_HAPTIC_STATE_DETENT_READY = 1u << 1,
+  GL30_HAPTIC_STATE_CONTROL_RELEASED = 1u << 2,
+  GL30_HAPTIC_STATE_CONTROL_WAITING_ZERO = 1u << 3
+};
+
+#define GL30_HAPTIC_STATE_STATUS_MASK \
+  (GL30_HAPTIC_STATE_ENCODER_VALID | GL30_HAPTIC_STATE_DETENT_READY | \
+   GL30_HAPTIC_STATE_CONTROL_RELEASED | GL30_HAPTIC_STATE_CONTROL_WAITING_ZERO)
 
 enum {
   GL30_SENSOR_STATUS_INA228_CONFIGURED = 1u << 0,
@@ -101,7 +116,34 @@ typedef struct {
   float activeSpeedLimitRadS;
   uint32_t modeFlags;
   uint32_t textureId;
+  uint64_t leaseGeneration;
 } gl30_haptic_command_t;
+
+typedef struct {
+  uint32_t profileId;
+  uint32_t commandNonce;
+  uint32_t modeFlags;
+  int32_t logicalPosition;
+  float subPosition;
+  float detentWidthRad;
+  uint32_t motorState;
+  uint32_t faultBits;
+  uint32_t status;
+  uint64_t leaseGeneration;
+} gl30_haptic_state_t;
+
+typedef enum {
+  GL30_CONTROL_RELEASE = 0,
+  GL30_CONTROL_ACQUIRE = 1,
+  GL30_CONTROL_QUERY = 2
+} gl30_control_lease_action_t;
+
+typedef struct {
+  uint32_t action;
+  uint32_t zeroNonce;
+  uint64_t currentGeneration;
+  uint64_t nextGeneration;
+} gl30_control_lease_request_t;
 
 typedef struct {
   uint16_t sync;
@@ -129,6 +171,10 @@ int gl30_encode_motor_state_slow(const gl30_motor_state_slow_t *in, uint8_t *out
 int gl30_decode_motor_state_slow(const uint8_t *in, size_t in_len, gl30_motor_state_slow_t *out);
 int gl30_encode_haptic_command(const gl30_haptic_command_t *in, uint8_t *out, size_t out_cap);
 int gl30_decode_haptic_command(const uint8_t *in, size_t in_len, gl30_haptic_command_t *out);
+int gl30_encode_haptic_state(const gl30_haptic_state_t *in, uint8_t *out, size_t out_cap);
+int gl30_decode_haptic_state(const uint8_t *in, size_t in_len, gl30_haptic_state_t *out);
+int gl30_encode_control_lease(const gl30_control_lease_request_t *in, uint8_t *out, size_t out_cap);
+int gl30_decode_control_lease(const uint8_t *in, size_t in_len, gl30_control_lease_request_t *out);
 
 int gl30_frame_encode(uint8_t type, uint16_t flags, uint32_t sequence, uint64_t timestamp_us,
                       const uint8_t *payload, size_t payload_len,

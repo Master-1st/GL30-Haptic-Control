@@ -1,0 +1,1 @@
+(sym_lib_table (version 7) (lib (name "GL30") (type "KiCad") (uri "${KIPRJMOD}/GL30.kicad_sym") (options "") (descr "Project-local reviewed symbols")))

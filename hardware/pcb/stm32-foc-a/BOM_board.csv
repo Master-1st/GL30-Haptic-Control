@@ -1,0 +1,147 @@
+﻿Reference,Value,MPN,Package,Fitted,Footprint,Footprint status,Note
+U1,STM32G474CET6,STM32G474CET6,LQFP48 7×7 mm，0.5 mm,1,GL30:LQFP-48_7x7mm_P0.5mm,selected - verify,必须选CET6；不是NUCLEO上的RET6
+U2,DRV8316RRGFR,DRV8316RRGFR,RGF VQFN40 7×5 mm + EP,1,,pending,R版SPI；每个VM脚配2颗100n；裸露焊盘必须接地
+U3,TLV1704AIPWR,TLV1704AIPWR,PW TSSOP14 5×4.4 mm,1,GL30:TSSOP-14_4.4x5mm_P0.65mm,selected - verify,
+U4,TLV1704AIPWR,TLV1704AIPWR,PW TSSOP14 5×4.4 mm,1,GL30:TSSOP-14_4.4x5mm_P0.65mm,selected - verify,仅U4通道4未用：+接AVDD，−接GND，输出NC；U3四路全用
+U5,TLV75533PDBVR,TLV75533PDBVR,DBV SOT-23-5,1,GL30:SOT-23-5,selected - verify,原B板B10不删除；本板3V3禁止与B/ESP的独立3V3并联
+U6,SN74LVC1G07DBVR,SN74LVC1G07DBVR,DBV SOT-23-5,1,GL30:SOT-23-5,selected - verify,防止比较器反拉DRV物理nFAULT
+U7,SN74LVC1G07DBVR,SN74LVC1G07DBVR,DBV SOT-23-5,1,GL30:SOT-23-5,selected - verify,由ESP域供电；输入100k下拉；STM失电时报告故障
+U8,TXU0202DCUR,TXU0202DCUR,DCU VSSOP8 2.3×2.0 mm,1,GL30:VSSOP-8_2.3x2mm_P0.5mm,selected - verify,一发一收固定方向；不是TXB0102；OE接3V3
+U9,TMUX1511PWR,TMUX1511PWR,PW TSSOP14 5×4.4 mm,1,GL30:TSSOP-14_4.4x5mm_P0.65mm,selected - verify,4路SEL均接3V3；断电保护信号≤3.6V；保持比较器支路直连
+R1,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R2,0 Ω跳线；0.125 W,通用0Ω跳线 0.125 W,0805,1,GL30:R_0805_2012Metric,selected - verify,0805磁珠兼容焊盘；首装0Ω，不将模拟地割裂
+R3,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,可拆以单独测B/C传感器电流
+R4,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R5,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R6,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,晶体驱动调试位置，首装0Ω
+R7,2.2k Ω；1%；0.1 W,通用厚膜 2.2k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R8,2.2k Ω；1%；0.1 W,通用厚膜 2.2k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R9,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R10,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,不可改100k；PA3开漏
+R11,2.2k Ω；1%；0.1 W,通用厚膜 2.2k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R12,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R13,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,独立上拉；逻辑5V/3V3先于VM上电
+R14,22 Ω；1%；0.1 W,通用厚膜 22 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R15,22 Ω；1%；0.1 W,通用厚膜 22 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R16,22 Ω；1%；0.1 W,通用厚膜 22 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R17,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,TI要求SDO外部上拉；同时禁用UCPD下拉
+R18,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R19,2.2k Ω；1%；0.1 W,通用厚膜 2.2k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R20,47 Ω；1%；0.1 W,通用厚膜 47 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R21,47 Ω；1%；0.1 W,通用厚膜 47 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R22,47 Ω；1%；0.1 W,通用厚膜 47 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R23,47 Ω；1%；0.1 W,通用厚膜 47 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R24,47 Ω；1%；0.1 W,通用厚膜 47 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R25,47 Ω；1%；0.1 W,通用厚膜 47 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R26,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放驱动器侧
+R27,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放驱动器侧
+R28,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放驱动器侧
+R29,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放驱动器侧
+R42,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放驱动器侧
+R43,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放驱动器侧
+R30,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R31,33 Ω；1%；0.1 W,通用厚膜 33 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R32,33 Ω；1%；0.1 W,通用厚膜 33 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R33,33 Ω；1%；0.1 W,通用厚膜 33 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R34,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,MISO接收端限流；2.5MHz实测边沿，不当作源端终端
+R35,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,编码器电源支路可断开测流
+R36,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R37,33 Ω；1%；0.1 W,通用厚膜 33 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放U8输出端
+R38,33 Ω；1%；0.1 W,通用厚膜 33 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,放U8输出端，FFC到ESP RX
+R39,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,NTC上拉；NTC25℃=10k
+R40,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R41,22 Ω；1%；0.5 W,通用厚膜 22 1% 0.5 W,1206,1,GL30:R_1206_3216Metric,selected - verify,内部Buck不用也保留；脉冲型≥0.5W，不能替成0603
+R44,100 Ω；1%；0.1 W,通用厚膜 100 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R45,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R46,100 Ω；1%；0.1 W,通用厚膜 100 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R47,100k Ω；1%；0.1 W,通用厚膜 100k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R48,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R49,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,注入校验前拆开；禁止外部源顶入DRV输出
+R50,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R51,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R52,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,注入校验前拆开；禁止外部源顶入DRV输出
+R53,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R54,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R55,0 Ω跳线；0.1 W,通用0Ω跳线 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,注入校验前拆开；禁止外部源顶入DRV输出
+R56,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R57,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R58,100k Ω；0.1%；0.1 W,RT0603BRD07100KL,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R59,21k Ω；0.1%；0.1 W,PTFR0603B21K0N9,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R60,21k Ω；0.1%；0.1 W,PTFR0603B21K0N9,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R61,100k Ω；0.1%；0.1 W,RT0603BRD07100KL,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R62,100k Ω；0.1%；0.1 W,RT0603BRD07100KL,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R63,20k Ω；0.1%；0.1 W,TNPW060320K0BEEA,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R64,23.7k Ω；0.1%；0.1 W,AT0603BRD0723K7L,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R65,100k Ω；0.1%；0.1 W,RT0603BRD07100KL,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R66,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,VM断电时限制TLV输入钳位电流；原理图不可省略
+R67,100k Ω；0.1%；0.1 W,RT0603BRD07100KL,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R68,100k Ω；0.1%；0.1 W,RT0603BRD07100KL,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R69,20k Ω；0.1%；0.1 W,TNPW060320K0BEEA,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R70,1k Ω；1%；0.1 W,通用厚膜 1k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,
+R71,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,U8掉电高阻时UART接收保持空闲高
+R72,10k Ω；1%；0.1 W,通用厚膜 10k 1% 0.1 W,0603,1,GL30:R_0603_1608Metric,selected - verify,STM掉电时ESP接收保持空闲高
+C1,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C2,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,对应U1 VDD脚24
+C3,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,对应U1 VDD脚36
+C4,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,对应U1 VDD脚48
+C5,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U1.21 VDDA
+C6,1 µF / 25 V X5R,CL10A105KA8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U1.21 VDDA
+C7,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U1.20 VREF+
+C8,1 µF / 25 V X5R,CL10A105KA8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U1.20 VREF+
+C9,4.7 µF / 10 V X7R,通用 0805 4.7 µF 10 V X7R,0805,1,GL30:C_0805_2012Metric,selected - verify,MCU附近
+C10,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C11,30 pF / 50 V C0G ±5%,通用 0603 30 pF 50 V C0G,0603,1,GL30:C_0603_1608Metric,selected - verify,X1 CL=18pF，按寄生3pF估算；起振后复核
+C12,30 pF / 50 V C0G ±5%,通用 0603 30 pF 50 V C0G,0603,1,GL30:C_0603_1608Metric,selected - verify,不可把晶体CL直接当作单颗负载电容值
+C13,4.7 µF / 10 V X7R,通用 0805 4.7 µF 10 V X7R,0805,1,GL30:C_0805_2012Metric,selected - verify,U5输入，有效容量≥1µF
+C14,4.7 µF / 10 V X7R,通用 0805 4.7 µF 10 V X7R,0805,1,GL30:C_0805_2012Metric,selected - verify,U5输出，有效容量≥1µF
+C15,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U6
+C16,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U7
+C17,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U8.3
+C18,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U8.7
+C19,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U9.14
+C20,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,PA12驱动；只作开关机，快速故障复位优先CLR_FLT
+C21,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,VM脚9的第1颗，就近
+C22,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,VM脚9的第2颗，就近
+C23,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,VM脚10的第1颗，就近
+C24,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,VM脚10的第2颗，就近
+C25,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,VM脚11的第1颗，就近
+C26,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,VM脚11的第2颗，就近
+C27,10 µF / 50 V X7R,GRM32ER71H106KA12L,1210,1,GL30:C_1210_3225Metric,selected - verify,陶瓷局部储能，核对直流偏压后有效容量
+C28,39 µF / 35 V 聚合物 ±20%,35SVPF39M,SMD φ8 × 6.9 mm / E7,1,,pending,有极性，+接VM；2颗共78µF，不承担连续再生
+C29,39 µF / 35 V 聚合物 ±20%,35SVPF39M,SMD φ8 × 6.9 mm / E7,1,,pending,有极性，+接VM；φ8×6.9mm需在R11内部校核
+C30,47 nF / 50 V X7R,CL10B473KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,飞跨电容；不是接地
+C31,1 µF / 25 V X5R,CL10A105KA8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,充电泵电容；不是CP接地
+C32,1 µF / 50 V X7R,CL21B105KBFNNNE,0805,1,GL30:C_0805_2012Metric,selected - verify,需在3.3V/全温下有效0.7–1.3µF；按实购曲线复核
+C33,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C34,22 µF / 25 V X5R,CL21A226MAQNNNE,0805,1,GL30:C_0805_2012Metric,selected - verify,内部Buck未使用仍装；5V_LOGIC不能接这里
+C35,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U3供电
+C36,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,U4供电
+C37,1 µF / 50 V X7R,CL21B105KBFNNNE,0805,1,GL30:C_0805_2012Metric,selected - verify,比较器就近共用
+C38,10 nF / 50 V X7R,CC0603KRX7R9BB103,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C39,10 nF / 50 V X7R,CC0603KRX7R9BB103,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C40,10 nF / 50 V X7R,CC0603KRX7R9BB103,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C41,33 pF / 50 V C0G ±5%,CC0603JRNPO9BN330,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C42,100 pF / 50 V C0G ±5%,CC0603JRNPO9BN101,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C43,33 pF / 50 V C0G ±5%,CC0603JRNPO9BN330,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C44,100 pF / 50 V C0G ±5%,CC0603JRNPO9BN101,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C45,33 pF / 50 V C0G ±5%,CC0603JRNPO9BN330,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C46,100 pF / 50 V C0G ±5%,CC0603JRNPO9BN101,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C47,1 nF / 50 V X7R,CL10B102KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C48,1 nF / 50 V X7R,CL10B102KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C49,1 nF / 50 V X7R,CL10B102KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C50,10 nF / 50 V X7R,CC0603KRX7R9BB103,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C51,1 µF / 25 V X5R,CL10A105KA8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C52,100 nF / 50 V X7R,CL10B104KB8NNNC,0603,1,GL30:C_0603_1608Metric,selected - verify,
+C53,39 µF / 35 V 聚合物 ±20%,35SVPF39M,SMD φ8 × 6.9 mm / E7,0,,pending,可选增容位置；若空间不足可不保留，不作为装机采购
+C54,39 µF / 35 V 聚合物 ±20%,35SVPF39M,SMD φ8 × 6.9 mm / E7,0,,pending,可选增容位置；若空间不足可不保留，不作为装机采购
+X1,24 MHz；CL18 pF,ABM8-24.000MHZ-B2-T,3225 4焊盘,1,GL30:Crystal_SMD_3225-4Pin_3.2x2.5mm,selected - verify,1/3晶体，2/4外壳地；不可按倒角判1脚
+D1,单向；VRWM18 V,SMBJ18A,SMB / DO-214AA,1,GL30:D_SMB,selected - verify,上游必须有限流/熔断；TVS只抑制尖峰，不能吸收连续反拖
+SW1,常开瞬时,SKRPASE010,SMD 4.2×3.2×2.5 mm,1,,pending,原厂编号1/2内部常连→NRST，3/4内部常连→GND；不改外壳按钮
+JP1,默认断开,PCB焊盘，无采购,2焊盘焊桥,0,GL30:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm,selected - verify,只在烧录/救援时短接
+J1,2大焊盘+线束应力释放,2大焊盘+线束应力释放,2个焊线通孔；布局时按实线定孔径,0,,pending,通过短20–22AWG导线接XT30；上游B板保护与自动制动同接此母线
+J2,3大焊盘+线束应力释放,3大焊盘+线束应力释放,3个焊线通孔；布局时按实线定孔径,0,,pending,沿用电机原线；三相顺序在新电机标定中确认；不重复买接插件
+J3,6标号焊盘；不假定原厂插头脚号,6标号焊盘；不假定原厂插头脚号,6焊盘低电流焊线区,0,,pending,编号为本板定义；颜色不能代表未知插头从左到右位置
+J4,2×5P 1.27mm Cortex keyed,2×5P 1.27mm Cortex keyed,THT 2×5，1.27mm；实购脚距/键位待核,1,,pending,首板只需SWDIO/SWCLK/NRST/GND/VTREF；连接器封装须实物核对
+J5,FH12-10S-0.5SH(55),FH12-10S-0.5SH(55),10P 0.5mm SMT 下接触,1,GL30:Hirose_FH12-10S-0.5SH_1x10-1MP_P0.50mm_Horizontal,selected - verify,B板的充电/安全常开域独立供电；VM及主电流另走J1
+J6,FH12-10S-0.5SH(55),FH12-10S-0.5SH(55),10P 0.5mm SMT 下接触,1,GL30:Hirose_FH12-10S-0.5SH_1x10-1MP_P0.50mm_Horizontal,selected - verify,必须十线逐根导通核对；不是直接插屏幕12Pin；ESP自有5V/VSYS电源不经过此口
+J7,JST B2B-PH-K-S(LF)(SN),JST B2B-PH-K-S(LF)(SN),PH 2.0mm 2P 直插,1,GL30:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,selected - verify,本版采用10k/B3950无源NTC；必须与电池NTC分开

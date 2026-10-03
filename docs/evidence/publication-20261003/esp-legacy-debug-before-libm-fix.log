@@ -1,0 +1,41 @@
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-esp-legacy-debug
+[ 14%] Building C object CMakeFiles/gl30_esp_link.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/transport/gl30_esp_link.c.o
+[ 14%] Building C object CMakeFiles/gl30_ui_anim_model.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_anim_model.c.o
+[ 21%] Building C object CMakeFiles/gl30_ui_anim_model.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_app.c.o
+[ 28%] Building C object CMakeFiles/gl30_esp_link.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/protocol/v6_protocol.c.o
+[ 35%] Linking C static library libgl30_ui_anim_model.a
+[ 35%] Built target gl30_ui_anim_model
+[ 42%] Building C object CMakeFiles/gl30_ui_anim_model_tests.dir/test_gl30_ui_anim_model.c.o
+[ 50%] Linking C static library libgl30_esp_link.a
+[ 57%] Linking C executable gl30_ui_anim_model_tests
+[ 57%] Built target gl30_esp_link
+[ 64%] Building C object CMakeFiles/gl30_ui_app_tests.dir/test_gl30_ui_app.c.o
+[ 71%] Linking C executable gl30_ui_app_tests
+[ 71%] Built target gl30_ui_anim_model_tests
+[ 78%] Building C object CMakeFiles/gl30_ui_controller.dir/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_controller.c.o
+[ 78%] Built target gl30_ui_app_tests
+[ 85%] Linking C static library libgl30_ui_controller.a
+[ 85%] Built target gl30_ui_controller
+[ 92%] Building C object CMakeFiles/gl30_ui_controller_tests.dir/test_gl30_ui_controller.c.o
+[100%] Linking C executable gl30_ui_controller_tests
+/usr/bin/ld: libgl30_ui_anim_model.a(gl30_ui_app.c.o): in function `gl30_ui_app_adjust':
+/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_app.c:22: undefined reference to `fmax'
+/usr/bin/ld: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_app.c:22: undefined reference to `fmin'
+/usr/bin/ld: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_app.c:27: undefined reference to `fmax'
+/usr/bin/ld: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_app.c:27: undefined reference to `fmin'
+/usr/bin/ld: libgl30_ui_anim_model.a(gl30_ui_anim_model.c.o): in function `gl30_ui_smooth_step':
+/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_anim_model.c:31: undefined reference to `expf'
+/usr/bin/ld: libgl30_ui_anim_model.a(gl30_ui_anim_model.c.o): in function `gl30_ui_anim_model_tick':
+/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-esp32/ui/src/gl30_ui_anim_model.c:170: undefined reference to `fmodf'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/gl30_ui_controller_tests.dir/build.make:100: gl30_ui_controller_tests] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:903: CMakeFiles/gl30_ui_controller_tests.dir/all] Error 2
+gmake: *** [Makefile:101: all] Error 2

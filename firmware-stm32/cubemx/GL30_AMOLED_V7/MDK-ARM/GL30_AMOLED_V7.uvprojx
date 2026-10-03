@@ -417,6 +417,16 @@
               <FilePath>../../../control/foc.c</FilePath>
             </File>
             <File>
+              <FileName>current_zero.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../../../control/current_zero.c</FilePath>
+            </File>
+            <File>
+              <FileName>control_lease.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../../../control/control_lease.c</FilePath>
+            </File>
+            <File>
               <FileName>haptics.c</FileName>
               <FileType>1</FileType>
               <FilePath>../../../haptics/haptics.c</FilePath>
@@ -452,9 +462,19 @@
               <FilePath>../../../drivers/drv8316_spi.c</FilePath>
             </File>
             <File>
-              <FileName>factory_encoder_pending.c</FileName>
+              <FileName>factory_encoder_as5048a.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../../../drivers/factory_encoder_pending.c</FilePath>
+              <FilePath>../../../drivers/factory_encoder_as5048a.c</FilePath>
+            </File>
+            <File>
+              <FileName>as5048a.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../../../drivers/as5048a.c</FilePath>
+            </File>
+            <File>
+              <FileName>board_sense.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../../../drivers/board_sense.c</FilePath>
             </File>
             <File>
               <FileName>ll_i2c_bus.c</FileName>
@@ -562,3 +582,4 @@
     <files />
   </RTE>
 </Project>
+

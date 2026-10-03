@@ -1,0 +1,81 @@
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-stm32-debug
+Consolidate compiler generated dependencies of target bench_safety_tests
+[  7%] Built target bench_safety_tests
+Consolidate compiler generated dependencies of target bench_hw_diagnostic_tests
+Consolidate compiler generated dependencies of target gl30_host_test_sources
+[ 11%] Built target bench_hw_diagnostic_tests
+Consolidate compiler generated dependencies of target bench_cordic_tests
+[ 14%] Built target bench_cordic_tests
+Consolidate compiler generated dependencies of target product_timebase_tests
+[ 44%] Built target gl30_host_test_sources
+[ 48%] Built target product_timebase_tests
+Consolidate compiler generated dependencies of target product_driver_tests
+Consolidate compiler generated dependencies of target product_encoder_tests
+[ 51%] Built target product_driver_tests
+[ 55%] Built target product_encoder_tests
+Consolidate compiler generated dependencies of target product_uart_rx_tests
+[ 57%] Building C object CMakeFiles/product_uart_rx_tests.dir/product_uart_rx_tests.c.o
+Consolidate compiler generated dependencies of target current_zero_tests
+[ 62%] Built target current_zero_tests
+[ 64%] Linking C executable product_uart_rx_tests
+Consolidate compiler generated dependencies of target product_adc_zero_tests
+[ 66%] Building C object CMakeFiles/product_adc_zero_tests.dir/product_adc_zero_tests.c.o
+[ 66%] Built target product_uart_rx_tests
+[ 68%] Linking C executable product_adc_zero_tests
+Consolidate compiler generated dependencies of target product_power_startup_tests
+[ 70%] Building C object CMakeFiles/product_power_startup_tests.dir/product_power_startup_tests.c.o
+[ 72%] Built target product_adc_zero_tests
+In file included from /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/firmware-stm32/tests/product_power_startup_tests.c:522:
+/mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-stm32-debug/product_power_startup_under_test.inc:438:13: warning: ‘process_pending_control_request’ defined but not used [-Wunused-function]
+  438 | static void process_pending_control_request(void) {
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Consolidate compiler generated dependencies of target gl30_host_tests
+[ 77%] Built target gl30_host_tests
+[ 77%] Linking C executable product_power_startup_tests
+Consolidate compiler generated dependencies of target control_lease_tests
+[ 81%] Built target control_lease_tests
+Consolidate compiler generated dependencies of target foc_safety_tests
+[ 85%] Built target foc_safety_tests
+Consolidate compiler generated dependencies of target bench_app_diagnostic_tests
+[ 88%] Built target bench_app_diagnostic_tests
+Consolidate compiler generated dependencies of target haptic_behaviour_tests
+[ 92%] Built target haptic_behaviour_tests
+[100%] Built target product_power_startup_tests
+Internal ctest changing into directory: /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-stm32-debug
+Test project /mnt/g/Agent/GL30-Haptic-Control/tmp/github-sync-20261003/build/public-stm32-debug
+      Start  1: gl30-host-tests
+ 1/15 Test  #1: gl30-host-tests ..................   Passed    0.01 sec
+      Start  2: control-lease-tests
+ 2/15 Test  #2: control-lease-tests ..............   Passed    0.00 sec
+      Start  3: foc-safety-tests
+ 3/15 Test  #3: foc-safety-tests .................   Passed    0.01 sec
+      Start  4: bench-safety-tests
+ 4/15 Test  #4: bench-safety-tests ...............   Passed    0.00 sec
+      Start  5: bench-hw-diagnostic-tests
+ 5/15 Test  #5: bench-hw-diagnostic-tests ........   Passed    0.01 sec
+      Start  6: bench-app-diagnostic-tests
+ 6/15 Test  #6: bench-app-diagnostic-tests .......   Passed    0.02 sec
+      Start  7: haptic-behaviour-tests
+ 7/15 Test  #7: haptic-behaviour-tests ...........   Passed    0.00 sec
+      Start  8: bench-cordic-tests
+ 8/15 Test  #8: bench-cordic-tests ...............   Passed    0.03 sec
+      Start  9: product-timebase-tests
+ 9/15 Test  #9: product-timebase-tests ...........   Passed    0.00 sec
+      Start 10: product-driver-tests
+10/15 Test #10: product-driver-tests .............   Passed    0.00 sec
+      Start 11: product-encoder-tests
+11/15 Test #11: product-encoder-tests ............   Passed    0.00 sec
+      Start 12: product-uart-rx-tests
+12/15 Test #12: product-uart-rx-tests ............   Passed    0.00 sec
+      Start 13: current-zero-tests
+13/15 Test #13: current-zero-tests ...............   Passed    0.00 sec
+      Start 14: product-adc-zero-tests
+14/15 Test #14: product-adc-zero-tests ...........   Passed    0.00 sec
+      Start 15: product-power-startup-tests
+15/15 Test #15: product-power-startup-tests ......   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 15
+
+Total Test time (real) =   0.16 sec

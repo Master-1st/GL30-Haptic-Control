@@ -78,16 +78,18 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define SYS_FAULT_N_Pin LL_GPIO_PIN_13
 #define SYS_FAULT_N_GPIO_Port GPIOC
-#define EXT_WATCHDOG_WDI_DNP_Pin LL_GPIO_PIN_15
-#define EXT_WATCHDOG_WDI_DNP_GPIO_Port GPIOC
 #define BRAKE_FORCE_TEST_Pin LL_GPIO_PIN_2
 #define BRAKE_FORCE_TEST_GPIO_Port GPIOA
 #define DRV8316_DRVOFF_Pin LL_GPIO_PIN_3
 #define DRV8316_DRVOFF_GPIO_Port GPIOA
+#define ENC_CS_MCU_Pin LL_GPIO_PIN_4
+#define ENC_CS_MCU_GPIO_Port GPIOA
+#define DRV8316_NSLEEP_Pin LL_GPIO_PIN_12
+#define DRV8316_NSLEEP_GPIO_Port GPIOA
 #define DRV8316_NSS_Pin LL_GPIO_PIN_6
 #define DRV8316_NSS_GPIO_Port GPIOB
-#define SCOPE_TP_Pin LL_GPIO_PIN_9
-#define SCOPE_TP_GPIO_Port GPIOB
+#define MOTOR_PWR_EN_Pin LL_GPIO_PIN_9
+#define MOTOR_PWR_EN_GPIO_Port GPIOB
 #ifndef NVIC_PRIORITYGROUP_0
 #define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
                                                                  4 bits for subpriority */

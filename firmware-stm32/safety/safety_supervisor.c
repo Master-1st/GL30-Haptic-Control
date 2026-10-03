@@ -112,6 +112,18 @@ void gl30_safety_disarm(gl30_safety_t *ctx) {
   }
 }
 
+void gl30_safety_release_control(gl30_safety_t *ctx) {
+  if (ctx == NULL) {
+    return;
+  }
+  gl30_safety_disarm(ctx);
+  ctx->last_valid_command_us = 0u;
+  if (!gl30_safety_fault_latched(ctx)) {
+    ctx->comm_state = GL30_COMM_WAITING;
+    ctx->warning_bits &= (uint32_t)~GL30_WARNING_COMM_10MS;
+  }
+}
+
 void gl30_safety_latch_fault(gl30_safety_t *ctx, uint32_t fault_bit) {
   if (ctx == NULL) {
     return;

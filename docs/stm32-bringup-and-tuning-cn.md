@@ -1,10 +1,18 @@
 # STM32 V7 上电、编码器接入与调参手册
 
+2026-10-02 空闲/停止补充：有效零限值 HAPTIC 命令立即撤 arm、清零 FOC、MOE关断并拉高DRVOFF，同时作为通信心跳；它不清故障或绕过 FOC_ALIGN。准备 COMPLETE 且DRVOFF实际为低时，新增共享PB12持续监视与提交前检查；普通停转的DRVOFF高不会被误判。重新启用事务中，MOE与驱动输出均关闭时的释放稳定期由驱动实时读回把关；任何输出指示开启或事务返回后，轮询不再被该标记抑制。见[本轮回归与边界](../outputs/idle-fault-and-link-review-20261002/README_CN.md)；未烧录，实物需分别验证释放/重新启用期间的nFAULT变化和真正故障时的硬件关断。
+
+2026-10-02 采零修订：产品端不再在 DRV8316 休眠时平均 ADC 值。`control/current_zero.c` 在驱动已配置、PB9/nSLEEP 命令与焊盘读回为高、母线有效且桥关闭时，先等待 10 ms，再收集 512 组同步样本；均值必须在 2048±350、每相峰峰值不超过 60 counts。50 ms 是更新时检查的期限，前台每 5 ms 检查缺样超时，并非精确的物理关断时延。休眠、断电或故障会作废零偏，普通停转保留；过压保护不再被采零提前返回跳过。阈值是待实测的工程初值，采零模块 READY 仅表示软件窗口验收通过。详见[采零阶段记录](../outputs/current-zero-review-20261002/README_CN.md)。
+
+同日后续已接入无转矩准备流程：条件满足后 PB9 自动请求母线（100 ms 未建立则失败）；有效 VM 连续监控 10 ms 后 nSLEEP 拉高，等待 10 ms 再配置和采零；最后在 MOE=0、六输入低的条件下释放 DRVOFF、检查驱动，最多确认一次 NPOR。失败关断且不自动重试。启动后的 ADC 缺样由 2 kHz 监督检查 500 µs 新鲜度，不能把门槛当作实际最坏关断延迟。准备完成但电角零位未验证时，整体仍停在 FOC_ALIGN；不会冒充可出力 READY。代码和离线证据见[准备流程记录](../outputs/power-startup-review-20261002/README_CN.md)，此版本尚未烧录。
+
 本页描述 **CET6 产品板端口**。现在手上的 NUCLEO-G474RE + TI DRV8316REVM 请改从 [当前 FOC 联调工程](../firmware-stm32/bench/NUCLEO_G474RE_FOC/README_CN.md) 开始；其中已按用户确认的 AS5048A SPI 六线颜色及数据手册实现真实端口，并给出独立接线表。该台架的 H25 已通过受限带 PWM 测试，详见 [2026-09-08 扩展验收](bench-validation-20260908-haptic25-extended-cn.md)；不能据此放行本页产品板端口。
 
-电机实物已经到货，编码器为 `AS5048A + SPI`。当前产品固件的硬件端口尚未完成对应移植，因此继续使用 `factory_encoder_pending`：它不访问编码器引脚/外设，启动时保持持久 warning 并拒绝 arm。只有系统已经进入 `ACTIVE` 后编码器失效，才在 4 kHz 监控路径锁存 `GL30_FAULT_ENCODER` 并执行安全关断。4 kHz 的 `250 us` 只是标称调度周期，不是未经实板测量的最坏关断时间。本页产品目标仍用于编译、静态检查和安全链验证，不能与 NUCLEO 联调目标混用。
+电机实物已经到货，编码器已确认为 `AS5048A + SPI`。2026-10-02 产品端口已接入 `factory_encoder_as5048a.c`：SPI1 Mode 1、16 位、2.5 MHz，TIM6 4 kHz 执行 ANGLE→DIAG→NOP，只读采样并校验奇偶、EF 和磁场诊断；原占位实现已删除。见[代码、构建与故障注入证据](../outputs/project-advance-20261002/README_CN.md)。实际线路与时序尚未验收，电角零位仍无效；编码器接入不能单独放行 arm。4 kHz 的 `250 us` 是样本新鲜度门槛，不是未经实板测量的最坏关断时间。本页产品目标不能与 NUCLEO 联调目标混用。
 
 电机参数、资料冲突和分级首测值统一见 [GL30 到货基线](../hardware/motor-control/GL30_KV290_ARRIVAL_BASELINE_CN.md)。
+
+补充故障验收：开机 50 ms 无新鲜 ADC 必须锁存关断；在 WAIT_BUS 阶段插入一次低于 9 V 的 ADC 帧，10 ms 稳定窗口必须重算。模拟 IWDG/WWDG 复位后，不能再次请求母线；已锁存故障且所有关断焊盘正常时允许保留通信报告，但主循环/TIM7 停摆仍不得喂狗。进入 READY 前收到的命令、排队达到 10 ms 的命令不能使能输出。这里的期限是软件检查门槛，实际响应时间须测波形。
 
 ## 1. 当前构建
 
@@ -19,32 +27,32 @@ Start-Process G:\software\KEILV5\UV4\UV4.exe -ArgumentList $args -WindowStyle Hi
 
 `generate.ps1` 只允许一个 CubeMX Java 进程，使用无界面 `-q` 生成 MDK-ARM；不要使用 `-h`，也不要并行打开 CubeMX。当前 clean rebuild 已用 ARMCLANG 6.21 验证为 `0 Error(s), 0 Warning(s)`。
 
-主机测试使用临时目录，不在项目里保留构建历史：
+主机测试使用仓库的 `build/stm32-host` 构建目录，验证日志另存到对应日期的输出包：
 
 ```powershell
 cmake -S firmware-stm32/tests -B build/stm32-host -DCMAKE_BUILD_TYPE=Debug
-cmake --build build/stm32-host
-ctest --test-dir build/stm32-host --output-on-failure
+cmake --build build/stm32-host --config Debug
+ctest --test-dir build/stm32-host -C Debug --output-on-failure
 ```
 
-验收：唯一产品目标是 CubeMX 生成的 `GL30_AMOLED_V7`；活动生产路径不含 `mt6835`、旧 HAL BSP 或 `ENCODER_BENCH`；pending 样本永远不能通过 control-ready 门。编译和主机测试仍只属于 `BUILD_ONLY/SIM_ONLY`。
+验收：唯一产品目标是 CubeMX 生成的 `GL30_AMOLED_V7`；活动生产路径不含 `mt6835`、旧 HAL BSP 或 `ENCODER_BENCH`；无效、超时或磁场异常的编码器样本不能通过 control-ready 门。编译和主机测试仍只属于 `BUILD_ONLY/SIM_ONLY`。
 
-## 2. 线束资料闭合前可做
+## 2. 当前可以离线完成的工作
 
 - 阅读/测试 FOC、协议、Profile、安全监督、电流换算和故障路径。
 - 画 STM32/DRV8316/三电流/电源/硬件保护公共原理图。
-- 用逻辑分析或主机测试证明 pending 实现不配置 SPI1/TIM3/编码器 GPIO。
+- 用主机故障注入验证真实 SPI1 端口的超时、奇偶校验、磁场异常和旧样本撤销；实物接入时再用逻辑分析仪检查 CS/SCK/MISO。
 - 对所有命令入口做失效安全测试：故障锁存、MOE 关闭、DRV 输出关闭。
 - 对已到货电机做手转检查、三对线—线电阻/电感、绕组对壳低阻排查和已知转速反电势测试；原始数据进入实验记录。
 - 依据 7 极对检查反电势频率：`600 rpm`时应约 `70 Hz`。用幅值区分表中 255 rpm/V 与曲线标题 KV290，不先选结论。
 
-禁止：接编码器电源、猜线序、烧录猜测后端、跨过编码器门强制 PWM、把编译通过写成硬件通过。
+禁止猜测线序或实物电平、跨过编码器门强制 PWM、把编译通过写成硬件通过。型号与协议已经确定，不再以“编码器型号未知”为阻塞理由；上电前仍须核对当前线束与 A 板连接器针序。
 
-## 3. 线束资料闭合后的代码动作
+## 3. 已实现接口与剩余实板核对
 
 1. 保存厂家原文、AS5048A/板卡 datasheet、线束图和 STEP 修订。
-2. 从 `factory_encoder_pending.c` 切换为唯一 AS5048A SPI 实现；删除 pending 文件，不保留多后端或兼容层。
-3. 仅按确认接口初始化对应 GPIO/DMA/定时器；更新率、超时和滤波从厂家指标及实测得到。
+2. 唯一 AS5048A SPI 产品实现已经接入。PA4 为上电高电平 CS；PA5/PA6/PA7 为 AF5 SPI1；确认实板与这组针脚一致。
+3. 整轮采样超时为 50 µs，新鲜度门槛为 250 µs；在实际中断负载、1 kΩ MISO 串阻和线束长度下测量时序，不将主机模拟时间当作实测。
 4. 把实际角度、错误位、方向、零位与电角偏置写入测试表，不直接写死未经测量的“常用值”。
 5. 重新跑主机测试、ARM clean build、静态搜索和代码审查。
 
@@ -60,7 +68,7 @@ ctest --test-dir build/stm32-host --output-on-failure
 
 - 限流电源从低限流开始，记录静态电流。
 - 检查 NRST、24 MHz、SWD、IWDG、UART 和故障输出。
-- 用 pending 固件验证：TIM1 MOE 始终关闭、六路 PWM 为低、DRV 不 arm。
+- 编码器保持断开的逻辑首测条件下，核对 TIM1 MOE 关闭、六路桥臂输入为低、PB9 和 nSLEEP 为低、DRV 不 arm。接上有效编码器且温度/ADC 正常后，当前候选固件将自动请求母线，不能再假定它全程保持 PB9 低；本轮未执行烧录。
 - 逐路注入 SOA/B/C 上下阈值、DRV nFAULT 和 16 V 比较器，确认 BKIN 异步关断。
 
 ### G4：工厂编码器，仍不接电机
@@ -69,6 +77,8 @@ ctest --test-dir build/stm32-host --output-on-failure
 - 从低速 SPI 开始，先验证 AS5048A 奇偶校验、错误位和 14-bit 原始角，再慢速手转并保存原始帧、角度、时间戳和参考角度。
 - 验证 0/360° 连续性、方向、静止噪声、刷新率、延迟、掉线和断电恢复。
 - 错误/超时/线断开必须马上撤销 control-ready；不能靠上层 UI 判断安全。
+- 无电机、独立限流条件下，按 `PB9 → VM稳定 → nSLEEP → 配置/采零 → DRVOFF低` 顺序捕获波形；MOE 必须始终为 0，六个 DRV 输入必须始终低。VM 缺失时应在期限检查后锁存故障并撤销两路请求，无自动重试。
+- 检查原始 nFAULT 上电上拉、共享 PB12、CSA 中点、512 样本波动和 NPOR 确认前后寄存器。只有 NPOR 的一次确认不等于可以自动清除运行故障。B 板自主再生钳位及供电隔离未验收前，不接电机进入下一步。
 
 ### G5：低压低流电机
 

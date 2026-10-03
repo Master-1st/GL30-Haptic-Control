@@ -86,6 +86,7 @@ void gl30_safety_on_unknown_version(gl30_safety_t *ctx);
 void gl30_safety_on_unknown_type(gl30_safety_t *ctx);
 void gl30_safety_request_arm(gl30_safety_t *ctx);
 void gl30_safety_disarm(gl30_safety_t *ctx);
+void gl30_safety_release_control(gl30_safety_t *ctx);
 void gl30_safety_latch_fault(gl30_safety_t *ctx, uint32_t fault_bit);
 void gl30_safety_set_warning(gl30_safety_t *ctx, uint32_t warning_bit, bool active);
 void gl30_safety_tick(gl30_safety_t *ctx, uint64_t now_us);

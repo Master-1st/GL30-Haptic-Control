@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "filename": "GL30_A_STM32_FOC.kicad_pro",
+    "version": 1
+  },
+  "schematic": {
+    "drawing": {
+      "default_text_size": 50.0
+    },
+    "erc": {
+      "erc_exclusions": []
+    }
+  }
+}
